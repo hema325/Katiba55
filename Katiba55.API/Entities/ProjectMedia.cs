@@ -10,5 +10,7 @@ namespace Katiba55.API.Entities
         public DateTimeOffset UploadedDate { get; set; }
         public long ProjectMediaCategoryId { get; set; }
         public ProjectMediaCategory ProjectMediaCategory { get; set; }
+        public long ProjectId { get; set; }
+        public Project Project { get; set; }
     }
 }

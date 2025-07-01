@@ -11,7 +11,6 @@ namespace Katiba55.API.Entities
         public string FinancialAllocation { get; set; }
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset EndDate { get; set; }
-        public double ExecutionPercentage { get; set; }
         public string Address { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
@@ -20,10 +19,11 @@ namespace Katiba55.API.Entities
         public string Notes { get; set; }
 
         public long MediaId { get; set; }
-        public ProjectMedia Media { get; set; }
         public long SupervisorId { get; set; }
         public Officer Supervisor { get; set; }
-
+       
+        public ICollection<ProjectProgress> ProjectProgresses { get; set; }
         public ICollection<ProjectCompany> ProjectCompanies { get; set; }
+        public ICollection<ProjectMedia> ProjectMedias { get; set; }
     }
 }
