@@ -5,10 +5,10 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 import { DocsCalloutComponent } from '@docs-components/public-api';
 
 @Component({
-    selector: 'app-charts',
-    templateUrl: './charts.component.html',
-    styleUrls: ['./charts.component.scss'],
-    imports: [RowComponent, ColComponent, DocsCalloutComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, ChartjsComponent]
+  selector: 'app-charts',
+  templateUrl: './charts.component.html',
+  styleUrls: ['./charts.component.scss'],
+  imports: [RowComponent, ColComponent, DocsCalloutComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, ChartjsComponent]
 })
 export class ChartsComponent {
 
@@ -24,7 +24,7 @@ export class ChartsComponent {
       {
         label: 'GitHub Commits',
         backgroundColor: '#f87979',
-        data: [40, 20, 12, 39, 17, 42, 79]
+        data: [40, 20, 12, 39, 17, 42, 79, 100]
       }
     ]
   };
