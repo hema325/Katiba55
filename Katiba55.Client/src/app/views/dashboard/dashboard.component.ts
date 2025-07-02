@@ -1,7 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, DestroyRef, DOCUMENT, effect, inject, OnInit, Renderer2, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions } from 'chart.js';
 import {
   AvatarComponent,
   ButtonDirective,
@@ -15,14 +15,16 @@ import {
   GutterDirective,
   ProgressComponent,
   RowComponent,
-  TableDirective
+  TableDirective,
+  TemplateIdDirective,
+  WidgetStatBComponent,
+  WidgetStatFComponent
 } from '@coreui/angular';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { IconDirective } from '@coreui/icons-angular';
 
 import { WidgetsBrandComponent } from '../widgets/widgets-brand/widgets-brand.component';
 import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dropdown.component';
-import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 
 interface IUser {
   name: string;
@@ -41,148 +43,82 @@ interface IUser {
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
-  imports: [WidgetsDropdownComponent, CardComponent, CardBodyComponent, RowComponent, ColComponent, ButtonDirective, IconDirective, ReactiveFormsModule, ButtonGroupComponent, FormCheckLabelDirective, ChartjsComponent, NgStyle, CardFooterComponent, GutterDirective, ProgressComponent, WidgetsBrandComponent, CardHeaderComponent, TableDirective, AvatarComponent]
+  imports: [WidgetStatFComponent, TemplateIdDirective, CardComponent, CardBodyComponent, RowComponent, ColComponent, ButtonDirective, IconDirective, ReactiveFormsModule, ButtonGroupComponent, FormCheckLabelDirective, ChartjsComponent, NgStyle, CardFooterComponent, GutterDirective, ProgressComponent, WidgetsBrandComponent, CardHeaderComponent, TableDirective, AvatarComponent]
 })
 export class DashboardComponent implements OnInit {
 
-  readonly #destroyRef: DestroyRef = inject(DestroyRef);
-  readonly #document: Document = inject(DOCUMENT);
-  readonly #renderer: Renderer2 = inject(Renderer2);
-  readonly #chartsData: DashboardChartsData = inject(DashboardChartsData);
-
-  public users: IUser[] = [
-    {
-      name: 'Yiorgos Avraamu',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Us',
-      usage: 50,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Mastercard',
-      activity: '10 sec ago',
-      avatar: './assets/images/avatars/1.jpg',
-      status: 'success',
-      color: 'success'
-    },
-    {
-      name: 'Avram Tarasios',
-      state: 'Recurring ',
-      registered: 'Jan 1, 2021',
-      country: 'Br',
-      usage: 10,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Visa',
-      activity: '5 minutes ago',
-      avatar: './assets/images/avatars/2.jpg',
-      status: 'danger',
-      color: 'info'
-    },
-    {
-      name: 'Quintin Ed',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'In',
-      usage: 74,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Stripe',
-      activity: '1 hour ago',
-      avatar: './assets/images/avatars/3.jpg',
-      status: 'warning',
-      color: 'warning'
-    },
-    {
-      name: 'Enéas Kwadwo',
-      state: 'Sleep',
-      registered: 'Jan 1, 2021',
-      country: 'Fr',
-      usage: 98,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Paypal',
-      activity: 'Last month',
-      avatar: './assets/images/avatars/4.jpg',
-      status: 'secondary',
-      color: 'danger'
-    },
-    {
-      name: 'Agapetus Tadeáš',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Es',
-      usage: 22,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'ApplePay',
-      activity: 'Last week',
-      avatar: './assets/images/avatars/5.jpg',
-      status: 'success',
-      color: 'primary'
-    },
-    {
-      name: 'Friderik Dávid',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Pl',
-      usage: 43,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Amex',
-      activity: 'Yesterday',
-      avatar: './assets/images/avatars/6.jpg',
-      status: 'info',
-      color: 'dark'
-    }
-  ];
-
-  public mainChart: IChartProps = { type: 'line' };
-  public mainChartRef: WritableSignal<any> = signal(undefined);
-  #mainChartRefEffect = effect(() => {
-    if (this.mainChartRef()) {
-      this.setChartStyles();
-    }
-  });
-  public chart: Array<IChartProps> = [];
-  public trafficRadioGroup = new FormGroup({
-    trafficRadio: new FormControl('Month')
-  });
-
   ngOnInit(): void {
-    this.initCharts();
-    this.updateChartOnColorModeChange();
   }
 
-  initCharts(): void {
-    this.mainChartRef()?.stop();
-    this.mainChart = this.#chartsData.mainChart;
+  months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+
+  get randomData() {
+    return Math.round(Math.random() * 100);
   }
 
-  setTrafficPeriod(value: string): void {
-    this.trafficRadioGroup.setValue({ trafficRadio: value });
-    this.#chartsData.initMainChart(value);
-    this.initCharts();
-  }
+  options = {
+    maintainAspectRatio: false
+  };
 
-  handleChartRef($chartRef: any) {
-    if ($chartRef) {
-      this.mainChartRef.set($chartRef);
-    }
-  }
+  chartBarData: ChartData = {
+    labels: ['ممشى اهل مصر', 'الدلتا الجديدة', 'الطريق الساحلى'].slice(0, 7),
+    datasets: [
+      {
+        label: 'نسبة التنفيذ',
+        backgroundColor: '#f87979',
+        data: [40, 20, 90, 100]
+      }
+    ]
+  };
 
-  updateChartOnColorModeChange() {
-    const unListen = this.#renderer.listen(this.#document.documentElement, 'ColorSchemeChange', () => {
-      this.setChartStyles();
-    });
+  chartLineData: ChartData = {
+    labels: [...this.months].slice(0, 7),
+    datasets: [
+      {
+        label: 'ممشى اهل مصر',
+        backgroundColor: 'rgba(220, 220, 220, 0.2)',
+        borderColor: 'rgba(220, 220, 220, 1)',
+        pointBackgroundColor: 'rgba(220, 220, 220, 1)',
+        pointBorderColor: '#fff',
+        data: [this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData]
+      },
+      {
+        label: 'الطريق الساحلى',
+        backgroundColor: 'rgba(151, 187, 205, 0.2)',
+        borderColor: 'rgba(151, 187, 205, 1)',
+        pointBackgroundColor: 'rgba(151, 187, 205, 1)',
+        pointBorderColor: '#fff',
+        data: [this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData]
+      },
+      {
+        label: 'الدلتا الجديدة',
+        backgroundColor: 'rgba(248, 121, 121, 0.2)',
+        borderColor: 'rgba(248, 121, 121, 1)',
+        pointBackgroundColor: 'rgba(248, 121, 121, 1)',
+        pointBorderColor: '#fff',
+        data: [this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData]
+      }
+    ]
+  };
 
-    this.#destroyRef.onDestroy(() => {
-      unListen();
-    });
-  }
+  chartPieData: ChartData = {
+    labels: ['مكتمل', 'تحت الانشاء', 'متوقف'],
+    datasets: [
+      {
+        data: [100, 50, 20],
+        backgroundColor: ['#41B883', '#FFCE56', '#E46651'],
+        hoverBackgroundColor: ['#41B883', '#FFCE56', '#E46651']
+      }
+    ]
+  };
 
-  setChartStyles() {
-    if (this.mainChartRef()) {
-      setTimeout(() => {
-        const options: ChartOptions = { ...this.mainChart.options };
-        const scales = this.#chartsData.getScales();
-        this.mainChartRef().options.scales = { ...options.scales, ...scales };
-        this.mainChartRef().update();
-      });
-    }
-  }
+  chartDoughnutData: ChartData = {
+    labels: ['ضباط على قوة الكتيبة', 'ضباط ليست على قوت الكتيبة'],
+    datasets: [
+      {
+        backgroundColor: ['#41B883', '#E46651'],
+        data: [40, 100]
+      }
+    ]
+  };
 }

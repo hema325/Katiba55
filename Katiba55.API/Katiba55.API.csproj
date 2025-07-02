@@ -19,11 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Database\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Data\Database\Katiba55.sql">
+    <None Update="Katiba55.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

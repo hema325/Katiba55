@@ -77,12 +77,5 @@ export const routes: Routes = [
       title: 'تسجيل الدخول'
     }
   },
-  {
-    path: 'register',
-    loadComponent: () => import('./views/pages/register/register.component').then(m => m.RegisterComponent),
-    data: {
-      title: 'Register Page'
-    }
-  },
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: '/404' }
 ];
