@@ -20,7 +20,7 @@
         public long SupervisorId { get; set; }
         public Officer Supervisor { get; set; }
        
-        public ICollection<ExecutionPercentageHistory> ExecutionPercentageHistory { get; set; }
+        public ICollection<ProjectExecutionHistory> ProjectExecutionHistory { get; set; }
         public ICollection<ProjectCompany> ProjectCompanies { get; set; }
         public ICollection<ProjectMedia> ProjectMedias { get; set; }
     }

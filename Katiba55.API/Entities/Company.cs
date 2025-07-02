@@ -1,6 +1,6 @@
 ﻿namespace Katiba55.API.Entities
 {
-    public class Company
+    public class Company: BaseEntity
     {
         public string Name { get; set; }
         public string RepresentativeName { get; set; }

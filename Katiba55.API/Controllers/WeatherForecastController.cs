@@ -1,10 +1,11 @@
+using Katiba55.API.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Katiba55.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : BaseController
     {
         private static readonly string[] Summaries = new[]
         {
@@ -28,6 +29,12 @@ namespace Katiba55.API.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost("test")]
+        public IActionResult Test([FromServices] ApplicationDbContext context)
+        {
+            return base.Response(Result<WeatherForecast>.BadRequest(["error 1", "error 2"]));
         }
     }
 }
