@@ -1,6 +1,4 @@
-﻿using Katiba55.API.Enums;
-
-namespace Katiba55.API.Entities
+﻿namespace Katiba55.API.Entities
 {
     public class ProjectMedia: BaseEntity
     {
