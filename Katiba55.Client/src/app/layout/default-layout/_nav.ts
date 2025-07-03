@@ -15,9 +15,26 @@ export const navItems: INavData[] = [
     name: 'الصفحات'
   },
   {
+    name: 'المشروعات',
+    url: '/projects',
+    icon: 'fa-solid fa-diagram-project',
+    children: [
+      {
+        name: 'عرض قائمة المشروعات',
+        url: '/projects',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'اضافة مشروع جديد',
+        url: '/projects/add',
+        icon: 'nav-icon-bullet'
+      }
+    ]
+  },
+  {
     name: 'الشركات',
     url: '/companies',
-    iconComponent: { name: 'cilHome' },
+    icon: 'fa-solid fa-building',
     children: [
       {
         name: 'عرض قائمة الشركات',
@@ -34,7 +51,7 @@ export const navItems: INavData[] = [
   {
     name: 'الضباط',
     url: '/officers',
-    iconComponent: { name: 'cil-star' },
+    icon: 'fa-solid fa-star',
     children: [
       {
         name: 'عرض قائمة الضباط',
@@ -49,26 +66,9 @@ export const navItems: INavData[] = [
     ]
   },
   {
-    name: 'المشروعات',
-    url: '/projects',
-    iconComponent: { name: 'cil-notes' },
-    children: [
-      {
-        name: 'عرض قائمة المشروعات',
-        url: '/projects/list',
-        icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'اضافة مشروع جديد',
-        url: '/projects/add',
-        icon: 'nav-icon-bullet'
-      }
-    ]
-  },
-  {
     name: 'المستخدمين',
     url: '/users',
-    iconComponent: { name: 'cilPeople' },
+    icon: 'fa-solid fa-users',
     children: [
       {
         name: 'عرض قائمة المستخدمين',
@@ -89,7 +89,7 @@ export const navItems: INavData[] = [
   {
     name: 'الحساب',
     url: '/projects',
-    iconComponent: { name: 'cilUser' },
+    icon: 'fa-solid fa-user',
     children: [
       {
         name: 'تحديث البيانات',
@@ -106,7 +106,7 @@ export const navItems: INavData[] = [
   {
     name: 'تسجيل الخروج',
     url: '/account/logout',
-    iconComponent: { name: 'cilAccountLogout' }
+    icon: 'fa-solid fa-right-from-bracket',
   },
   {
     title: true,

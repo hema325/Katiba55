@@ -1,0 +1,20 @@
+<c-pagination>
+  <c-page-item [disabled]="currentPage <= 1">
+    <a cPageLink (click)="onPageChange(1)"><i class="fa-solid fa-angles-right"></i></a>
+  </c-page-item>
+  <c-page-item [disabled]="currentPage <= 1">
+    <a cPageLink (click)="onPageChange(currentPage - 1)"><i class="fa-solid fa-angle-right"></i></a>
+  </c-page-item>
+  @for(page of range(this.currentPage - 2, this.currentPage + 2); track page) {
+  @if(page >= 1 && page <= totalPages) { <c-page-item [active]="page === currentPage">
+    <a cPageLink (click)="onPageChange(page)">{{ page }}</a>
+    </c-page-item>
+    }
+    }
+    <c-page-item [disabled]="currentPage >= totalPages">
+      <a cPageLink (click)="onPageChange(currentPage + 1)"><i class="fa-solid fa-angle-left"></i></a>
+    </c-page-item>
+    <c-page-item [disabled]="currentPage >= totalPages">
+      <a cPageLink (click)="onPageChange(totalPages)"><i class="fa-solid fa-angles-left"></i></a>
+    </c-page-item>
+</c-pagination>

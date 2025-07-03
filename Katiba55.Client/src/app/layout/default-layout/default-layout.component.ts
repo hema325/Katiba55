@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 
@@ -17,6 +17,8 @@ import {
 
 import { DefaultFooterComponent, DefaultHeaderComponent } from './';
 import { navItems } from './_nav';
+import { ToasterService } from '../../services/toaster.service';
+import { ToastersComponent } from '../../shared/toasters/toasters.component';
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -44,7 +46,8 @@ function isOverflown(element: HTMLElement) {
     NgScrollbar,
     RouterOutlet,
     RouterLink,
-    ShadowOnScrollDirective
+    ShadowOnScrollDirective,
+    ToastersComponent
   ]
 })
 export class DefaultLayoutComponent {

@@ -17,4 +17,5 @@ export class AppToastComponent extends ToastComponent {
 
   readonly closeButton = input(true);
   readonly title = input('');
+  readonly message = input('');
 }

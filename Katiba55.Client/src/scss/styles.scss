@@ -18,3 +18,102 @@
 // Examples
 // We use those styles to show code examples, you should remove them in your application.
 @use "examples";
+
+
+* {
+    font-family: "Cairo", sans-serif;
+}
+
+table {
+    th {
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    td {
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+}
+
+.color-primary {
+    color: #5856d6;
+}
+
+.color-secondary {
+    color: #6b7785;
+}
+
+.color-light {
+    color: #f3f4f7;
+}
+
+.color-dark {
+    color: #212631;
+}
+
+.color-success {
+    color: #1b9e3e;
+}
+
+.color-info {
+    color: #3399ff;
+}
+
+.color-warning {
+    color: #f9b115;
+}
+
+.color-danger {
+    color: #e55353;
+}
+
+.color-white {
+    color: #fff;
+}
+
+.bg-primary {
+    background-color: #5856d6;
+}
+
+.bg-secondary {
+    background-color: #6b7785;
+}
+
+.bg-light {
+    background-color: #f3f4f7;
+}
+
+.bg-dark {
+    background-color: #212631;
+}
+
+.bg-success {
+    background-color: #1b9e3e;
+}
+
+.bg-info {
+    background-color: #3399ff;
+}
+
+.bg-warning {
+    background-color: #f9b115;
+}
+
+.bg-danger {
+    background-color: #e55353;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.table-poster {
+    width: 80px;
+    border-radius: 5px;
+    transition: transform 400ms ease-in-out;
+}
+
+.table-poster:hover {
+    transform: scale(1.1);
+}

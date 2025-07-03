@@ -1,0 +1,15 @@
+<ng-container>
+  @if(title()) {
+  <c-toast-header [closeButton]="closeButton()">
+    <strong>{{ title() }}</strong>
+  </c-toast-header>
+  }
+
+  <c-toast-body #toastBody [cToastClose]="toastBody.toast ?? undefined">
+    @if(message()) {
+    <p class="mb-1">{{message()}}</p>
+    }
+    <!-- <ng-content />
+    <c-progress thin [value]="25*(toastBody.toast?.clock ?? 1)" /> -->
+  </c-toast-body>
+</ng-container>
