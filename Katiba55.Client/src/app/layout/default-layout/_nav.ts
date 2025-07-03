@@ -17,70 +17,22 @@ export const navItems: INavData[] = [
   {
     name: 'المشروعات',
     url: '/projects',
-    icon: 'fa-solid fa-diagram-project',
-    children: [
-      {
-        name: 'عرض قائمة المشروعات',
-        url: '/projects',
-        icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'اضافة مشروع جديد',
-        url: '/projects/add',
-        icon: 'nav-icon-bullet'
-      }
-    ]
+    icon: 'fa-solid fa-diagram-project'
   },
   {
     name: 'الشركات',
     url: '/companies',
     icon: 'fa-solid fa-building',
-    children: [
-      {
-        name: 'عرض قائمة الشركات',
-        url: '/companies/list',
-        icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'اضافة شركة جديده',
-        url: '/companies/add',
-        icon: 'nav-icon-bullet'
-      }
-    ]
   },
   {
     name: 'الضباط',
     url: '/officers',
-    icon: 'fa-solid fa-star',
-    children: [
-      {
-        name: 'عرض قائمة الضباط',
-        url: '/officers/list',
-        icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'اضافة ضابط جديد',
-        url: '/companies/add',
-        icon: 'nav-icon-bullet'
-      }
-    ]
+    icon: 'fa-solid fa-star'
   },
   {
     name: 'المستخدمين',
     url: '/users',
-    icon: 'fa-solid fa-users',
-    children: [
-      {
-        name: 'عرض قائمة المستخدمين',
-        url: '/projects/list',
-        icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'اضافة مستخدم جديد',
-        url: '/projects/add',
-        icon: 'nav-icon-bullet'
-      }
-    ]
+    icon: 'fa-solid fa-users'
   },
   {
     title: true,

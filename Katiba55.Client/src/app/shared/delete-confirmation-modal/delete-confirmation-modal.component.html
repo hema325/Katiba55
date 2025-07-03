@@ -1,0 +1,11 @@
+<c-modal [visible]="visible">
+  <c-modal-header>
+    <h5 cModalTitle>تأكيد الحذف</h5>
+    <button cButtonClose (click)="setConfirmation(false)"></button>
+  </c-modal-header>
+  <c-modal-body>هل أنت متأكد أنك تريد حذف هذا العنصر؟</c-modal-body>
+  <c-modal-footer>
+    <button cButton color="secondary" (click)="setConfirmation(false)">الغاء</button>
+    <button cButton color="danger" (click)="setConfirmation(true)">حذف</button>
+  </c-modal-footer>
+</c-modal>

@@ -1,0 +1,7 @@
+.project-poster {
+    transition: 400ms transform ease-in-out;
+}
+
+.project-poster:hover {
+    transform: scale(1.05) rotate(.5deg);
+}

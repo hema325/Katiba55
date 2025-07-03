@@ -1,0 +1,64 @@
+<c-card class="mb-4">
+  <c-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">تفاصيل مشروع محور حسب اللة</h6>
+      <div class="d-flex align-items-center gap-2">
+        <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+        <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+      </div>
+    </div>
+  </c-card-header>
+  <div class="overflow-hidden">
+    <img src="https://tse3.mm.bing.net/th/id/OIP.VXqGdlUb4zIdpubRzIrUywHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
+      alt="بوستر المشروع" class="w-100 object-fit-cover project-poster" height="250">
+  </div>
+  <c-card-body>
+    <div class="mb-4">
+      <h6 class="text-secondary mb-3"><i class="fa-solid fa-info-circle me-2 text-secondary"></i>معلومات أساسية</h6>
+      <div class="row g-3 mb-2">
+        <div class="col-12 col-md-6"><i class="fa-solid fa-building-columns text-secondary me-2"></i><strong>الجهة
+            المنفذة:</strong> ادارة المهندسين العسكريين</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-users text-secondary me-2"></i><strong>الجهة
+            المستفيدة:</strong> وزارة النقل</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-calendar-days text-info me-2"></i><strong>تاريخ
+            البدء:</strong> ٢٠٢٥-٠١-٠١</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-calendar-check text-info me-2"></i><strong>تاريخ
+            الانتهاء:</strong> ٢٠٢٥-١٢-٣١</div>
+      </div>
+    </div>
+    <hr>
+    <div class="mb-4">
+      <h6 class="text-secondary mb-3"><i class="fa-solid fa-location-dot me-2 text-danger"></i>الموقع</h6>
+      <div class="row g-3 mb-2">
+        <div class="col-12"><i class="fa-solid fa-location-dot text-danger me-2"></i><strong>العنوان:</strong> ١٢٣ شارع
+          رئيسي</div>
+      </div>
+
+      <iframe width="100%" height="250" loading="lazy" allowfullscreen class="rounded-2 my-4 shadow-sm"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=24.7136,46.6753&amp;hl=ar&amp;z=14&amp;output=embed"></iframe>
+
+    </div>
+    <hr>
+    <div class="mb-4">
+      <h6 class="text-secondary mb-3"><i class="fa-solid fa-coins me-2 text-warning"></i>الميزانية</h6>
+      <c-card class="mb-4 border-0">
+        <c-card-body>
+          <c-chart type="bar" [data]="chartBarData" [options]="options" />
+        </c-card-body>
+      </c-card>
+    </div>
+    <hr>
+    <div class="mb-4">
+      <h6 class="text-secondary mb-3"><i class="fa-solid fa-circle-info me-2 text-primary"></i>تفاصيل إضافية</h6>
+      <div class="bg-light rounded-3 p-3 shadow-sm">
+        <p class="mb-3"><i class="fa-solid fa-circle-info text-primary me-2"></i><strong>التفاصيل:</strong> بناء مدرسة
+          جديدة، تشمل 12 فصل دراسي، قاعة متعددة الأغراض، ملاعب رياضية، ومناطق خضراء لخدمة المجتمع المحلي. المشروع يهدف
+          إلى تحسين جودة التعليم وتوفير بيئة تعليمية متكاملة وحديثة للطلاب.</p>
+        <p class="mb-0"><i class="fa-solid fa-note-sticky text-primary me-2"></i><strong>الملاحظات:</strong> تم الانتهاء
+          من أعمال الحفر والأساسات، وجاري العمل على الهيكل الخرساني. المشروع يسير حسب الجدول الزمني مع مراعاة أعلى
+          معايير الجودة والسلامة. تم التنسيق مع الجهات المحلية لتسهيل حركة المرور حول موقع المشروع أثناء التنفيذ.</p>
+      </div>
+    </div>
+  </c-card-body>
+</c-card>

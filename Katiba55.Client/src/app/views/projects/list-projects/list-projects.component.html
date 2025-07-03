@@ -6,7 +6,7 @@
           <h6 class="mb-0">قائمة المشاريع</h6>
           <div class="d-flex align-items-center gap-2">
             <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
-            <button [color]="'primary'" cButton (click)="test()"><i class="fa-solid fa-plus"></i></button>
+            <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
           </div>
         </div>
       </c-card-header>
@@ -60,9 +60,10 @@
               <td>لا يوجد</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a routerLink="/projects/22" [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
                   <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
                 </div>
               </td>
             </tr>
@@ -97,7 +98,8 @@
                 <div class="d-flex align-items-center gap-2">
                   <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
                   <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
                 </div>
               </td>
             </tr>
@@ -132,7 +134,8 @@
                 <div class="d-flex align-items-center gap-2">
                   <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
                   <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
                 </div>
               </td>
             </tr>
@@ -147,3 +150,7 @@
     </c-card>
   </c-col>
 </c-row>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />
