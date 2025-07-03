@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
         borderColor: 'rgba(220, 220, 220, 1)',
         pointBackgroundColor: 'rgba(220, 220, 220, 1)',
         pointBorderColor: '#fff',
-        data: [this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData]
+        data: [0, 10, 40, 50, 60, 100, 100]
       },
       {
         label: 'الطريق الساحلى',
@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
         borderColor: 'rgba(151, 187, 205, 1)',
         pointBackgroundColor: 'rgba(151, 187, 205, 1)',
         pointBorderColor: '#fff',
-        data: [this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData]
+        data: [0, 25, 30, 30, 50, 80, 100]
       },
       {
         label: 'الدلتا الجديدة',
@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit {
         borderColor: 'rgba(248, 121, 121, 1)',
         pointBackgroundColor: 'rgba(248, 121, 121, 1)',
         pointBorderColor: '#fff',
-        data: [this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData, this.randomData]
+        data: [0, 50, 80, 90, 100, 100, 100]
       }
     ]
   };

@@ -7,6 +7,7 @@ namespace Katiba55.API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Project> builder)
         {
+
         }
     }
 }
