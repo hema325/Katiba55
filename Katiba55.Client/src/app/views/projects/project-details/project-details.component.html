@@ -9,8 +9,10 @@
     </div>
   </c-card-header>
   <div class="overflow-hidden">
-    <img src="https://tse3.mm.bing.net/th/id/OIP.VXqGdlUb4zIdpubRzIrUywHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
-      alt="بوستر المشروع" class="w-100 object-fit-cover project-poster" height="250">
+    <a href="https://tse3.mm.bing.net/th/id/OIP.VXqGdlUb4zIdpubRzIrUywHaEK?rs=1&pid=ImgDetMain&o=7&rm=3">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.VXqGdlUb4zIdpubRzIrUywHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
+        alt="بوستر المشروع" class="w-100 object-fit-cover project-poster" height="250">
+    </a>
   </div>
   <c-card-body>
     <div class="mb-4">
@@ -21,16 +23,16 @@
         <div class="col-12 col-md-6"><i class="fa-solid fa-users text-secondary me-2"></i><strong>الجهة
             المستفيدة:</strong> وزارة النقل</div>
         <div class="col-12 col-md-6"><i class="fa-solid fa-calendar-days text-info me-2"></i><strong>تاريخ
-            البدء:</strong> ٢٠٢٥-٠١-٠١</div>
+            البدء:</strong> 2025-01-01</div>
         <div class="col-12 col-md-6"><i class="fa-solid fa-calendar-check text-info me-2"></i><strong>تاريخ
-            الانتهاء:</strong> ٢٠٢٥-١٢-٣١</div>
+            الانتهاء:</strong> 2025-12-31</div>
       </div>
     </div>
     <hr>
     <div class="mb-4">
       <h6 class="text-secondary mb-3"><i class="fa-solid fa-location-dot me-2 text-danger"></i>الموقع</h6>
       <div class="row g-3 mb-2">
-        <div class="col-12"><i class="fa-solid fa-location-dot text-danger me-2"></i><strong>العنوان:</strong> ١٢٣ شارع
+        <div class="col-12"><i class="fa-solid fa-location-dot text-danger me-2"></i><strong>العنوان:</strong> 123 شارع
           رئيسي</div>
       </div>
 
@@ -60,5 +62,400 @@
           معايير الجودة والسلامة. تم التنسيق مع الجهات المحلية لتسهيل حركة المرور حول موقع المشروع أثناء التنفيذ.</p>
       </div>
     </div>
+    <hr>
+    <!-- Officer Info Section -->
+    <div class="mb-4">
+      <h6 class="text-secondary mb-3"><i class="fa-solid fa-user-shield me-2 text-primary"></i>معلومات الضابط المشرف على
+        المشروع</h6>
+      <div class="row g-3 mb-2">
+        <div class="col-12 col-md-6"><i class="fa-solid fa-user text-primary me-2"></i><strong>الاسم:</strong> عقيد
+          مهندس محمد عبد الله</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-medal text-warning me-2"></i><strong>الرتبة:</strong> عقيد
+          مهندس</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-envelope text-info me-2"></i><strong>البريد
+            الإلكتروني:</strong> officer&#64;army.gov.eg</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-phone text-success me-2"></i><strong>الهاتف:</strong>
+          01001112222</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-calendar-plus text-info me-2"></i><strong>تاريخ
+            الانضمام:</strong> 2024-01-01</div>
+        <div class="col-12 col-md-6"><i class="fa-solid fa-calendar-minus text-danger me-2"></i><strong>تاريخ
+            المغادرة:</strong> 2025-12-31</div>
+        <div class="col-12"><i class="fa-solid fa-note-sticky text-secondary me-2"></i><strong>ملاحظات:</strong> الضابط
+          يتمتع بخبرة واسعة في إدارة المشاريع الهندسية العسكرية ويشرف على تنفيذ المشروع وفق أعلى معايير الجودة والسلامة.
+        </div>
+      </div>
+    </div>
   </c-card-body>
+</c-card>
+
+<!-- Progress Card -->
+<c-card class="mb-4">
+  <c-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">نسب الإنجاز للمشروع</h6>
+      <div class="d-flex align-items-center gap-2">
+        <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
+        <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+  </c-card-header>
+  <c-card-body class="overflow-auto">
+    <table cTable>
+      <thead>
+        <tr>
+          <th>التاريخ</th>
+          <th>نسبة الانجاز</th>
+          <th>التفاصيل</th>
+          <th>الملاحظات</th>
+          <th>الاجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2025-01-15</td>
+          <td><c-progress [value]="10" height="16" color="danger">10%</c-progress></td>
+          <td>بدء أعمال الحفر</td>
+          <td>تم تجهيز الموقع وبدء الحفر</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+              <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>2025-03-01</td>
+          <td><c-progress [value]="35" height="16" color="warning">35%</c-progress></td>
+          <td>انتهاء أعمال الحفر وبدء الأساسات</td>
+          <td>لا يوجد ملاحظات</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+              <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>2025-05-10</td>
+          <td><c-progress [value]="60" height="16" color="info">60%</c-progress></td>
+          <td>انتهاء الأساسات وبدء الهيكل الخرساني</td>
+          <td>تأخير بسيط بسبب الطقس</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+              <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>2025-07-01</td>
+          <td><c-progress [value]="80" height="16" color="success">80%</c-progress></td>
+          <td>الهيكل الخرساني شبه مكتمل</td>
+          <td>العمل يسير حسب الجدول</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+              <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </c-card-body>
+  <c-card-footer>
+    <div class="d-flex justify-content-center pt-2">
+      <app-paginator [totalPages]="10" [(currentPage)]="currentPage" />
+    </div>
+  </c-card-footer>
+</c-card>
+
+<!-- Timeline Progress Chart Section -->
+<c-card class="mb-4">
+  <c-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">المخطط الزمني لنسب الإنجاز</h6>
+      <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
+    </div>
+  </c-card-header>
+  <c-card-body>
+    <c-chart type="line" [data]="timelineProgressData" [options]="options" />
+  </c-card-body>
+</c-card>
+
+<!-- Companies Card -->
+<c-card class="mb-4">
+  <c-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">الشركات المنفذة للمشروع</h6>
+      <div class="d-flex align-items-center gap-2">
+        <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
+        <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+  </c-card-header>
+  <c-card-body class="overflow-auto">
+    <table cTable>
+      <thead>
+        <tr>
+          <th>الموافقة الأمنية</th>
+          <th>اسم الشركة</th>
+          <th>اسم الممثل</th>
+          <th>الدور في المشروع</th>
+          <th>البريد الإلكتروني</th>
+          <th>الهاتف</th>
+          <th>العنوان</th>
+          <th>تاريخ البدء</th>
+          <th>تاريخ الانتهاء</th>
+          <th>الملاحظات</th>
+          <th>الاجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a
+              href="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png">
+              <img
+                src="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                class="table-poster">
+            </a>
+          </td>
+          <td>شركة المقاولون العرب</td>
+          <td>م. أحمد علي</td>
+          <td>المقاول الرئيسي</td>
+          <td>info&#64;arabcont.com</td>
+          <td>01001234567</td>
+          <td>١ شارع التحرير، القاهرة</td>
+          <td>2025-01-01</td>
+          <td>2025-12-31</td>
+          <td>معتمد أمنيًا</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+              <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png">
+              <img
+                src="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                class="table-poster">
+            </a>
+          </td>
+          <td>شركة النصر للإنشاءات</td>
+          <td>م. سامي حسن</td>
+          <td>مقاول أعمال الأساسات</td>
+          <td>contact&#64;nasrconst.com</td>
+          <td>01009876543</td>
+          <td>٢ شارع الثورة، الجيزة</td>
+          <td>2025-02-01</td>
+          <td>2025-11-30</td>
+          <td>تحت المراجعة</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+              <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png">
+              <img
+                src="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                class="table-poster">
+            </a>
+          </td>
+          <td>شركة الرواد للمقاولات</td>
+          <td>م. فاطمة عبد الله</td>
+          <td>مقاول أعمال التشطيبات</td>
+          <td>info&#64;rowad.com</td>
+          <td>01005556677</td>
+          <td>٣ شارع النصر، الإسكندرية</td>
+          <td>2025-03-01</td>
+          <td>2025-10-31</td>
+          <td>لا يوجد</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+              <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </c-card-body>
+  <c-card-footer>
+    <div class="d-flex justify-content-center pt-2">
+      <app-paginator [totalPages]="10" [(currentPage)]="currentPage" />
+    </div>
+  </c-card-footer>
+</c-card>
+
+<!-- Project Media Cards -->
+<c-card class="mb-4">
+  <c-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">وسائط المشروع</h6>
+      <div class="d-flex align-items-center gap-2">
+        <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
+        <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+  </c-card-header>
+  <c-card-body>
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <a href="https://www.w3schools.com/w3images/lights.jpg" target="_blank"
+          class="text-decoration-none position-relative">
+          <c-card class="h-100 shadow-sm border-0 rounded media-card">
+            <button [color]="'danger'" cButton class="position-absolute top-0 end-0 m-2 z-2" title="حذف الملف"><i
+                class="fa-solid fa-trash"></i></button>
+            <img src="https://www.w3schools.com/w3images/lights.jpg" class="card-img-top rounded-top"
+              alt="مخطط عام للمشروع" style="height:180px;object-fit:cover;">
+            <c-card-body>
+              <h6 class="fw-bold mb-2 text-dark">مخطط عام للمشروع</h6>
+              <div class="mb-2">
+                <c-badge class="me-1" color="primary" shape="rounded-pill">صورة</c-badge>
+                <c-badge color="secondary" shape="rounded-pill">مخططات هندسية</c-badge>
+              </div>
+              <div class="d-flex align-items-center justify-content-between gap-2 text-muted small mt-2">
+                <span class="d-flex align-items-center"><i class="fa-solid fa-calendar-plus me-1"></i>2025-01-10</span>
+                <span class="d-flex align-items-center"><i class="fa-solid fa-database me-1"></i>2.1 MB</span>
+              </div>
+            </c-card-body>
+          </c-card>
+        </a>
+      </div>
+      <div class="col-12 col-md-4">
+        <a href="https://www.w3schools.com/html/mov_bbb.mp4" target="_blank"
+          class="text-decoration-none position-relative">
+          <c-card class="h-100 shadow-sm border-0 rounded media-card">
+            <button [color]="'danger'" cButton class="position-absolute top-0 end-0 m-2 z-2" title="حذف الملف"><i
+                class="fa-solid fa-trash"></i></button>
+            <div class="bg-dark d-flex align-items-center justify-content-center position-relative rounded-top"
+              style="height:180px;">
+              <video controls
+                style="width:100%;height:100%;object-fit:cover;background:#000;border-radius:.5rem .5rem 0 0;">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <c-card-body>
+              <h6 class="fw-bold mb-2 text-dark">فيديو تنفيذ الأساسات</h6>
+              <div class="mb-2">
+                <c-badge class="me-1" color="primary" shape="rounded-pill">فيديو</c-badge>
+                <c-badge color="secondary" shape="rounded-pill">توثيق التنفيذ</c-badge>
+              </div>
+              <div class="d-flex align-items-center justify-content-between gap-2 text-muted small mt-2">
+                <span class="d-flex align-items-center"><i class="fa-solid fa-calendar-plus me-1"></i>2025-02-15</span>
+                <span class="d-flex align-items-center"><i class="fa-solid fa-database me-1"></i>15.3 MB</span>
+              </div>
+            </c-card-body>
+          </c-card>
+        </a>
+      </div>
+      <div class="col-12 col-md-4">
+        <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank"
+          class="text-decoration-none position-relative">
+          <c-card class="h-100 shadow-sm border-0 rounded d-flex flex-column align-items-stretch media-card">
+            <button [color]="'danger'" cButton class="position-absolute top-0 end-0 m-2 z-2" title="حذف الملف"><i
+                class="fa-solid fa-trash"></i></button>
+            <div class="bg-light d-flex align-items-center justify-content-center rounded-top" style="height:180px;">
+              <i class="fa-solid fa-file-pdf fa-4x text-danger"></i>
+            </div>
+            <c-card-body>
+              <h6 class="fw-bold mb-2 text-dark">تقرير</h6>
+              <div class="mb-2">
+                <c-badge class="me-1" color="primary" shape="rounded-pill">ملف PDF</c-badge>
+                <c-badge color="secondary" shape="rounded-pill">تقارير رسمية</c-badge>
+              </div>
+              <div class="d-flex align-items-center justify-content-between gap-2 text-muted small mt-2">
+                <span class="d-flex align-items-center"><i class="fa-solid fa-calendar-plus me-1"></i>2025-03-01</span>
+                <span class="d-flex align-items-center"><i class="fa-solid fa-database me-1"></i>800 KB</span>
+              </div>
+            </c-card-body>
+          </c-card>
+        </a>
+      </div>
+      <div class="col-12 col-md-4">
+        <a href="https://file-examples.com/wp-content/uploads/2017/02/file-sample_100kB.doc" target="_blank"
+          class="text-decoration-none position-relative">
+          <c-card class="h-100 shadow-sm border-0 rounded d-flex flex-column align-items-stretch media-card">
+            <button [color]="'danger'" cButton class="position-absolute top-0 end-0 m-2 z-2" title="حذف الملف"><i
+                class="fa-solid fa-trash"></i></button>
+            <div class="bg-light d-flex align-items-center justify-content-center rounded-top" style="height:180px;">
+              <i class="fa-solid fa-file-word fa-4x text-primary"></i>
+            </div>
+            <c-card-body>
+              <h6 class="fw-bold mb-2 text-dark">الموقف التنفيذى</h6>
+              <div class="mb-2">
+                <c-badge class="me-1" color="primary" shape="rounded-pill">ملف Word</c-badge>
+                <c-badge color="secondary" shape="rounded-pill">مستندات</c-badge>
+              </div>
+              <div class="d-flex align-items-center justify-content-between gap-2 text-muted small mt-2">
+                <span class="d-flex align-items-center"><i class="fa-solid fa-calendar-plus me-1"></i>2025-03-10</span>
+                <span class="d-flex align-items-center"><i class="fa-solid fa-database me-1"></i>100 KB</span>
+              </div>
+            </c-card-body>
+          </c-card>
+        </a>
+      </div>
+      <div class="col-12 col-md-4">
+        <a href="https://file-examples.com/wp-content/uploads/2017/02/file_example_XLS_10.xls" target="_blank"
+          class="text-decoration-none position-relative">
+          <c-card class="h-100 shadow-sm border-0 rounded d-flex flex-column align-items-stretch media-card">
+            <button [color]="'danger'" cButton class="position-absolute top-0 end-0 m-2 z-2" title="حذف الملف"><i
+                class="fa-solid fa-trash"></i></button>
+            <div class="bg-light d-flex align-items-center justify-content-center rounded-top" style="height:180px;">
+              <i class="fa-solid fa-file-excel fa-4x text-success"></i>
+            </div>
+            <c-card-body>
+              <h6 class="fw-bold mb-2 text-dark">الموقف المالى</h6>
+              <div class="mb-2">
+                <c-badge class="me-1" color="success" shape="rounded-pill">ملف Excel</c-badge>
+                <c-badge color="secondary" shape="rounded-pill">جداول بيانات</c-badge>
+              </div>
+              <div class="d-flex align-items-center justify-content-between gap-2 text-muted small mt-2">
+                <span class="d-flex align-items-center"><i class="fa-solid fa-calendar-plus me-1"></i>2025-03-12</span>
+                <span class="d-flex align-items-center"><i class="fa-solid fa-database me-1"></i>80 KB</span>
+              </div>
+            </c-card-body>
+          </c-card>
+        </a>
+      </div>
+      <div class="col-12 col-md-4">
+        <a href="https://file-examples.com/wp-content/uploads/2017/08/file_example_PPT_500kB.ppt" target="_blank"
+          class="text-decoration-none position-relative">
+          <c-card class="h-100 shadow-sm border-0 rounded d-flex flex-column align-items-stretch media-card">
+            <button [color]="'danger'" cButton class="position-absolute top-0 end-0 m-2 z-2" title="حذف الملف"><i
+                class="fa-solid fa-trash"></i></button>
+            <div class="bg-light d-flex align-items-center justify-content-center rounded-top" style="height:180px;">
+              <i class="fa-solid fa-file-powerpoint fa-4x text-warning"></i>
+            </div>
+            <c-card-body>
+              <h6 class="fw-bold mb-2 text-dark">العروض</h6>
+              <div class="mb-2">
+                <c-badge class="me-1" color="warning" shape="rounded-pill">ملف PowerPoint</c-badge>
+                <c-badge color="secondary" shape="rounded-pill">عروض تقديمية</c-badge>
+              </div>
+              <div class="d-flex align-items-center justify-content-between gap-2 text-muted small mt-2">
+                <span class="d-flex align-items-center"><i class="fa-solid fa-calendar-plus me-1"></i>2025-03-15</span>
+                <span class="d-flex align-items-center"><i class="fa-solid fa-database me-1"></i>500 KB</span>
+              </div>
+            </c-card-body>
+          </c-card>
+        </a>
+      </div>
+    </div>
+  </c-card-body>
+  <c-card-footer>
+    <div class="d-flex justify-content-center pt-2">
+      <app-paginator [totalPages]="10" [(currentPage)]="currentPage" />
+    </div>
+  </c-card-footer>
 </c-card>

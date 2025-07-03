@@ -6,8 +6,8 @@
         public string Path { get; set; }
         public MediaTypes Type { get; set; }
         public DateTimeOffset UploadedDate { get; set; }
-        public long ProjectMediaCategoryId { get; set; }
-        public ProjectMediaCategory ProjectMediaCategory { get; set; }
+        public double Size { get; set; }
+        public string Category { get; set; }
         public long ProjectId { get; set; }
         public Project Project { get; set; }
     }

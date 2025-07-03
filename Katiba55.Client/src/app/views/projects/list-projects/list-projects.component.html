@@ -41,26 +41,23 @@
               <td>محور حسب الله</td>
               <td>ادارة المهندسين العسكريين</td>
               <td>وزارة النقل</td>
-              <td>١٠٠٬٠٠٠</td>
-              <td>٨٠٬٠٠٠</td>
-              <td>{{date.toLocaleDateString('ar-EG') }}</td>
-              <td>{{date.toLocaleDateString('ar-EG') }}</td>
+              <td>100,000</td>
+              <td>80,000</td>
+              <td>2025-01-01</td>
+              <td>2025-12-31</td>
               <td>
-                <c-progress [value]="80" height="16" color="success">
-                  80%</c-progress>
+                <c-progress [value]="80" height="16" color="success">80%</c-progress>
               </td>
               <td>
-                <a href="https://www.google.com/maps/search/?api=1&query=24.7136,46.6753" target="_blank">١٢٣
-                  شارع
-                  رئيسي</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=24.7136,46.6753" target="_blank">123 Main
+                  St</a>
               </td>
-              <td><c-badge class="me-1" color="warning">تحت
-                  الانشاء</c-badge></td>
-              <td>لا يوجد</td>
-              <td>لا يوجد</td>
+              <td><c-badge class="me-1" color="warning">تحت الانشاء</c-badge></td>
+              <td>بناء محور جديد يربط بين المناطق الرئيسية</td>
+              <td>تم الانتهاء من الحفر وجاري العمل على الهيكل الخرساني</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
-                  <a routerLink="/projects/22" [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
                   <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
                   <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
                       class="fa-solid fa-trash"></i></a>
@@ -76,27 +73,26 @@
                     class="table-poster">
                 </a>
               </td>
-              <td>ممشى اهل مصر</td>
-              <td>ادارة المهندسين العسكريين</td>
-              <td>وزارة النقل</td>
-              <td>٢٠٠٬٠٠٠</td>
-              <td>١٥٠٬٠٠٠</td>
-              <td>{{date.toLocaleDateString('ar-EG') }}</td>
-              <td>{{date.toLocaleDateString('ar-EG') }}</td>
+              <td>ممشى أهل مصر</td>
+              <td>الهيئة الهندسية للقوات المسلحة</td>
+              <td>محافظة القاهرة</td>
+              <td>200,000</td>
+              <td>150,000</td>
+              <td>2024-03-01</td>
+              <td>2025-06-30</td>
               <td>
-                <c-progress [value]="25" height="16" color="danger">
-                  {{25}}%</c-progress>
+                <c-progress [value]="95" height="16" color="success">95%</c-progress>
               </td>
               <td>
-                <a href="https://www.google.com/maps/search/?api=1&query=24.7136,46.6753" target="_blank">٤٥٦ شارع
-                  النخيل</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=30.0444,31.2357" target="_blank">كورنيش النيل -
+                  القاهرة</a>
               </td>
               <td><c-badge class="me-1" color="success">مكتمل</c-badge></td>
-              <td>لا يوجد</td>
-              <td>لا يوجد</td>
+              <td>تطوير ممشى سياحي على ضفاف النيل</td>
+              <td>تم افتتاح المرحلة الأولى وجاري التشطيبات النهائية</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
                   <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
                   <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
                       class="fa-solid fa-trash"></i></a>
@@ -111,28 +107,25 @@
                 </a>
               </td>
               <td>الدلتا الجديدة</td>
-              <td>ادارة المهندسين العسكريين</td>
-              <td>وزارة النقل</td>
-              <td>٢٠٠٬٠٠٠</td>
-              <td>٨٥٠٬٠٠٠</td>
-              <td>{{date.toLocaleDateString('ar-EG') }}</td>
-              <td>{{date.toLocaleDateString('ar-EG') }}</td>
+              <td>وزارة الإسكان والمرافق</td>
+              <td>وزارة الزراعة</td>
+              <td>300,000</td>
+              <td>250,000</td>
+              <td>2023-09-01</td>
+              <td>2026-12-31</td>
               <td>
-                <c-progress [value]="50" height="16" color="warning">
-                  50%</c-progress>
+                <c-progress [value]="40" height="16" color="warning">40%</c-progress>
               </td>
               <td>
-                <a href="https://www.google.com/maps/search/?api=1&query=21.3891,39.8579" target="_blank">٤٥٦ شارع
-                  النخيل</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=30.8978,30.3171" target="_blank">منطقة الدلتا
+                  الجديدة</a>
               </td>
-              <td>
-                <c-badge class="me-1" color="danger">متوقف</c-badge>
-              </td>
-              <td>لا يوجد</td>
-              <td>لا يوجد</td>
+              <td><c-badge class="me-1" color="danger">متوقف</c-badge></td>
+              <td>مشروع استصلاح أراضي زراعية ضخمة</td>
+              <td>توقف التنفيذ بسبب مشاكل تمويلية</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
                   <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
                   <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
                       class="fa-solid fa-trash"></i></a>

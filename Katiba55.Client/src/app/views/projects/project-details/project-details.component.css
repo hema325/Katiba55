@@ -5,3 +5,11 @@
 .project-poster:hover {
     transform: scale(1.05) rotate(.5deg);
 }
+
+.media-card {
+    transition: 400ms transform ease-in-out;
+}
+
+.media-card:hover {
+    transform: translateY(-10px);
+}

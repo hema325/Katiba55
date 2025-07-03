@@ -24,7 +24,6 @@ namespace Katiba55.API.Data
         public DbSet<Project> Projects { get; private set; }
         public DbSet<ProjectCompany> ProjectCompanies { get; private set; }
         public DbSet<ProjectMedia> ProjectMedias { get; private set; }
-        public DbSet<ProjectMediaCategory> ProjectMediaCategories { get; private set; }
         public DbSet<ProjectExecutionProgress> ProjectExecutionHistory { get; private set; }
     }
 }

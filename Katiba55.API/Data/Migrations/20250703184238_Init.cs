@@ -24,7 +24,6 @@ namespace Katiba55.API.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Latitude = table.Column<string>(type: "TEXT", nullable: false),
                     Longitude = table.Column<string>(type: "TEXT", nullable: false),
-                    LogoPath = table.Column<string>(type: "TEXT", nullable: false),
                     SecurityApprovalPath = table.Column<string>(type: "TEXT", nullable: false),
                     Notes = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -53,24 +52,12 @@ namespace Katiba55.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectMediaCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectMediaCategories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    PosterPath = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ExecutingSide = table.Column<string>(type: "TEXT", nullable: false),
                     BenefitingSide = table.Column<string>(type: "TEXT", nullable: false),
@@ -78,7 +65,6 @@ namespace Katiba55.API.Migrations
                     FinancialAllocation = table.Column<string>(type: "TEXT", nullable: false),
                     StartDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    ExecutionPercentage = table.Column<double>(type: "REAL", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Latitude = table.Column<string>(type: "TEXT", nullable: false),
                     Longitude = table.Column<string>(type: "TEXT", nullable: false),
@@ -139,6 +125,8 @@ namespace Katiba55.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Percentage = table.Column<double>(type: "REAL", nullable: false),
                     Date = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Details = table.Column<string>(type: "TEXT", nullable: false),
+                    Notes = table.Column<string>(type: "TEXT", nullable: false),
                     ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
                     ProjectId1 = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -163,20 +151,14 @@ namespace Katiba55.API.Migrations
                     Path = table.Column<string>(type: "TEXT", nullable: false),
                     Type = table.Column<int>(type: "INTEGER", nullable: false),
                     UploadedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    ProjectMediaCategoryId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ProjectMediaCategoryId1 = table.Column<int>(type: "INTEGER", nullable: false),
+                    Size = table.Column<double>(type: "REAL", nullable: false),
+                    Category = table.Column<string>(type: "TEXT", nullable: false),
                     ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
                     ProjectId1 = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectMedias", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProjectMedias_ProjectMediaCategories_ProjectMediaCategoryId1",
-                        column: x => x.ProjectMediaCategoryId1,
-                        principalTable: "ProjectMediaCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProjectMedias_Projects_ProjectId1",
                         column: x => x.ProjectId1,
@@ -206,11 +188,6 @@ namespace Katiba55.API.Migrations
                 column: "ProjectId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectMedias_ProjectMediaCategoryId1",
-                table: "ProjectMedias",
-                column: "ProjectMediaCategoryId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Projects_SupervisorId1",
                 table: "Projects",
                 column: "SupervisorId1");
@@ -230,9 +207,6 @@ namespace Katiba55.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Companies");
-
-            migrationBuilder.DropTable(
-                name: "ProjectMediaCategories");
 
             migrationBuilder.DropTable(
                 name: "Projects");

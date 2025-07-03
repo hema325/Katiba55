@@ -2,6 +2,7 @@
 {
     public class Project: BaseEntity
     {
+        public string PosterPath { get; set; }
         public string Name { get; set; }
         public string ExecutingSide { get; set; } 
         public string BenefitingSide { get; set; } 
