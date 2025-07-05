@@ -6,16 +6,16 @@
         public string Name { get; set; }
         public string ExecutingSide { get; set; } 
         public string BenefitingSide { get; set; } 
-        public string EstimatedCost { get; set; } 
-        public string FinancialAllocation { get; set; }
+        public decimal EstimatedCost { get; set; } 
+        public decimal FinancialAllocation { get; set; }
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset EndDate { get; set; }
         public string Address { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public ProjectStatus Status { get; set; }
-        public string Details { get; set; }
-        public string Notes { get; set; }
+        public string? Details { get; set; }
+        public string? Notes { get; set; }
 
         public long SupervisorId { get; set; }
         public Officer Supervisor { get; set; }

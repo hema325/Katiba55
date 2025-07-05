@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Katiba55.API.Data.Configurations
 {
-    public class ProjectsConfig : IEntityTypeConfiguration<Project>
+    public class CompaniesConfig : IEntityTypeConfiguration<Company>
     {
-        public void Configure(EntityTypeBuilder<Project> builder)
+        public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.Property(p => p.PosterPath).IsUnicode(false);
+            builder.Property(p => p.SecurityApprovalPath).IsUnicode(false);
             builder.HasIndex(p => p.Name).IsUnique();
         }
     }

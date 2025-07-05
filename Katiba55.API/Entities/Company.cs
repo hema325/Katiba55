@@ -10,7 +10,7 @@
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string SecurityApprovalPath { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         public ICollection<ProjectCompany> ProjectCompanies { get; set; }
     }

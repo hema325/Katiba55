@@ -3,6 +3,7 @@ using System;
 using Katiba55.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Katiba55.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250705054925_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
@@ -44,7 +47,6 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
@@ -57,9 +59,13 @@ namespace Katiba55.API.Migrations
 
                     b.Property<string>("SecurityApprovalPath")
                         .IsRequired()
+                        .IsUnicode(false)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Companies");
                 });
@@ -77,7 +83,7 @@ namespace Katiba55.API.Migrations
                     b.Property<DateTimeOffset>("JoinDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("LeaveDate")
+                    b.Property<DateTimeOffset?>("LeaveDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -85,7 +91,6 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
@@ -96,6 +101,9 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Officer");
                 });
@@ -115,22 +123,19 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Details")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EstimatedCost")
-                        .IsRequired()
+                    b.Property<decimal>("EstimatedCost")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExecutingSide")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FinancialAllocation")
-                        .IsRequired()
+                    b.Property<decimal>("FinancialAllocation")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Latitude")
@@ -146,11 +151,11 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PosterPath")
                         .IsRequired()
+                        .IsUnicode(false)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset>("StartDate")
@@ -166,6 +171,9 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("SupervisorId1");
 
@@ -184,11 +192,10 @@ namespace Katiba55.API.Migrations
                     b.Property<int>("CompanyId1")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTimeOffset>("EndDate")
+                    b.Property<DateTimeOffset?>("EndDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long>("ProjectId")
@@ -223,11 +230,9 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Details")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Percentage")
@@ -262,6 +267,7 @@ namespace Katiba55.API.Migrations
 
                     b.Property<string>("Path")
                         .IsRequired()
+                        .IsUnicode(false)
                         .HasColumnType("TEXT");
 
                     b.Property<long>("ProjectId")

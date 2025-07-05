@@ -24,8 +24,8 @@ namespace Katiba55.API.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Latitude = table.Column<string>(type: "TEXT", nullable: false),
                     Longitude = table.Column<string>(type: "TEXT", nullable: false),
-                    SecurityApprovalPath = table.Column<string>(type: "TEXT", nullable: false),
-                    Notes = table.Column<string>(type: "TEXT", nullable: false)
+                    SecurityApprovalPath = table.Column<string>(type: "TEXT", unicode: false, nullable: false),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,8 +43,8 @@ namespace Katiba55.API.Migrations
                     Phone = table.Column<string>(type: "TEXT", nullable: false),
                     Rank = table.Column<int>(type: "INTEGER", nullable: false),
                     JoinDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    LeaveDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    Notes = table.Column<string>(type: "TEXT", nullable: false)
+                    LeaveDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,20 +57,20 @@ namespace Katiba55.API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PosterPath = table.Column<string>(type: "TEXT", nullable: false),
+                    PosterPath = table.Column<string>(type: "TEXT", unicode: false, nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ExecutingSide = table.Column<string>(type: "TEXT", nullable: false),
                     BenefitingSide = table.Column<string>(type: "TEXT", nullable: false),
-                    EstimatedCost = table.Column<string>(type: "TEXT", nullable: false),
-                    FinancialAllocation = table.Column<string>(type: "TEXT", nullable: false),
+                    EstimatedCost = table.Column<decimal>(type: "TEXT", nullable: false),
+                    FinancialAllocation = table.Column<decimal>(type: "TEXT", nullable: false),
                     StartDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Latitude = table.Column<string>(type: "TEXT", nullable: false),
                     Longitude = table.Column<string>(type: "TEXT", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    Details = table.Column<string>(type: "TEXT", nullable: false),
-                    Notes = table.Column<string>(type: "TEXT", nullable: false),
+                    Details = table.Column<string>(type: "TEXT", nullable: true),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true),
                     SupervisorId = table.Column<long>(type: "INTEGER", nullable: false),
                     SupervisorId1 = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -93,8 +93,8 @@ namespace Katiba55.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Role = table.Column<string>(type: "TEXT", nullable: false),
                     StartDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    EndDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    Notes = table.Column<string>(type: "TEXT", nullable: false),
+                    EndDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true),
                     CompanyId = table.Column<long>(type: "INTEGER", nullable: false),
                     CompanyId1 = table.Column<int>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
@@ -125,8 +125,8 @@ namespace Katiba55.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Percentage = table.Column<double>(type: "REAL", nullable: false),
                     Date = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    Details = table.Column<string>(type: "TEXT", nullable: false),
-                    Notes = table.Column<string>(type: "TEXT", nullable: false),
+                    Details = table.Column<string>(type: "TEXT", nullable: true),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true),
                     ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
                     ProjectId1 = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -148,7 +148,7 @@ namespace Katiba55.API.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Path = table.Column<string>(type: "TEXT", nullable: false),
+                    Path = table.Column<string>(type: "TEXT", unicode: false, nullable: false),
                     Type = table.Column<int>(type: "INTEGER", nullable: false),
                     UploadedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     Size = table.Column<double>(type: "REAL", nullable: false),
@@ -166,6 +166,18 @@ namespace Katiba55.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Companies_Name",
+                table: "Companies",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Officer_Name",
+                table: "Officer",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectCompanies_CompanyId1",
@@ -186,6 +198,12 @@ namespace Katiba55.API.Migrations
                 name: "IX_ProjectMedias_ProjectId1",
                 table: "ProjectMedias",
                 column: "ProjectId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_Name",
+                table: "Projects",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_SupervisorId1",

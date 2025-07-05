@@ -4,8 +4,8 @@
     {
         public string Role { get; set; }
         public DateTimeOffset StartDate { get; set; }
-        public DateTimeOffset EndDate { get; set; }
-        public string Notes { get; set; }
+        public DateTimeOffset? EndDate { get; set; }
+        public string? Notes { get; set; }
 
         public long CompanyId { get; set; }
         public Company Company { get; set; }
