@@ -2,7 +2,6 @@
 
 namespace Katiba55.API.Controllers
 {
-    [Route("api")]
     [ApiController]
     public abstract class BaseController : ControllerBase
     {

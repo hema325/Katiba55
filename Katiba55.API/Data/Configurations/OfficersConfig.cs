@@ -8,6 +8,8 @@ namespace Katiba55.API.Data.Configurations
         public void Configure(EntityTypeBuilder<Officer> builder)
         {
             builder.HasIndex(p => p.Name).IsUnique();
+            builder.HasIndex(p => p.Email).IsUnique();
+            builder.HasIndex(p => p.Phone).IsUnique();
         }
     }
 }

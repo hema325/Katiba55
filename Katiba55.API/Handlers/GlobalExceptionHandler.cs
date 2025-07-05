@@ -20,7 +20,7 @@ namespace Katiba55.API.Handlers
 
             if (!_webHostEnv.IsDevelopment())
             {
-                var response = Result<Empty>.ServerError();
+                var response = ResultFactory.ServerError();
                 
                 httpContext.Response.StatusCode = StatusCodes.Status200OK;
                 await httpContext.Response.WriteAsJsonAsync(response);
@@ -31,6 +31,8 @@ namespace Katiba55.API.Handlers
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await httpContext.Response.WriteAsJsonAsync(new
             {
+                Success = false,
+                Status = 200,
                 Message = errorMessage,
                 Details = exception.StackTrace?.ToString()
             });

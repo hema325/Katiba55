@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 
 namespace Katiba55.API.Extensions.DependencyInjection
 {
@@ -15,7 +16,7 @@ namespace Katiba55.API.Extensions.DependencyInjection
                     .Select(err => err.ErrorMessage)
                     .ToArray();
 
-                    return new BadRequestObjectResult(Result<Empty>.BadRequest(errors));
+                    return new BadRequestObjectResult(ResultFactory.BadRequest(errors));
                 };
             });
 

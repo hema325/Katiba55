@@ -8,6 +8,6 @@ namespace Katiba55.API.Controllers
     public class ErrorsController : BaseController
     {
         public IActionResult Handle(int status)
-            => Response(Result<Empty>.Create(status));
+            => Response(ResultFactory.Create(status));
     }
 }

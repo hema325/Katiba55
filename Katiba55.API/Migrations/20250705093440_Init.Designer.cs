@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Katiba55.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250705054925_Init")]
+    [Migration("20250705093440_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -64,7 +64,13 @@ namespace Katiba55.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Companies");
@@ -102,7 +108,13 @@ namespace Katiba55.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Officer");

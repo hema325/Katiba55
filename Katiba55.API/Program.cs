@@ -3,6 +3,7 @@ using Katiba55.API.Handlers;
 using Katiba55.API.Settings;
 using Katiba55.API.Transformers;
 using Scalar.AspNetCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,8 @@ builder.Services
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddProblemDetails()
     .AddDefaultCors()
-    .ConfigureDB(builder.Configuration);
+    .ConfigureDB(builder.Configuration)
+    .AddAutoMapper(Assembly.GetExecutingAssembly());
 
 #endregion
 
@@ -37,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseCors();
 }
 
+app.UseFileStorage();
 app.UseHttpsRedirection();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseExceptionHandler();

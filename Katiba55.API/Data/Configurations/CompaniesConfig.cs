@@ -9,6 +9,8 @@ namespace Katiba55.API.Data.Configurations
         {
             builder.Property(p => p.SecurityApprovalPath).IsUnicode(false);
             builder.HasIndex(p => p.Name).IsUnique();
+            builder.HasIndex(p => p.Email).IsUnique();
+            builder.HasIndex(p => p.Phone).IsUnique();
         }
     }
 }

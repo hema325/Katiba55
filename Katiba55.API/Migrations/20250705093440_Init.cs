@@ -168,15 +168,39 @@ namespace Katiba55.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Companies_Email",
+                table: "Companies",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Companies_Name",
                 table: "Companies",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Companies_Phone",
+                table: "Companies",
+                column: "Phone",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Officer_Email",
+                table: "Officer",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Officer_Name",
                 table: "Officer",
                 column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Officer_Phone",
+                table: "Officer",
+                column: "Phone",
                 unique: true);
 
             migrationBuilder.CreateIndex(
