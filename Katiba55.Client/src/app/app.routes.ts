@@ -12,7 +12,7 @@ export const routes: Routes = [
     data: {
       title: 'الصفحة الرئيسيه'
     },
-    title: 'لوحه ادارةالكتيبة 55',
+    title: 'لوحه ادارة الكتيبة 55',
     children: [
       {
         path: 'dashboard',
