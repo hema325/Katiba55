@@ -42,6 +42,7 @@ namespace Katiba55.API.Migrations
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Phone = table.Column<string>(type: "TEXT", nullable: false),
                     Rank = table.Column<int>(type: "INTEGER", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
                     JoinDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     LeaveDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     Notes = table.Column<string>(type: "TEXT", nullable: true)

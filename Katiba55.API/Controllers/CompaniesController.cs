@@ -22,19 +22,13 @@ namespace Katiba55.API.Controllers
         public async Task<IActionResult> CreateAsync(CreateCompanyDto dto)
         {
             if (await _context.Companies.AnyAsync(c => c.Name == dto.Name)) 
-            {
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
-            }
 
             if (await _context.Companies.AnyAsync(c => c.Email == dto.Email)) 
-            {
                 return Response(ResultFactory.Conflict("البريد الإلكتروني هذا مستخدم بالفعل. يرجى إدخال بريد إلكتروني آخر"));
-            }
 
             if (await _context.Companies.AnyAsync(c => c.Phone == dto.Phone)) 
-            {
                 return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-            }
 
             var company = _mapper.Map<Company>(dto);
 
@@ -48,19 +42,13 @@ namespace Katiba55.API.Controllers
         public async Task<IActionResult> UpdateAsync(int id, UpdateCompanyDto dto)
         {
             if (await _context.Companies.AnyAsync(c => c.Id != id && c.Name == dto.Name))
-            {
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
-            }
 
             if (await _context.Companies.AnyAsync(c => c.Id != id && c.Email == dto.Email))
-            {
                 return Response(ResultFactory.Conflict("البريد الإلكتروني هذا مستخدم بالفعل. يرجى إدخال بريد إلكتروني آخر"));
-            }
 
             if (await _context.Companies.AnyAsync(c => c.Id != id && c.Phone == dto.Phone))
-            {
                 return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-            }
 
             var company = await _context.Companies.FindAsync(id);
 
@@ -118,17 +106,13 @@ namespace Katiba55.API.Controllers
             var query = _context.Companies.AsQueryable();
 
             if(!string.IsNullOrEmpty(dto.Name))
-            {
                 query = query.Where(c => c.Name.StartsWith(dto.Name));
-            }
-            else if(!string.IsNullOrEmpty(dto.Email))
-            {
+            
+            if(!string.IsNullOrEmpty(dto.Email))
                 query = query.Where(c => c.Email.StartsWith(dto.Email));
-            }
-            else if(!string.IsNullOrEmpty(dto.Phone))
-            {
+            
+            if(!string.IsNullOrEmpty(dto.Phone))
                 query = query.Where(c => c.Email.StartsWith(dto.Phone));
-            }
 
             var companies = await query
                          .ProjectTo<CompanyDto>(_mapper.ConfigurationProvider)

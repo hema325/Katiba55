@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Katiba55.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250705093440_Init")]
+    [Migration("20250706074451_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -104,6 +104,9 @@ namespace Katiba55.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rank")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
