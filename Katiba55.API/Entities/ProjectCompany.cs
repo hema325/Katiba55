@@ -7,9 +7,9 @@
         public DateTimeOffset? EndDate { get; set; }
         public string? Notes { get; set; }
 
-        public long CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public long ProjectId { get; set; }
+        public int ProjectId { get; set; }
         public Project Project { get; set; }
     }
 }

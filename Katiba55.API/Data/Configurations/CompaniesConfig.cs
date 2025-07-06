@@ -11,6 +11,8 @@ namespace Katiba55.API.Data.Configurations
             builder.HasIndex(p => p.Name).IsUnique();
             builder.HasIndex(p => p.Email).IsUnique();
             builder.HasIndex(p => p.Phone).IsUnique();
+
+            builder.HasMany(c => c.ProjectCompanies).WithOne(pc => pc.Company).HasForeignKey(pc => pc.CompanyId);
         }
     }
 }

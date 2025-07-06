@@ -8,7 +8,7 @@
         public DateTimeOffset UploadedDate { get; set; }
         public double Size { get; set; }
         public string Category { get; set; }
-        public long ProjectId { get; set; }
+        public int ProjectId { get; set; }
         public Project Project { get; set; }
     }
 }

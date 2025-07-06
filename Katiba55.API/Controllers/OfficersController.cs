@@ -1,6 +1,5 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
-using Katiba55.API.Dtos.Companies;
 using Katiba55.API.Dtos.Officers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +46,11 @@ namespace Katiba55.API.Controllers
         [HttpPut("{id}/update")]
         public async Task<IActionResult> UpdateAsync(int id, UpdateOfficerDto dto)
         {
+            var officer = await _context.Officers.FindAsync(id);
+
+            if (officer == null)
+                return Response(ResultFactory.NotFound());
+
             if (await _context.Officers.AnyAsync(o => o.Id != id && o.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
@@ -55,11 +59,6 @@ namespace Katiba55.API.Controllers
 
             if (await _context.Officers.AnyAsync(o => o.Id != id && o.Phone == dto.Phone))
                 return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-
-            var officer = await _context.Officers.FindAsync(id);
-
-            if(officer == null)
-                return Response(ResultFactory.NotFound());
 
             if (dto.LeaveDate != null)
                 officer.Status = OfficerStatus.OutBattalion;
@@ -117,13 +116,13 @@ namespace Katiba55.API.Controllers
             var query = _context.Officers.AsQueryable();
 
             if (!string.IsNullOrEmpty(dto.Name))
-                query = query.Where(o => o.Name.StartsWith(dto.Name));
+                query = query.Where(o => o.Name.Contains(dto.Name));
             
             if (!string.IsNullOrEmpty(dto.Email))
-                query = query.Where(o => o.Email.StartsWith(dto.Email));
+                query = query.Where(o => o.Email.Contains(dto.Email));
             
             if (!string.IsNullOrEmpty(dto.Phone))
-                query = query.Where(o => o.Email.StartsWith(dto.Phone));
+                query = query.Where(o => o.Email.Contains(dto.Phone));
 
             if (dto.Rank != null)
                 query = query.Where(o => o.Rank == dto.Rank);

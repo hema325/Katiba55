@@ -41,6 +41,11 @@ namespace Katiba55.API.Controllers
         [HttpPut("{id}/update")]
         public async Task<IActionResult> UpdateAsync(int id, UpdateCompanyDto dto)
         {
+            var company = await _context.Companies.FindAsync(id);
+
+            if (company == null)
+                return Response(ResultFactory.NotFound());
+
             if (await _context.Companies.AnyAsync(c => c.Id != id && c.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
@@ -49,11 +54,6 @@ namespace Katiba55.API.Controllers
 
             if (await _context.Companies.AnyAsync(c => c.Id != id && c.Phone == dto.Phone))
                 return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-
-            var company = await _context.Companies.FindAsync(id);
-
-            if (company == null)
-                return Response(ResultFactory.NotFound());
 
             _mapper.Map(dto, company);
 
@@ -106,13 +106,13 @@ namespace Katiba55.API.Controllers
             var query = _context.Companies.AsQueryable();
 
             if(!string.IsNullOrEmpty(dto.Name))
-                query = query.Where(c => c.Name.StartsWith(dto.Name));
+                query = query.Where(c => c.Name.Contains(dto.Name));
             
             if(!string.IsNullOrEmpty(dto.Email))
-                query = query.Where(c => c.Email.StartsWith(dto.Email));
+                query = query.Where(c => c.Email.Contains(dto.Email));
             
             if(!string.IsNullOrEmpty(dto.Phone))
-                query = query.Where(c => c.Email.StartsWith(dto.Phone));
+                query = query.Where(c => c.Email.Contains(dto.Phone));
 
             var companies = await query
                          .ProjectTo<CompanyDto>(_mapper.ConfigurationProvider)

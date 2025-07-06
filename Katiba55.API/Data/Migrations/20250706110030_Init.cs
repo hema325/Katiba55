@@ -65,22 +65,21 @@ namespace Katiba55.API.Migrations
                     EstimatedCost = table.Column<decimal>(type: "TEXT", nullable: false),
                     FinancialAllocation = table.Column<decimal>(type: "TEXT", nullable: false),
                     StartDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    EndDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    EndDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Latitude = table.Column<string>(type: "TEXT", nullable: false),
                     Longitude = table.Column<string>(type: "TEXT", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
                     Details = table.Column<string>(type: "TEXT", nullable: true),
                     Notes = table.Column<string>(type: "TEXT", nullable: true),
-                    SupervisorId = table.Column<long>(type: "INTEGER", nullable: false),
-                    SupervisorId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    SupervisorId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_Officer_SupervisorId1",
-                        column: x => x.SupervisorId1,
+                        name: "FK_Projects_Officer_SupervisorId",
+                        column: x => x.SupervisorId,
                         principalTable: "Officer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -96,23 +95,21 @@ namespace Katiba55.API.Migrations
                     StartDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     Notes = table.Column<string>(type: "TEXT", nullable: true),
-                    CompanyId = table.Column<long>(type: "INTEGER", nullable: false),
-                    CompanyId1 = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ProjectId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectCompanies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectCompanies_Companies_CompanyId1",
-                        column: x => x.CompanyId1,
+                        name: "FK_ProjectCompanies_Companies_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectCompanies_Projects_ProjectId1",
-                        column: x => x.ProjectId1,
+                        name: "FK_ProjectCompanies_Projects_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -128,15 +125,14 @@ namespace Katiba55.API.Migrations
                     Date = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     Details = table.Column<string>(type: "TEXT", nullable: true),
                     Notes = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ProjectId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectExecutionHistory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectExecutionHistory_Projects_ProjectId1",
-                        column: x => x.ProjectId1,
+                        name: "FK_ProjectExecutionHistory_Projects_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -154,15 +150,14 @@ namespace Katiba55.API.Migrations
                     UploadedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     Size = table.Column<double>(type: "REAL", nullable: false),
                     Category = table.Column<string>(type: "TEXT", nullable: false),
-                    ProjectId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ProjectId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectMedias", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectMedias_Projects_ProjectId1",
-                        column: x => x.ProjectId1,
+                        name: "FK_ProjectMedias_Projects_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -205,24 +200,24 @@ namespace Katiba55.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectCompanies_CompanyId1",
+                name: "IX_ProjectCompanies_CompanyId",
                 table: "ProjectCompanies",
-                column: "CompanyId1");
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectCompanies_ProjectId1",
+                name: "IX_ProjectCompanies_ProjectId",
                 table: "ProjectCompanies",
-                column: "ProjectId1");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectExecutionHistory_ProjectId1",
+                name: "IX_ProjectExecutionHistory_ProjectId",
                 table: "ProjectExecutionHistory",
-                column: "ProjectId1");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectMedias_ProjectId1",
+                name: "IX_ProjectMedias_ProjectId",
                 table: "ProjectMedias",
-                column: "ProjectId1");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_Name",
@@ -231,9 +226,9 @@ namespace Katiba55.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_SupervisorId1",
+                name: "IX_Projects_SupervisorId",
                 table: "Projects",
-                column: "SupervisorId1");
+                column: "SupervisorId");
         }
 
         /// <inheritdoc />

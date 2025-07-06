@@ -137,7 +137,7 @@ namespace Katiba55.API.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("EndDate")
+                    b.Property<DateTimeOffset?>("EndDate")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("EstimatedCost")
@@ -176,10 +176,7 @@ namespace Katiba55.API.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("SupervisorId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SupervisorId1")
+                    b.Property<int>("SupervisorId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -187,7 +184,7 @@ namespace Katiba55.API.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.HasIndex("SupervisorId1");
+                    b.HasIndex("SupervisorId");
 
                     b.ToTable("Projects");
                 });
@@ -198,10 +195,7 @@ namespace Katiba55.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId1")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("EndDate")
@@ -210,10 +204,7 @@ namespace Katiba55.API.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("ProjectId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProjectId1")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Role")
@@ -225,9 +216,9 @@ namespace Katiba55.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId1");
+                    b.HasIndex("CompanyId");
 
-                    b.HasIndex("ProjectId1");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectCompanies");
                 });
@@ -250,15 +241,12 @@ namespace Katiba55.API.Migrations
                     b.Property<double>("Percentage")
                         .HasColumnType("REAL");
 
-                    b.Property<long>("ProjectId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProjectId1")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId1");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectExecutionHistory");
                 });
@@ -282,10 +270,7 @@ namespace Katiba55.API.Migrations
                         .IsUnicode(false)
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("ProjectId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProjectId1")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Size")
@@ -299,7 +284,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId1");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectMedias");
                 });
@@ -308,7 +293,7 @@ namespace Katiba55.API.Migrations
                 {
                     b.HasOne("Katiba55.API.Entities.Officer", "Supervisor")
                         .WithMany("Projects")
-                        .HasForeignKey("SupervisorId1")
+                        .HasForeignKey("SupervisorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -319,13 +304,13 @@ namespace Katiba55.API.Migrations
                 {
                     b.HasOne("Katiba55.API.Entities.Company", "Company")
                         .WithMany("ProjectCompanies")
-                        .HasForeignKey("CompanyId1")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Katiba55.API.Entities.Project", "Project")
                         .WithMany("ProjectCompanies")
-                        .HasForeignKey("ProjectId1")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -338,7 +323,7 @@ namespace Katiba55.API.Migrations
                 {
                     b.HasOne("Katiba55.API.Entities.Project", "Project")
                         .WithMany("ProjectExecutionProgresses")
-                        .HasForeignKey("ProjectId1")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -349,7 +334,7 @@ namespace Katiba55.API.Migrations
                 {
                     b.HasOne("Katiba55.API.Entities.Project", "Project")
                         .WithMany("ProjectMedias")
-                        .HasForeignKey("ProjectId1")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

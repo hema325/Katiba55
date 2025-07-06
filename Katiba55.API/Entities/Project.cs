@@ -9,7 +9,7 @@
         public decimal EstimatedCost { get; set; } 
         public decimal FinancialAllocation { get; set; }
         public DateTimeOffset StartDate { get; set; }
-        public DateTimeOffset EndDate { get; set; }
+        public DateTimeOffset? EndDate { get; set; }
         public string Address { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
@@ -17,7 +17,7 @@
         public string? Details { get; set; }
         public string? Notes { get; set; }
 
-        public long SupervisorId { get; set; }
+        public int SupervisorId { get; set; }
         public Officer Supervisor { get; set; }
        
         public ICollection<ProjectExecutionProgress> ProjectExecutionProgresses { get; set; }
