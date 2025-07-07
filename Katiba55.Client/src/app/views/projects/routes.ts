@@ -15,6 +15,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'report',
+        loadComponent: () => import('./projects-report/projects-report.component').then(c => c.ProjectsReportComponent),
+        data: {
+          title: 'تقرير المشاريع'
+        }
+      },
+      {
         path: ':id/edit',
         loadComponent: () => import('./project-edit/project-edit.component').then(c => c.ProjectEditComponent),
         data: {
@@ -26,13 +33,6 @@ export const routes: Routes = [
         loadComponent: () => import('./project-details/project-details.component').then(c => c.ProjectDetailsComponent),
         data: {
           title: 'تفاصيل المشروع'
-        }
-      },
-      {
-        path: 'report',
-        loadComponent: () => import('./projects-report/projects-report.component').then(c => c.ProjectsReportComponent),
-        data: {
-          title: 'تقرير المشاريع'
         }
       }
     ]
