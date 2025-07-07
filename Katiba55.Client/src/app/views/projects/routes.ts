@@ -15,10 +15,24 @@ export const routes: Routes = [
         }
       },
       {
+        path: ':id/edit',
+        loadComponent: () => import('./project-edit/project-edit.component').then(c => c.ProjectEditComponent),
+        data: {
+          title: 'تفاصيل المشروع'
+        }
+      },
+      {
         path: ':id',
         loadComponent: () => import('./project-details/project-details.component').then(c => c.ProjectDetailsComponent),
         data: {
           title: 'تفاصيل المشروع'
+        }
+      },
+      {
+        path: 'report',
+        loadComponent: () => import('./projects-report/projects-report.component').then(c => c.ProjectsReportComponent),
+        data: {
+          title: 'تقرير المشاريع'
         }
       }
     ]

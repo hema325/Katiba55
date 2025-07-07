@@ -1,0 +1,10 @@
+.company-approval-security-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 400ms transform ease-in-out;
+}
+
+.company-approval-security-img:hover {
+    transform: scale(1.05) rotate(.5deg);
+}

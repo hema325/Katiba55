@@ -5,7 +5,7 @@ import { IconDirective } from '@coreui/icons-angular';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
 import { ToasterService } from '../../../services/toaster.service';
 import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-projects',

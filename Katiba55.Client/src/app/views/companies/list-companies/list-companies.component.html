@@ -1,0 +1,126 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0">قائمة الشركات</h6>
+          <div class="d-flex align-items-center gap-2">
+            <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
+            <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </c-card-header>
+      <c-card-body class="overflow-auto">
+        <table cTable>
+          <thead>
+            <tr>
+              <th>الموافقة الأمنية</th>
+              <th>اسم الشركة</th>
+              <th>اسم الممثل</th>
+              <th>البريد الإلكتروني</th>
+              <th>الهاتف</th>
+              <th>العنوان</th>
+              <th>الملاحظات</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                  target="_blank">
+                  <img
+                    src="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                    class="table-poster">
+                </a>
+              </td>
+              <td>شركة المقاولون العرب</td>
+              <td>م. أحمد علي</td>
+              <td>info&#64;arabcont.com</td>
+              <td>01001234567</td>
+              <td>
+                <a href="https://www.google.com/maps/search/?api=1&query=30.0444,31.2357" target="_blank">
+                  ١ شارع التحرير، القاهرة
+                </a>
+              </td>
+              <td>من أكبر شركات المقاولات في مصر</td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <a [color]="'primary'" routerLink="/companies/1" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                  target="_blank">
+                  <img
+                    src="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                    class="table-poster">
+                </a>
+              </td>
+              <td>شركة النصر للإنشاءات</td>
+              <td>م. سامي حسن</td>
+              <td>contact&#64;nasrconst.com</td>
+              <td>01009876543</td>
+              <td>
+                <a href="https://www.google.com/maps/search/?api=1&query=30.0131,31.2089" target="_blank">
+                  ٢ شارع الثورة، الجيزة
+                </a>
+              </td>
+              <td>تحت المراجعة</td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                  target="_blank">
+                  <img
+                    src="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
+                    class="table-poster">
+                </a>
+              </td>
+              <td>شركة الرواد للمقاولات</td>
+              <td>م. فاطمة عبد الله</td>
+              <td>info&#64;rowad.com</td>
+              <td>01005556677</td>
+              <td>
+                <a href="https://www.google.com/maps/search/?api=1&query=31.2001,29.9187" target="_blank">
+                  ٣ شارع النصر، الإسكندرية
+                </a>
+              </td>
+              <td>لا يوجد</td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+      <c-card-footer>
+        <div class="d-flex justify-content-center pt-2">
+          <app-paginator [totalPages]="10" [(currentPage)]="currentPage" />
+        </div>
+      </c-card-footer>
+    </c-card>
+  </c-col>
+</c-row>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />

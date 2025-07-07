@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ChartData, ChartOptions } from 'chart.js';
 import {
   AvatarComponent,
+  BadgeComponent,
   ButtonDirective,
   ButtonGroupComponent,
   CardBodyComponent,
@@ -17,6 +18,7 @@ import {
   RowComponent,
   TableDirective,
   TemplateIdDirective,
+  TooltipDirective,
   WidgetStatBComponent,
   WidgetStatFComponent
 } from '@coreui/angular';
@@ -25,6 +27,7 @@ import { IconDirective } from '@coreui/icons-angular';
 
 import { WidgetsBrandComponent } from '../widgets/widgets-brand/widgets-brand.component';
 import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dropdown.component';
+import { RouterLink } from '@angular/router';
 
 interface IUser {
   name: string;
@@ -43,7 +46,31 @@ interface IUser {
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
-  imports: [WidgetStatFComponent, TemplateIdDirective, CardComponent, CardBodyComponent, RowComponent, ColComponent, ButtonDirective, IconDirective, ReactiveFormsModule, ButtonGroupComponent, FormCheckLabelDirective, ChartjsComponent, NgStyle, CardFooterComponent, GutterDirective, ProgressComponent, WidgetsBrandComponent, CardHeaderComponent, TableDirective, AvatarComponent]
+  imports:
+    [
+      WidgetStatFComponent,
+      TemplateIdDirective,
+      CardComponent,
+      CardBodyComponent,
+      RowComponent,
+      ColComponent,
+      ButtonDirective,
+      IconDirective,
+      ReactiveFormsModule,
+      ButtonGroupComponent,
+      FormCheckLabelDirective,
+      ChartjsComponent,
+      NgStyle,
+      CardFooterComponent,
+      GutterDirective,
+      ProgressComponent,
+      WidgetsBrandComponent,
+      CardHeaderComponent,
+      TableDirective,
+      AvatarComponent,
+      RouterLink,
+      BadgeComponent,
+      TooltipDirective]
 })
 export class DashboardComponent implements OnInit {
 
@@ -61,12 +88,12 @@ export class DashboardComponent implements OnInit {
   };
 
   chartBarData: ChartData = {
-    labels: ['ممشى اهل مصر', 'الدلتا الجديدة', 'الطريق الساحلى'].slice(0, 7),
+    labels: ['حسب اللة الكفراوى', 'ممشى اهل مصر', 'الدلتا الجديدة', 'الطريق الساحلى'].slice(0, 7),
     datasets: [
       {
         label: 'نسبة التنفيذ',
         backgroundColor: '#f87979',
-        data: [40, 20, 90, 100]
+        data: [100, 80, 50, 25]
       }
     ]
   };
@@ -117,7 +144,7 @@ export class DashboardComponent implements OnInit {
     datasets: [
       {
         backgroundColor: ['#41B883', '#E46651'],
-        data: [40, 100]
+        data: [100, 20]
       }
     ]
   };

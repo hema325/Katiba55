@@ -1,77 +1,175 @@
-<c-row class="g-4">
-  <c-col xl="3" md="6" sm="6">
-    <c-widget-stat-f [title]="'عدد المشاريع'" color="primary" padding value="3500">
-      <ng-template cTemplateId="widgetIconTemplate">
-        <i class="fa-solid fa-diagram-project" style="font-size: 24px;"></i>
-      </ng-template>
-    </c-widget-stat-f>
-  </c-col>
-  <c-col xl="3" md="6" sm="6">
-    <c-widget-stat-f [title]="'عدد الشركات'" color="info" padding value="2000">
-      <ng-template cTemplateId="widgetIconTemplate">
-        <i class="fa-solid fa-building" style="font-size: 24px;"></i>
-      </ng-template>
-    </c-widget-stat-f>
-  </c-col>
-  <c-col xl="3" md="6" sm="6">
-    <c-widget-stat-f [title]="'عدد الظباط'" color="warning" padding value="5000">
-      <ng-template cTemplateId="widgetIconTemplate">
-        <i class="fa-solid fa-star" style="font-size: 24px;"></i>
-      </ng-template>
-    </c-widget-stat-f>
-  </c-col>
-  <c-col xl="3" md="6" sm="6">
-    <c-widget-stat-f [title]="'عدد المستخدمين'" color="danger" padding value="4000">
-      <ng-template cTemplateId="widgetIconTemplate">
-        <i class="fa-solid fa-users" style="font-size: 24px;"></i>
-      </ng-template>
-    </c-widget-stat-f>
-  </c-col>
-</c-row>
+<div class="row g-4 mb-5">
+  <div class="col-12">
+    <h5 class="mb-0 text-success fw-bold">المشروعات</h5>
+  </div>
 
-<c-row class="my-4">
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        نسب تنفيذ المشاريع
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="bar" [data]="chartBarData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/projects/1']" class="text-decoration-none">
+      <c-card class="h-100 card-animation  border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="هناجر دهشور"
+            cTooltipPlacement="bottom">هناجر دهشور</div>
+          <div class="mb-2">
+            <c-progress [value]="82" height="12" color="success">82%</c-progress>
+          </div>
+          <div class="small text-muted">نسبة التنفيذ</div>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
 
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/projects/2']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="ممشى أهل مصر"
+            cTooltipPlacement="bottom">ممشى أهل مصر</div>
+          <div class="mb-2">
+            <c-progress [value]="95" height="12" color="info">95%</c-progress>
+          </div>
+          <div class="small text-muted">نسبة التنفيذ</div>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
 
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        مخطط زمنى لنسب تنفيذ المشاريع
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="line" [data]="chartLineData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/projects/3']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="الدلتا الجديدة"
+            cTooltipPlacement="bottom">الدلتا الجديدة</div>
+          <div class="mb-2">
+            <c-progress [value]="40" height="12" color="warning">40%</c-progress>
+          </div>
+          <div class="small text-muted">نسبة التنفيذ</div>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
 
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        حالة المشاريع
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="pie" [data]="chartPieData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/projects/4']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="محور حسب الله"
+            cTooltipPlacement="bottom">محور حسب الله</div>
+          <div class="mb-2">
+            <c-progress [value]="0" height="12" color="secondary">0%</c-progress>
+          </div>
+          <div class="small text-muted">نسبة التنفيذ</div>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+</div>
 
-  <c-col xs="12" lg="6">
-    <c-card class="mb-4">
-      <c-card-header>
-        حالة الضباط
-      </c-card-header>
-      <c-card-body>
-        <c-chart type="doughnut" [data]="chartDoughnutData" [options]="options" />
-      </c-card-body>
-    </c-card>
-  </c-col>
-</c-row>
+<!-- الضباط -->
+<div class="row g-4 mb-5">
+  <div class="col-12">
+    <h5 class="mb-0 text-warning fw-bold">الضباط</h5>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/officers/2']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. أحمد علي"
+            cTooltipPlacement="bottom">م. أحمد علي</div>
+          <c-badge color="success">قوة الكتيبة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/officers/2']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. محمد عبداللة"
+            cTooltipPlacement="bottom">م. محمد عبداللة</div>
+          <c-badge color="danger">ليس قوة الكتيبة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/officers/2']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. كريم علي"
+            cTooltipPlacement="bottom">م. كريم علي</div>
+          <c-badge color="success">قوة الكتيبة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/officers/4']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. أحمد سمير"
+            cTooltipPlacement="bottom">م. أحمد سمير</div>
+          <c-badge color="success">قوة الكتيبة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+</div>
+
+<!-- الشركات -->
+<div class="row g-4 mb-5">
+  <div class="col-12">
+    <h5 class="mb-0 text-info fw-bold">الشركات</h5>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/companies/1']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة النصر للمقاولات"
+            cTooltipPlacement="bottom">شركة النصر للمقاولات</div>
+          <c-badge color="success">معتمدة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/companies/2']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة المقاولون العرب"
+            cTooltipPlacement="bottom">شركة المقاولون العرب</div>
+          <c-badge color="danger">غير معتمدة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/companies/3']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة المستقبل"
+            cTooltipPlacement="bottom">شركة المستقبل</div>
+          <c-badge color="success">معتمدة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <a [routerLink]="['/companies/4']" class="text-decoration-none">
+      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
+        <c-card-body>
+          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة التعمير"
+            cTooltipPlacement="bottom">شركة التعمير</div>
+          <c-badge color="danger">غير معتمدة</c-badge>
+        </c-card-body>
+      </c-card>
+    </a>
+  </div>
+</div>

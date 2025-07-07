@@ -5,3 +5,11 @@
     }
   }
 }
+
+.card-animation {
+  transition: transform .2s ease-in-out;
+}
+
+.card-animation:hover {
+  transform: scale(1.05);
+}

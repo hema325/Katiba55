@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { RowComponent, ColComponent, CardComponent, CardHeaderComponent, CardBodyComponent, ButtonDirective, BadgeComponent, TableDirective, ProgressComponent, CardFooterComponent, PaginationComponent } from '@coreui/angular';
+import { RowComponent, ColComponent, CardComponent, CardHeaderComponent, CardBodyComponent, ButtonDirective, BadgeComponent, TableDirective, ProgressComponent, CardFooterComponent, PaginationComponent, TabsListComponent, TabsContentComponent, TabsComponent, TabPanelComponent, TabDirective, WidgetStatFComponent } from '@coreui/angular';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { ChartData, ChartOptions } from 'chart.js';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-project-details',
@@ -20,7 +21,9 @@ import { PaginatorComponent } from '../../../shared/paginator/paginator.componen
     TableDirective,
     ProgressComponent,
     CardFooterComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    RouterLink,
+    WidgetStatFComponent
   ]
 })
 export class ProjectDetailsComponent {
@@ -31,22 +34,13 @@ export class ProjectDetailsComponent {
     maintainAspectRatio: false
   };
 
-  chartBarData: ChartData = {
-    labels: ['القيمة التقديرية', 'المخصص المالى'],
-    datasets: [
-      {
-        label: 'الميزانية',
-        backgroundColor: '#f87979',
-        data: [100000, 80000]
-      }
-    ]
-  };
-
   timelineProgressData: ChartData = {
-    labels: ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09', '2025-10', '2025-11', '2025-12'],
+    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+    ,
     datasets: [
       {
-        label: 'نسبة الإنجاز',
+        label: 'نسبة التنفيذ',
         data: [0, 10, 35, 40, 60, 70, 80, 85, 90, 95, 98, 100],
         borderColor: '#39f',
         backgroundColor: 'rgba(51,153,255,0.1)',
@@ -58,4 +52,15 @@ export class ProjectDetailsComponent {
       }
     ]
   }
+
+  chartBarData: ChartData = {
+    labels: ['هنجر 4', 'هنجر 3', 'هنجر 2', 'هنجر 1'].reverse().slice(0, 7),
+    datasets: [
+      {
+        label: 'نسبة التنفيذ',
+        backgroundColor: '#f87979',
+        data: [100, 80, 50, 25]
+      }
+    ]
+  };
 }

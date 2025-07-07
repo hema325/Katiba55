@@ -1,0 +1,123 @@
+<c-card class="mb-4">
+  <c-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">تفاصيل هنجر 1</h6>
+      <div class="d-flex align-items-center gap-2">
+        <button [color]="'secondary'" cButton title="تعديل العمل"><i class="fa-solid fa-pen"></i></button>
+        <button [color]="'danger'" cButton title="حذف العمل"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  </c-card-header>
+  <c-card-body>
+    <div class="row g-3 mb-2">
+      <div class="col-12 col-md-6">
+        <i class="fa-solid fa-list-check text-secondary me-2"></i><strong>اسم الهنجر:</strong> هنجر 1
+      </div>
+      <div class="col-12 col-md-6">
+        <i class="fa-solid fa-industry text-info me-2"></i><strong>الشركة المنفذة: </strong>
+        <a [routerLink]="['/companies/4']" class="text-decoration-underline text-primary">شركة مصر للمقاولات</a>
+      </div>
+      <div class="col-12 col-md-6">
+        <i class="fa-solid fa-calendar-days text-success me-2"></i><strong>تاريخ البدء:</strong> 2025-01-01
+      </div>
+      <div class="col-12 col-md-6">
+        <i class="fa-solid fa-calendar-check text-success me-2"></i><strong>تاريخ الانتهاء:</strong> 2025-12-31
+      </div>
+      <div class="col-12">
+        <i class="fa-solid fa-note-sticky text-warning me-2"></i><strong>ملاحظات:</strong> تم الانتهاء من الهيكل المعدني
+        وجاري التشطيبات
+      </div>
+    </div>
+  </c-card-body>
+</c-card>
+
+<!-- بنود هنجر 1 -->
+<c-card class="mb-4">
+  <c-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0 text-secondary">بنود هنجر 1</h6>
+      <div class="d-flex align-items-center gap-2">
+        <button [color]="'primary'" cButton title="تصفيه"><i class="fa-solid fa-filter"></i></button>
+        <button [color]="'primary'" cButton title="إضافة"><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+  </c-card-header>
+  <c-card-body class="overflow-auto">
+    <table cTable>
+      <thead>
+        <tr>
+          <th>اسم البند</th>
+          <th>العدد الكلي</th>
+          <th>العدد المنفذ</th>
+          <th>العدد غير المنفذ</th>
+          <th>نسبة التنفيذ</th>
+          <th>الملاحظات</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>هيكل خرسانى</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td><c-progress [value]="100" height="18" color="success">100%</c-progress></td>
+          <td>تم التنفيذ بالكامل</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
+              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>هيكل معدني</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td><c-progress [value]="100" height="18" color="success">100%</c-progress></td>
+          <td>تم التنفيذ بالكامل</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
+              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>تركيب الصاج</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td><c-progress [value]="100" height="18" color="success">100%</c-progress></td>
+          <td>تم التنفيذ بالكامل</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
+              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>تشطيبات</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td><c-progress [value]="0" height="18" color="secondary">0%</c-progress></td>
+          <td>جاري البدء في التشطيبات</td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
+              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </c-card-body>
+  <c-card-footer>
+    <div class="d-flex justify-content-center pt-2">
+      <app-paginator [totalPages]="10" [(currentPage)]="currentPage" />
+    </div>
+  </c-card-footer>
+</c-card>

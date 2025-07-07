@@ -1,15 +1,15 @@
 .project-poster {
-    transition: 400ms transform ease-in-out;
+    transition: transform .2s ease-in-out;
 }
 
 .project-poster:hover {
-    transform: scale(1.05) rotate(.5deg);
+    transform: scale(1.05);
 }
 
 .media-card {
-    transition: 400ms transform ease-in-out;
+    transition: transform .2s ease-in-out;
 }
 
 .media-card:hover {
-    transform: translateY(-10px);
+    transform: scale(1.05);
 }

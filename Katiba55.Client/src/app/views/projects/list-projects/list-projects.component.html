@@ -5,6 +5,8 @@
         <div class="d-flex justify-content-between align-items-center">
           <h6 class="mb-0">قائمة المشاريع</h6>
           <div class="d-flex align-items-center gap-2">
+            <button [color]="'primary'" [routerLink]="['/projects/report']" routerLinkActive="router-link-active"
+              cButton><i class="fa-solid fa-clipboard"></i></button>
             <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
             <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
           </div>
@@ -25,7 +27,6 @@
               <th>نسبة التنفيذ</th>
               <th>العنوان</th>
               <th>الحالة</th>
-              <th>التفاصيل</th>
               <th>الملاحظات</th>
               <th>الاجراءات</th>
             </tr>
@@ -39,27 +40,26 @@
                     class="table-poster">
                 </a>
               </td>
-              <td>محور حسب الله</td>
-              <td>ادارة المهندسين العسكريين</td>
-              <td>وزارة النقل</td>
-              <td>100,000</td>
-              <td>80,000</td>
-              <td>2025-01-01</td>
-              <td>2025-12-31</td>
+              <td>هناجر دهشور</td>
+              <td>إدارة المهندسين العسكريين</td>
+              <td>هيئة الإمداد والتموين</td>
+              <td>120,000 <span class="text-muted small">ج.م</span></td>
+              <td>100,000 <span class="text-muted small">ج.م</span></td>
+              <td>2024-04-01</td>
+              <td>2025-02-28</td>
               <td>
-                <c-progress [value]="80" height="16" color="success">80%</c-progress>
+                <c-progress [value]="82" height="16" color="success">82%</c-progress>
               </td>
               <td>
-                <a href="https://www.google.com/maps/search/?api=1&query=24.7136,46.6753" target="_blank">123 Main
-                  St</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=29.8712,31.2086" target="_blank">دهشور -
+                  الجيزة</a>
               </td>
               <td><c-badge class="me-1" color="warning">تحت الانشاء</c-badge></td>
-              <td>بناء محور جديد يربط بين المناطق الرئيسية</td>
-              <td>تم الانتهاء من الحفر وجاري العمل على الهيكل الخرساني</td>
+              <td>تنفيذ 4 هناجر بنسبة إنجاز إجمالية 82%</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
                   <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'secondary'" routerLink="/projects/22/edit" cButton><i class="fa-solid fa-pen"></i></a>
                   <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
                       class="fa-solid fa-trash"></i></a>
                 </div>
@@ -77,8 +77,8 @@
               <td>ممشى أهل مصر</td>
               <td>الهيئة الهندسية للقوات المسلحة</td>
               <td>محافظة القاهرة</td>
-              <td>200,000</td>
-              <td>150,000</td>
+              <td>200,000 <span class="text-muted small">ج.م</span></td>
+              <td>150,000 <span class="text-muted small">ج.م</span></td>
               <td>2024-03-01</td>
               <td>2025-06-30</td>
               <td>
@@ -89,14 +89,14 @@
                   القاهرة</a>
               </td>
               <td><c-badge class="me-1" color="success">مكتمل</c-badge></td>
-              <td>تطوير ممشى سياحي على ضفاف النيل</td>
               <td>تم افتتاح المرحلة الأولى وجاري التشطيبات النهائية</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
                   <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'secondary'" routerLink="/projects/22/edit" cButton><i class="fa-solid fa-pen"></i></a>
                   <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
                       class="fa-solid fa-trash"></i></a>
+
                 </div>
               </td>
             </tr>
@@ -111,8 +111,8 @@
               <td>الدلتا الجديدة</td>
               <td>وزارة الإسكان والمرافق</td>
               <td>وزارة الزراعة</td>
-              <td>300,000</td>
-              <td>250,000</td>
+              <td>300,000 <span class="text-muted small">ج.م</span></td>
+              <td>250,000 <span class="text-muted small">ج.م</span></td>
               <td>2023-09-01</td>
               <td>2026-12-31</td>
               <td>
@@ -123,12 +123,11 @@
                   الجديدة</a>
               </td>
               <td><c-badge class="me-1" color="danger">متوقف</c-badge></td>
-              <td>مشروع استصلاح أراضي زراعية ضخمة</td>
               <td>توقف التنفيذ بسبب مشاكل تمويلية</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
                   <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'secondary'" routerLink="/projects/22/edit" cButton><i class="fa-solid fa-pen"></i></a>
                   <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
                       class="fa-solid fa-trash"></i></a>
                 </div>

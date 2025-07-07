@@ -1,0 +1,120 @@
+<div class="row g-3 mb-4">
+  <div class="col-12 col-md-6 col-lg-4">
+    <c-card class="h-100 shadow-sm border-0 rounded-3">
+      <c-card-body class="d-flex align-items-center">
+        <!-- عدد المشروعات: أيقونة مشاريع -->
+        <i class="fa-solid fa-layer-group text-primary fs-4 me-3"></i>
+        <div>
+          <div class="fw-bold">عدد المشروعات</div>
+          <div class="small">200</div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4">
+    <c-card class="h-100 shadow-sm border-0 rounded-3">
+      <c-card-body class="d-flex align-items-center">
+        <!-- المشروعات التى بدأت: أيقونة تشغيل/بدء -->
+        <i class="fa-solid fa-play text-success fs-4 me-3"></i>
+        <div>
+          <div class="fw-bold">المشروعات التى بدات</div>
+          <div class="text-muted small">167</div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4">
+    <c-card class="h-100 shadow-sm border-0 rounded-3">
+      <c-card-body class="d-flex align-items-center">
+        <!-- المشروعات التى لم تبدأ: أيقونة توقف/حظر -->
+        <i class="fa-solid fa-ban text-danger fs-4 me-3"></i>
+        <div>
+          <div class="fw-bold">المشروعات التى لم تبدا</div>
+          <div class="text-muted small">42</div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4">
+    <c-card class="h-100 shadow-sm border-0 rounded-3">
+      <c-card-body class="d-flex align-items-center">
+        <!-- نسبة البدء: أيقونة نسبة/مخطط دائري -->
+        <i class="fa-solid fa-chart-pie text-warning fs-4 me-3"></i>
+        <div>
+          <div class="fw-bold">نسبة البدأ</div>
+          <div class="text-muted small">79%</div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4">
+    <c-card class="h-100 shadow-sm border-0 rounded-3">
+      <c-card-body class="d-flex align-items-center">
+        <!-- نسبة التنفيذ: أيقونة مخطط بياني -->
+        <i class="fa-solid fa-chart-line text-success fs-4 me-3"></i>
+        <div>
+          <div class="fw-bold">نسبة التنفيذ</div>
+          <div class="text-muted small">14.8%</div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4">
+    <c-card class="h-100 shadow-sm border-0 rounded-3">
+      <c-card-body class="d-flex align-items-center">
+        <!-- عدد المشروعات نسبة تنفيذ 100%: أيقونة ميدالية/نجمة -->
+        <i class="fa-solid fa-medal text-info fs-4 me-3"></i>
+        <div>
+          <div class="fw-bold">عدد المشروعات نسبة تنفيذ 100%</div>
+          <div class="text-muted small">0</div>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+</div>
+
+<c-row class="my-4">
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0">نسب تنفيذ المشاريع</h6>
+          <div class="d-flex align-items-center gap-2">
+            <button [color]="'primary'" cButton title="إضافة"><i class="fa-solid fa-filter"></i></button>
+          </div>
+        </div>
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="bar" [data]="chartBarData" [options]="options" />
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0">مخطط زمنى لنسب تنفيذ المشاريع</h6>
+          <div class="d-flex align-items-center gap-2">
+            <button [color]="'primary'" cButton title="إضافة"><i class="fa-solid fa-filter"></i></button>
+          </div>
+        </div>
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line" [data]="chartLineData" [options]="options" />
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <!-- 
+  <c-col xs="12" lg="6">
+    <c-card class="mb-4">
+      <c-card-header>
+        <h6 class="py-2 mb-0">حالة المشاريع</h6>
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="pie" [data]="chartPieData" [options]="options" />
+      </c-card-body>
+    </c-card>
+  </c-col> -->
+</c-row>

@@ -1,0 +1,97 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0">قائمة الضباط</h6>
+          <div class="d-flex align-items-center gap-2">
+            <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
+            <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </c-card-header>
+      <c-card-body class="overflow-auto">
+        <table cTable>
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>البريد الإلكتروني</th>
+              <th>الهاتف</th>
+              <th>الرتبة</th>
+              <th>الحالة</th>
+              <th>تاريخ الانضمام</th>
+              <th>تاريخ المغادرة</th>
+              <th>الملاحظات</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>عقيد مهندس محمد عبد الله</td>
+              <td>officer&#64;army.gov.eg</td>
+              <td>01001112222</td>
+              <td>عقيد </td>
+              <td><c-badge color="success">داخل الكتيبة</c-badge></td>
+              <td>2024-01-01</td>
+              <td>2025-12-31</td>
+              <td>لايوجد</td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <a [color]="'primary'" routerLink="/officers/22" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>مقدم أحمد سامي</td>
+              <td>ahmed.samy&#64;army.gov.eg</td>
+              <td>01002223333</td>
+              <td>مقدم</td>
+              <td><c-badge color="danger">خارج الكتيبة</c-badge></td>
+              <td>2022-05-10</td>
+              <td>2025-05-10</td>
+              <td>لايوجد</td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>رائد فاطمة عبد الرحمن</td>
+              <td>fatma.ar&#64;army.gov.eg</td>
+              <td>01003334444</td>
+              <td>رائد</td>
+              <td><c-badge color="danger">خارج الكتيبة</c-badge></td>
+              <td>2018-09-01</td>
+              <td>2024-12-31</td>
+              <td>لايوجد</td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
+                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
+                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
+                      class="fa-solid fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+      <c-card-footer>
+        <div class="d-flex justify-content-center pt-2">
+          <app-paginator [totalPages]="10" [(currentPage)]="currentPage" />
+        </div>
+      </c-card-footer>
+    </c-card>
+  </c-col>
+</c-row>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />
