@@ -8,7 +8,6 @@ namespace Katiba55.API.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
-            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,8 +21,7 @@ namespace Katiba55.API.Data
         public DbSet<Officer> Officers { get; private set; }
         public DbSet<Company> Companies { get; private set; }
         public DbSet<Project> Projects { get; private set; }
-        public DbSet<ProjectCompany> ProjectCompanies { get; private set; }
         public DbSet<ProjectMedia> ProjectMedias { get; private set; }
-        public DbSet<ProjectExecutionProgress> ProjectExecutionHistory { get; private set; }
+        public DbSet<ProjectProgress> ProjectExecutionHistory { get; private set; }
     }
 }

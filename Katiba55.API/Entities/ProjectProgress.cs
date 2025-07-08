@@ -1,11 +1,9 @@
 ﻿namespace Katiba55.API.Entities
 {
-    public class ProjectExecutionProgress: BaseEntity
+    public class ProjectProgress: BaseEntity
     {
-        public double Percentage { get; set; }
+        public double ExecutionPercentage { get; set; }
         public DateTimeOffset Date { get; set; }
-        public string? Details { get; set; }
-        public string? Notes { get; set; }
 
         public int ProjectId { get; set; }
         public Project Project { get; set; }

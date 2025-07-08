@@ -8,9 +8,12 @@ namespace Katiba55.API.Profiles
         {
             CreateMap<CreateProjectDto, Project>();
             CreateMap<UpdateProjectDto, Project>();
-            CreateMap<Project, ProjectBriefDto>();
-            CreateMap<Project, ProjectDetailedDto>();
-            CreateMap<Project, ProjectListDto>();
+
+            CreateMap<Project, ProjectBriefDto>()
+                .ForMember(dest => dest.LastProgreess, opt => opt.MapFrom(src => src.Progresses.OrderByDescending(p => p.Date).FirstOrDefault()));
+
+            CreateMap<Project, ProjectDto>()
+                .ForMember(dest => dest.LastProgreess, opt => opt.MapFrom(src => src.Progresses.OrderByDescending(p => p.Date).FirstOrDefault()));
         }
     }
 }

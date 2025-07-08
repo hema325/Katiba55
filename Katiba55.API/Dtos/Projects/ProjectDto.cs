@@ -1,11 +1,15 @@
-﻿namespace Katiba55.API.Entities
+﻿using Katiba55.API.Dtos.Officers;
+using Katiba55.API.Dtos.ProjectProgress;
+
+namespace Katiba55.API.Dtos.Projects
 {
-    public class Project: BaseEntity
+    public class ProjectDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string? ExecutingSide { get; set; } 
-        public string? BenefitingSide { get; set; } 
-        public decimal? EstimatedCost { get; set; } 
+        public string? ExecutingSide { get; set; }
+        public string? BenefitingSide { get; set; }
+        public decimal? EstimatedCost { get; set; }
         public decimal? FinancialAllocation { get; set; }
         public DateTime? EstimatedStartDate { get; set; }
         public DateTime? EstimatedEndDate { get; set; }
@@ -15,11 +19,7 @@
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public ProjectStatus Status { get; set; }
-
-        public int SupervisorId { get; set; }
-        public Officer Supervisor { get; set; }
-        public ICollection<ProjectProgress> Progresses { get; set; }
-        public ICollection<ProjectMedia> Medias { get; set; }
-        public ICollection<ProjectWork> Works { get; set; }
+        public OfficerBriefDto Supervisor { get; set; }
+        public ProjectProgressDto? LastProgreess { get; set; }
     }
 }

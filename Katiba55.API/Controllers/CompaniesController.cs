@@ -24,12 +24,6 @@ namespace Katiba55.API.Controllers
             if (await _context.Companies.AnyAsync(c => c.Name == dto.Name)) 
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
-            if (await _context.Companies.AnyAsync(c => c.Email == dto.Email)) 
-                return Response(ResultFactory.Conflict("البريد الإلكتروني هذا مستخدم بالفعل. يرجى إدخال بريد إلكتروني آخر"));
-
-            if (await _context.Companies.AnyAsync(c => c.Phone == dto.Phone)) 
-                return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-
             var company = _mapper.Map<Company>(dto);
 
             _context.Companies.Add(company);
@@ -49,12 +43,6 @@ namespace Katiba55.API.Controllers
             if (await _context.Companies.AnyAsync(c => c.Id != id && c.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
-            if (await _context.Companies.AnyAsync(c => c.Id != id && c.Email == dto.Email))
-                return Response(ResultFactory.Conflict("البريد الإلكتروني هذا مستخدم بالفعل. يرجى إدخال بريد إلكتروني آخر"));
-
-            if (await _context.Companies.AnyAsync(c => c.Id != id && c.Phone == dto.Phone))
-                return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-
             _mapper.Map(dto, company);
 
             _context.Companies.Update(company);
@@ -71,14 +59,26 @@ namespace Katiba55.API.Controllers
             if (company == null)
                 return Response(ResultFactory.NotFound());
 
+            try
+            {
+                if(!string.IsNullOrEmpty(company.ApprovalImagPath))
+                {
+                    System.IO.File.Delete(company.ApprovalImagPath);
+                }
+            }
+            catch
+            {
+                return Response(ResultFactory.BadRequest(message: "حدث خطأ أثناء حذف صورة الموافقة الأمنية. يرجى المحاولة مرة أخرى."));
+            }
+
             _context.Companies.Remove(company);
             await _context.SaveChangesAsync();
 
             return Response(ResultFactory.NoContent());
         }
 
-        [HttpGet("{id}/getById")]
-        public async Task<IActionResult> GetByIdAsync(int id)
+        [HttpGet("{id}/detailed")]
+        public async Task<IActionResult> GetDetailedAsync(int id)
         {
             var company = await _context.Companies
                 .ProjectTo<CompanyDto>(_mapper.ConfigurationProvider)
@@ -90,8 +90,8 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(company));
         }
 
-        [HttpGet("getAll")]
-        public async Task<IActionResult> GetAllAsync()
+        [HttpGet("brief")]
+        public async Task<IActionResult> GetAllBriefAsync()
         {
             var companies = await _context.Companies
                          .ProjectTo<CompanyBriefDto>(_mapper.ConfigurationProvider)
@@ -100,23 +100,12 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(companies));
         }
 
-        [HttpGet("paginate")]
-        public async Task<IActionResult> PaginateAsync([FromQuery] CompanyFilterDto dto)
+        [HttpGet("detailed")]
+        public async Task<IActionResult> GetDetailedAsync()
         {
-            var query = _context.Companies.AsQueryable();
-
-            if(!string.IsNullOrEmpty(dto.Name))
-                query = query.Where(c => c.Name.Contains(dto.Name));
-            
-            if(!string.IsNullOrEmpty(dto.Email))
-                query = query.Where(c => c.Email.Contains(dto.Email));
-            
-            if(!string.IsNullOrEmpty(dto.Phone))
-                query = query.Where(c => c.Email.Contains(dto.Phone));
-
-            var companies = await query
+            var companies = await _context.Companies
                          .ProjectTo<CompanyDto>(_mapper.ConfigurationProvider)
-                         .PaginateAsync(dto.PageNumber, dto.PageSize);
+                         .ToListAsync();
 
             return Response(ResultFactory.Ok(companies));
         }

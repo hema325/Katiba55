@@ -26,7 +26,7 @@
                 Message = message ?? GetDefaultMessage(204)
             };
 
-        public static Result<Empty> BadRequest(string[] errors, string? message = null)
+        public static Result<Empty> BadRequest(string[]? errors = null, string? message = null)
             => new()
             {
                 Status = 400,

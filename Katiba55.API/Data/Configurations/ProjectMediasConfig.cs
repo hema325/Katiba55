@@ -8,6 +8,8 @@ namespace Katiba55.API.Data.Configurations
         public void Configure(EntityTypeBuilder<ProjectMedia> builder)
         {
             builder.Property(p => p.Path).IsUnicode(false);
+
+            builder.HasOne(pm => pm.Project).WithMany(p => p.Medias).HasForeignKey(pm => pm.ProjectId);
         }
     }
 }

@@ -65,11 +65,11 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.NoContent());
         }
 
-        [HttpGet("{id}/getById")]
-        public async Task<IActionResult> GetbyIdAsync(int id)
+        [HttpGet("{id}/detailed")]
+        public async Task<IActionResult> GetDetailedAsync(int id)
         {
             var project = await _context.Projects
-                .ProjectTo<ProjectDetailedDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if(project == null)
@@ -78,8 +78,8 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(project));
         }
 
-        [HttpGet("getAll")]
-        public async Task<IActionResult> GetAllAsync()
+        [HttpGet("brief")]
+        public async Task<IActionResult> GetAllBriefAsync()
         {
             var projects = await _context.Projects
                 .ProjectTo<ProjectBriefDto>(_mapper.ConfigurationProvider)
@@ -88,32 +88,12 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(projects));
         }
 
-        [HttpGet("paginate")]
-        public async Task<IActionResult> PaginateAsync([FromQuery] ProjectsFilterDto dto)
+        [HttpGet("detailed")]
+        public async Task<IActionResult> GetAllDetailedAsync()
         {
-            var query = _context.Projects.AsQueryable();
-
-            if (!string.IsNullOrEmpty(dto.Name))
-                query = query.Where(p => p.Name.Contains(dto.Name));
-
-            if (dto.Status != null)
-                query = query.Where(p => p.Status == dto.Status);
-
-            if(dto.SupervisorId != null)
-                query = query.Where(p => p.SupervisorId == dto.SupervisorId);
-
-            if (dto.CompaniesId != null && dto.CompaniesId.Any())
-                query = query.Where(p => p.ProjectCompanies.Any(pc => dto.CompaniesId.Contains(pc.CompanyId)));
-
-            if (dto.FromDate != null)
-                query = query.Where(p => p.StartDate >= dto.FromDate);
-
-            if(dto.ToDate != null)
-                query = query.Where(p => p.StartDate <= dto.ToDate);
-
-            var projects = await query
-                .ProjectTo<ProjectListDto>(_mapper.ConfigurationProvider)
-                .PaginateAsync(dto.PageNumber, dto.PageSize);
+            var projects = await _context.Projects
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
 
             return Response(ResultFactory.Ok(projects));
         }

@@ -24,18 +24,7 @@ namespace Katiba55.API.Controllers
             if (await _context.Officers.AnyAsync(o => o.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
-            if (await _context.Officers.AnyAsync(o => o.Email == dto.Email))
-                return Response(ResultFactory.Conflict("البريد الإلكتروني هذا مستخدم بالفعل. يرجى إدخال بريد إلكتروني آخر"));
-
-            if (await _context.Officers.AnyAsync(o => o.Phone == dto.Phone))
-                return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-
             var officer = _mapper.Map<Officer>(dto);
-
-            if (dto.LeaveDate != null)
-                officer.Status = OfficerStatus.OutBattalion;
-            else
-                officer.Status = OfficerStatus.InBattalion;
 
             _context.Officers.Add(officer);
             await _context.SaveChangesAsync();
@@ -53,17 +42,6 @@ namespace Katiba55.API.Controllers
 
             if (await _context.Officers.AnyAsync(o => o.Id != id && o.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
-
-            if (await _context.Officers.AnyAsync(o => o.Id != id && o.Email == dto.Email))
-                return Response(ResultFactory.Conflict("البريد الإلكتروني هذا مستخدم بالفعل. يرجى إدخال بريد إلكتروني آخر"));
-
-            if (await _context.Officers.AnyAsync(o => o.Id != id && o.Phone == dto.Phone))
-                return Response(ResultFactory.Conflict("رقم الهاتف هذا مسجّل لدينا من قبل. الرجاء استخدام رقم مختلف."));
-
-            if (dto.LeaveDate != null)
-                officer.Status = OfficerStatus.OutBattalion;
-            else
-                officer.Status = OfficerStatus.InBattalion;
 
             _mapper.Map(dto, officer);
 
@@ -87,8 +65,8 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.NoContent());
         }
 
-        [HttpGet("{id}/getById")]
-        public async Task<IActionResult> GetByIdAsync(int id)
+        [HttpGet("{id}/detailed")]
+        public async Task<IActionResult> GetDetailedAsync(int id)
         {
             var officer = await _context.Officers
                 .ProjectTo<OfficerDto>(_mapper.ConfigurationProvider)
@@ -100,8 +78,8 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(officer));
         }
 
-        [HttpGet("getAll")]
-        public async Task<IActionResult> GetAllAsync()
+        [HttpGet("brief")]
+        public async Task<IActionResult> GetAllBriefAsync()
         {
             var officers = await _context.Officers
                 .ProjectTo<OfficerBriefDto>(_mapper.ConfigurationProvider)
@@ -110,29 +88,12 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(officers));
         }
 
-        [HttpGet("paginate")]
-        public async Task<IActionResult> PaginateAsync([FromQuery] OfficerFilterDto dto)
+        [HttpGet("detailed")]
+        public async Task<IActionResult> GetAllDetailedAsync()
         {
-            var query = _context.Officers.AsQueryable();
-
-            if (!string.IsNullOrEmpty(dto.Name))
-                query = query.Where(o => o.Name.Contains(dto.Name));
-            
-            if (!string.IsNullOrEmpty(dto.Email))
-                query = query.Where(o => o.Email.Contains(dto.Email));
-            
-            if (!string.IsNullOrEmpty(dto.Phone))
-                query = query.Where(o => o.Email.Contains(dto.Phone));
-
-            if (dto.Rank != null)
-                query = query.Where(o => o.Rank == dto.Rank);
-
-            if(dto.Status != null)
-                query = query.Where(o=>o.Status == dto.Status); 
-
-            var officers = await query
+            var officers = await _context.Officers
                          .ProjectTo<OfficerDto>(_mapper.ConfigurationProvider)
-                         .PaginateAsync(dto.PageNumber, dto.PageSize);
+                         .ToListAsync();
 
             return Response(ResultFactory.Ok(officers));
         }

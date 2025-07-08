@@ -2,8 +2,9 @@
 {
     public enum ProjectStatus
     {
-        OnHold = 1,
-        Underconstruction = 2,
-        Completed = 3
+        Pending = 1,
+        OnHold = 2,
+        Underconstruction = 3,
+        Completed = 4
     }
 }
