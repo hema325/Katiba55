@@ -4,6 +4,7 @@ import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { ChartData, ChartOptions } from 'chart.js';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
 import { RouterLink } from '@angular/router';
+import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
 
 @Component({
   selector: 'app-project-details',
@@ -23,7 +24,8 @@ import { RouterLink } from '@angular/router';
     CardFooterComponent,
     PaginatorComponent,
     RouterLink,
-    WidgetStatFComponent
+    WidgetStatFComponent,
+    CircularProgressComponent
   ]
 })
 export class ProjectDetailsComponent {

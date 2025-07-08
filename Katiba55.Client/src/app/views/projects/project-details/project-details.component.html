@@ -1,3 +1,16 @@
+<c-card class="mb-4 shadow-sm p-2">
+  <c-card-body>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
+      <app-circular-progress [percent]="80" color="#31a751" />
+      <div class="mt-2 text-muted">
+        آخر تحديث: 2025-07-08
+      </div>
+    </div>
+  </c-card-body>
+</c-card>
+
+
 <!-- كارد معلومات المشروع الأساسية بشكل مقسم إلى بطاقات صغيرة -->
 <div class="row g-3 mb-4">
   <div class="col-12 col-md-6 col-lg-4">
@@ -136,6 +149,7 @@
   </div>
 </div>
 
+
 <!-- الموقع على الخريطة -->
 <div class="mb-4">
   <h6 class="text-secondary mb-3">
@@ -151,11 +165,11 @@
 </div>
 
 <!-- الهناجر -->
-<div class="row g-4 mt-4">
+<div class="row g-4 mb-4">
   <div class="col-12">
     <h6 class="text-secondary mb-0">
       <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
-      الاعمال
+      الموقف التنفيذى
     </h6>
   </div>
   <!-- هنجر 1 -->
@@ -380,11 +394,136 @@
   </div>
 </div>
 
-<c-row class="my-4">
+<div class="mb-5">
+  <h6 class="text-secondary mb-0">
+    <i class="fa-solid fa-photo-film text-success me-2"></i>
+    ملخص الموقف التنفيذي
+  </h6>
+
+  <div class="overflow-auto mt-3">
+    <table [bordered]="true" cTable class="text-center">
+      <thead class="table-success">
+        <tr>
+          <th rowspan="2">الأعمال</th>
+          <th colspan="4">الهيكل الخرساني</th>
+          <th colspan="4">الهيكل المعدني</th>
+          <th colspan="4">تركيب الصاج</th>
+          <th colspan="4">التشطيبات</th>
+          <th rowspan="2">إجمالي نسبة التنفيذ</th>
+        </tr>
+        <tr>
+          <th>الإجمالي</th>
+          <th>المنفذ</th>
+          <th>غير المنفذ</th>
+          <th>نسبة التنفيذ</th>
+
+          <th>الإجمالي</th>
+          <th>المنفذ</th>
+          <th>غير المنفذ</th>
+          <th>نسبة التنفيذ</th>
+
+          <th>الإجمالي</th>
+          <th>المنفذ</th>
+          <th>غير المنفذ</th>
+          <th>نسبة التنفيذ</th>
+
+          <th>الإجمالي</th>
+          <th>المنفذ</th>
+          <th>غير المنفذ</th>
+          <th>نسبة التنفيذ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>هنجر 1</td>
+          <td>10</td>
+          <td>8</td>
+          <td>2</td>
+          <td>80%</td>
+          <td>12</td>
+          <td>6</td>
+          <td>6</td>
+          <td>50%</td>
+          <td>20</td>
+          <td>5</td>
+          <td>15</td>
+          <td>25%</td>
+          <td>6</td>
+          <td>2</td>
+          <td>4</td>
+          <td>33%</td>
+          <td>47%</td>
+        </tr>
+        <tr>
+          <td>هنجر 2</td>
+          <td>10</td>
+          <td>10</td>
+          <td>0</td>
+          <td>100%</td>
+          <td>12</td>
+          <td>10</td>
+          <td>2</td>
+          <td>83%</td>
+          <td>20</td>
+          <td>15</td>
+          <td>5</td>
+          <td>75%</td>
+          <td>6</td>
+          <td>6</td>
+          <td>0</td>
+          <td>100%</td>
+          <td>90%</td>
+        </tr>
+        <tr>
+          <td>هنجر 3</td>
+          <td>10</td>
+          <td>2</td>
+          <td>8</td>
+          <td><span class="text-danger">20%</span></td>
+          <td>12</td>
+          <td>3</td>
+          <td>9</td>
+          <td><span class="text-danger">25%</span></td>
+          <td>20</td>
+          <td>2</td>
+          <td>18</td>
+          <td><span class="text-danger">10%</span></td>
+          <td>6</td>
+          <td>0</td>
+          <td>6</td>
+          <td><span class="text-danger">0%</span></td>
+          <td><span class="text-danger">14%</span></td>
+        </tr>
+        <tr>
+          <td>هنجر 4</td>
+          <td>10</td>
+          <td>7</td>
+          <td>3</td>
+          <td>70%</td>
+          <td>12</td>
+          <td>8</td>
+          <td>4</td>
+          <td>67%</td>
+          <td>20</td>
+          <td>12</td>
+          <td>8</td>
+          <td>60%</td>
+          <td>6</td>
+          <td>3</td>
+          <td>3</td>
+          <td>50%</td>
+          <td>62%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<c-row class="mb-4">
   <c-col xs="12" lg="6">
     <c-card class="mb-4">
       <c-card-header>
-        مخطط زمنى لنسب تنفيذ المشروع
+        مخطط زمنى لنسب التنفيذ
       </c-card-header>
       <c-card-body>
         <c-chart type="line" [data]="timelineProgressData" [options]="options" />
@@ -395,7 +534,7 @@
   <c-col xs="12" lg="6">
     <c-card class="mb-4">
       <c-card-header>
-        نسب تنفيذ الاعمال
+        الموقف التنفيذى
       </c-card-header>
       <c-card-body>
         <c-chart type="bar" [data]="chartBarData" [options]="options" />
