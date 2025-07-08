@@ -8,7 +8,7 @@
         public string? Phone { get; set; }
         public OfficerRanks Rank { get; set; }
         public OfficerStatus Status { get; set; }
-        public DateTimeOffset? JoinDate { get; set; }
-        public DateTimeOffset? LeaveDate { get; set; }
+        public DateTime? JoinDate { get; set; }
+        public DateTime? LeaveDate { get; set; }
     }
 }

@@ -2,7 +2,8 @@
 {
     public class ProjectProgressDto
     {
+        public int Id { get; set; }
         public double ExecutionPercentage { get; set; }
-        public DateTimeOffset Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }

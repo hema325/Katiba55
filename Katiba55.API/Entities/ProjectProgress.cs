@@ -3,7 +3,7 @@
     public class ProjectProgress: BaseEntity
     {
         public double ExecutionPercentage { get; set; }
-        public DateTimeOffset Date { get; set; }
+        public DateTime Date { get; set; }
 
         public int ProjectId { get; set; }
         public Project Project { get; set; }

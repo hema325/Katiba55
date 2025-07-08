@@ -10,7 +10,7 @@ namespace Katiba55.API.Data.Configurations
             builder.HasIndex(pw => pw.Name).IsUnique();
 
             builder.HasOne(p => p.Responsible).WithMany(c => c.Works).HasForeignKey(w => w.ResponsibleId);
-            builder.HasOne(p => p.Project).WithMany(p => p.Works).HasForeignKey(w => w.ResponsibleId);
+            builder.HasOne(p => p.Project).WithMany(p => p.Works).HasForeignKey(w => w.ProjectId);
         }
     }
 }

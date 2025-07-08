@@ -9,8 +9,9 @@ namespace Katiba55.API.Dtos.Officers
         public string? Phone { get; set; }
         [EnumDataType(typeof(OfficerRanks))]
         public OfficerRanks Rank { get; set; }
+        [EnumDataType(typeof(OfficerStatus))]
         public OfficerStatus Status { get; set; }
-        public DateTimeOffset? JoinDate { get; set; }
-        public DateTimeOffset? LeaveDate { get; set; }
+        public DateTime? JoinDate { get; set; }
+        public DateTime? LeaveDate { get; set; }
     }
 }

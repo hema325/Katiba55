@@ -12,7 +12,5 @@
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public string? ApprovalImagPath { get; set; }
-
-        public ICollection<ProjectWork> Works { get; set; }
     }
 }
