@@ -6,6 +6,10 @@ namespace Katiba55.API.Controllers
     public abstract class BaseController : ControllerBase
     {
         protected IActionResult Response<TData>(Result<TData> result)
-            => Ok(result);          
+            => result.Status switch
+            {
+                204 => NoContent(),
+                _ => StatusCode(result.Status, result)
+            };    
     }
 }

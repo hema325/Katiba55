@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 namespace Katiba55.API.Controllers
 {
     [Route("api/projects/{projectId}/progresses")]
-    public class ProjectProgresses : BaseController
+    public class ProjectProgressesController : BaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public ProjectProgresses(ApplicationDbContext context, IMapper mapper)
+        public ProjectProgressesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
