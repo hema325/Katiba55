@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Katiba55.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250709095145_Init")]
+    [Migration("20250709123238_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -29,7 +29,7 @@ namespace Katiba55.API.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ApprovalImagPath")
+                    b.Property<string>("ApprovalImagePath")
                         .IsUnicode(false)
                         .HasColumnType("TEXT");
 
@@ -180,14 +180,14 @@ namespace Katiba55.API.Migrations
                     b.Property<string>("ExecutingSide")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("ExecutionDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("ExecutionPercent")
+                        .HasColumnType("REAL");
+
                     b.Property<decimal?>("FinancialAllocation")
                         .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("LastExecutionDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("LastExecutionPercent")
-                        .HasColumnType("REAL");
 
                     b.Property<double?>("Latitude")
                         .HasColumnType("REAL");
@@ -278,10 +278,10 @@ namespace Katiba55.API.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("LastExecutionDate")
+                    b.Property<DateTime?>("ExecutionDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("LastExecutionPercent")
+                    b.Property<double?>("ExecutionPercent")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Name")
@@ -334,23 +334,14 @@ namespace Katiba55.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ExecutedCount")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("ExecutionDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("ExecutionPercent")
                         .HasColumnType("REAL");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<int>("TotalCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UnexecutedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("WorkId")
                         .HasColumnType("INTEGER");

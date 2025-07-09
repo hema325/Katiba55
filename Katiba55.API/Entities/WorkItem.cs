@@ -2,13 +2,9 @@
 {
     public class WorkItem: BaseEntity
     {
-        public int TotalCount { get; set; }
-        public int ExecutedCount { get; set; }
-        public int UnexecutedCount { get; set; }
         public double ExecutionPercent { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime ExecutionDate { get; set; }
         
-
         public int WorkId { get; set; }
         public Work Work { get; set; }
 

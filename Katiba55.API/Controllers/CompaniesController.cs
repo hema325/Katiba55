@@ -61,8 +61,8 @@ namespace Katiba55.API.Controllers
 
             try
             {
-                if(System.IO.File.Exists(company.ApprovalImagPath))
-                    System.IO.File.Delete(company.ApprovalImagPath);
+                if(System.IO.File.Exists(company.ApprovalImagePath))
+                    System.IO.File.Delete(company.ApprovalImagePath);
             }
             catch
             {

@@ -26,6 +26,18 @@ namespace Katiba55.API.Controllers
 
             var project = _mapper.Map<Project>(dto);
 
+            if (project.ExecutionPercent != null && project.ExecutionDate != null)
+            {
+                project.ExecutionHistories =
+                [
+                    new ProjectExecutionHistory
+                    {
+                        Percentage = project.ExecutionPercent.Value,
+                        Date =  project.ExecutionDate.Value
+                    }
+                ];
+            }
+
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
 
@@ -42,6 +54,18 @@ namespace Katiba55.API.Controllers
 
             if (await _context.Projects.AnyAsync(p => p.Id != id && p.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
+
+            if(dto.ExecutionDate != null && dto.ExecutionPercent != null && dto.ExecutionDate != project.ExecutionDate && dto.ExecutionPercent != project.ExecutionPercent)
+            {
+                project.ExecutionHistories =
+                [
+                    new ProjectExecutionHistory
+                    {
+                        Percentage = project.ExecutionPercent.Value,
+                        Date =  project.ExecutionDate.Value
+                    }
+                ];
+            }
 
             _mapper.Map(dto, project);
 
@@ -114,6 +138,17 @@ namespace Katiba55.API.Controllers
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(projects));
+        }
+
+        [HttpGet("{id}/executionHistories")]
+        public async Task<IActionResult> GetExecutionHistoriesAsync(int id)
+        {
+            var histories = await _context.ProjectExecutionHistories
+                .Where(h => h.ProjectId == id)
+                .ProjectTo<ProjectExecutionHistoryDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return Response(ResultFactory.Ok(histories));
         }
     }
 }

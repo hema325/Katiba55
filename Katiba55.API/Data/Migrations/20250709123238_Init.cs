@@ -25,7 +25,7 @@ namespace Katiba55.API.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     Latitude = table.Column<double>(type: "REAL", nullable: true),
                     Longitude = table.Column<double>(type: "REAL", nullable: true),
-                    ApprovalImagPath = table.Column<string>(type: "TEXT", unicode: false, nullable: true)
+                    ApprovalImagePath = table.Column<string>(type: "TEXT", unicode: false, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,8 +88,8 @@ namespace Katiba55.API.Migrations
                     Latitude = table.Column<double>(type: "REAL", nullable: true),
                     Longitude = table.Column<double>(type: "REAL", nullable: true),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    LastExecutionPercent = table.Column<double>(type: "REAL", nullable: false),
-                    LastExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ExecutionPercent = table.Column<double>(type: "REAL", nullable: true),
+                    ExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     SupervisorId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -176,8 +176,8 @@ namespace Katiba55.API.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    LastExecutionPercent = table.Column<double>(type: "REAL", nullable: false),
-                    LastExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ExecutionPercent = table.Column<double>(type: "REAL", nullable: true),
+                    ExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     ResponsibleId = table.Column<int>(type: "INTEGER", nullable: true),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -224,11 +224,8 @@ namespace Katiba55.API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TotalCount = table.Column<int>(type: "INTEGER", nullable: false),
-                    ExecutedCount = table.Column<int>(type: "INTEGER", nullable: false),
-                    UnexecutedCount = table.Column<int>(type: "INTEGER", nullable: false),
                     ExecutionPercent = table.Column<double>(type: "REAL", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     WorkId = table.Column<int>(type: "INTEGER", nullable: false),
                     ItemId = table.Column<int>(type: "INTEGER", nullable: false)
                 },

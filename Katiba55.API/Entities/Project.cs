@@ -16,8 +16,8 @@
         public double? Longitude { get; set; }
         public ProjectStatus Status { get; set; }
 
-        public double LastExecutionPercent { get; set; }
-        public DateTime? LastExecutionDate { get; set; }
+        public double? ExecutionPercent { get; set; }
+        public DateTime? ExecutionDate { get; set; }
 
         public int SupervisorId { get; set; }
         public Officer Supervisor { get; set; }

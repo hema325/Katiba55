@@ -6,7 +6,7 @@ namespace Katiba55.API.Dtos.Projects
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double LastExecutionPercent { get; set; }
-        public DateTime? LastExecutionDate { get; set; }
+        public double? ExecutionPercent { get; set; }
+        public DateTime? ExecutionDate { get; set; }
     }
 }

@@ -18,8 +18,8 @@ namespace Katiba55.API.Dtos.Projects
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public ProjectStatus Status { get; set; }
-        public double LastExecutionPercent { get; set; }
-        public DateTime? LastExecutionDate { get; set; }
+        public double? ExecutionPercent { get; set; }
+        public DateTime? ExecutionDate { get; set; }
         public OfficerBriefDto Supervisor { get; set; }
     }
 }

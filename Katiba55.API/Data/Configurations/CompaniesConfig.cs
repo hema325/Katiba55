@@ -7,7 +7,7 @@ namespace Katiba55.API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.Property(p => p.ApprovalImagPath).IsUnicode(false);
+            builder.Property(p => p.ApprovalImagePath).IsUnicode(false);
             builder.HasIndex(p => p.Name).IsUnique();
         }
     }
