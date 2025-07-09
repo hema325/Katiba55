@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Katiba55.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250708123534_Init")]
+    [Migration("20250709095145_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -63,6 +63,57 @@ namespace Katiba55.API.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("Katiba55.API.Entities.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.Media", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Medias");
+                });
+
             modelBuilder.Entity("Katiba55.API.Entities.Officer", b =>
                 {
                     b.Property<int>("Id")
@@ -96,7 +147,7 @@ namespace Katiba55.API.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Officer");
+                    b.ToTable("Officers");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Project", b =>
@@ -132,6 +183,12 @@ namespace Katiba55.API.Migrations
                     b.Property<decimal?>("FinancialAllocation")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("LastExecutionDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("LastExecutionPercent")
+                        .HasColumnType("REAL");
+
                     b.Property<double?>("Latitude")
                         .HasColumnType("REAL");
 
@@ -158,35 +215,7 @@ namespace Katiba55.API.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectMedia", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .IsUnicode(false)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("ProjectMedias");
-                });
-
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectProgress", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.ProjectExecutionHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -195,7 +224,7 @@ namespace Katiba55.API.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("ExecutionPercentage")
+                    b.Property<double>("Percentage")
                         .HasColumnType("REAL");
 
                     b.Property<int>("ProjectId")
@@ -205,16 +234,54 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectProgresses");
+                    b.ToTable("ProjectExecutionHistories");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectWork", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("ExecutionPercentage")
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HashedPassword")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LastLoginDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.Work", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("LastExecutionDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("LastExecutionPercent")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Name")
@@ -224,39 +291,32 @@ namespace Katiba55.API.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ResponsibleId")
+                    b.Property<int?>("ResponsibleId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
                     b.HasIndex("ResponsibleId");
 
-                    b.ToTable("ProjectWorks");
+                    b.ToTable("Works");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectWorkItem", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.WorkExecutionHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ExecutedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("ExecutionPercentage")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TotalCount")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Percentage")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("WorkId")
                         .HasColumnType("INTEGER");
@@ -265,21 +325,79 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("WorkId");
 
-                    b.ToTable("ProjectWorkItems");
+                    b.ToTable("WorkExecutionHistories");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.Project", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.WorkItem", b =>
                 {
-                    b.HasOne("Katiba55.API.Entities.Officer", "Supervisor")
-                        .WithMany("Projects")
-                        .HasForeignKey("SupervisorId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExecutedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("ExecutionPercent")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UnexecutedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("WorkId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("WorkId");
+
+                    b.ToTable("WorkItems");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.WorkItemExecutionHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Percentage")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("WorkItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkItemId");
+
+                    b.ToTable("WorkItemExecutionHistories");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.Item", b =>
+                {
+                    b.HasOne("Katiba55.API.Entities.Project", "Project")
+                        .WithMany("Items")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Supervisor");
+                    b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectMedia", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.Media", b =>
                 {
                     b.HasOne("Katiba55.API.Entities.Project", "Project")
                         .WithMany("Medias")
@@ -290,10 +408,21 @@ namespace Katiba55.API.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectProgress", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.Project", b =>
+                {
+                    b.HasOne("Katiba55.API.Entities.Officer", "Supervisor")
+                        .WithMany("Projects")
+                        .HasForeignKey("SupervisorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Supervisor");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.ProjectExecutionHistory", b =>
                 {
                     b.HasOne("Katiba55.API.Entities.Project", "Project")
-                        .WithMany("Progresses")
+                        .WithMany("ExecutionHistories")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -301,7 +430,7 @@ namespace Katiba55.API.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectWork", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.Work", b =>
                 {
                     b.HasOne("Katiba55.API.Entities.Project", "Project")
                         .WithMany("Works")
@@ -311,19 +440,17 @@ namespace Katiba55.API.Migrations
 
                     b.HasOne("Katiba55.API.Entities.Company", "Responsible")
                         .WithMany("Works")
-                        .HasForeignKey("ResponsibleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ResponsibleId");
 
                     b.Navigation("Project");
 
                     b.Navigation("Responsible");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectWorkItem", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.WorkExecutionHistory", b =>
                 {
-                    b.HasOne("Katiba55.API.Entities.ProjectWork", "Work")
-                        .WithMany("Items")
+                    b.HasOne("Katiba55.API.Entities.Work", "Work")
+                        .WithMany("ExecutionHistories")
                         .HasForeignKey("WorkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -331,9 +458,44 @@ namespace Katiba55.API.Migrations
                     b.Navigation("Work");
                 });
 
+            modelBuilder.Entity("Katiba55.API.Entities.WorkItem", b =>
+                {
+                    b.HasOne("Katiba55.API.Entities.Item", "Item")
+                        .WithMany("WorkItems")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Katiba55.API.Entities.Work", "Work")
+                        .WithMany("WorkItems")
+                        .HasForeignKey("WorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Work");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.WorkItemExecutionHistory", b =>
+                {
+                    b.HasOne("Katiba55.API.Entities.WorkItem", "WorkItem")
+                        .WithMany("ExecutionHistories")
+                        .HasForeignKey("WorkItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkItem");
+                });
+
             modelBuilder.Entity("Katiba55.API.Entities.Company", b =>
                 {
                     b.Navigation("Works");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.Item", b =>
+                {
+                    b.Navigation("WorkItems");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Officer", b =>
@@ -343,16 +505,25 @@ namespace Katiba55.API.Migrations
 
             modelBuilder.Entity("Katiba55.API.Entities.Project", b =>
                 {
-                    b.Navigation("Medias");
+                    b.Navigation("ExecutionHistories");
 
-                    b.Navigation("Progresses");
+                    b.Navigation("Items");
+
+                    b.Navigation("Medias");
 
                     b.Navigation("Works");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.ProjectWork", b =>
+            modelBuilder.Entity("Katiba55.API.Entities.Work", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("ExecutionHistories");
+
+                    b.Navigation("WorkItems");
+                });
+
+            modelBuilder.Entity("Katiba55.API.Entities.WorkItem", b =>
+                {
+                    b.Navigation("ExecutionHistories");
                 });
 #pragma warning restore 612, 618
         }

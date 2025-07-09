@@ -17,14 +17,16 @@ namespace Katiba55.API.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public DbSet<Officer> Users { get; private set; }
+        public DbSet<User> Users { get; private set; }
         public DbSet<Officer> Officers { get; private set; }
         public DbSet<Company> Companies { get; private set; }
         public DbSet<Project> Projects { get; private set; }
-        public DbSet<ProjectMedia> ProjectMedias { get; private set; }
-        public DbSet<ProjectProgress> ProjectProgresses { get; private set; }
-        public DbSet<ProjectWork> ProjectWorks { get; private set; }
-        public DbSet<ProjectWorkItem> ProjectWorkItems { get; private set; }
-
+        public DbSet<ProjectExecutionHistory> ProjectExecutionHistories { get; private set; }
+        public DbSet<Media> Medias { get; private set; }
+        public DbSet<Work> Works { get; private set; }
+        public DbSet<WorkExecutionHistory> WorkExecutionHistories { get; private set; }
+        public DbSet<Item> Items { get; private set; }
+        public DbSet<WorkItem> WorkItems { get; private set; }
+        public DbSet<WorkItemExecutionHistory> WorkItemExecutionHistories { get; private set; }
     }
 }

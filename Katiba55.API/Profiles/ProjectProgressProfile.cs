@@ -6,9 +6,9 @@ namespace Katiba55.API.Profiles
     {
         public ProjectProgressProfile()
         {
-            CreateMap<CreateProjectProgressDto, ProjectProgress>();
-            CreateMap<UpdateProjectProgressDto, ProjectProgress>();
-            CreateMap<ProjectProgress, ProjectProgressDto>();
+            CreateMap<CreateProjectProgressDto, ProjectExecutionHistory>();
+            CreateMap<UpdateProjectProgressDto, ProjectExecutionHistory>();
+            CreateMap<ProjectExecutionHistory, ProjectProgressDto>();
         }
     }
 }

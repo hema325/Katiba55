@@ -59,6 +59,9 @@ namespace Katiba55.API.Controllers
             if (officer == null)
                 return Response(ResultFactory.NotFound());
 
+            if (await _context.Projects.AnyAsync(p => p.SupervisorId == id))
+                return Response(ResultFactory.Conflict("لا يمكن حذف هذا الضابط لانة مشرف على احد المشاريع."));
+
             _context.Officers.Remove(officer);
             await _context.SaveChangesAsync();
 

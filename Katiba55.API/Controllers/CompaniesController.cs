@@ -61,14 +61,11 @@ namespace Katiba55.API.Controllers
 
             try
             {
-                if(!string.IsNullOrEmpty(company.ApprovalImagPath))
-                {
+                if(System.IO.File.Exists(company.ApprovalImagPath))
                     System.IO.File.Delete(company.ApprovalImagPath);
-                }
             }
             catch
             {
-                return Response(ResultFactory.BadRequest(message: "حدث خطأ أثناء حذف صورة الموافقة الأمنية. يرجى المحاولة مرة أخرى."));
             }
 
             _context.Companies.Remove(company);

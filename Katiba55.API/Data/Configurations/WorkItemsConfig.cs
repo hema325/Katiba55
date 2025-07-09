@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Katiba55.API.Data.Configurations
 {
-    public class WorkItemsConfig : IEntityTypeConfiguration<ProjectWorkItem>
+    public class WorkItemsConfig : IEntityTypeConfiguration<WorkItem>
     {
-        public void Configure(EntityTypeBuilder<ProjectWorkItem> builder)
+        public void Configure(EntityTypeBuilder<WorkItem> builder)
         {
-            builder.HasOne(i => i.Work).WithMany(w => w.Items).HasForeignKey(i => i.WorkId);
+            builder.HasOne(wi => wi.Work).WithMany(w => w.WorkItems).HasForeignKey(wi => wi.WorkId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(wi => wi.Item).WithMany(i => i.WorkItems).HasForeignKey(wi => wi.ItemId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(wi => wi.ExecutionHistories).WithOne(h => h.WorkItem).HasForeignKey(h => h.WorkItemId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

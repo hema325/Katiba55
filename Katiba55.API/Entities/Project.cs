@@ -16,10 +16,15 @@
         public double? Longitude { get; set; }
         public ProjectStatus Status { get; set; }
 
+        public double LastExecutionPercent { get; set; }
+        public DateTime? LastExecutionDate { get; set; }
+
         public int SupervisorId { get; set; }
         public Officer Supervisor { get; set; }
-        public ICollection<ProjectProgress> Progresses { get; set; }
-        public ICollection<ProjectMedia> Medias { get; set; }
-        public ICollection<ProjectWork> Works { get; set; }
+
+        public ICollection<Media>? Medias { get; set; }
+        public ICollection<Work>? Works { get; set; }
+        public ICollection<Item>? Items { get; set; }
+        public ICollection<ProjectExecutionHistory>? ExecutionHistories { get; set; }
     }
 }

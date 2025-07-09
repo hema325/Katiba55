@@ -12,6 +12,6 @@
         public double? Longitude { get; set; }
         public string? ApprovalImagPath { get; set; }
 
-        public ICollection<ProjectWork> Works { get; set; }
+        public ICollection<Work> Works { get; set; }
     }
 }
