@@ -55,14 +55,14 @@ namespace Katiba55.API.Controllers
             if (await _context.Projects.AnyAsync(p => p.Id != id && p.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
-            if(dto.ExecutionDate != null && dto.ExecutionPercent != null && dto.ExecutionDate != project.ExecutionDate && dto.ExecutionPercent != project.ExecutionPercent)
+            if((dto.ExecutionDate != null && dto.ExecutionPercent != null) && (dto.ExecutionDate != project.ExecutionDate || dto.ExecutionPercent != project.ExecutionPercent))
             {
                 project.ExecutionHistories =
                 [
                     new ProjectExecutionHistory
                     {
-                        Percentage = project.ExecutionPercent.Value,
-                        Date =  project.ExecutionDate.Value
+                        Percentage = dto.ExecutionPercent.Value,
+                        Date =  dto.ExecutionDate.Value
                     }
                 ];
             }
@@ -145,6 +145,7 @@ namespace Katiba55.API.Controllers
         {
             var histories = await _context.ProjectExecutionHistories
                 .Where(h => h.ProjectId == id)
+                .OrderBy(h => h.Date)
                 .ProjectTo<ProjectExecutionHistoryDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
