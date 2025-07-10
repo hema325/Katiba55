@@ -1,165 +1,173 @@
-<!-- كارد نسبة التنفيذ -->
-<c-card class="mb-4 shadow-sm p-2">
-  <c-card-body>
-    <div class="d-flex justify-content-center align-items-center flex-column">
-      <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
-      <app-circular-progress [percent]="80" color="#31a751" />
-      <div class="mt-2 text-muted">
-        آخر تحديث: 2025-07-08
-      </div>
-    </div>
-  </c-card-body>
-</c-card>
-
-<!-- كارد معلومات المشروع الأساسية بشكل مقسم إلى بطاقات صغيرة -->
-<div class="row g-3 mb-5">
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-diagram-project text-primary fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">اسم المشروع</div>
-          <div class="text-primary small">مشروع هناجر دهشور</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-building-columns text-secondary fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">الجهة المنفذة</div>
-          <div class="text-muted small">ادارة المهندسين العسكريين</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-users text-secondary fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">الجهة المستفيدة</div>
-          <div class="text-muted small">وزارة النقل</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">القيمة التقديرية</div>
-          <div class="text-muted small">150,000,000 ج.م</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-wallet text-success fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">المخصص المالي</div>
-          <div class="text-muted small">120,000,000 ج.م</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-calendar-days text-info fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">تاريخ البدء التقديري</div>
-          <div class="text-muted small">2025-01-01</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-calendar-check text-info fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">تاريخ الانتهاء التقديري</div>
-          <div class="text-muted small">2025-12-31</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-calendar-days text-success fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">تاريخ البدء الفعلي</div>
-          <div class="text-muted small">2025-01-10</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-calendar-check text-success fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">تاريخ الانتهاء الفعلي</div>
-          <div class="text-muted small">2025-12-20</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-location-dot text-primary fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">العنوان</div>
-          <div class="text-muted small"><a href="https://maps.google.com/maps?q=123+شارع+رئيسي" target="_blank"
-              class="text-decoration-underline text-primary">123 شارع رئيسي</a></div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-user-shield text-primary fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">الضابط المشرف</div>
-          <div class="text-muted small"><a [routerLink]="['/officers/1']" routerLinkActive="router-link-active"
-              class="text-decoration-underline text-primary">مهندس محمد عبد الله</a></div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <c-card class="h-100 shadow-sm border-0 rounded-3 bg-success bg-opacity-10">
-      <c-card-body class="d-flex align-items-center">
-        <i class="fa-solid fa-chart-line text-success fs-4 me-3"></i>
-        <div>
-          <div class="fw-bold">نسبة التنفيذ الكلية</div>
-          <div class="text-success small">80%</div>
-        </div>
-      </c-card-body>
-    </c-card>
-  </div>
-</div>
-
-
-<!-- الموقع على الخريطة -->
-<div class="mb-5">
-  <h6 class="text-secondary mb-3">
-    <i class="fa-solid fa-map-location-dot text-info me-2"></i>
-    الموقع على الخريطة
+<section id="basic-details">
+  <!-- عنوان تفاصيل المشروع -->
+  <h6 class="text-secondary mb-4">
+    <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
+    تفاصيل المشروع
   </h6>
-  <div class="ratio ratio-21x9">
-    <iframe width="100%" height="100%" loading="lazy" allowfullscreen class="border-0 rounded-3 my-2 shadow-sm"
-      referrerpolicy="no-referrer-when-downgrade"
-      src="https://maps.google.com/maps?q=30.0444,31.2357&amp;hl=ar&amp;z=14&amp;output=embed">
-    </iframe>
+
+  <!-- كارد نسبة التنفيذ -->
+  <c-card class="mb-4 shadow-sm border-0 p-2">
+    <c-card-body>
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
+        <app-circular-progress [percent]="80" color="#31a751" />
+        <div class="mt-2 text-muted">
+          آخر تحديث: 2025-07-08
+        </div>
+      </div>
+    </c-card-body>
+  </c-card>
+
+  <!-- كارد معلومات المشروع الأساسية بشكل مقسم إلى بطاقات صغيرة -->
+  <div class="row g-3 mb-5">
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-diagram-project text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">اسم المشروع</div>
+            <div class="text-muted small">مشروع هناجر دهشور</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-building-columns text-secondary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">الجهة المنفذة</div>
+            <div class="text-muted small">ادارة المهندسين العسكريين</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-users text-secondary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">الجهة المستفيدة</div>
+            <div class="text-muted small">وزارة النقل</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">القيمة التقديرية</div>
+            <div class="text-muted small">150,000,000 ج.م</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-wallet text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">المخصص المالي</div>
+            <div class="text-muted small">120,000,000 ج.م</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-days text-info fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ البدء التقديري</div>
+            <div class="text-muted small">2025-01-01</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-check text-info fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ الانتهاء التقديري</div>
+            <div class="text-muted small">2025-12-31</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-days text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ البدء الفعلي</div>
+            <div class="text-muted small">2025-01-10</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-check text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ الانتهاء الفعلي</div>
+            <div class="text-muted small">2025-12-20</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-location-dot text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">العنوان</div>
+            <div class="text-muted small"><a href="https://maps.google.com/maps?q=123+شارع+رئيسي" target="_blank"
+                class="text-decoration-underline text-primary">123 شارع رئيسي</a></div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-user-shield text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">الضابط المشرف</div>
+            <div class="text-muted small"><a [routerLink]="['/officers/1']" routerLinkActive="router-link-active"
+                class="text-decoration-underline text-primary">مهندس محمد عبد الله</a></div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-chart-line text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">نسبة التنفيذ الكلية</div>
+            <div class="text-success small">80%</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
   </div>
-</div>
+
+
+  <!-- الموقع على الخريطة -->
+  <div class="mb-5">
+    <h6 class="text-secondary mb-3">
+      <i class="fa-solid fa-map-location-dot text-info me-2"></i>
+      الموقع على الخريطة
+    </h6>
+    <div class="ratio ratio-21x9">
+      <iframe width="100%" height="100%" loading="lazy" allowfullscreen class="border-0 rounded-3 my-2 shadow-sm"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=30.0444,31.2357&amp;hl=ar&amp;z=14&amp;output=embed">
+      </iframe>
+    </div>
+  </div>
+</section>

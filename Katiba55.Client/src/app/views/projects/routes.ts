@@ -25,7 +25,7 @@ export const routes: Routes = [
         path: ':id/edit',
         loadComponent: () => import('./project-edit/project-edit.component').then(c => c.ProjectEditComponent),
         data: {
-          title: 'تفاصيل المشروع'
+          title: 'تعديل المشروع'
         }
       },
       {
