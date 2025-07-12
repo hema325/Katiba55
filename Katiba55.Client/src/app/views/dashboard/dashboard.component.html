@@ -7,81 +7,133 @@
     </div>
   </div>
 
+  <!-- Project Card 1 -->
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/projects/1']" class="text-decoration-none">
-      <c-card class="h-100 card-animation  border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="هناجر دهشور"
-            cTooltipPlacement="bottom">هناجر دهشور</div>
-          <div class="mb-2">
-            <c-progress [value]="82" height="12" color="success">82%</c-progress>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="هناجر دهشور" cTooltipPlacement="bottom">
+              هناجر دهشور
+            </span>
           </div>
-          <div class="small text-muted">نسبة التنفيذ</div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+            <c-badge color="success" class="px-3 py-1">قيد التنفيذ</c-badge>
+            <span class="small text-muted">نسبة التنفيذ</span>
+          </div>
+          <c-progress [value]="82" height="12" color="success" class="w-100 mb-1">82%</c-progress>
+          <div class="d-flex align-items-center justify-content-center w-100 mt-1">
+            <span class="small text-muted">آخر تحديث: 2025-07-10</span>
+          </div>
         </c-card-body>
       </c-card>
     </a>
   </div>
 
+  <!-- Project Card 2 -->
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/projects/2']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="ممشى أهل مصر"
-            cTooltipPlacement="bottom">ممشى أهل مصر</div>
-          <div class="mb-2">
-            <c-progress [value]="95" height="12" color="info">95%</c-progress>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="ممشى أهل مصر" cTooltipPlacement="bottom">
+              ممشى أهل مصر
+            </span>
           </div>
-          <div class="small text-muted">نسبة التنفيذ</div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+            <c-badge color="info" class="px-3 py-1">تم التنفيذ</c-badge>
+            <span class="small text-muted">نسبة التنفيذ</span>
+          </div>
+          <c-progress [value]="95" height="12" color="info" class="w-100 mb-1">95%</c-progress>
+          <div class="d-flex align-items-center justify-content-center w-100 mt-1">
+            <span class="small text-muted">آخر تحديث: 2025-07-09</span>
+          </div>
         </c-card-body>
       </c-card>
     </a>
   </div>
 
+  <!-- Project Card 3 -->
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/projects/3']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="الدلتا الجديدة"
-            cTooltipPlacement="bottom">الدلتا الجديدة</div>
-          <div class="mb-2">
-            <c-progress [value]="40" height="12" color="warning">40%</c-progress>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="الدلتا الجديدة" cTooltipPlacement="bottom">
+              الدلتا الجديدة
+            </span>
           </div>
-          <div class="small text-muted">نسبة التنفيذ</div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+            <c-badge color="warning" class="px-3 py-1">قيد التنفيذ</c-badge>
+            <span class="small text-muted">نسبة التنفيذ</span>
+          </div>
+          <c-progress [value]="40" height="12" color="warning" class="w-100 mb-1">40%</c-progress>
+          <div class="d-flex align-items-center justify-content-center w-100 mt-1">
+            <span class="small text-muted">آخر تحديث: 2025-07-08</span>
+          </div>
         </c-card-body>
       </c-card>
     </a>
   </div>
 
+  <!-- Project Card 4 -->
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/projects/4']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="محور حسب الله"
-            cTooltipPlacement="bottom">محور حسب الله</div>
-          <div class="mb-2">
-            <c-progress [value]="0" height="12" color="secondary">0%</c-progress>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="محور حسب الله" cTooltipPlacement="bottom">
+              محور حسب الله
+            </span>
           </div>
-          <div class="small text-muted">نسبة التنفيذ</div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+            <c-badge color="secondary" class="px-3 py-1">لم يبدأ</c-badge>
+            <span class="small text-muted">نسبة التنفيذ</span>
+          </div>
+          <c-progress [value]="0" height="12" color="secondary" class="w-100 mb-1">0%</c-progress>
+          <div class="d-flex align-items-center justify-content-center w-100 mt-1">
+            <span class="small text-muted">آخر تحديث: 2025-07-07</span>
+          </div>
         </c-card-body>
       </c-card>
     </a>
   </div>
-
 </div>
 
 <!-- الضباط -->
-<!-- <div class="row g-4 mb-5">
+<div class="row g-4 mb-5">
   <div class="col-12">
     <h5 class="mb-0 text-warning fw-bold">الضباط</h5>
   </div>
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/officers/2']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. أحمد علي"
-            cTooltipPlacement="bottom">م. أحمد علي</div>
-          <c-badge color="success">قوة الكتيبة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <div class="text-secondary small mb-1">ملازم أول</div>
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="م. أحمد علي" cTooltipPlacement="bottom">
+              م. أحمد علي
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="success" class="px-3 py-1">قوة الكتيبة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
@@ -89,11 +141,20 @@
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/officers/2']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. محمد عبداللة"
-            cTooltipPlacement="bottom">م. محمد عبداللة</div>
-          <c-badge color="danger">ليس قوة الكتيبة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <div class="text-secondary small mb-1">نقيب</div>
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="م. محمد عبداللة" cTooltipPlacement="bottom">
+              م. محمد عبداللة
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="danger" class="px-3 py-1">ليس قوة الكتيبة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
@@ -101,11 +162,20 @@
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/officers/2']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. كريم علي"
-            cTooltipPlacement="bottom">م. كريم علي</div>
-          <c-badge color="success">قوة الكتيبة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <div class="text-secondary small mb-1">رائد</div>
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="م. كريم علي" cTooltipPlacement="bottom">
+              م. كريم علي
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="success" class="px-3 py-1">قوة الكتيبة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
@@ -113,30 +183,47 @@
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/officers/4']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="م. أحمد سمير"
-            cTooltipPlacement="bottom">م. أحمد سمير</div>
-          <c-badge color="success">قوة الكتيبة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <div class="text-secondary small mb-1">مقدم</div>
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="م. أحمد سمير" cTooltipPlacement="bottom">
+              م. أحمد سمير
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="success" class="px-3 py-1">قوة الكتيبة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
   </div>
-</div> -->
+</div>
 
 <!-- الشركات -->
-<!-- <div class="row g-4 mb-5">
+<div class="row g-4 mb-5">
   <div class="col-12">
     <h5 class="mb-0 text-info fw-bold">الشركات</h5>
   </div>
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/companies/1']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة النصر للمقاولات"
-            cTooltipPlacement="bottom">شركة النصر للمقاولات</div>
-          <c-badge color="success">معتمدة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="شركة النصر للمقاولات" cTooltipPlacement="bottom">
+              شركة النصر للمقاولات
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="success" class="px-3 py-1">معتمدة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
@@ -144,11 +231,19 @@
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/companies/2']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة المقاولون العرب"
-            cTooltipPlacement="bottom">شركة المقاولون العرب</div>
-          <c-badge color="danger">غير معتمدة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="شركة المقاولون العرب" cTooltipPlacement="bottom">
+              شركة المقاولون العرب
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="danger" class="px-3 py-1">غير معتمدة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
@@ -156,11 +251,19 @@
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/companies/3']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة المستقبل"
-            cTooltipPlacement="bottom">شركة المستقبل</div>
-          <c-badge color="success">معتمدة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="شركة المستقبل" cTooltipPlacement="bottom">
+              شركة المستقبل
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="success" class="px-3 py-1">معتمدة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
@@ -168,13 +271,21 @@
 
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <a [routerLink]="['/companies/4']" class="text-decoration-none">
-      <c-card class="h-100 card-animation border-0 rounded-4 text-center shadow-sm position-relative overflow-hidden">
-        <c-card-body>
-          <div class="fw-bold fs-6 mb-3 text-dark text-nowrap text-truncate w-100" cTooltip="شركة التعمير"
-            cTooltipPlacement="bottom">شركة التعمير</div>
-          <c-badge color="danger">غير معتمدة</c-badge>
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-2">
+            <span
+              class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              cTooltip="شركة التعمير" cTooltipPlacement="bottom">
+              شركة التعمير
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+            <c-badge color="danger" class="px-3 py-1">غير معتمدة</c-badge>
+          </div>
         </c-card-body>
       </c-card>
     </a>
   </div>
-</div> -->
+</div>

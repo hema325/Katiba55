@@ -49,11 +49,11 @@ export class ExecutionStatusComponent implements OnInit {
   }
 
   compareChartData: ChartData = {
-    labels: ['هنجر 4', 'هنجر 3', 'هنجر 2', 'هنجر 1'].reverse().slice(0, 7),
+    labels: ['هنجر 4', 'هنجر 3', 'هنجر 2', 'هنجر 1'],
     datasets: [
       {
         label: 'نسبة التنفيذ',
-        data: [100, 80, 50, 25],
+        data: [25, 50, 80, 100],
         backgroundColor: 'rgba(0,204,102,0.85)', // أخضر واضح
         borderColor: '#0c6',
         pointBackgroundColor: '#0c6',
