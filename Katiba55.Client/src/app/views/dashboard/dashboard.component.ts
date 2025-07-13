@@ -28,6 +28,9 @@ import { IconDirective } from '@coreui/icons-angular';
 import { WidgetsBrandComponent } from '../widgets/widgets-brand/widgets-brand.component';
 import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dropdown.component';
 import { RouterLink } from '@angular/router';
+import { ProjectsComponent } from './projects/projects.component';
+import { CompaniesComponent } from './companies/companies.component';
+import { OfficersComponent } from './officers/officers.component';
 
 interface IUser {
   name: string;
@@ -70,82 +73,19 @@ interface IUser {
       AvatarComponent,
       RouterLink,
       BadgeComponent,
-      TooltipDirective]
+      TooltipDirective,
+      ProjectsComponent,
+      CompaniesComponent,
+      OfficersComponent]
 })
 export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
   }
 
-  months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  activeTab: 'projects' | 'companies' | 'officers' = 'projects';
 
-  get randomData() {
-    return Math.round(Math.random() * 100);
+  setActiveTab(tab: 'projects' | 'companies' | 'officers') {
+    this.activeTab = tab;
   }
-
-  options = {
-    maintainAspectRatio: false
-  };
-
-  chartBarData: ChartData = {
-    labels: ['حسب اللة الكفراوى', 'ممشى اهل مصر', 'الدلتا الجديدة', 'الطريق الساحلى'].slice(0, 7),
-    datasets: [
-      {
-        label: 'نسبة التنفيذ',
-        backgroundColor: '#f87979',
-        data: [100, 80, 50, 25]
-      }
-    ]
-  };
-
-  chartLineData: ChartData = {
-    labels: [...this.months].slice(0, 7),
-    datasets: [
-      {
-        label: 'ممشى اهل مصر',
-        backgroundColor: 'rgba(220, 220, 220, 0.2)',
-        borderColor: 'rgba(220, 220, 220, 1)',
-        pointBackgroundColor: 'rgba(220, 220, 220, 1)',
-        pointBorderColor: '#fff',
-        data: [0, 10, 40, 50, 60, 100, 100]
-      },
-      {
-        label: 'الطريق الساحلى',
-        backgroundColor: 'rgba(151, 187, 205, 0.2)',
-        borderColor: 'rgba(151, 187, 205, 1)',
-        pointBackgroundColor: 'rgba(151, 187, 205, 1)',
-        pointBorderColor: '#fff',
-        data: [0, 25, 30, 30, 50, 80, 100]
-      },
-      {
-        label: 'الدلتا الجديدة',
-        backgroundColor: 'rgba(248, 121, 121, 0.2)',
-        borderColor: 'rgba(248, 121, 121, 1)',
-        pointBackgroundColor: 'rgba(248, 121, 121, 1)',
-        pointBorderColor: '#fff',
-        data: [0, 50, 80, 90, 100, 100, 100]
-      }
-    ]
-  };
-
-  chartPieData: ChartData = {
-    labels: ['مكتمل', 'تحت الانشاء', 'متوقف'],
-    datasets: [
-      {
-        data: [100, 50, 20],
-        backgroundColor: ['#41B883', '#FFCE56', '#E46651'],
-        hoverBackgroundColor: ['#41B883', '#FFCE56', '#E46651']
-      }
-    ]
-  };
-
-  chartDoughnutData: ChartData = {
-    labels: ['ضباط على قوة الكتيبة', 'ضباط ليست على قوت الكتيبة'],
-    datasets: [
-      {
-        backgroundColor: ['#41B883', '#E46651'],
-        data: [100, 20]
-      }
-    ]
-  };
 }

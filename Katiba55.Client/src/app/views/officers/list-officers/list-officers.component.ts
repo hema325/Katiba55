@@ -17,13 +17,9 @@ import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirma
     CardHeaderComponent,
     CardBodyComponent,
     CardFooterComponent,
-    TableDirective,
     ButtonDirective,
     IconDirective,
-    PageItemComponent,
-    PaginatorComponent,
     BadgeComponent,
-    ProgressComponent,
     DeleteConfirmationModalComponent,
     RouterLink
   ]
@@ -32,7 +28,6 @@ export class ListOfficersComponent implements OnInit {
 
   private toasterService: ToasterService = inject(ToasterService);
   deleteConfirmationModalVisible: boolean = false;
-  currentPage: number = 1;
 
   constructor() { }
 

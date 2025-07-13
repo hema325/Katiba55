@@ -10,5 +10,6 @@
         public OfficerStatus Status { get; set; }
         public DateTime? JoinDate { get; set; }
         public DateTime? LeaveDate { get; set; }
+        public string? Notes { get; set; }
     }
 }

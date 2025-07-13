@@ -18,6 +18,7 @@
 
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
+        public string? Notes { get; set; }
 
         public int SupervisorId { get; set; }
         public Officer Supervisor { get; set; }

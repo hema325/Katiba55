@@ -21,5 +21,6 @@ namespace Katiba55.API.Dtos.Projects
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
         public int SupervisorId { get; set; }
+        public string? Notes { get; set; }
     }
 }

@@ -119,3 +119,11 @@ table {
 .table-poster:hover {
     transform: scale(1.1);
 }
+
+.card-animation {
+    transition: transform .2s ease-in-out;
+}
+
+.card-animation:hover {
+    transform: scale(1.05);
+}

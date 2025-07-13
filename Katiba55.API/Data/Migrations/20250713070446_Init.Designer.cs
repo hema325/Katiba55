@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Katiba55.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250709123238_Init")]
+    [Migration("20250713070446_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -44,6 +44,9 @@ namespace Katiba55.API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
@@ -133,6 +136,9 @@ namespace Katiba55.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Notes")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Phone")
                         .HasColumnType("TEXT");
 
@@ -197,6 +203,9 @@ namespace Katiba55.API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
@@ -334,10 +343,10 @@ namespace Katiba55.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ExecutionDate")
+                    b.Property<DateTime?>("ExecutionDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("ExecutionPercent")
+                    b.Property<double?>("ExecutionPercent")
                         .HasColumnType("REAL");
 
                     b.Property<int>("ItemId")

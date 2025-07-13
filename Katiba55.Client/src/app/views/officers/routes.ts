@@ -15,19 +15,26 @@ export const routes: Routes = [
         }
       },
       {
-        path: ':id',
-        loadComponent: () => import('./officer-details/officer-details.component').then(c => c.OfficerDetailsComponent),
+        path: 'add',
+        loadComponent: () => import('./officers-add/officers-add.component').then(c => c.OfficersAddComponent),
         data: {
-          title: 'تفاصيل الضابط'
+          title: 'اضافة'
         }
       },
       {
         path: ':id/edit',
         loadComponent: () => import('./officers-edit/officers-edit.component').then(c => c.OfficersEditComponent),
         data: {
-          title: 'تفاصيل الضابط'
+          title: 'تعديل'
         }
-      }
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./officer-details/officer-details.component').then(c => c.OfficerDetailsComponent),
+        data: {
+          title: 'التفاصيل'
+        }
+      },
     ]
   },
 ];

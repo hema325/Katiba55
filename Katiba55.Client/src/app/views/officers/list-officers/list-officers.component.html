@@ -1,96 +1,161 @@
-<c-row ngPreserveWhitespaces>
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <div class="d-flex justify-content-between align-items-center">
-          <h6 class="mb-0">قائمة الضباط</h6>
-          <div class="d-flex align-items-center gap-2">
-            <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
-            <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
-          </div>
+<div class="row g-4 mb-5">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="mb-0 text-warning fw-bold">قائمة الضباط</h5>
+      <button [routerLink]="['/officers/add']" [color]="'primary'" cButton><i class="fa-solid fa-plus"></i>
+        اضافة</button>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2">
+          <div class="text-secondary small mb-1">ملازم أول</div>
+          <span
+            class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+            cTooltip="م. أحمد علي" cTooltipPlacement="bottom">
+            م. أحمد علي
+          </span>
         </div>
-      </c-card-header>
-      <c-card-body class="overflow-auto">
-        <table cTable>
-          <thead>
-            <tr>
-              <th>الاسم</th>
-              <th>البريد الإلكتروني</th>
-              <th>الهاتف</th>
-              <th>الرتبة</th>
-              <th>الحالة</th>
-              <th>تاريخ الانضمام</th>
-              <th>تاريخ المغادرة</th>
-              <th>الملاحظات</th>
-              <th>الإجراءات</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>عقيد مهندس محمد عبد الله</td>
-              <td>officer&#64;army.gov.eg</td>
-              <td>01001112222</td>
-              <td>عقيد </td>
-              <td><c-badge color="success">داخل الكتيبة</c-badge></td>
-              <td>2024-01-01</td>
-              <td>2025-12-31</td>
-              <td>لايوجد</td>
-              <td>
-                <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" routerLink="/officers/22" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
-                      class="fa-solid fa-trash"></i></a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>مقدم أحمد سامي</td>
-              <td>ahmed.samy&#64;army.gov.eg</td>
-              <td>01002223333</td>
-              <td>مقدم</td>
-              <td><c-badge color="danger">خارج الكتيبة</c-badge></td>
-              <td>2022-05-10</td>
-              <td>2025-05-10</td>
-              <td>لايوجد</td>
-              <td>
-                <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
-                      class="fa-solid fa-trash"></i></a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>رائد فاطمة عبد الرحمن</td>
-              <td>fatma.ar&#64;army.gov.eg</td>
-              <td>01003334444</td>
-              <td>رائد</td>
-              <td><c-badge color="danger">خارج الكتيبة</c-badge></td>
-              <td>2018-09-01</td>
-              <td>2024-12-31</td>
-              <td>لايوجد</td>
-              <td>
-                <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
-                      class="fa-solid fa-trash"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <c-badge color="success" class="px-3 py-1">قوة الكتيبة</c-badge>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2">
+          <a [routerLink]="['/officers/2']"
+            class="btn btn-outline-primary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="عرض">
+            <i class="fa-solid fa-eye"></i>
+            <span>عرض</span>
+          </a>
+          <a [routerLink]="['/officers/2/edit']"
+            class="btn btn-outline-secondary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="تعديل">
+            <i class="fa-solid fa-pen"></i>
+            <span>تعديل</span>
+          </a>
+          <a class="btn btn-outline-danger btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="حذف">
+            <i class="fa-solid fa-trash"></i>
+            <span>حذف</span>
+          </a>
+        </div>
       </c-card-body>
-      <c-card-footer>
-        <div class="d-flex justify-content-center pt-2">
-          <app-paginator [totalPages]="10" [(currentPage)]="currentPage" />
-        </div>
-      </c-card-footer>
     </c-card>
-  </c-col>
-</c-row>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2">
+          <div class="text-secondary small mb-1">نقيب</div>
+          <span
+            class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+            cTooltip="م. محمد عبداللة" cTooltipPlacement="bottom">
+            م. محمد عبداللة
+          </span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <c-badge color="danger" class="px-3 py-1">ليس قوة الكتيبة</c-badge>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2">
+          <a [routerLink]="['/officers/2']"
+            class="btn btn-outline-primary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="عرض">
+            <i class="fa-solid fa-eye"></i>
+            <span>عرض</span>
+          </a>
+          <a class="btn btn-outline-secondary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="تعديل">
+            <i class="fa-solid fa-pen"></i>
+            <span>تعديل</span>
+          </a>
+          <a class="btn btn-outline-danger btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="حذف">
+            <i class="fa-solid fa-trash"></i>
+            <span>حذف</span>
+          </a>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2">
+          <div class="text-secondary small mb-1">رائد</div>
+          <span
+            class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+            cTooltip="م. كريم علي" cTooltipPlacement="bottom">
+            م. كريم علي
+          </span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <c-badge color="success" class="px-3 py-1">قوة الكتيبة</c-badge>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2">
+          <a [routerLink]="['/officers/2']"
+            class="btn btn-outline-primary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="عرض">
+            <i class="fa-solid fa-eye"></i>
+            <span>عرض</span>
+          </a>
+          <a class="btn btn-outline-secondary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="تعديل">
+            <i class="fa-solid fa-pen"></i>
+            <span>تعديل</span>
+          </a>
+          <a class="btn btn-outline-danger btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="حذف">
+            <i class="fa-solid fa-trash"></i>
+            <span>حذف</span>
+          </a>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2">
+          <div class="text-secondary small mb-1">مقدم</div>
+          <span
+            class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+            cTooltip="م. أحمد سمير" cTooltipPlacement="bottom">
+            م. أحمد سمير
+          </span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <c-badge color="success" class="px-3 py-1">قوة الكتيبة</c-badge>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2">
+          <a [routerLink]="['/officers/4']"
+            class="btn btn-outline-primary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="عرض">
+            <i class="fa-solid fa-eye"></i>
+            <span>عرض</span>
+          </a>
+          <a class="btn btn-outline-secondary btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="تعديل">
+            <i class="fa-solid fa-pen"></i>
+            <span>تعديل</span>
+          </a>
+          <a class="btn btn-outline-danger btn-sm rounded-2 flex-fill d-flex align-items-center justify-content-center gap-1"
+            title="حذف">
+            <i class="fa-solid fa-trash"></i>
+            <span>حذف</span>
+          </a>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+</div>
 
 <!-- modals -->
 <app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"

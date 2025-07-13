@@ -16,5 +16,6 @@ namespace Katiba55.API.Dtos.Companies
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public string? ApprovalImagePath { get; set; }
+        public string? Notes { get; set; }
     }
 }

@@ -8,5 +8,6 @@ namespace Katiba55.API.Dtos.Projects
         public string Name { get; set; }
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
+        public ProjectStatus Status { get; set; }
     }
 }

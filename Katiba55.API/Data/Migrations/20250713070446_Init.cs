@@ -25,7 +25,8 @@ namespace Katiba55.API.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     Latitude = table.Column<double>(type: "REAL", nullable: true),
                     Longitude = table.Column<double>(type: "REAL", nullable: true),
-                    ApprovalImagePath = table.Column<string>(type: "TEXT", unicode: false, nullable: true)
+                    ApprovalImagePath = table.Column<string>(type: "TEXT", unicode: false, nullable: true),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,7 +45,8 @@ namespace Katiba55.API.Migrations
                     Rank = table.Column<int>(type: "INTEGER", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
                     JoinDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    LeaveDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    LeaveDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,6 +92,7 @@ namespace Katiba55.API.Migrations
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
                     ExecutionPercent = table.Column<double>(type: "REAL", nullable: true),
                     ExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Notes = table.Column<string>(type: "TEXT", nullable: true),
                     SupervisorId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -224,8 +227,8 @@ namespace Katiba55.API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ExecutionPercent = table.Column<double>(type: "REAL", nullable: false),
-                    ExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ExecutionPercent = table.Column<double>(type: "REAL", nullable: true),
+                    ExecutionDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     WorkId = table.Column<int>(type: "INTEGER", nullable: false),
                     ItemId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
