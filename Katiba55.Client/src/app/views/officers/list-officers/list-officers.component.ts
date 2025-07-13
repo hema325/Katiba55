@@ -10,6 +10,7 @@ import { finalize, first } from 'rxjs';
 import { OfficerRankPipe } from '../../../pipes/officer-rank.pipe';
 import { OfficerStatusPipe } from '../../../pipes/officer-status.pipe';
 import { OfficerStatus } from '../../../enums/officer-status.enum';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
 
 @Component({
   selector: 'app-list-officers',
@@ -30,7 +31,8 @@ import { OfficerStatus } from '../../../enums/officer-status.enum';
     SpinnerComponent,
     OfficerRankPipe,
     OfficerStatusPipe,
-    SpinnerComponent
+    SpinnerComponent,
+    LoaderComponent
   ]
 })
 export class ListOfficersComponent implements OnInit {
