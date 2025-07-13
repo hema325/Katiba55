@@ -8,5 +8,6 @@ namespace Katiba55.API.Dtos.ProjectMedias
         public string Path { get; set; }
         public int ProjectId { get; set; }
         public DateTime? Date { get; set; }
+        public MediaCategories Category { get; set; }
     }
 }

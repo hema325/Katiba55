@@ -27,7 +27,7 @@ export const navItems: INavData[] = [
   {
     name: 'الضباط',
     url: '/officers',
-    icon: 'fa-solid fa-star'
+    icon: 'fa-solid fa-user-tie'
   },
   {
     name: 'المستخدمين',
