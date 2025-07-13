@@ -43,7 +43,7 @@ namespace Katiba55.API.Controllers
             _context.Items.Update(item);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpDelete("{id}/delete")]
@@ -57,7 +57,7 @@ namespace Katiba55.API.Controllers
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpGet("{id}/getById")]

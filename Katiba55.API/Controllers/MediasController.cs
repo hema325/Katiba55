@@ -68,7 +68,7 @@ namespace Katiba55.API.Controllers
             _context.Medias.Remove(media);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpGet("getByProjectId")]

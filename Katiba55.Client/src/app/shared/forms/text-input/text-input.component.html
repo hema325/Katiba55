@@ -1,0 +1,14 @@
+<div class="form-group" style="direction: rtl;">
+  <label class="form-label">{{label}}</label>
+  <input [formControl]="control" [type]="type" class="form-control p-2"
+    [class.is-invalid]="control.touched && control.invalid" [placeholder]="placeholder" />
+  @if(control.hasError('required')) {
+  <div class="invalid-feedback">هذا الحقل مطلوب.</div>
+  }
+  @if(control.hasError('email')) {
+  <div class="invalid-feedback">يرجى إدخال بريد إلكتروني صحيح.</div>
+  }
+  @if(control.hasError('phone')) {
+  <div class="invalid-feedback">يرجى إدخال رقم هاتف صحيح.</div>
+  }
+</div>

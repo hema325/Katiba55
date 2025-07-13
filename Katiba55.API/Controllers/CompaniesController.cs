@@ -48,7 +48,7 @@ namespace Katiba55.API.Controllers
             _context.Companies.Update(company);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpDelete("{id}/delete")]
@@ -71,7 +71,7 @@ namespace Katiba55.API.Controllers
             _context.Companies.Remove(company);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpGet("{id}/detailed")]

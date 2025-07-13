@@ -1,0 +1,9 @@
+<div class="form-group" style="direction: rtl;">
+  <label class="form-label">{{label}}</label>
+  <select [formControl]="control" class="form-select p-2" [class.is-invalid]="control.touched && control.invalid">
+    <ng-content select="option" />
+  </select>
+  @if(control.hasError('required')) {
+  <div class="invalid-feedback">هذا الحقل مطلوب.</div>
+  }
+</div>

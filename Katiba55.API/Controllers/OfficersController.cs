@@ -48,7 +48,7 @@ namespace Katiba55.API.Controllers
             _context.Officers.Update(officer);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpDelete("{id}/delete")]
@@ -65,11 +65,11 @@ namespace Katiba55.API.Controllers
             _context.Officers.Remove(officer);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
-        [HttpGet("{id}/detailed")]
-        public async Task<IActionResult> GetDetailedAsync(int id)
+        [HttpGet("{id}/getById")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var officer = await _context.Officers
                 .ProjectTo<OfficerDto>(_mapper.ConfigurationProvider)
@@ -81,21 +81,11 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(officer));
         }
 
-        [HttpGet("brief")]
-        public async Task<IActionResult> GetAllBriefAsync()
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAllAsync()
         {
             var officers = await _context.Officers
-                .ProjectTo<OfficerBriefDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return Response(ResultFactory.Ok(officers));
-        }
-
-        [HttpGet("detailed")]
-        public async Task<IActionResult> GetAllDetailedAsync()
-        {
-            var officers = await _context.Officers
-                         .ProjectTo<OfficerDto>(_mapper.ConfigurationProvider)
+                         .ProjectTo<OfficerBriefDto>(_mapper.ConfigurationProvider)
                          .ToListAsync();
 
             return Response(ResultFactory.Ok(officers));

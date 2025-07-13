@@ -10,6 +10,6 @@ namespace Katiba55.API.Controllers
             {
                 204 => NoContent(),
                 _ => StatusCode(result.Status, result)
-            };    
+            };
     }
 }

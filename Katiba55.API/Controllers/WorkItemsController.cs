@@ -71,7 +71,7 @@ namespace Katiba55.API.Controllers
             _context.WorkItems.Update(workItem);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpDelete("{id}/delete")]
@@ -85,7 +85,7 @@ namespace Katiba55.API.Controllers
             _context.WorkItems.Remove(workItem);
             await _context.SaveChangesAsync();
 
-            return Response(ResultFactory.NoContent());
+            return Response(ResultFactory.Ok());
         }
 
         [HttpGet("{id}/getById")]
