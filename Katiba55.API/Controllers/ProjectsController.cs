@@ -107,8 +107,8 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok());
         }
 
-        [HttpGet("{id}/detailed")]
-        public async Task<IActionResult> GetDetailedAsync(int id)
+        [HttpGet("{id}/getById")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var project = await _context.Projects
                 .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
