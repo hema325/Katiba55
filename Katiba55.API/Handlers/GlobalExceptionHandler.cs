@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Azure;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace Katiba55.API.Handlers
 {
@@ -18,24 +19,16 @@ namespace Katiba55.API.Handlers
             var errorMessage = exception.InnerException?.Message ?? exception.Message;
             _logger.LogError("Exception ocurred: {message}", errorMessage);
 
-            if (!_webHostEnv.IsDevelopment())
-            {
-                var response = ResultFactory.ServerError();
-                
-                httpContext.Response.StatusCode = StatusCodes.Status200OK;
-                await httpContext.Response.WriteAsJsonAsync(response);
+            var response = ResultFactory.ServerError();
 
-                return true;
+            if (_webHostEnv.IsDevelopment())
+            {
+                response.Message = errorMessage;
+                response.Errors = [exception.StackTrace?.ToString()];
             }
 
-            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await httpContext.Response.WriteAsJsonAsync(new
-            {
-                Success = false,
-                Status = 200,
-                Message = errorMessage,
-                Details = exception.StackTrace?.ToString()
-            });
+            httpContext.Response.StatusCode = response.Status;
+            await httpContext.Response.WriteAsJsonAsync(response);
 
             return true;
         }

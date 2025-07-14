@@ -62,11 +62,12 @@
                 Message = message ?? GetDefaultMessage(409)
             };
 
-        public static Result<Empty> ServerError(string? message = null)
+        public static Result<Empty> ServerError(string? message = null, string[] errors = null)
             => new()
             {
                 Status = 500,
-                Message = message ?? GetDefaultMessage(500)
+                Message = message ?? GetDefaultMessage(500),
+                Errors = errors
             };
         #endregion
 

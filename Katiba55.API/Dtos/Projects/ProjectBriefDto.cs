@@ -1,6 +1,4 @@
-﻿using Katiba55.API.Dtos.ProjectProgress;
-
-namespace Katiba55.API.Dtos.Projects
+﻿namespace Katiba55.API.Dtos.Projects
 {
     public class ProjectBriefDto
     {

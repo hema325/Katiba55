@@ -74,8 +74,8 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok());
         }
 
-        [HttpGet("{id}/detailed")]
-        public async Task<IActionResult> GetDetailedAsync(int id)
+        [HttpGet("{id}/getById")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var company = await _context.Companies
                 .ProjectTo<CompanyDto>(_mapper.ConfigurationProvider)
@@ -87,21 +87,11 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(company));
         }
 
-        [HttpGet("brief")]
-        public async Task<IActionResult> GetAllBriefAsync()
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAllAsync()
         {
             var companies = await _context.Companies
                          .ProjectTo<CompanyBriefDto>(_mapper.ConfigurationProvider)
-                         .ToListAsync();
-
-            return Response(ResultFactory.Ok(companies));
-        }
-
-        [HttpGet("detailed")]
-        public async Task<IActionResult> GetDetailedAsync()
-        {
-            var companies = await _context.Companies
-                         .ProjectTo<CompanyDto>(_mapper.ConfigurationProvider)
                          .ToListAsync();
 
             return Response(ResultFactory.Ok(companies));
