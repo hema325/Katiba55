@@ -58,7 +58,7 @@ export class CompanyEditComponent implements OnInit {
   isLoading: boolean = false;
   isSubmitting: boolean = false;
   isUploadingFile: boolean = false;
-  approvalImagePath: string | null = null;
+  approvalImagePath: string | null | undefined = null;
 
   ngOnInit() {
     this.companyId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -73,6 +73,7 @@ export class CompanyEditComponent implements OnInit {
         if (response.success) {
           const company = response.data;
           this.companyForm.patchValue({ ...response.data as any });
+          this.approvalImagePath = company.approvalImagePath;
         }
       })
   }

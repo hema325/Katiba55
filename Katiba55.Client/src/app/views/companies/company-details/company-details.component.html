@@ -66,7 +66,7 @@
           <div class="small">
             @if(company?.address) {
             <a href="https://maps.google.com?q={{(company?.latitude && company?.longitude)?`${company?.latitude},${company?.longitude}`: company?.address}}"
-              target="_blank" rel="noopener noreferrer" class="text-decoration-none text-primary">
+              target="_blank" rel="noopener noreferrer" class="text-primary">
               {{company?.address}}
             </a>
             }
