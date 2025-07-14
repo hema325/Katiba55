@@ -120,21 +120,11 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(project));
         }
 
-        [HttpGet("brief")]
-        public async Task<IActionResult> GetAllBriefAsync()
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAllAsync()
         {
             var projects = await _context.Projects
                 .ProjectTo<ProjectBriefDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return Response(ResultFactory.Ok(projects));
-        }
-
-        [HttpGet("detailed")]
-        public async Task<IActionResult> GetAllDetailedAsync()
-        {
-            var projects = await _context.Projects
-                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(projects));
