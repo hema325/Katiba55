@@ -11,6 +11,99 @@
     </div>
   </div>
 
+  @if(isLoading) {
+  <!-- Placeholder card for loading state -->
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 shadow-sm bg-white p-3" cPlaceholderAnimation="glow">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2 text-center">
+          <span cPlaceholder cCol="8" class="rounded-3 bg-secondary bg-opacity-75"
+            style="height:2rem;min-width:120px;"></span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <span cPlaceholder cCol="6" class="rounded-pill bg-secondary bg-opacity-75"
+            style="height: 1.4rem; min-width: 80px;"></span>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2 justify-content-center">
+          <span cPlaceholder cCol="2" class="bg-primary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-secondary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-danger rounded-circle card-btn"></span>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 shadow-sm bg-white p-3" cPlaceholderAnimation="glow">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2 text-center">
+          <span cPlaceholder cCol="8" class="rounded-3 bg-secondary bg-opacity-75"
+            style="height:2rem;min-width:120px;"></span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <span cPlaceholder cCol="6" class="rounded-pill bg-secondary bg-opacity-75"
+            style="height: 1.4rem; min-width: 80px;"></span>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2 justify-content-center">
+          <span cPlaceholder cCol="2" class="bg-primary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-secondary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-danger rounded-circle card-btn"></span>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 shadow-sm bg-white p-3" cPlaceholderAnimation="glow">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2 text-center">
+          <span cPlaceholder cCol="8" class="rounded-3 bg-secondary bg-opacity-75"
+            style="height:2rem;min-width:120px;"></span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <span cPlaceholder cCol="6" class="rounded-pill bg-secondary bg-opacity-75"
+            style="height: 1.4rem; min-width: 80px;"></span>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2 justify-content-center">
+          <span cPlaceholder cCol="2" class="bg-primary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-secondary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-danger rounded-circle card-btn"></span>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+    <c-card class="h-100 border-0 rounded-4 shadow-sm bg-white p-3" cPlaceholderAnimation="glow">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2 text-center">
+          <span cPlaceholder cCol="8" class="rounded-3 bg-secondary bg-opacity-75"
+            style="height:2rem;min-width:120px;"></span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+          <span cPlaceholder cCol="6" class="rounded-pill bg-secondary bg-opacity-75"
+            style="height: 1.4rem; min-width: 80px;"></span>
+        </div>
+        <div class="d-flex gap-2 w-100 mt-2 justify-content-center">
+          <span cPlaceholder cCol="2" class="bg-primary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-secondary rounded-circle card-btn"></span>
+          <span cPlaceholder cCol="2" class="bg-danger rounded-circle card-btn"></span>
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+  }
+  @else if (companies.length === 0) {
+  <div class="col-12">
+    <div class="d-flex flex-column align-items-center justify-content-center py-5 text-secondary">
+      <i class="fa-solid fa-folder-open fa-3x mb-3 text-warning"></i>
+      <div class="fw-semibold text-dark fs-5 mb-2">لا توجد شركات متاحة</div>
+      <div class="mb-3">لم يتم العثور على بيانات شركات لعرضها حالياً.</div>
+    </div>
+  </div>
+  }
+  @else {
   @for(company of companies; track company.id) {
   <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
@@ -52,6 +145,7 @@
       </c-card-body>
     </c-card>
   </div>
+  }
   }
 
 </div>

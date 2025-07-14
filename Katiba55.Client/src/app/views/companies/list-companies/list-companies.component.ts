@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, PageItemComponent, ProgressComponent, RowComponent, SpinnerComponent, TableDirective, TooltipDirective } from '@coreui/angular';
+import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, PageItemComponent, PlaceholderAnimationDirective, PlaceholderDirective, ProgressComponent, RowComponent, SpinnerComponent, TableDirective, TooltipDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
 import { RouterLink } from '@angular/router';
@@ -33,7 +33,9 @@ import { CompanyStatusPipe } from '../../../pipes/company-status.pipe';
     RouterLink,
     TooltipDirective,
     CompanyStatusPipe,
-    SpinnerComponent
+    SpinnerComponent,
+    PlaceholderAnimationDirective,
+    PlaceholderDirective,
   ]
 })
 export class ListCompaniesComponent implements OnInit {
