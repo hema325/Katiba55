@@ -1,74 +1,114 @@
-<c-card class="border-0 rounded-4 shadow-sm bg-white mb-3 w-100 mx-auto" style="max-width: none;">
-  <c-card-header class="bg-white border-0 d-flex align-items-center gap-2 px-3 pt-3 pb-2 mb-1">
-    <i class="fa-solid fa-user-plus text-primary me-2 fs-6"></i>
-    <span class="fw-bold fs-6">إضافة ضابط جديد</span>
-    <div class="ms-auto">
-      <!-- يمكن إضافة أزرار أو إجراءات مستقبلية هنا -->
+<div class="container-fluid px-0 my-3">
+  <div class="row justify-content-center">
+    <div class="col-12 ">
+      <c-card class="mb-4 border-0 shadow-sm bg-primary bg-opacity-10">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3">
+          <span class="fw-bold fs-4 text-primary text-center mb-1">إضافة ضابط</span>
+          <div class="text-secondary text-center small">يرجى تعبئة بيانات الضابط بدقة لضمان نتائج افضل.</div>
+        </c-card-body>
+      </c-card>
+      <form [formGroup]="officerForm" (ngSubmit)="onSubmit()">
+        <!-- بيانات الضابط -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-user text-primary me-2"></i>
+              <span class="fw-semibold text-primary">بيانات الضابط</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="اسم الضابط" placeholder="ادخل اسم الضابط" formControlName="name" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-select-input label="الرتبة" formControlName="rank">
+                  <option value="" disabled hidden>اختر الرتبة</option>
+                  <option value="SecondLieutenant">ملازم</option>
+                  <option value="FirstLieutenant">ملازم أول</option>
+                  <option value="Captain">نقيب</option>
+                  <option value="Major">رائد</option>
+                  <option value="LieutenantColonel">مقدم</option>
+                  <option value="Colonel">عقيد</option>
+                  <option value="Brigadier">عميد</option>
+                  <option value="MajorGeneral">لواء</option>
+                  <option value="LieutenantGeneral">فريق</option>
+                  <option value="General">فريق اول</option>
+                  <option value="FieldMarshal">مشير</option>
+                </app-select-input>
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="البريد الإلكتروني" placeholder="ادخل البريد الإلكتروني" formControlName="email"
+                  type="email" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="رقم الهاتف" placeholder="ادخل رقم الهاتف" formControlName="phone" type="tel" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- بيانات الخدمة -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-calendar-days text-info me-2"></i>
+              <span class="fw-semibold text-info">بيانات الخدمة</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ الانضمام" placeholder="اختر تاريخ الانضمام" formControlName="joinDate"
+                  type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ المغادرة" placeholder="اختر تاريخ المغادرة" formControlName="leaveDate"
+                  type="date" />
+              </div>
+              <div class="col-12">
+                <app-select-input label="الحالة" formControlName="status">
+                  <option value="" disabled hidden>اختر الحالة</option>
+                  <option value="InBattalion">قوة الكتيبة</option>
+                  <option value="OutBattalion">ليس قوة الكتيبة</option>
+                </app-select-input>
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- ملاحظات -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-note-sticky text-warning me-2"></i>
+              <span class="fw-semibold text-warning">ملاحظات إضافية</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <app-text-area-input label="ملاحظات" placeholder="ادخل أي ملاحظات إضافية" formControlName="notes"
+              [rows]="5" />
+          </c-card-body>
+        </c-card>
+
+        <!-- زر الحفظ -->
+        <c-card class="mb-0 border-0 shadow-sm">
+          <c-card-body class="p-4">
+            <button type="submit" [disabled]="isSubmitting || officerForm.invalid"
+              class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+              aria-label="اضافة ضابط جديد">
+              @if(isSubmitting) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              <span class="px-1">جارى حفظ التغيرات</span>
+              }
+              @else {
+              <i class="fa-solid fa-floppy-disk opacity-75"></i>
+              <span class="px-1">حفظ التغيرات</span>
+              }
+            </button>
+          </c-card-body>
+        </c-card>
+      </form>
     </div>
-  </c-card-header>
-  <c-card-body class="p-3">
-    <form [formGroup]="officerForm" (ngSubmit)="onSubmit()">
-      <div class="row g-2">
-        <div class="col-12 col-md-6">
-          <app-text-input label="اسم الضابط" placeholder="ادخل اسم الضابط" formControlName="name" />
-        </div>
-        <div class="col-12 col-md-6">
-          <app-select-input label="الرتبة" formControlName="rank">
-            <option value="" disabled hidden>اختر الرتبة</option>
-            <option value="SecondLieutenant">ملازم</option>
-            <option value="FirstLieutenant">ملازم أول</option>
-            <option value="Captain">نقيب</option>
-            <option value="Major">رائد</option>
-            <option value="LieutenantColonel">مقدم</option>
-            <option value="Colonel">عقيد</option>
-            <option value="Brigadier">عميد</option>
-            <option value="MajorGeneral">لواء</option>
-            <option value="LieutenantGeneral">فريق</option>
-            <option value="General">فريق اول</option>
-            <option value="FieldMarshal">مشير</option>
-          </app-select-input>
-        </div>
-        <div class="col-12 col-md-6">
-          <app-text-input label="البريد الإلكتروني" placeholder="ادخل البريد الإلكتروني" formControlName="email"
-            type="email" />
-        </div>
-        <div class="col-12 col-md-6">
-          <app-text-input label="رقم الهاتف" placeholder="ادخل رقم الهاتف" formControlName="phone" type="tel" />
-        </div>
-        <div class="col-12 col-md-6">
-          <app-text-input label="تاريخ الانضمام" placeholder="اختر تاريخ الانضمام" formControlName="joinDate"
-            type="date" />
-        </div>
-        <div class="col-12 col-md-6">
-          <app-text-input label="تاريخ المغادرة" placeholder="اختر تاريخ المغادرة" formControlName="leaveDate"
-            type="date" />
-        </div>
-        <div class="col-12">
-          <app-select-input label="الحالة" formControlName="status">
-            <option value="" disabled hidden>اختر الحالة</option>
-            <option value="InBattalion">قوة الكتيبة</option>
-            <option value="OutBattalion">ليس قوة الكتيبة</option>
-          </app-select-input>
-        </div>
-        <div class="col-12">
-          <app-text-area-input label="ملاحظات" placeholder="ادخل أي ملاحظات إضافية" formControlName="notes"
-            [rows]="5" />
-        </div>
-        <div class="col-12 mt-3">
-          <button type="submit" [disabled]="isSubmitting || officerForm.invalid"
-            class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
-            aria-label="اضافة ضابط جديد">
-            @if(isSubmitting) {
-            <c-spinner aria-hidden="true" size="sm"></c-spinner>
-            جارى حفظ التغيرات
-            }
-            @else {
-            <i class="fa-solid fa-floppy-disk opacity-75 me-2"></i>
-            <span class="px-1">حفظ التغيرات</span>
-            }
-          </button>
-        </div>
-      </div>
-    </form>
-  </c-card-body>
-</c-card>
+  </div>
+</div>
