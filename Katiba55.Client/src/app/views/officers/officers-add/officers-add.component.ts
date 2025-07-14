@@ -4,7 +4,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
-import { CreateOfficer } from '../../../models/officers/create-officer';
 import { phoneValidator } from '../../../validators/phone-validator';
 import { OfficersService } from '../../../services/officers.service';
 import { Router } from '@angular/router';

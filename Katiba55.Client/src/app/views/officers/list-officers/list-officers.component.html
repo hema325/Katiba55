@@ -1,7 +1,10 @@
 <div class="row g-4 mb-5">
   <div class="col-12">
     <div class="d-flex justify-content-between align-items-center">
-      <h5 class="mb-0 text-success fw-bold">قائمة الضباط</h5>
+      <h5 class="mb-0 text-success fw-bold d-flex align-items-center gap-2">
+        <i class="fa-solid fa-user-shield text-success"></i>
+        الضباط
+      </h5>
       <button [routerLink]="['/officers/add']" [color]="'primary'" cButton><i class="fa-solid fa-plus"></i>
       </button>
     </div>
@@ -17,7 +20,7 @@
           </div>
           <span
             class="fw-bold fs-5 text-dark text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
-            cTooltip="م. أحمد علي" cTooltipPlacement="bottom">
+            [cTooltip]="officer.name" cTooltipPlacement="bottom">
             {{officer.name}}
           </span>
         </div>

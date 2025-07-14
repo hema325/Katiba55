@@ -78,7 +78,7 @@
   </div>
 
   <!-- الحالة -->
-  <div class="col-12 col-md-6 col-lg-4">
+  <!-- <div class="col-12 col-md-6 col-lg-4">
     <c-card class="h-100 shadow-sm border-0 rounded-3">
       <c-card-body class="d-flex align-items-center">
         <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
@@ -89,17 +89,17 @@
       </c-card-body>
     </c-card>
   </div>
-</div>
+</div> -->
 
-<!-- سكشن الملاحظات -->
-<div class="mb-5">
-  <h6 class="text-secondary mb-3">
-    <i class="fa-solid fa-note-sticky text-warning me-2"></i>
-    الملاحظات
-  </h6>
-  <c-card class="shadow-sm border-0 rounded-3">
-    <c-card-body>
-      <div class="text-muted" [innerText]="officer?.notes || 'لا يوجد'"></div>
-    </c-card-body>
-  </c-card>
-</div>
+  <!-- سكشن الملاحظات -->
+  <div class="mb-5">
+    <h6 class="text-secondary mb-3">
+      <i class="fa-solid fa-note-sticky text-warning me-2"></i>
+      الملاحظات
+    </h6>
+    <c-card class="shadow-sm border-0 rounded-3">
+      <c-card-body>
+        <div class="text-muted" [innerText]="officer?.notes || 'لا يوجد'"></div>
+      </c-card-body>
+    </c-card>
+  </div>

@@ -11,7 +11,7 @@ namespace Katiba55.API.Dtos.Companies
         [Phone]
         public string? Phone { get; set; }
         [EnumDataType(typeof(CompanyStatus))]
-        public CompanyStatus Status { get; set; }
+        public string Status { get; set; }
         public string? Address { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }

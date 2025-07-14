@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Environment } from '../static-data/environment';
-import { CreateOfficer } from '../models/officers/create-officer';
-import { UpdateOfficer } from '../models/officers/update-officer';
 import { Officer } from '../models/officers/officer';
 import { OfficerBrief } from '../models/officers/officer-brief';
 import { Observable } from 'rxjs';
@@ -13,7 +11,7 @@ import { Result } from '../models/Result';
 })
 export class OfficersService {
 
-  private baseUrl: string = Environment.apiUrl + '/officers';
+  private baseUrl: string = Environment.apiUrl + 'api/officers';
   private httpClient: HttpClient = inject(HttpClient);
 
   create(officer: any): Observable<Result<number>> {

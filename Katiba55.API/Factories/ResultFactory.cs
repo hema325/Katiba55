@@ -19,11 +19,11 @@
                 Data = data
             };
 
-        public static Result<Empty> Ok(string? message = null)
+        public static Result<Empty> Ok()
             => new()
             {
                 Status = 200,
-                Message = message ?? GetDefaultMessage(200)
+                Message = GetDefaultMessage(200)
             };
 
         public static Result<Empty> BadRequest(string[]? errors = null, string? message = null)

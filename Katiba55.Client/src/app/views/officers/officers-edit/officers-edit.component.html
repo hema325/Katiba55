@@ -10,7 +10,7 @@
     <form [formGroup]="officerForm" (ngSubmit)="onSubmit()">
       <div class="row g-2">
         <div class="col-12 col-md-6">
-          <app-text-input label="الاسم" placeholder="ادخل الاسم" formControlName="name" />
+          <app-text-input label="اسم الضابط" placeholder="ادخل اسم الضابط" formControlName="name" />
         </div>
         <div class="col-12 col-md-6">
           <app-select-input label="الرتبة" formControlName="rank">
@@ -60,7 +60,7 @@
             aria-label="اضافة ضابط جديد">
             @if(isSubmitting) {
             <c-spinner aria-hidden="true" size="sm"></c-spinner>
-            جارى الحفظ
+            جارى حفظ التغيرات
             }
             @else {
             <i class="fa-solid fa-floppy-disk opacity-75 me-2"></i>

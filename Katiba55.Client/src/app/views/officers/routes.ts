@@ -18,21 +18,21 @@ export const routes: Routes = [
         path: 'add',
         loadComponent: () => import('./officers-add/officers-add.component').then(c => c.OfficersAddComponent),
         data: {
-          title: 'اضافة'
+          title: 'اضافة ضابط'
         }
       },
       {
         path: ':id/edit',
         loadComponent: () => import('./officers-edit/officers-edit.component').then(c => c.OfficersEditComponent),
         data: {
-          title: 'تعديل'
+          title: 'تعديل الضابط'
         }
       },
       {
         path: ':id',
         loadComponent: () => import('./officer-details/officer-details.component').then(c => c.OfficerDetailsComponent),
         data: {
-          title: 'التفاصيل'
+          title: 'تفاصيل الضابط'
         }
       },
     ]

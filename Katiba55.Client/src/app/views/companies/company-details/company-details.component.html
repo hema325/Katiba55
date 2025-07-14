@@ -7,7 +7,7 @@
         <i class="fa-solid fa-building text-primary fs-4 me-3"></i>
         <div>
           <div class="fw-bold">اسم الشركة</div>
-          <div class="small">شركة المقاولون العرب</div>
+          <div class="small">{{company?.name || 'لا يوجد'}}</div>
         </div>
       </c-card-body>
     </c-card>
@@ -20,7 +20,7 @@
         <i class="fa-solid fa-user-tie text-warning fs-4 me-3"></i>
         <div>
           <div class="fw-bold">اسم الممثل</div>
-          <div class="small">م. أحمد علي</div>
+          <div class="small">{{company?.representativeName || 'لا يوجد'}}</div>
         </div>
       </c-card-body>
     </c-card>
@@ -33,7 +33,7 @@
         <i class="fa-solid fa-envelope text-info fs-4 me-3"></i>
         <div>
           <div class="fw-bold">البريد الإلكتروني</div>
-          <div class="small">info&#64;arabcont.com</div>
+          <div class="small">{{company?.email || 'لا يوجد'}}</div>
         </div>
       </c-card-body>
     </c-card>
@@ -46,7 +46,7 @@
         <i class="fa-solid fa-phone text-success fs-4 me-3"></i>
         <div>
           <div class="fw-bold">الهاتف</div>
-          <div class="small">01001234567</div>
+          <div class="small">{{company?.phone || 'لا يوجد'}}</div>
         </div>
       </c-card-body>
     </c-card>
@@ -59,7 +59,17 @@
         <i class="fa-solid fa-location-dot text-danger fs-4 me-3"></i>
         <div>
           <div class="fw-bold">العنوان</div>
-          <div class="small">١ شارع التحرير، القاهرة</div>
+          <div class="small">
+            @if(company?.address) {
+            <a href="https://maps.google.com?q={{(company?.latitude && company?.longitude)?`${company?.latitude},${company?.longitude}`: company?.address}}"
+              target="_blank" rel="noopener noreferrer" class="text-decoration-none text-primary">
+              {{company?.address}}
+            </a>
+            }
+            @else {
+            <div class="small text-muted">لا يوجد</div>
+            }
+          </div>
         </div>
       </c-card-body>
     </c-card>
@@ -73,36 +83,45 @@
           <i class="fa-solid fa-shield text-success fs-4"></i>
           <div class="flex-fill px-3">
             <div class="fw-bold">الموافقة الأمنية</div>
-            <div class="text-muted small">انقر لعرض المستند</div>
+            @if(company?.approvalImagePath) {
+            <a [href]="baseUrl + company?.approvalImagePath" target="_blank" class="small">انقر لعرض المستند </a>
+            }
+            @else {
+            <div class="small text-muted">لا يوجد</div>
+            }
           </div>
-          <a href="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
-            target="_blank" title="عرض الموافقة الأمنية بالحجم الكامل">
-            <img
-              src="https://png.pngtree.com/png-vector/20220203/ourlarge/pngtree-shield-warranty-icon-with-check-sign-png-image_4365342.png"
-              alt="الموافقة الأمنية" class="img-fluid rounded-2 shadow-sm" width="48" height="48"
-              style="object-fit: cover;" />
+          @if(company?.approvalImagePath) {
+          <a [href]="baseUrl + company?.approvalImagePath" target="_blank" title="عرض الموافقة الأمنية بالحجم الكامل">
+            <img [src]="baseUrl + company?.approvalImagePath" alt="الموافقة الأمنية"
+              class="img-fluid rounded-2 shadow-sm" width="48" height="48" style="object-fit: cover;" />
           </a>
+          }
         </div>
+
       </c-card-body>
     </c-card>
   </div>
-
-
 </div>
 
 <!-- الموقع على الخريطة -->
+@if(sanitizedMapUrl) {
 <div class="mb-4">
   <h6 class="text-secondary mb-3">
     <i class="fa-solid fa-map-location-dot text-info me-2"></i>
     الموقع على الخريطة
   </h6>
   <div class="ratio ratio-21x9">
+    @if(company?.latitude && company?.longitude) {
+    @if(company?.latitude && company?.longitude) {
     <iframe width="100%" height="100%" loading="lazy" allowfullscreen class="border-0 rounded-3 my-2 shadow-sm"
-      referrerpolicy="no-referrer-when-downgrade"
-      src="https://maps.google.com/maps?q=30.0444,31.2357&amp;hl=ar&amp;z=14&amp;output=embed">
+      referrerpolicy="no-referrer-when-downgrade" [src]="sanitizedMapUrl">
     </iframe>
+    }
+    }
   </div>
 </div>
+}
+
 
 <!-- سكشن الملاحظات -->
 <div class="mb-5">
@@ -112,9 +131,7 @@
   </h6>
   <c-card class="shadow-sm border-0 rounded-3">
     <c-card-body>
-      <div class="text-muted">
-        لا توجد ملاحظات حالياً.
-      </div>
+      <div class="text-muted" [innerText]="company?.notes || 'لا يوجد'"></div>
     </c-card-body>
   </c-card>
 </div>

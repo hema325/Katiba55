@@ -1,0 +1,117 @@
+<div class="container-fluid px-0 my-3">
+  <div class="row justify-content-center">
+    <div class="col-12 ">
+      <c-card class="border-0  shadow-sm bg-white mb-4 w-100 mx-auto">
+        <c-card-header
+          class="bg-info bg-opacity-10 border-0 d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3 mb-0">
+          <span class="fw-bold fs-3 text-info text-center mb-1">إضافة شركة</span>
+          <div class="text-secondary small">يرجى تعبئة بيانات الشركة بدقة لضمان نتائج افضل</div>
+        </c-card-header>
+        <c-card-body class="p-4">
+          <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+            <!-- بيانات الشركة -->
+            <div class="mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <i class="fa-solid fa-id-card text-primary me-2"></i>
+                <span class="fw-semibold text-primary">بيانات الشركة</span>
+                <div class="flex-fill border-bottom border-2 border-primary-subtle ms-2"></div>
+              </div>
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <app-text-input label="اسم الشركة" placeholder="ادخل اسم الشركة" formControlName="name" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <app-text-input label="اسم الممثل" placeholder="ادخل اسم الممثل"
+                    formControlName="representativeName" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <app-text-input label="البريد الإلكتروني" placeholder="ادخل البريد الإلكتروني" formControlName="email"
+                    type="email" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <app-text-input label="رقم الهاتف" placeholder="ادخل رقم الهاتف" formControlName="phone" type="tel" />
+                </div>
+                <div class="col-12">
+                  <app-text-input label="العنوان" placeholder="ادخل العنوان" formControlName="address" />
+                </div>
+              </div>
+            </div>
+
+            <!-- الموقع الجغرافي -->
+            <div class="mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <i class="fa-solid fa-location-dot text-success me-2"></i>
+                <span class="fw-semibold text-success">الموقع الجغرافي</span>
+                <div class="flex-fill border-bottom border-2 border-success-subtle ms-2"></div>
+              </div>
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <app-text-input label="خط العرض (Latitude)" placeholder="ادخل خط العرض" formControlName="latitude"
+                    type="number" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <app-text-input label="خط الطول (Longitude)" placeholder="ادخل خط الطول" formControlName="longitude"
+                    type="number" />
+                </div>
+              </div>
+            </div>
+
+            <!-- الحالة والموافقة الأمنية -->
+            <div class="mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <i class="fa-solid fa-shield-halved text-info me-2"></i>
+                <span class="fw-semibold text-info">الحالة والموافقة الأمنية</span>
+                <div class="flex-fill border-bottom border-2 border-info-subtle ms-2"></div>
+              </div>
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <app-select-input label="الحالة" formControlName="status">
+                    <option value="" disabled hidden>اختر الحالة</option>
+                    <option value="Approved">معتمدة</option>
+                    <option value="Unapproved">غير معتمدة</option>
+                  </app-select-input>
+                </div>
+                <div class="col-12 col-md-6">
+                  <app-file-input label="الموافقة الأمنية" formControlName="securityApprovalImage"
+                    accept="image/*,application/pdf" />
+                </div>
+              </div>
+            </div>
+
+            <!-- ملاحظات -->
+            <div class="mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <i class="fa-solid fa-note-sticky text-warning me-2"></i>
+                <span class="fw-semibold text-warning">ملاحظات إضافية</span>
+                <div class="flex-fill border-bottom border-2 border-warning-subtle ms-2"></div>
+              </div>
+              <app-text-area-input label="ملاحظات" placeholder="ادخل أي ملاحظات إضافية" formControlName="notes"
+                [rows]="4" />
+            </div>
+
+            <!-- زر الحفظ -->
+            <div class="mt-4">
+              <button type="submit" [disabled]="isSubmitting || companyForm.invalid"
+                class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+                aria-label="اضافة شركة جديدة">
+                @if(isSubmitting) {
+                <c-spinner aria-hidden="true" size="sm"></c-spinner>
+                @if(isUploadingFile) {
+                جارى رفع صورة الموافقة الأمنية...
+                }
+                @else {
+                جارى حفظ التغيرات
+                }
+                }
+                @else {
+                <i class="fa-solid fa-floppy-disk opacity-75 me-2"></i>
+                <span class="px-1">حفظ التغيرات</span>
+                }
+              </button>
+            </div>
+          </form>
+        </c-card-body>
+      </c-card>
+    </div>
+  </div>
+</div>

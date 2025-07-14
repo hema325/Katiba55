@@ -7,7 +7,6 @@ import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/te
 import { phoneValidator } from '../../../validators/phone-validator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OfficersService } from '../../../services/officers.service';
-import { UpdateOfficer } from '../../../models/officers/update-officer';
 import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
 import { formatInputDate } from '../../../helpers/format-date';

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ToasterService } from '../../../services/toaster.service';
 import { RouterLink } from '@angular/router';
-import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, PageItemComponent, ProgressComponent, RowComponent, SpinnerComponent, TableDirective } from '@coreui/angular';
+import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, PageItemComponent, ProgressComponent, RowComponent, SpinnerComponent, TableDirective, TooltipDirective } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
 import { OfficersService } from '../../../services/officers.service';
@@ -32,7 +32,8 @@ import { LoaderComponent } from 'src/app/shared/loader/loader.component';
     OfficerRankPipe,
     OfficerStatusPipe,
     SpinnerComponent,
-    LoaderComponent
+    LoaderComponent,
+    TooltipDirective,
   ]
 })
 export class ListOfficersComponent implements OnInit {

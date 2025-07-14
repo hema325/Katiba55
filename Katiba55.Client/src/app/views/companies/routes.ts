@@ -15,6 +15,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'add',
+        loadComponent: () => import('./company-add/company-add.component').then(c => c.CompanyAddComponent),
+        data: {
+          title: 'إضافة شركة',
+        }
+      },
+      {
         path: ':id/edit',
         loadComponent: () => import('./company-edit/company-edit.component').then(c => c.CompanyEditComponent),
         data: {
