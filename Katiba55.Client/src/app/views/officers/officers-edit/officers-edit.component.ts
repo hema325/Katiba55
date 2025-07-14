@@ -39,7 +39,7 @@ export class OfficersEditComponent implements OnInit {
   private toasterService: ToasterService = inject(ToasterService);
   private fb: FormBuilder = inject(FormBuilder);
 
-  officerForm = this.fb.group<any>({
+  officerForm = this.fb.group({
     name: ['', [Validators.required]],
     email: [null, [Validators.email]],
     phone: [null, [phoneValidator()]],
@@ -67,7 +67,7 @@ export class OfficersEditComponent implements OnInit {
       .pipe(finalize(() => this.isLoading = false), first())
       .subscribe(response => {
         if (response.success) {
-          this.officerForm.patchValue({ ...response.data, joinDate: formatInputDate(response.data.joinDate), leaveDate: formatInputDate(response.data.leaveDate) });
+          this.officerForm.patchValue({ ...response.data as any, joinDate: formatInputDate(response.data.joinDate), leaveDate: formatInputDate(response.data.leaveDate) });
         }
       });
   }

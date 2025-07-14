@@ -104,6 +104,5 @@ export class CompanyAddComponent implements OnInit {
       approvalImagePath: this.approvalImagePath,
       notes: company.notes
     };
-
   }
 }
