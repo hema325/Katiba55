@@ -2,15 +2,30 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ProjectsService } from '../../../services/projects.service';
 import { OfficersService } from '../../../services/officers.service';
 import { Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OfficerBrief } from '../../../models/officers/officer-brief';
 import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
+import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
+import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
+import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
+import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
+import { ProjectStatus } from '../../../enums/project-status.enum';
 
 @Component({
   selector: 'app-projects-add',
   templateUrl: './projects-add.component.html',
-  styleUrls: ['./projects-add.component.css']
+  styleUrls: ['./projects-add.component.css'],
+  imports: [
+    CardComponent,
+    CardHeaderComponent,
+    CardBodyComponent,
+    ReactiveFormsModule,
+    TextInputComponent,
+    TextAreaInputComponent,
+    SelectInputComponent,
+    SpinnerComponent
+  ]
 })
 export class ProjectsAddComponent implements OnInit {
 
@@ -34,8 +49,8 @@ export class ProjectsAddComponent implements OnInit {
     latitude: [null],
     longitude: [null],
     status: ['', [Validators.required]],
-    executionPercent: [null],
-    executionDate: [null],
+    executionPercent: [{ value: null, disabled: true }],
+    executionDate: [{ value: null, disabled: true }],
     supervisorId: ['', [Validators.required]],
     notes: [null]
   });
@@ -64,5 +79,26 @@ export class ProjectsAddComponent implements OnInit {
           this.router.navigate([`/projects`]);
         }
       });
+  }
+
+  onStatusChange(value: string) {
+    const executionPercent = this.projectForm.get('executionPercent');
+    const executionDate = this.projectForm.get('executionDate');
+
+    if (value === ProjectStatus.Pending) {
+      executionPercent?.clearValidators();
+      executionDate?.clearValidators();
+      executionPercent?.disable();
+      executionDate?.disable();
+    }
+    else {
+      executionPercent?.setValidators(Validators.required);
+      executionDate?.setValidators(Validators.required);
+      executionPercent?.enable();
+      executionDate?.enable();
+    }
+
+    executionPercent?.updateValueAndValidity();
+    executionDate?.updateValueAndValidity();
   }
 }

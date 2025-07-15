@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Self } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -12,6 +12,7 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
 export class SelectInputComponent implements ControlValueAccessor {
 
   @Input() label: string = '';
+  @Output() valueChanged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(@Self() private controlDir: NgControl) {
     this.controlDir.valueAccessor = this;
@@ -29,5 +30,9 @@ export class SelectInputComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
   }
   setDisabledState?(isDisabled: boolean): void {
+  }
+
+  onChange() {
+    this.valueChanged.emit(this.control.value);
   }
 }

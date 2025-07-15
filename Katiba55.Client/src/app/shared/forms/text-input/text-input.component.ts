@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, Input, OnInit, Self } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControlDirective } from '@coreui/angular';
 
 @Component({
   selector: 'app-text-input',
