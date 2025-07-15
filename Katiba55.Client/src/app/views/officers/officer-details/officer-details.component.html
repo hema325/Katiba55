@@ -62,7 +62,7 @@
         <i class="fa-solid fa-calendar-plus text-info fs-4 me-3"></i>
         <div>
           <div class="fw-bold">تاريخ الانضمام</div>
-          <div class="small">{{(officer?.joinDate | date:'shortDate') || 'لا يوجد'}}</div>
+          <div class="small">{{(officer?.joinDate | date:'dd-MM-yyyy') || 'لا يوجد'}}</div>
         </div>
       </c-card-body>
     </c-card>
@@ -75,7 +75,7 @@
         <i class="fa-solid fa-calendar-minus text-danger fs-4 me-3"></i>
         <div>
           <div class="fw-bold">تاريخ المغادرة</div>
-          <div class="small">{{(officer?.leaveDate| date:'shortDate') || 'لا يوجد'}}</div>
+          <div class="small">{{(officer?.leaveDate| date:'dd-MM-yyyy') || 'لا يوجد'}}</div>
         </div>
       </c-card-body>
     </c-card>

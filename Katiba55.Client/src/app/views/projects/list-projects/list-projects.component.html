@@ -1,144 +1,71 @@
-<c-row ngPreserveWhitespaces>
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <div class="d-flex justify-content-between align-items-center">
-          <h6 class="mb-0">قائمة المشاريع</h6>
-          <div class="d-flex align-items-center gap-2">
-            <button [color]="'primary'" [routerLink]="['/projects/report']" routerLinkActive="router-link-active"
-              cButton><i class="fa-solid fa-clipboard"></i></button>
-            <button [color]="'primary'" cButton><i class="fa-solid fa-filter"></i></button>
-            <button [color]="'primary'" cButton><i class="fa-solid fa-plus"></i></button>
-          </div>
-        </div>
-      </c-card-header>
-      <c-card-body class="overflow-auto">
-        <table cTable>
-          <thead>
-            <tr>
-              <th>الملصق</th>
-              <th>الاسم</th>
-              <th>الجهة المنفذة</th>
-              <th>الجهة المستفيدة</th>
-              <th>القيمة التقديرية</th>
-              <th>المخصص المالي</th>
-              <th>تاريخ البدء</th>
-              <th>تاريخ الانتهاء</th>
-              <th>نسبة التنفيذ</th>
-              <th>العنوان</th>
-              <th>الحالة</th>
-              <th>الملاحظات</th>
-              <th>الاجراءات</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <a href="https://tse3.mm.bing.net/th/id/OIP.VXqGdlUb4zIdpubRzIrUywHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
-                  target="_blank">
-                  <img src="https://tse3.mm.bing.net/th/id/OIP.VXqGdlUb4zIdpubRzIrUywHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
-                    class="table-poster">
-                </a>
-              </td>
-              <td>هناجر دهشور</td>
-              <td>إدارة المهندسين العسكريين</td>
-              <td>هيئة الإمداد والتموين</td>
-              <td>120,000 <span class="text-muted small">ج.م</span></td>
-              <td>100,000 <span class="text-muted small">ج.م</span></td>
-              <td>2024-04-01</td>
-              <td>2025-02-28</td>
-              <td>
-                <c-progress [value]="82" height="16" color="success">82%</c-progress>
-              </td>
-              <td>
-                <a href="https://www.google.com/maps/search/?api=1&query=29.8712,31.2086" target="_blank">دهشور -
-                  الجيزة</a>
-              </td>
-              <td><c-badge class="me-1" color="warning">تحت الانشاء</c-badge></td>
-              <td>تنفيذ 4 هناجر بنسبة إنجاز إجمالية 82%</td>
-              <td>
-                <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" routerLink="/projects/22/edit" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
-                      class="fa-solid fa-trash"></i></a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://tse2.mm.bing.net/th/id/OIP.myIE9FGecPDHgEcAKW4xEwHaD4?w=1200&h=630&rs=1&pid=ImgDetMain&o=7&rm=3"
-                  target="_blank">
-                  <img
-                    src="https://tse2.mm.bing.net/th/id/OIP.myIE9FGecPDHgEcAKW4xEwHaD4?w=1200&h=630&rs=1&pid=ImgDetMain&o=7&rm=3"
-                    class="table-poster">
-                </a>
-              </td>
-              <td>ممشى أهل مصر</td>
-              <td>الهيئة الهندسية للقوات المسلحة</td>
-              <td>محافظة القاهرة</td>
-              <td>200,000 <span class="text-muted small">ج.م</span></td>
-              <td>150,000 <span class="text-muted small">ج.م</span></td>
-              <td>2024-03-01</td>
-              <td>2025-06-30</td>
-              <td>
-                <c-progress [value]="95" height="16" color="success">95%</c-progress>
-              </td>
-              <td>
-                <a href="https://www.google.com/maps/search/?api=1&query=30.0444,31.2357" target="_blank">كورنيش النيل -
-                  القاهرة</a>
-              </td>
-              <td><c-badge class="me-1" color="success">مكتمل</c-badge></td>
-              <td>تم افتتاح المرحلة الأولى وجاري التشطيبات النهائية</td>
-              <td>
-                <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" routerLink="/projects/22/edit" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
-                      class="fa-solid fa-trash"></i></a>
+<div class="row g-4 mb-5">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="mb-0 text-success fw-bold">المشروعات</h5>
+      <div class="d-flex align-items-center gap-2">
+        <button [routerLink]="['/projects/report']" type="button" class="btn btn-primary"> <i
+            class="fa-solid fa-clipboard"></i></button>
+        <button [routerLink]="['/projects/add']" type="button" class="btn btn-primary"> <i
+            class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
 
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://tse2.mm.bing.net/th/id/OIP.kWMcC_HkoQ4ji9LNnFW91QHaCx?rs=1&pid=ImgDetMain&o=7&rm=3"
-                  target="_blank">
-                  <img src="https://tse2.mm.bing.net/th/id/OIP.kWMcC_HkoQ4ji9LNnFW91QHaCx?rs=1&pid=ImgDetMain&o=7&rm=3"
-                    class="table-poster">
-                </a>
-              </td>
-              <td>الدلتا الجديدة</td>
-              <td>وزارة الإسكان والمرافق</td>
-              <td>وزارة الزراعة</td>
-              <td>300,000 <span class="text-muted small">ج.م</span></td>
-              <td>250,000 <span class="text-muted small">ج.م</span></td>
-              <td>2023-09-01</td>
-              <td>2026-12-31</td>
-              <td>
-                <c-progress [value]="40" height="16" color="warning">40%</c-progress>
-              </td>
-              <td>
-                <a href="https://www.google.com/maps/search/?api=1&query=30.8978,30.3171" target="_blank">منطقة الدلتا
-                  الجديدة</a>
-              </td>
-              <td><c-badge class="me-1" color="danger">متوقف</c-badge></td>
-              <td>توقف التنفيذ بسبب مشاكل تمويلية</td>
-              <td>
-                <div class="d-flex align-items-center gap-2">
-                  <a [color]="'primary'" routerLink="/projects/22" cButton><i class="fa-solid fa-eye"></i></a>
-                  <a [color]="'secondary'" routerLink="/projects/22/edit" cButton><i class="fa-solid fa-pen"></i></a>
-                  <a [color]="'danger'" cButton (click)="fireDeleteConfirmationModal()"><i
-                      class="fa-solid fa-trash"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  @for(project of projects; track project.id) {
+  <!-- Project Card -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
+      <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+        <div class="w-100 mb-2">
+          <span
+            class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+            [cTooltip]="project.name" cTooltipPlacement="bottom">
+            {{project.name}}
+          </span>
+        </div>
+        <hr class="w-100 my-2" style="opacity:0.12;" />
+        <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+          <c-badge [color]="getStatusBadgeColor(project.status)" class="px-3 py-1">{{project.status |
+            projectStatus}}</c-badge>
+          <span class="small text-muted">نسبة التنفيذ</span>
+        </div>
+        <c-progress [value]="project.executionPercent || 0" height="12"
+          [color]="getExecutionProgressColor(project.executionPercent || 0)"
+          class="w-100 mb-1">{{project.executionPercent ||
+          0}}%</c-progress>
+        @if(project.executionDate) {
+        <div class="d-flex align-items-center justify-content-center w-100 mt-1">
+          <span class="small text-muted">آخر تحديث: <span dir="ltr">{{project.executionDate |
+              date:'dd-MM-yyyy'}}</span></span>
+        </div>
+        }
+        <div class="d-flex gap-2 w-100 mt-3 justify-content-center">
+          <a [routerLink]="['/projects', project.id]"
+            class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+            title="عرض">
+            <i class="fa-solid fa-eye"></i>
+          </a>
+          <a [routerLink]="['/projects', project.id, 'edit']"
+            class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+            title="تعديل">
+            <i class="fa-solid fa-pen"></i>
+          </a>
+          <button
+            class="btn btn-outline-danger btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+            title="حذف" (click)="fireDeleteConfirmationModal(project)" [disabled]="deletedItem?.id == project.id">
+            @if(deletedItem?.id == project.id) {
+            <c-spinner aria-hidden="true" size="sm"></c-spinner>
+            }
+            @else {
+            <i class="fa-solid fa-trash"></i>
+            }
+          </button>
+        </div>
       </c-card-body>
     </c-card>
-  </c-col>
-</c-row>
+  </div>
+  }
+</div>
 
 <!-- modals -->
 <app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"

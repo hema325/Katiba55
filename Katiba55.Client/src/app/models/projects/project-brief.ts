@@ -1,6 +1,6 @@
 import { ProjectStatus } from "../../enums/project-status.enum"
 
-export class ProjectBrief {
+export interface ProjectBrief {
     id: number
     name: string
     executionPercent?: number

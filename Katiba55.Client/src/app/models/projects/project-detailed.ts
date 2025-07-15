@@ -1,7 +1,7 @@
 import { ProjectStatus } from "../../enums/project-status.enum"
 import { OfficerBrief } from "../officers/officer-brief"
 
-export class ProjectDetailed {
+export interface ProjectDetailed {
     id: number
     name: string
     executingSide?: string

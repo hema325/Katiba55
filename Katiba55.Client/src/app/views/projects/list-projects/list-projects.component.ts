@@ -1,63 +1,94 @@
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { BadgeComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, ModalToggleDirective, PageItemComponent, PageLinkDirective, PopoverDirective, ProgressBarComponent, ProgressComponent, RowComponent, TableDirective, ThemeDirective, TooltipDirective } from '@coreui/angular';
-import { IconDirective } from '@coreui/icons-angular';
-import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
+import { BadgeComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, ProgressComponent, SpinnerComponent, TooltipDirective } from '@coreui/angular';
 import { ToasterService } from '../../../services/toaster.service';
 import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
 import { RouterLink } from '@angular/router';
+import { ProjectsService } from '../../../services/projects.service';
+import { ProjectBrief } from '../../../models/projects/project-brief';
+import { finalize, first } from 'rxjs';
+import { ProjectStatusPipe } from '../../../pipes/project-status.pipe';
+import { ProjectStatus } from '../../../enums/project-status.enum';
 
 @Component({
   selector: 'app-list-projects',
   templateUrl: './list-projects.component.html',
   styleUrls: ['./list-projects.component.css'],
   imports: [
-    RowComponent,
-    ColComponent,
     CardComponent,
-    CardHeaderComponent,
     CardBodyComponent,
-    CardFooterComponent,
-    TableDirective,
     ButtonDirective,
-    IconDirective,
     DatePipe,
-    PageItemComponent,
-    PaginatorComponent,
     BadgeComponent,
     ProgressComponent,
+    SpinnerComponent,
     DeleteConfirmationModalComponent,
-    RouterLink
+    RouterLink,
+    DatePipe,
+    ProjectStatusPipe,
+    TooltipDirective
   ]
 })
 export class ListProjectsComponent implements OnInit {
+  private projectsService: ProjectsService = inject(ProjectsService)
+  private toasterService = inject(ToasterService);
 
-  toasterService = inject(ToasterService);
+  projects: ProjectBrief[] = [];
   deleteConfirmationModalVisible: boolean = false;
+  deletedItem: ProjectBrief | null = null;
+  isLoading: boolean = false;
 
-  // dummy props
-  currentPage: any = 1;
-  date = new Date();
-
-
-
-  constructor() { }
 
   ngOnInit() {
+    this.isLoading = true;
+    this.projectsService.getAll()
+      .pipe(finalize(() => this.isLoading = false), first())
+      .subscribe(response => this.projects = response.data);
   }
 
 
-
-
-
-  fireDeleteConfirmationModal() {
+  fireDeleteConfirmationModal(project: ProjectBrief) {
     this.deleteConfirmationModalVisible = true;
+    this.deletedItem = project;
   }
 
   handleDeleteConfirmationModalChange(event: boolean) {
     if (event) {
-      this.toasterService.showToast('نجاح', 'تم حذف المشروع بنجاح!', 'success');
+      this.projectsService.delete(this.deletedItem!.id)
+        .pipe(finalize(() => this.deletedItem = null), first())
+        .subscribe(response => {
+          if (response.success) {
+            this.toasterService.showToast('نجاح', 'تم حذف المشروع بنجاح!', 'success');
+            this.projects = this.projects.filter(p => p.id !== this.deletedItem!.id);
+          }
+        })
+    }
+    else {
+      this.deletedItem = null;
     }
   }
 
+  getStatusBadgeColor(status: string): string {
+    switch (status) {
+      case ProjectStatus.Pending:
+        return 'secondary';
+      case ProjectStatus.OnHold:
+        return 'warning';
+      case ProjectStatus.Underconstruction:
+        return 'primary';
+      case ProjectStatus.Completed:
+        return 'success';
+      case ProjectStatus.Cancelled:
+        return 'danger';
+      default:
+        return 'info';
+    }
+  }
+
+  getExecutionProgressColor(percent: number): string {
+    if (percent >= 85) return 'success';
+    if (percent >= 50) return 'info';
+    if (percent > 0) return 'warning';
+    return 'secondary';
+  }
 }
