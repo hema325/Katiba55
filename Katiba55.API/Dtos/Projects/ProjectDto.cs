@@ -1,6 +1,4 @@
-﻿using Katiba55.API.Dtos.Officers;
-
-namespace Katiba55.API.Dtos.Projects
+﻿namespace Katiba55.API.Dtos.Projects
 {
     public class ProjectDto
     {
@@ -17,10 +15,10 @@ namespace Katiba55.API.Dtos.Projects
         public string? Address { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
-        public ProjectStatus Status { get; set; }
+        public string Status { get; set; }
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
-        public OfficerBriefDto Supervisor { get; set; }
         public string? Notes { get; set; }
+        public int SupervisorId { get; set; }
     }
 }

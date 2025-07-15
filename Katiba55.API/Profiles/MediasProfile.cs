@@ -3,9 +3,9 @@ using Katiba55.API.Dtos.Projects;
 
 namespace Katiba55.API.Profiles
 {
-    public class ProjectMediasProfile: Profile
+    public class MediasProfile: Profile
     {
-        public ProjectMediasProfile()
+        public MediasProfile()
         {
             CreateMap<CreateProjectMediaDto, Media>();
             CreateMap<Media, ProjectMediaDto>();

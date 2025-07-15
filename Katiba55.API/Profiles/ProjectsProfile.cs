@@ -9,6 +9,7 @@ namespace Katiba55.API.Profiles
             CreateMap<CreateProjectDto, Project>();
             CreateMap<UpdateProjectDto, Project>();
             CreateMap<Project, ProjectBriefDto>();
+            CreateMap<Project, ProjectDetailedDto>();
             CreateMap<Project, ProjectDto>();
 
             CreateMap<ProjectExecutionHistory, ProjectExecutionHistoryDto>();

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Katiba55.API.Dtos.Officers;
 
 namespace Katiba55.API.Dtos.Projects
 {
-    public class UpdateProjectDto
+    public class ProjectDetailedDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string? ExecutingSide { get; set; }
         public string? BenefitingSide { get; set; }
@@ -16,11 +17,10 @@ namespace Katiba55.API.Dtos.Projects
         public string? Address { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
-        [EnumDataType(typeof(ProjectStatus))]
         public string Status { get; set; }
-        public int SupervisorId { get; set; }
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
+        public OfficerBriefDto Supervisor { get; set; }
         public string? Notes { get; set; }
     }
 }

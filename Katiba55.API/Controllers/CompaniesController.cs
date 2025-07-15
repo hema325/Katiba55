@@ -43,6 +43,18 @@ namespace Katiba55.API.Controllers
             if (await _context.Companies.AnyAsync(c => c.Id != id && c.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
+            if(dto.ApprovalImagePath != company.ApprovalImagePath)
+            {
+                try
+                {
+                    if (System.IO.File.Exists(company.ApprovalImagePath))
+                        System.IO.File.Delete(company.ApprovalImagePath);
+                }
+                catch
+                {
+                }
+            }
+
             _mapper.Map(dto, company);
 
             _context.Companies.Update(company);

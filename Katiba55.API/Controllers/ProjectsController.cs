@@ -120,6 +120,32 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(project));
         }
 
+        [HttpGet("{id}/getBriefById")]
+        public async Task<IActionResult> GetBriefByIdAsync(int id)
+        {
+            var project = await _context.Projects
+                .ProjectTo<ProjectBriefDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if(project == null)
+                return Response(ResultFactory.NotFound());
+
+            return Response(ResultFactory.Ok(project));
+        }
+
+        [HttpGet("{id}/getDetailedById")]
+        public async Task<IActionResult> GetDetailedByIdAsync(int id)
+        {
+            var project = await _context.Projects
+                .ProjectTo<ProjectDetailedDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if(project == null)
+                return Response(ResultFactory.NotFound());
+
+            return Response(ResultFactory.Ok(project));
+        }
+
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAllAsync()
         {

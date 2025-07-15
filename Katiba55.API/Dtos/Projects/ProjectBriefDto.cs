@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
-        public ProjectStatus Status { get; set; }
+        public string Status { get; set; }
     }
 }
