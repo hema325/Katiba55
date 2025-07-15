@@ -1,9 +1,9 @@
-import { ProjectStatus } from "../../enums/project-status.enum"
+import { ExecutionStatus } from "src/app/enums/execution-status.enum"
 
 export interface ProjectBrief {
     id: number
     name: string
     executionPercent?: number
     executionDate?: Date
-    status: ProjectStatus
+    executionStatus: ExecutionStatus
 }

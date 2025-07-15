@@ -7,8 +7,8 @@ import { RouterLink } from '@angular/router';
 import { ProjectsService } from '../../../services/projects.service';
 import { ProjectBrief } from '../../../models/projects/project-brief';
 import { finalize, first } from 'rxjs';
-import { ProjectStatusPipe } from '../../../pipes/project-status.pipe';
-import { ProjectStatus } from '../../../enums/project-status.enum';
+import { ExecutionStatusPipe } from '../../../pipes/execution-status.pipe';
+import { ExecutionStatus } from '../../../enums/execution-status.enum';
 
 @Component({
   selector: 'app-list-projects',
@@ -25,7 +25,7 @@ import { ProjectStatus } from '../../../enums/project-status.enum';
     DeleteConfirmationModalComponent,
     RouterLink,
     DatePipe,
-    ProjectStatusPipe,
+    ExecutionStatusPipe,
     TooltipDirective
   ]
 })
@@ -70,15 +70,15 @@ export class ListProjectsComponent implements OnInit {
 
   getStatusBadgeColor(status: string): string {
     switch (status) {
-      case ProjectStatus.Pending:
+      case ExecutionStatus.Pending:
         return 'secondary';
-      case ProjectStatus.OnHold:
+      case ExecutionStatus.OnHold:
         return 'warning';
-      case ProjectStatus.Underconstruction:
+      case ExecutionStatus.Underconstruction:
         return 'primary';
-      case ProjectStatus.Completed:
+      case ExecutionStatus.Completed:
         return 'success';
-      case ProjectStatus.Cancelled:
+      case ExecutionStatus.Cancelled:
         return 'danger';
       default:
         return 'info';

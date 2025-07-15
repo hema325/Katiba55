@@ -1,6 +1,6 @@
 ﻿namespace Katiba55.API.Enums
 {
-    public enum ProjectStatus
+    public enum ExecutionStatus
     {
         Pending = 1,
         OnHold = 2,

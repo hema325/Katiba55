@@ -1,4 +1,4 @@
-import { ProjectStatus } from "../../enums/project-status.enum"
+import { ExecutionStatus } from "../../enums/execution-status.enum"
 
 export interface Project {
     id: number
@@ -14,7 +14,7 @@ export interface Project {
     address?: string
     latitude?: number
     longitude?: number
-    status: ProjectStatus
+    status: ExecutionStatus
     executionPercent?: number
     executionDate?: Date
     supervisorId: number

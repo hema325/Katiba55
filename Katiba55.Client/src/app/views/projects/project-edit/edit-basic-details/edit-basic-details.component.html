@@ -111,14 +111,15 @@
           <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-shield-halved text-success me-2"></i>
-              <span class="fw-semibold text-success">الحالة ونسبة التنفيذ</span>
+              <span class="fw-semibold text-success">حالة التنفيذ ونسبته</span>
             </div>
           </c-card-header>
           <c-card-body class="pt-0 pb-3 px-3">
             <div class="row g-3">
               <div class="col-12">
-                <app-select-input label="الحالة" formControlName="status" (valueChanged)="onStatusChange($event)">
-                  <option value="" disabled hidden>اختر الحالة</option>
+                <app-select-input label="حالة التنفيذ" formControlName="executionStatus"
+                  (valueChanged)="onStatusChange($event)">
+                  <option value="" disabled hidden>اختر حالة التنفيذ</option>
                   <option value="Pending">لم يبدأ</option>
                   <option value="OnHold">متوقف</option>
                   <option value="Underconstruction">قيد الانشاء</option>

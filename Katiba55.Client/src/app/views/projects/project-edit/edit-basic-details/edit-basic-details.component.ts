@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
 import { finalize, first } from 'rxjs';
-import { ProjectStatus } from 'src/app/enums/project-status.enum';
+import { ExecutionStatus } from 'src/app/enums/execution-status.enum';
 import { formatInputDate } from 'src/app/helpers/format-date';
 import { OfficerBrief } from 'src/app/models/officers/officer-brief';
 import { OfficersService } from 'src/app/services/officers.service';
@@ -50,7 +50,7 @@ export class EditBasicDetailsComponent implements OnInit {
     address: [null],
     latitude: [null],
     longitude: [null],
-    status: ['', [Validators.required]],
+    executionStatus: ['', [Validators.required]],
     executionPercent: [null, [Validators.min(0), Validators.max(100)]],
     executionDate: [null],
     supervisorId: ['', [Validators.required]],
@@ -112,7 +112,7 @@ export class EditBasicDetailsComponent implements OnInit {
     const executionPercent = this.projectForm.get('executionPercent');
     const executionDate = this.projectForm.get('executionDate');
 
-    if (value === ProjectStatus.Pending) {
+    if (value === ExecutionStatus.Pending) {
       executionPercent?.clearValidators();
       executionPercent?.reset();
       executionPercent?.disable();

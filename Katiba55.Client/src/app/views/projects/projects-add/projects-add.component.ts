@@ -10,7 +10,7 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
-import { ProjectStatus } from '../../../enums/project-status.enum';
+import { ExecutionStatus } from '../../../enums/execution-status.enum';
 
 @Component({
   selector: 'app-projects-add',
@@ -48,7 +48,7 @@ export class ProjectsAddComponent implements OnInit {
     address: [null],
     latitude: [null],
     longitude: [null],
-    status: ['', [Validators.required]],
+    executionStatus: ['', [Validators.required]],
     executionPercent: [{ value: null, disabled: true }, [Validators.max(100), Validators.min(0)]],
     executionDate: [{ value: null, disabled: true }],
     supervisorId: ['', [Validators.required]],
@@ -85,7 +85,7 @@ export class ProjectsAddComponent implements OnInit {
     const executionPercent = this.projectForm.get('executionPercent');
     const executionDate = this.projectForm.get('executionDate');
 
-    if (value === ProjectStatus.Pending) {
+    if (value === ExecutionStatus.Pending) {
       executionPercent?.clearValidators();
       executionPercent?.reset();
       executionPercent?.disable();

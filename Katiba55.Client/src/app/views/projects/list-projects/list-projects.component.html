@@ -25,8 +25,8 @@
         </div>
         <hr class="w-100 my-2" style="opacity:0.12;" />
         <div class="d-flex justify-content-between align-items-center w-100 mb-2">
-          <c-badge [color]="getStatusBadgeColor(project.status)" class="px-3 py-1">{{project.status |
-            projectStatus}}</c-badge>
+          <c-badge [color]="getStatusBadgeColor(project.executionStatus)" class="px-3 py-1">{{project.executionStatus |
+            executionStatus}}</c-badge>
           <span class="small text-muted">نسبة التنفيذ</span>
         </div>
         <c-progress [value]="project.executionPercent || 0" height="12"

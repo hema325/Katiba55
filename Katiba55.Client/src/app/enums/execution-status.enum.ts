@@ -1,4 +1,4 @@
-export enum ProjectStatus {
+export enum ExecutionStatus {
     Pending = 'Pending',
     OnHold = 'OnHold',
     Underconstruction = 'Underconstruction',

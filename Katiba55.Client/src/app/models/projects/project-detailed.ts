@@ -1,4 +1,4 @@
-import { ProjectStatus } from "../../enums/project-status.enum"
+import { ExecutionStatus } from "../../enums/execution-status.enum"
 import { OfficerBrief } from "../officers/officer-brief"
 
 export interface ProjectDetailed {
@@ -15,7 +15,7 @@ export interface ProjectDetailed {
     address?: string
     latitude?: number
     longitude?: number
-    status: ProjectStatus
+    status: ExecutionStatus
     executionPercent?: number
     executionDate?: Date
     supervisor: OfficerBrief
