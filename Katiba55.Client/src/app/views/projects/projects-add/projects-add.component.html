@@ -133,7 +133,7 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <app-text-input label="نسبة التنفيذ" placeholder="ادخل نسبة التنفيذ"
-                                    formControlName="executionPercent" type="number" />
+                                    formControlName="executionPercent" type="number" [max]="100" [min]="0" />
                             </div>
                             <div class="col-12 col-md-6">
                                 <app-text-input label="تاريخ نسبة التنفيذ" placeholder="اختر تاريخ نسبة التنفيذ"

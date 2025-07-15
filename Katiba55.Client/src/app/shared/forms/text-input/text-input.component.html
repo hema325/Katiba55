@@ -1,7 +1,7 @@
 <div class="form-group" style="direction: rtl;">
   <label class="form-label">{{label}}</label>
   <input [formControl]="control" [type]="type" class="form-control p-2"
-    [class.is-invalid]="control.touched && control.invalid" [placeholder]="placeholder" />
+    [class.is-invalid]="control.touched && control.invalid" [placeholder]="placeholder" [max]="max" [min]="min" />
   @if(control.hasError('required')) {
   <div class="invalid-feedback">هذا الحقل مطلوب.</div>
   }
@@ -10,5 +10,11 @@
   }
   @if(control.hasError('phone')) {
   <div class="invalid-feedback">يرجى إدخال رقم هاتف صحيح.</div>
+  }
+  @if(control.hasError('min')) {
+  <div class="invalid-feedback">القيمة يجب أن تكون أكبر من أو تساوي {{control.errors?.['min']?.min}}.</div>
+  }
+  @if(control.hasError('max')) {
+  <div class="invalid-feedback">القيمة يجب أن تكون أقل من أو تساوي {{control.errors?.['max']?.max}}.</div>
   }
 </div>

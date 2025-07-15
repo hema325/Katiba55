@@ -61,7 +61,7 @@
             <div class="fw-bold">القيمة التقديرية</div>
             <div class="text-muted small">
               @if(project?.estimatedCost) {
-              {{project?.estimatedCost}} ج.م
+              {{project?.estimatedCost | number}} ج.م
               } @else {
               لا يوجد
               }
@@ -78,7 +78,7 @@
             <div class="fw-bold">المخصص المالي</div>
             <div class="text-muted small">
               @if(project?.financialAllocation) {
-              {{project?.financialAllocation}} ج.م
+              {{project?.financialAllocation | number}} ج.م
               } @else {
               لا يوجد
               }
@@ -126,7 +126,7 @@
           <i class="fa-solid fa-calendar-check text-success fs-4 me-3"></i>
           <div>
             <div class="fw-bold">تاريخ الانتهاء الفعلي</div>
-            <div class="text-muted small">{{(project?.estimatedEndDate | date:'dd-MM-yyyy') || 'لا يوجد'}}</div>
+            <div class="text-muted small">{{(project?.actualEndDate | date:'dd-MM-yyyy') || 'لا يوجد'}}</div>
           </div>
         </c-card-body>
       </c-card>
@@ -200,7 +200,7 @@
     </h6>
     <c-card class="shadow-sm border-0 rounded-3">
       <c-card-body>
-        <div class="text-muted" [innerText]="project?.notes || 'لا توجد ملاحظات حالياً.'">
+        <div class="text-muted" [innerText]="project?.notes || 'لا توجد ملاحظات حالياً.'" style="min-height: 80px;">
         </div>
       </c-card-body>
     </c-card>

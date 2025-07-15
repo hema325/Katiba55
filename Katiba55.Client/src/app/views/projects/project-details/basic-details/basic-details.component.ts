@@ -7,7 +7,7 @@ import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { ProjectsService } from '../../../../services/projects.service';
 import { ProjectDetailed } from '../../../../models/projects/project-detailed';
 import { finalize, first } from 'rxjs';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -20,7 +20,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     ButtonDirective,
     RouterLink,
     CircularProgressComponent,
-    DatePipe
+    DatePipe,
+    DecimalPipe
   ]
 })
 export class BasicDetailsComponent implements OnInit {

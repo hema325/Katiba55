@@ -31,21 +31,6 @@ export const routes: Routes = [
         loadChildren: () => import('./views/companies/routes').then((m) => m.routes)
       },
       {
-        path: 'works',
-        data: {
-          title: 'الأعمال'
-        },
-        children: [
-          {
-            path: ':id',
-            loadComponent: () => import('./views/works/work-details\/work-details.component').then((m) => m.WorkDetailsComponent),
-            data: {
-              title: 'تفاصيل العمل'
-            }
-          }
-        ]
-      },
-      {
         path: 'theme',
         loadChildren: () => import('./views/theme/routes').then((m) => m.routes)
       },

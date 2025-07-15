@@ -1,0 +1,179 @@
+<div class="container-fluid px-0 my-3">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <!-- عنوان الصفحة -->
+      <c-card class="mb-4 border-0 shadow-sm bg-primary bg-opacity-10">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3">
+          <span class="fw-bold fs-4 text-primary text-center mb-1">تعديل بيانات المشروع</span>
+          <div class="text-secondary text-center small">يمكنك تعديل بيانات المشروع ثم حفظ التغيرات.
+          </div>
+        </c-card-body>
+      </c-card>
+
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <!-- بيانات المشروع -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-diagram-project text-primary me-2"></i>
+              <span class="fw-semibold text-primary">بيانات المشروع</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="اسم المشروع" placeholder="ادخل اسم المشروع" formControlName="name" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="العنوان" placeholder="ادخل عنوان المشروع" formControlName="address" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="الجهة المنفذة" placeholder="ادخل الجهة المنفذة"
+                  formControlName="executingSide" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="الجهة المستفيدة" placeholder="ادخل الجهة المستفيدة"
+                  formControlName="benefitingSide" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="التكلفة التقديرية" placeholder="ادخل التكلفة التقديرية"
+                  formControlName="estimatedCost" type="number" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="الاعتماد المالي" placeholder="ادخل الاعتماد المالي"
+                  formControlName="financialAllocation" type="number" />
+              </div>
+              <div class="col-12">
+                <app-select-input label="المشرف" formControlName="supervisorId">
+                  <option value="" disabled hidden>اختر المشرف</option>
+                  @for(officer of officers; track officer.id) {
+                  <option [value]="officer.id">{{officer.name}}</option>
+                  }
+                </app-select-input>
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- بيانات التواريخ -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-calendar-days text-info me-2"></i>
+              <span class="fw-semibold text-info">تواريخ التنفيذ</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ البدء التقديري" placeholder="اختر تاريخ البدء التقديري"
+                  formControlName="estimatedStartDate" type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ الانتهاء التقديري" placeholder="اختر تاريخ الانتهاء التقديري"
+                  formControlName="estimatedEndDate" type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ البدء الفعلي" placeholder="اختر تاريخ البدء الفعلي"
+                  formControlName="actualStartDate" type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ الانتهاء الفعلي" placeholder="اختر تاريخ الانتهاء الفعلي"
+                  formControlName="actualEndDate" type="date" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- بيانات الموقع الجغرافي -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-location-dot text-danger me-2"></i>
+              <span class="fw-semibold text-danger">الموقع الجغرافي</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="خط العرض" placeholder="ادخل خط العرض" formControlName="latitude" type="number" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="خط الطول" placeholder="ادخل خط الطول" formControlName="longitude"
+                  type="number" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- بيانات الحالة ونسبة التنفيذ -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-shield-halved text-success me-2"></i>
+              <span class="fw-semibold text-success">الحالة ونسبة التنفيذ</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12">
+                <app-select-input label="الحالة" formControlName="status" (valueChanged)="onStatusChange($event)">
+                  <option value="" disabled hidden>اختر الحالة</option>
+                  <option value="Pending">لم يبدأ</option>
+                  <option value="OnHold">متوقف</option>
+                  <option value="Underconstruction">قيد الانشاء</option>
+                  <option value="Completed">مكتمل</option>
+                  <option value="Cancelled">ملغي</option>
+                </app-select-input>
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="نسبة التنفيذ" placeholder="ادخل نسبة التنفيذ" formControlName="executionPercent"
+                  type="number" [max]="100" [min]="0" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ نسبة التنفيذ" placeholder="اختر تاريخ نسبة التنفيذ"
+                  formControlName="executionDate" type="date" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- الملاحظات -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-note-sticky text-warning me-2"></i>
+              <span class="fw-semibold text-warning">الملاحظات</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12">
+                <app-text-area-input label="ملاحظات" placeholder="ادخل أي ملاحظات إضافية" formControlName="notes"
+                  [rows]="5" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- زر الحفظ -->
+        <c-card class="mb-0 border-0 shadow-sm">
+          <c-card-body class="p-4">
+            <button type="submit" [disabled]="projectForm.invalid || isSubmitting"
+              class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+              aria-label="حفظ التعديلات">
+              @if(isSubmitting) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              <span class="px-1">جارى حفظ التغيرات</span>
+              }
+              @else {
+              <i class="fa-solid fa-floppy-disk opacity-75"></i>
+              <span class="px-1">حفظ التغيرات</span>
+              }
+            </button>
+          </c-card-body>
+        </c-card>
+      </form>
+    </div>
+  </div>
+</div>

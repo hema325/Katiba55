@@ -1,37 +1,39 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ProjectsService } from '../../../services/projects.service';
-import { OfficersService } from '../../../services/officers.service';
-import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { OfficerBrief } from '../../../models/officers/officer-brief';
-import { finalize, first } from 'rxjs';
-import { ToasterService } from '../../../services/toaster.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
-import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
-import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
-import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
-import { ProjectStatus } from '../../../enums/project-status.enum';
+import { finalize, first } from 'rxjs';
+import { ProjectStatus } from 'src/app/enums/project-status.enum';
+import { formatInputDate } from 'src/app/helpers/format-date';
+import { OfficerBrief } from 'src/app/models/officers/officer-brief';
+import { OfficersService } from 'src/app/services/officers.service';
+import { ProjectsService } from 'src/app/services/projects.service';
+import { ToasterService } from 'src/app/services/toaster.service';
+import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-input.component';
+import { TextAreaInputComponent } from 'src/app/shared/forms/text-area-input/text-area-input.component';
+import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 
 @Component({
-  selector: 'app-projects-add',
-  templateUrl: './projects-add.component.html',
-  styleUrls: ['./projects-add.component.css'],
+  selector: 'app-edit-basic-details',
+  templateUrl: './edit-basic-details.component.html',
+  styleUrls: ['./edit-basic-details.component.css'],
   imports: [
-    CardComponent,
-    CardHeaderComponent,
-    CardBodyComponent,
-    ReactiveFormsModule,
     TextInputComponent,
     TextAreaInputComponent,
     SelectInputComponent,
-    SpinnerComponent
+    CardComponent,
+    CardHeaderComponent,
+    CardBodyComponent,
+    SpinnerComponent,
+    ReactiveFormsModule
   ]
 })
-export class ProjectsAddComponent implements OnInit {
+export class EditBasicDetailsComponent implements OnInit {
 
   private projectsService: ProjectsService = inject(ProjectsService);
   private officersService: OfficersService = inject(OfficersService);
   private router: Router = inject(Router);
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private toasterService: ToasterService = inject(ToasterService);
   private fb: FormBuilder = inject(FormBuilder);
 
@@ -49,18 +51,22 @@ export class ProjectsAddComponent implements OnInit {
     latitude: [null],
     longitude: [null],
     status: ['', [Validators.required]],
-    executionPercent: [{ value: null, disabled: true }, [Validators.max(100), Validators.min(0)]],
-    executionDate: [{ value: null, disabled: true }],
+    executionPercent: [null, [Validators.min(0), Validators.max(100)]],
+    executionDate: [null],
     supervisorId: ['', [Validators.required]],
     notes: [null]
   });
 
   officers: OfficerBrief[] = [];
+  projectId: number = 0;
   isSubmitting: boolean = false;
 
+  constructor() { }
 
   ngOnInit() {
+    this.projectId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.loadOfficers();
+    this.loadProject();
   }
 
   loadOfficers() {
@@ -69,9 +75,30 @@ export class ProjectsAddComponent implements OnInit {
       .subscribe(response => this.officers = response.data);
   }
 
+  loadProject() {
+    this.projectsService.getById(this.projectId)
+      .pipe(first())
+      .subscribe(response => {
+        if (response.success) {
+          const project = response.data;
+
+          this.projectForm.patchValue({
+            ...project as any,
+            estimatedStartDate: formatInputDate(project.estimatedStartDate),
+            estimatedEndDate: formatInputDate(project.estimatedEndDate),
+            actualStartDate: formatInputDate(project.actualStartDate),
+            actualEndDate: formatInputDate(project.actualEndDate),
+            executionDate: formatInputDate(project.executionDate),
+          });
+
+          this.onStatusChange(response.data.status);
+        }
+      })
+  }
+
   onSubmit(): void {
     this.isSubmitting = true;
-    this.projectsService.create(this.projectForm.value)
+    this.projectsService.update(this.projectId, this.projectForm.value)
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {
@@ -96,13 +123,14 @@ export class ProjectsAddComponent implements OnInit {
     }
     else {
       executionPercent?.setValidators([Validators.required, Validators.max(100), Validators.min(0)]);
-      executionPercent?.enable();
+      executionDate?.enable();
 
       executionDate?.setValidators(Validators.required);
-      executionDate?.enable();
+      executionPercent?.enable();
     }
 
     executionPercent?.updateValueAndValidity();
     executionDate?.updateValueAndValidity();
   }
+
 }

@@ -1,164 +1,42 @@
-<c-card class="mb-4">
-  <c-card-header>
-    <div class="d-flex justify-content-between align-items-center">
-      <h6 class="mb-0">تفاصيل مشروع هناجر دهشور</h6>
-      <div class="d-flex align-items-center gap-2">
-        <a [color]="'danger'" cButton><i class="fa-solid fa-trash"></i></a>
-        <a [color]="'secondary'" cButton><i class="fa-solid fa-pen"></i></a>
-      </div>
-    </div>
-  </c-card-header>
-  <c-card-body>
-    <div class="mb-4">
-      <h6 class="text-secondary mb-3"><i class="fa-solid fa-info-circle me-2 text-secondary"></i>معلومات أساسية</h6>
-      <div class="row g-3 mb-2">
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-signature text-primary me-2"></i>
-          <strong>اسم المشروع:</strong> هناجر دهشور
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-user-shield text-primary me-2"></i>
-          <strong>الضابط المشرف:</strong>
-          <a [routerLink]="['/officers/1']" routerLinkActive="router-link-active"
-            class="text-decoration-underline text-primary"> مهندس محمد عبد
-            الله</a>
-        </div>
+<div class="row g-3 mb-4 justify-content-center">
+  <div class="col-12 col-md-6 col-lg-3">
+    <c-card class="text-center border-0 rounded-3 h-100 p-0">
+      <button (click)="setActiveTab('basic-details')" [class.active]="activeTab === 'basic-details'"
+        class="btn btn-outline-primary w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+        <i class="fa-solid fa-pen-to-square me-2"></i>
+        البيانات الاساسية
+      </button>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-3">
+    <c-card class="text-center border-0 rounded-3 h-100 p-0">
+      <button (click)="setActiveTab('items')" [class.active]="activeTab === 'items'"
+        class="btn btn-outline-success w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+        <i class="fa-solid fa-list-check me-2"></i>
+        البنود العامة
+      </button>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-3">
+    <c-card class="text-center border-0 rounded-3 h-100 p-0">
+      <button (click)="setActiveTab('works')" [class.active]="activeTab === 'works'"
+        class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+        <i class="fa-solid fa-briefcase me-2"></i>
+        الاعمال
+      </button>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-3">
+    <c-card class="text-center  border-0 rounded-3 h-100 p-0">
+      <button (click)="setActiveTab('medias')" [class.active]="activeTab === 'medias'"
+        class="btn btn-outline-info w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+        <i class="fa-solid fa-photo-film me-2"></i>
+        الوسائط
+      </button>
+    </c-card>
+  </div>
+</div>
 
-        <div class="col-12 col-md-6"><i class="fa-solid fa-building-columns text-secondary me-2"></i><strong>الجهة
-            المنفذة:</strong> ادارة المهندسين العسكريين</div>
-        <div class="col-12 col-md-6"><i class="fa-solid fa-users text-secondary me-2"></i><strong>الجهة
-            المستفيدة:</strong> وزارة النقل</div>
-
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-coins text-warning me-2"></i>
-          <strong>القيمة التقديرية:</strong> 150,000,000 <span class="text-muted small">ج.م</span>
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-wallet text-success me-2"></i>
-          <strong>المخصص المالي:</strong> 120,000,000 <span class="text-muted small">ج.م</span>
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-calendar-days text-info me-2"></i>
-          <strong>تاريخ البدء التقديري:</strong> 2025-01-01
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-calendar-check text-info me-2"></i>
-          <strong>تاريخ الانتهاء التقديري:</strong> 2025-12-31
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-calendar-days text-success me-2"></i>
-          <strong>تاريخ البدء الفعلي:</strong> 2025-01-10
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-calendar-check text-success me-2"></i>
-          <strong>تاريخ الانتهاء الفعلي:</strong> 2025-12-20
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-location-dot text-primary me-2"></i>
-          <strong>العنوان:</strong> <a href="https://maps.google.com/maps?q=123+شارع+رئيسي" target="_blank"
-            class="text-decoration-underline text-primary">123 شارع رئيسي</a>
-        </div>
-        <div class="col-12 col-md-6">
-          <i class="fa-solid fa-note-sticky text-warning me-2"></i><strong>الملاحظات:</strong> لا يوجد
-        </div>
-      </div>
-    </div>
-    <hr>
-    <!-- سكشن الموقع -->
-    <div class="mb-4">
-      <h6 class="text-secondary mb-3"><i class="fa-solid fa-map-location-dot me-2 text-danger"></i>الموقع على الخريطة
-      </h6>
-      <div class="ratio ratio-21x9">
-        <iframe width="100%" height="100%" loading="lazy" allowfullscreen class="border-0 rounded-3 my-2 shadow-sm"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=24.7136,46.6753&amp;hl=ar&amp;z=14&amp;output=embed"></iframe>
-      </div>
-    </div>
-  </c-card-body>
-</c-card>
-
-<!-- الأعمال  -->
-<c-card class="mb-4">
-  <c-card-header>
-    <div class="d-flex justify-content-between align-items-center">
-      <h6 class="mb-0 text-secondary">الاعمال</h6>
-      <div class="d-flex align-items-center gap-2">
-        <button [color]="'primary'" cButton title="إضافة"><i class="fa-solid fa-plus"></i></button>
-      </div>
-    </div>
-  </c-card-header>
-  <c-card-body class="overflow-auto">
-    <table cTable>
-      <thead>
-        <tr>
-          <th>اسم الهنجر</th>
-          <th>الشركة المسؤولة</th>
-          <th>نسبة التنفيذ</th>
-          <th>الملاحظات</th>
-          <th>الإجراءات</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>هنجر 1</td>
-          <td><a [routerLink]="['/companies/4']" class="text-decoration-underline text-primary">شركة مصر للمقاولات</a>
-          </td>
-          <td><c-progress [value]="90" height="18" color="success">90%</c-progress></td>
-          <td>تم الانتهاء من الهيكل المعدني وجاري التشطيبات</td>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <button [color]="'primary'" routerLink="/works/1" cButton title="تفاصيل"><i
-                  class="fa-solid fa-eye"></i></button>
-              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
-              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>هنجر 2</td>
-          <td><a [routerLink]="['/companies/5']" class="text-decoration-underline text-primary">شركة النصر للإنشاءات</a>
-          </td>
-          <td><c-progress [value]="75" height="18" color="info">75%</c-progress></td>
-          <td>تم الانتهاء من الهيكل الخرساني وجاري تركيب الصاج</td>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <button [color]="'primary'" routerLink="/works/2" cButton title="تفاصيل"><i
-                  class="fa-solid fa-eye"></i></button>
-              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
-              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>هنجر 3</td>
-          <td><a [routerLink]="['/companies/6']" class="text-decoration-underline text-primary">شركة الرواد
-              للمقاولات</a></td>
-          <td><c-progress [value]="25" height="18" color="warning">25%</c-progress></td>
-          <td>تم بدء الأعمال وجاري تنفيذ الهيكل الخرساني</td>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <button [color]="'primary'" routerLink="/works/3" cButton title="تفاصيل"><i
-                  class="fa-solid fa-eye"></i></button>
-              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
-              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>هنجر 4</td>
-          <td><a [routerLink]="['/companies/7']" class="text-decoration-underline text-primary">شركة التعمير</a></td>
-          <td><c-progress [value]="0" height="18" color="secondary">0%</c-progress></td>
-          <td>لم يبدأ التنفيذ بعد</td>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <button [color]="'primary'" routerLink="/works/4" cButton title="تفاصيل"><i
-                  class="fa-solid fa-eye"></i></button>
-              <button [color]="'secondary'" cButton title="تعديل"><i class="fa-solid fa-pen"></i></button>
-              <button [color]="'danger'" cButton title="حذف"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </c-card-body>
-</c-card>
+@if(activeTab === 'basic-details') {
+<app-edit-basic-details />
+}

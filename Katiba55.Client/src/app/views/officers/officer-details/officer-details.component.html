@@ -103,7 +103,8 @@
     </h6>
     <c-card class="shadow-sm border-0 rounded-3">
       <c-card-body>
-        <div class="text-muted" [innerText]="officer?.notes || 'لا توجد ملاحظات حالياً.'"></div>
+        <div class="text-muted" [innerText]="officer?.notes || 'لا توجد ملاحظات حالياً.'" style="min-height: 80px;">
+        </div>
       </c-card-body>
     </c-card>
   </div>

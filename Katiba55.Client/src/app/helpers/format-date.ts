@@ -1,7 +1,10 @@
 export function formatInputDate(date: Date | null | undefined): string | null {
+    if (!date) return null;
 
-    if (!date)
-        return null;
+    date = new Date(date);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
 
-    return new Date().toISOString().split('T')[0];
+    return `${year}-${month}-${day}`;
 }

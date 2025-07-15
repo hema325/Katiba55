@@ -17,6 +17,8 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
+  @Input() max: number | null = null;
+  @Input() min: number | null = null;
 
   constructor(@Self() private controlDir: NgControl) {
     this.controlDir.valueAccessor = this;
