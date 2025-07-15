@@ -6,7 +6,7 @@ import { OfficerStatus } from '../enums/officer-status.enum';
 })
 export class OfficerStatusPipe implements PipeTransform {
 
-  transform(status: any, args?: any): any {
+  transform(status: any): any {
 
     if (!status)
       return null;

@@ -6,7 +6,7 @@ import { CompanyStatus } from '../enums/company-status.enum';
 })
 export class CompanyStatusPipe implements PipeTransform {
 
-  transform(status: any,): any {
+  transform(status: any): any {
     switch (status) {
       case CompanyStatus.Unapproved:
         return 'غير معتمدة';
