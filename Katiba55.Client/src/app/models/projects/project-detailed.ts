@@ -15,7 +15,7 @@ export interface ProjectDetailed {
     address?: string
     latitude?: number
     longitude?: number
-    status: ExecutionStatus
+    executionStatus: ExecutionStatus
     executionPercent?: number
     executionDate?: Date
     supervisor: OfficerBrief

@@ -14,7 +14,7 @@ export interface Project {
     address?: string
     latitude?: number
     longitude?: number
-    status: ExecutionStatus
+    executionStatus: ExecutionStatus
     executionPercent?: number
     executionDate?: Date
     supervisorId: number

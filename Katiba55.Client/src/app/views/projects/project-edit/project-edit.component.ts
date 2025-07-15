@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EditBasicDetailsComponent } from './edit-basic-details/edit-basic-details.component';
 import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
+import { EditItemsComponent } from './edit-items/edit-items.component';
+import { EditWorksComponent } from './edit-works/edit-works.component';
+import { EditMediasComponent } from './edit-medias/edit-medias.component';
 
 @Component({
   selector: 'app-project-edit',
@@ -10,6 +13,9 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/a
   imports: [
     RouterLink,
     EditBasicDetailsComponent,
+    EditItemsComponent,
+    EditWorksComponent,
+    EditMediasComponent,
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent

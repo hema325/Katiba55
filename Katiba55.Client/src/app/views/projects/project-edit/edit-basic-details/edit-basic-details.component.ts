@@ -91,7 +91,7 @@ export class EditBasicDetailsComponent implements OnInit {
             executionDate: formatInputDate(project.executionDate),
           });
 
-          this.onStatusChange(response.data.status);
+          this.onStatusChange(response.data.executionStatus);
         }
       })
   }

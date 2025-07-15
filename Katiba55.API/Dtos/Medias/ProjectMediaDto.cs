@@ -8,5 +8,6 @@
         public MediaTypes Type { get; set; }
         public DateTime? Date { get; set; }
         public MediaCategories Category { get; set; }
+        public double Size { get; set; }
     }
 }
