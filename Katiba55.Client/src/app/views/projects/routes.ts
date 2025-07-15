@@ -22,6 +22,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'add',
+        loadComponent: () => import('./projects-add/projects-add.component').then(c => c.ProjectsAddComponent),
+        data: {
+          title: 'اضافة مشروع'
+        }
+      },
+      {
         path: ':id/edit',
         loadComponent: () => import('./project-edit/project-edit.component').then(c => c.ProjectEditComponent),
         data: {
