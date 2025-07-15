@@ -11,6 +11,7 @@ namespace Katiba55.API.Dtos.Works
         public DateTime? EndDate { get; set; }
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
+        public string ExecutionStatus { get; set; }
         public int ProjectId { get; set; }
         public CompanyBriefDto? Responsible { get; set; }
 

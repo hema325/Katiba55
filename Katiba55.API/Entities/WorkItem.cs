@@ -4,7 +4,8 @@
     {
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
-        
+        public ExecutionStatus ExecutionStatus { get; set; }
+
         public int WorkId { get; set; }
         public Work Work { get; set; }
 

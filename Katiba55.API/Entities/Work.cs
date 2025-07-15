@@ -8,6 +8,7 @@
 
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
+        public ExecutionStatus ExecutionStatus { get; set; }
 
         public int? ResponsibleId { get; set; }
         public Company? Responsible { get; set; }
