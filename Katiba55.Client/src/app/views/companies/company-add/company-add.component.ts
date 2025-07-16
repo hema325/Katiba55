@@ -91,18 +91,8 @@ export class CompanyAddComponent implements OnInit {
   }
 
   getCreateCompanyModel(): any {
-    const company = this.companyForm.value;
-    return {
-      name: company.name,
-      representativeName: company.representativeName,
-      email: company.email,
-      phone: company.phone,
-      status: company.status,
-      address: company.address,
-      latitude: company.latitude,
-      longitude: company.longitude,
-      approvalImagePath: this.approvalImagePath,
-      notes: company.notes
-    };
+    const company = { ...this.companyForm.value, approvalImagePath: this.approvalImagePath };
+    delete company.securityApprovalImage;
+    return company;
   }
 }
