@@ -1,7 +1,6 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.Items;
-using Katiba55.API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +24,7 @@ namespace Katiba55.API.Controllers
             var item = _mapper.Map<Item>(dto);
 
             _context.Items.Add(item);
-            await _context.SaveChangesAsync();  
+            await _context.SaveChangesAsync();
 
             return Response(ResultFactory.Ok(item.Id));
         }
@@ -47,7 +46,7 @@ namespace Katiba55.API.Controllers
         }
 
         [HttpDelete("{id}/delete")]
-        public async Task<IActionResult> DeleteAsync(int id, UpdateItemDto dto)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var item = await _context.Items.FindAsync(id);
 
@@ -74,7 +73,7 @@ namespace Katiba55.API.Controllers
         }
 
         [HttpGet("getByProjectId")]
-        public async Task<IActionResult> GetByProjectIdAsync(int projectId)
+        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
         {
             var items = await _context.Items
                 .Where(i => i.ProjectId == projectId)
