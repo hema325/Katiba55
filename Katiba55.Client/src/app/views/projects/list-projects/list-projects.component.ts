@@ -73,9 +73,9 @@ export class ListProjectsComponent implements OnInit {
       case ExecutionStatus.Pending:
         return 'secondary';
       case ExecutionStatus.OnHold:
-        return 'warning';
+        return 'danger';
       case ExecutionStatus.Underconstruction:
-        return 'primary';
+        return 'warning';
       case ExecutionStatus.Completed:
         return 'success';
       case ExecutionStatus.Cancelled:
@@ -88,7 +88,8 @@ export class ListProjectsComponent implements OnInit {
   getExecutionProgressColor(percent: number): string {
     if (percent >= 85) return 'success';
     if (percent >= 50) return 'info';
-    if (percent > 0) return 'warning';
+    if (percent >= 25) return 'warning';
+    if (percent > 0) return 'danger';
     return 'secondary';
   }
 }
