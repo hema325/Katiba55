@@ -1,21 +1,18 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, TooltipDirective } from '@coreui/angular';
-import { Tooltip } from 'chart.js';
 
 @Component({
-  selector: 'app-edit-medias',
-  templateUrl: './edit-medias.component.html',
-  styleUrls: ['./edit-medias.component.css'],
+  selector: 'app-items',
+  templateUrl: './items.component.html',
+  styleUrls: ['./items.component.css'],
   imports: [
     CardComponent,
-    CardBodyComponent,
     CardHeaderComponent,
+    CardBodyComponent,
     TooltipDirective,
-    DatePipe
   ]
 })
-export class EditMediasComponent implements OnInit {
+export class ItemsComponent implements OnInit {
 
   constructor() { }
 

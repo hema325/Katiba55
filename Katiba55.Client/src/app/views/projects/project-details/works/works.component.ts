@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent, ProgressComponent, TooltipDirective } from '@coreui/angular';
 
 @Component({
-  selector: 'app-edit-works',
-  templateUrl: './edit-works.component.html',
-  styleUrls: ['./edit-works.component.css'],
+  selector: 'app-works',
+  templateUrl: './works.component.html',
+  styleUrls: ['./works.component.css'],
   imports: [
     CardComponent,
     CardHeaderComponent,
@@ -14,7 +14,7 @@ import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent, 
     ProgressComponent
   ]
 })
-export class EditWorksComponent implements OnInit {
+export class WorksComponent implements OnInit {
 
   constructor() { }
 

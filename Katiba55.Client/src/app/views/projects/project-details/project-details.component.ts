@@ -4,6 +4,9 @@ import { RouterLink } from '@angular/router';
 import { BasicDetailsComponent } from './basic-details/basic-details.component';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
+import { ItemsComponent } from './items/items.component';
+import { WorksComponent } from './works/works.component';
+import { MediasComponent } from './medias/medias.component';
 
 @Component({
   selector: 'app-project-details',
@@ -14,22 +17,18 @@ import { CircularProgressComponent } from '../../../shared/circular-progress/cir
     RouterLink,
     BasicDetailsComponent,
     ExecutionStatusComponent,
+    ItemsComponent,
+    WorksComponent,
+    MediasComponent,
     CardComponent,
     CardBodyComponent,
     CircularProgressComponent
   ]
 })
 export class ProjectDetailsComponent {
-  activeTab: 'basic-details' | 'execution-status' | 'financial-status' = 'basic-details';
+  activeTab: 'basic-details' | 'execution-status' | 'financial-status' | 'items' | 'works' | 'medias' = 'basic-details';
 
-  setActiveTab(tab: 'basic-details' | 'execution-status' | 'financial-status') {
+  setActiveTab(tab: 'basic-details' | 'execution-status' | 'financial-status' | 'items' | 'works' | 'medias') {
     this.activeTab = tab;
-  }
-
-  scrollToSection(sectionId: string) {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }
 }
