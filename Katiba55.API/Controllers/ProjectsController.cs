@@ -159,7 +159,7 @@ namespace Katiba55.API.Controllers
         }
 
         [HttpGet("{id}/monthlyTimelineProgress")]
-        public async Task<IActionResult> GetTimelineProgressAsync(int id)
+        public async Task<IActionResult> GetMonthlyTimelineProgressAsync(int id)
         {
             // get timeline data
             var progress = await _context.ProjectExecutionHistories
@@ -171,8 +171,8 @@ namespace Katiba55.API.Controllers
                     Month = g.Key.Month,
                     Percentage = g.Max(h => h.Percentage)
                 })
-                .OrderBy(h => h.Year)
-                .ThenBy(h => h.Month)
+                .OrderBy(p => p.Year)
+                .ThenBy(p => p.Month)
                 .ToListAsync();
 
             if (!progress.Any())
@@ -216,7 +216,7 @@ namespace Katiba55.API.Controllers
        
         
         [HttpGet("monthlyTimelineProgress")]
-        public async Task<IActionResult> GetTimelineProgressAsync()
+        public async Task<IActionResult> GetMonthlyTimelineProgressAsync()
         {
             // get timeline data
             var progress = await _context.ProjectExecutionHistories
@@ -248,7 +248,7 @@ namespace Katiba55.API.Controllers
                 progressDates.Add(current);
             }
 
-            var projectList = new List<ProjectMonthlyProgressList>();
+            var projectsList = new List<ProjectMonthlyProgressList>();
             var projectNames = progress.Select(p => p.ProjectName).Distinct().ToList();
             foreach(var projectName in projectNames)
             {
@@ -281,10 +281,10 @@ namespace Katiba55.API.Controllers
                     }
                 }
 
-                projectList.Add(new() { ProjectName = projectName, Items = progressFilled });
+                projectsList.Add(new() { ProjectName = projectName, Items = progressFilled });
             }
             
-            return Response(ResultFactory.Ok(projectList));
+            return Response(ResultFactory.Ok(projectsList));
         }
     }
 }

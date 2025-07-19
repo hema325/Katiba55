@@ -1,9 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.Projects;
-using Katiba55.API.Dtos.WorkItems;
 using Katiba55.API.Dtos.Works;
-using Katiba55.API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -113,16 +111,129 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(works));
         }
 
-        [HttpGet("{id}/executionHistories")]
-        public async Task<IActionResult> GetExecutionHistoriesAsync(int id)
+        [HttpGet("{id}/monthlyTimelineProgress")]
+        public async Task<IActionResult> GetMonthlyTimelineProgressAsync(int id)
         {
-            var histories = await _context.WorkExecutionHistories
+            var progress = await _context.WorkExecutionHistories
                 .Where(h => h.WorkId == id)
-                .OrderBy(h => h.Date)
-                .ProjectTo<WorkExecutionHistoryDto>(_mapper.ConfigurationProvider)
+                .GroupBy(h => new { h.Date.Year, h.Date.Month })
+                .Select(g => new WorkMonthlyProgressItem
+                {
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    Percentage = g.Max(h => h.Percentage)
+                })
+                .OrderBy(p=>p.Year)
+                .ThenBy(p=>p.Month)
                 .ToListAsync();
 
-            return Response(ResultFactory.Ok(histories));
+            if (!progress.Any())
+            {
+                return Response(ResultFactory.Ok(Enumerable.Empty<WorkMonthlyProgressItem>()));
+            }
+
+            var startDate = new DateTime(progress.First().Year, progress.First().Month, 1);
+            var endDate = new DateTime(progress.Last().Year, progress.Last().Month, 1);
+
+            var progressDates = new List<DateTime>();
+            for(var current = startDate; current <= endDate; current = current.AddMonths(1))
+            {
+                progressDates.Add(current);
+            }
+
+            var progressDic = progress.ToDictionary(s => new DateTime(s.Year, s.Month, 1));
+            var progressFilled = new List<WorkMonthlyProgressItem>();
+            var lastPercent = 0d;
+
+            foreach (var date in progressDates)
+            {
+                if(progressDic.TryGetValue(date, out var prog))
+                {
+                    progressFilled.Add(prog);
+                    lastPercent = prog.Percentage;
+                }
+                else
+                {
+                    progressFilled.Add(new()
+                    {
+                        Year = date.Year,
+                        Month = date.Month,
+                        Percentage = lastPercent
+                    });
+                }
+            }
+
+            return Response(ResultFactory.Ok(progressFilled));
+        }
+        
+        
+        [HttpGet("monthlyTimelineProgress")]
+        public async Task<IActionResult> GetMonthlyTimelineProgressAsync()
+        {
+            var progress = await _context.WorkExecutionHistories
+                .GroupBy(h => new { h.WorkId, h.Date.Year, h.Date.Month })
+                .Select(g => new FlatWorkMonthlyProgress
+                {
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    Percentage = g.Max(h => h.Percentage),
+                    WorkName = g.First().Work.Name
+                })
+                .OrderBy(p=>p.Year)
+                .ThenBy(p=>p.Month)
+                .ToListAsync();
+
+            if (!progress.Any())
+            {
+                return Response(ResultFactory.Ok(Enumerable.Empty<WorkMonthlyProgressList>()));
+            }
+
+            var startDate = new DateTime(progress.First().Year, progress.First().Month, 1);
+            var endDate = new DateTime(progress.Last().Year, progress.Last().Month, 1);
+
+            var progressDates = new List<DateTime>();
+            for(var current = startDate; current <= endDate; current = current.AddMonths(1))
+            {
+                progressDates.Add(current);
+            }
+
+            var worksList = new List<WorkMonthlyProgressList>();
+            var workNames = progress.Select(w => w.WorkName).Distinct().ToList();
+            foreach(var workName in workNames)
+            {
+                var progressDic = progress
+                    .Where(w=>w.WorkName == workName)
+                    .ToDictionary(s => new DateTime(s.Year, s.Month, 1), p => new WorkMonthlyProgressItem
+                    {
+                        Year = p.Year,
+                        Month = p.Month,
+                        Percentage = p.Percentage
+                    });
+
+                var progressFilled = new List<WorkMonthlyProgressItem>();
+                var lastPercent = 0d;
+                foreach (var date in progressDates)
+                {
+                    if (progressDic.TryGetValue(date, out var prog))
+                    {
+                        progressFilled.Add(prog);
+                        lastPercent = prog.Percentage;
+                    }
+                    else
+                    {
+                        progressFilled.Add(new()
+                        {
+                            Year = date.Year,
+                            Month = date.Month,
+                            Percentage = lastPercent
+                        });
+                    }
+                }
+
+                worksList.Add(new() { WorkName = workName, Items = progressFilled });
+            }
+
+            return Response(ResultFactory.Ok(worksList));
         }
     }
 }
