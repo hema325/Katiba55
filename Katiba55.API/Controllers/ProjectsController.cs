@@ -158,7 +158,7 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(projects));
         }
 
-        [HttpGet("{id}/timelineProgress")]
+        [HttpGet("{id}/monthlyTimelineProgress")]
         public async Task<IActionResult> GetTimelineProgressAsync(int id)
         {
             // get timeline data
@@ -215,7 +215,7 @@ namespace Katiba55.API.Controllers
         }
        
         
-        [HttpGet("timelineProgress")]
+        [HttpGet("monthlyTimelineProgress")]
         public async Task<IActionResult> GetTimelineProgressAsync()
         {
             // get timeline data
@@ -248,7 +248,7 @@ namespace Katiba55.API.Controllers
                 progressDates.Add(current);
             }
 
-            var projectDic = new List<ProjectMonthlyProgressList>();
+            var projectList = new List<ProjectMonthlyProgressList>();
             var projectNames = progress.Select(p => p.ProjectName).Distinct().ToList();
             foreach(var projectName in projectNames)
             {
@@ -281,10 +281,10 @@ namespace Katiba55.API.Controllers
                     }
                 }
 
-                projectDic.Add(new() { ProjectName = projectName, Items = progressFilled });
+                projectList.Add(new() { ProjectName = projectName, Items = progressFilled });
             }
             
-            return Response(ResultFactory.Ok(projectDic));
+            return Response(ResultFactory.Ok(projectList));
         }
     }
 }
