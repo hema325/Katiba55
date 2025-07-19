@@ -1,4 +1,4 @@
-<c-modal [visible]="visible">
+<c-modal [visible]="visible" [backdrop]="'static'">
   <c-modal-header>
     <h5 cModalTitle>تأكيد الحذف</h5>
     <button cButtonClose (click)="setConfirmation(false)"></button>

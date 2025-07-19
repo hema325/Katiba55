@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BasicDetailsComponent } from '../basic-details/basic-details.component';
-import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ProgressComponent, RowComponent, TableDirective, WidgetStatFComponent } from '@coreui/angular';
+import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ProgressComponent, RowComponent, TableDirective, TooltipDirective, WidgetStatFComponent } from '@coreui/angular';
 import { RouterLink } from '@angular/router';
 import { PaginatorComponent } from '../../../../shared/paginator/paginator.component';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
@@ -26,7 +26,8 @@ import { CircularProgressComponent } from '../../../../shared/circular-progress/
     PaginatorComponent,
     RouterLink,
     WidgetStatFComponent,
-    CircularProgressComponent
+    CircularProgressComponent,
+    TooltipDirective
   ]
 })
 export class ExecutionStatusComponent implements OnInit {

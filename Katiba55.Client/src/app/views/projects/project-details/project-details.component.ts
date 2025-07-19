@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ButtonDirective, CardBodyComponent, CardComponent } from '@coreui/angular';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { BasicDetailsComponent } from './basic-details/basic-details.component';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
@@ -22,7 +22,8 @@ import { MediasComponent } from './medias/medias.component';
     MediasComponent,
     CardComponent,
     CardBodyComponent,
-    CircularProgressComponent
+    CircularProgressComponent,
+    RouterOutlet
   ]
 })
 export class ProjectDetailsComponent {
