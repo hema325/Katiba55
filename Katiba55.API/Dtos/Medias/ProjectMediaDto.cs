@@ -9,5 +9,6 @@
         public DateTime? Date { get; set; }
         public MediaCategories Category { get; set; }
         public double Size { get; set; }
+        public bool ShowInExecutionStatusPage { get; set; }
     }
 }
