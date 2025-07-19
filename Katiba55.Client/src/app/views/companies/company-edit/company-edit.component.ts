@@ -11,6 +11,7 @@ import { TextInputComponent } from '../../../shared/forms/text-input/text-input.
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
 import { FileInputComponent } from '../../../shared/forms/file-input/file-input.component';
+import { CompanyStatus } from '../../../enums/company-status.enum';
 
 @Component({
   selector: 'app-company-edit',
@@ -74,6 +75,7 @@ export class CompanyEditComponent implements OnInit {
           const company = response.data;
           this.companyForm.patchValue({ ...response.data as any });
           this.approvalImagePath = company.approvalImagePath;
+          this.onStatusChange(company.status);
         }
       })
   }
@@ -112,8 +114,24 @@ export class CompanyEditComponent implements OnInit {
   }
 
   getUpdateCompanyModel(): any {
-    const company = { ...this.companyForm.value, approvalImagePath: this.approvalImagePath };
+    const company = { ...this.companyForm.value, approvalImagePath: this.companyForm.value.status === CompanyStatus.Approved ? this.approvalImagePath : null };
     delete company.securityApprovalImage;
     return company;
+  }
+
+  onStatusChange(status: any) {
+    const securityApprovalImageControl = this.companyForm.get('securityApprovalImage');
+    if (status === CompanyStatus.Approved) {
+      if (!this.approvalImagePath)
+        securityApprovalImageControl?.setValidators([Validators.required]);
+
+      securityApprovalImageControl?.enable();
+    }
+    else {
+      securityApprovalImageControl?.setValidators(null);
+      securityApprovalImageControl?.disable();
+    }
+
+    securityApprovalImageControl?.updateValueAndValidity();
   }
 }

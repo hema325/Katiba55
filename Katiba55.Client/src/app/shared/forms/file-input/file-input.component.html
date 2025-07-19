@@ -1,7 +1,7 @@
 <div class="form-group" style="direction: rtl;">
   <label class="form-label">{{label}}</label>
   <input (click)="touched = true" (change)="onFileChange($event)" type="file" [accept]="accept" [multiple]="multiple"
-    class="form-control p-2" [class.is-invalid]="touched && control.invalid" />
+    [disabled]="control.disabled" class="form-control p-2" [class.is-invalid]="touched && control.invalid" />
   @if(control.hasError('required')) {
   <div class="invalid-feedback">هذا الحقل مطلوب.</div>
   }

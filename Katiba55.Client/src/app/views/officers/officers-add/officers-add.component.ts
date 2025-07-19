@@ -9,6 +9,7 @@ import { OfficersService } from '../../../services/officers.service';
 import { Router } from '@angular/router';
 import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
+import { OfficerStatus } from '../../../enums/officer-status.enum';
 
 @Component({
   selector: 'app-officers-add',
@@ -44,8 +45,8 @@ export class OfficersAddComponent implements OnInit {
     phone: [null, [phoneValidator()]],
     rank: ['', [Validators.required]],
     status: ['', [Validators.required]],
-    joinDate: [null],
-    leaveDate: [null],
+    joinDate: [{ value: null, disabled: true }],
+    leaveDate: [{ value: null, disabled: true }],
     notes: [null]
   });
   isSubmitting: boolean = false;
@@ -65,6 +66,24 @@ export class OfficersAddComponent implements OnInit {
           this.router.navigate([`/officers`]);
         }
       });
+  }
+
+  onStatusChange(status: any) {
+    const joinDateControl = this.officerForm.get('joinDate');
+    const leaveDateControl = this.officerForm.get('leaveDate');
+
+    if (status === OfficerStatus.InBattalion) {
+      joinDateControl?.setValidators([Validators.required]);
+      leaveDateControl?.setValidators(null);
+      leaveDateControl?.disable();
+      leaveDateControl?.reset();
+    } else {
+      leaveDateControl?.setValidators([Validators.required]);
+      leaveDateControl?.enable();
+    }
+
+    joinDateControl?.enable();
+    leaveDateControl?.updateValueAndValidity();
   }
 
 }

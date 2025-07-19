@@ -58,6 +58,13 @@
           </c-card-header>
           <c-card-body class="pt-0 pb-3 px-3">
             <div class="row g-3">
+              <div class="col-12">
+                <app-select-input label="الحالة" formControlName="status" (valueChanged)="onStatusChange($event)">
+                  <option value="" disabled hidden>اختر الحالة</option>
+                  <option value="InBattalion">قوة الكتيبة</option>
+                  <option value="OutBattalion">ليس قوة الكتيبة</option>
+                </app-select-input>
+              </div>
               <div class="col-12 col-md-6">
                 <app-text-input label="تاريخ الانضمام" placeholder="اختر تاريخ الانضمام" formControlName="joinDate"
                   type="date" />
@@ -65,13 +72,6 @@
               <div class="col-12 col-md-6">
                 <app-text-input label="تاريخ المغادرة" placeholder="اختر تاريخ المغادرة" formControlName="leaveDate"
                   type="date" />
-              </div>
-              <div class="col-12">
-                <app-select-input label="الحالة" formControlName="status">
-                  <option value="" disabled hidden>اختر الحالة</option>
-                  <option value="InBattalion">قوة الكتيبة</option>
-                  <option value="OutBattalion">ليس قوة الكتيبة</option>
-                </app-select-input>
               </div>
             </div>
           </c-card-body>

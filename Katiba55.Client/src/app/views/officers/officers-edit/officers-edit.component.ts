@@ -10,6 +10,7 @@ import { OfficersService } from '../../../services/officers.service';
 import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
 import { formatInputDate } from '../../../helpers/format-date';
+import { OfficerStatus } from '../../../enums/officer-status.enum';
 
 @Component({
   selector: 'app-officers-edit',
@@ -45,8 +46,8 @@ export class OfficersEditComponent implements OnInit {
     phone: [null, [phoneValidator()]],
     rank: ['', [Validators.required]],
     status: ['', [Validators.required]],
-    joinDate: ['01-01-2025'],
-    leaveDate: [null],
+    joinDate: [{ value: null, disabled: true }],
+    leaveDate: [{ value: null, disabled: true }],
     notes: [null]
   });
   isLoading: boolean = false;
@@ -68,6 +69,7 @@ export class OfficersEditComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.officerForm.patchValue({ ...response.data as any, joinDate: formatInputDate(response.data.joinDate), leaveDate: formatInputDate(response.data.leaveDate) });
+          this.onStatusChange(response.data.status);
         }
       });
   }
@@ -84,4 +86,21 @@ export class OfficersEditComponent implements OnInit {
       });
   }
 
+  onStatusChange(status: any) {
+    const joinDateControl = this.officerForm.get('joinDate');
+    const leaveDateControl = this.officerForm.get('leaveDate');
+
+    if (status === OfficerStatus.InBattalion) {
+      joinDateControl?.setValidators([Validators.required]);
+      leaveDateControl?.setValidators(null);
+      leaveDateControl?.disable();
+      leaveDateControl?.reset();
+    } else {
+      leaveDateControl?.setValidators([Validators.required]);
+      leaveDateControl?.enable();
+    }
+
+    joinDateControl?.enable();
+    leaveDateControl?.updateValueAndValidity();
+  }
 }

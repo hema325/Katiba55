@@ -10,7 +10,7 @@
 //namespace Katiba55.API.Controllers
 //{
 //    [Route("api/works")]
-//    public class WorksController: BaseController
+//    public class WorksController : BaseController
 //    {
 //        private readonly ApplicationDbContext _context;
 //        private readonly IMapper _mapper;
@@ -89,6 +89,9 @@
 //        [HttpGet("{id}/getById")]
 //        public async Task<IActionResult> GetByIdAsync(int id)
 //        {
+//            if(await _context.WorkItems.AnyAsync(wi=>wi.WorkId == id)) 
+//                return Response(ResultFactory.Conflict("تعذّر حذف هذا العمل لأنه يحتوي على بنود مرتبطة.\r\n"));
+
 //            var work = await _context.Works
 //                .ProjectTo<WorkDto>(_mapper.ConfigurationProvider)
 //                .FirstOrDefaultAsync(w => w.Id == id);
@@ -115,7 +118,7 @@
 //        {
 //            var histories = await _context.WorkExecutionHistories
 //                .Where(h => h.WorkId == id)
-//                .OrderBy(h=>h.Date)
+//                .OrderBy(h => h.Date)
 //                .ProjectTo<WorkExecutionHistoryDto>(_mapper.ConfigurationProvider)
 //                .ToListAsync();
 

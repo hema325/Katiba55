@@ -11,6 +11,7 @@ import { SelectInputComponent } from '../../../shared/forms/select-input/select-
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
 import { FileInputComponent } from '../../../shared/forms/file-input/file-input.component';
 import { finalize, first } from 'rxjs';
+import { CompanyStatus } from '../../../enums/company-status.enum';
 
 @Component({
   selector: 'app-company-add',
@@ -45,7 +46,7 @@ export class CompanyAddComponent implements OnInit {
     address: [null],
     latitude: [null],
     longitude: [null],
-    securityApprovalImage: [null],
+    securityApprovalImage: [{ value: null, disabled: true }],
     notes: [null]
   });
   isSubmitting: boolean = false;
@@ -94,5 +95,21 @@ export class CompanyAddComponent implements OnInit {
     const company = { ...this.companyForm.value, approvalImagePath: this.approvalImagePath };
     delete company.securityApprovalImage;
     return company;
+  }
+
+  onStatusChange(status: any) {
+    const securityApprovalImageControl = this.companyForm.get('securityApprovalImage');
+    if (status === CompanyStatus.Approved) {
+      securityApprovalImageControl?.setValidators([Validators.required]);
+      securityApprovalImageControl?.enable();
+    }
+    else {
+      securityApprovalImageControl?.setValidators(null);
+      securityApprovalImageControl?.disable();
+      securityApprovalImageControl?.setValue(null);
+      this.approvalImagePath = null;
+    }
+
+    securityApprovalImageControl?.updateValueAndValidity();
   }
 }
