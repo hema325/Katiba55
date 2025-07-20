@@ -16,7 +16,7 @@ export class WorksService {
   private httpClient: HttpClient = inject(HttpClient);
 
   create(work: any): Observable<Result<number>> {
-    return this.httpClient.post<Result<number>>(this.baseUrl, work);
+    return this.httpClient.post<Result<number>>(`${this.baseUrl}/create`, work);
   }
 
   update(workId: number, work: any): Observable<Result<any>> {

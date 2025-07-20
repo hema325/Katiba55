@@ -1,10 +1,14 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent, ProgressComponent, TooltipDirective } from '@coreui/angular';
+import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent, ProgressComponent, SpinnerComponent, TooltipDirective } from '@coreui/angular';
 import { ToasterService } from '../../../services/toaster.service';
 import { WorkBrief } from '../../../models/works/work-brief';
 import { WorksService } from '../../../services/works.service';
 import { finalize, first } from 'rxjs';
 import { ExecutionStatus } from '../../../enums/execution-status.enum';
+import { DatePipe } from '@angular/common';
+import { ExecutionStatusPipe } from '../../../pipes/execution-status.pipe';
+import { RouterLink } from '@angular/router';
+import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-list-works',
@@ -16,7 +20,12 @@ import { ExecutionStatus } from '../../../enums/execution-status.enum';
     CardBodyComponent,
     TooltipDirective,
     BadgeComponent,
-    ProgressComponent
+    ProgressComponent,
+    DatePipe,
+    ExecutionStatusPipe,
+    RouterLink,
+    DeleteConfirmationModalComponent,
+    SpinnerComponent
   ]
 })
 export class ListWorksComponent implements OnInit {

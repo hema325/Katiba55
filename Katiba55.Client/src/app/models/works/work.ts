@@ -10,4 +10,5 @@ export interface Work {
     executionStatus: ExecutionStatus,
     responsibleId?: number,
     projectId: number,
+    notes?: string,
 }

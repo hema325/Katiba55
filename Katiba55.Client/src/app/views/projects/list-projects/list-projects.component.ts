@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { BadgeComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, ProgressComponent, SpinnerComponent, TooltipDirective } from '@coreui/angular';
 import { ToasterService } from '../../../services/toaster.service';
 import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProjectsService } from '../../../services/projects.service';
 import { ProjectBrief } from '../../../models/projects/project-brief';
 import { finalize, first } from 'rxjs';
@@ -38,14 +38,16 @@ export class ListProjectsComponent implements OnInit {
   deletedItem: ProjectBrief | null = null;
   isLoading: boolean = false;
 
-
   ngOnInit() {
+    this.loadProjects();
+  }
+
+  loadProjects() {
     this.isLoading = true;
     this.projectsService.getAll()
       .pipe(finalize(() => this.isLoading = false), first())
       .subscribe(response => this.projects = response.data);
   }
-
 
   fireDeleteConfirmationModal(project: ProjectBrief) {
     this.deleteConfirmationModalVisible = true;

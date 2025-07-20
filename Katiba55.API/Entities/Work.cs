@@ -3,12 +3,11 @@
     public class Work: BaseEntity
     {
         public string Name { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
 
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
         public ExecutionStatus ExecutionStatus { get; set; }
+        public string? Notes { get; set; }
 
         public int? ResponsibleId { get; set; }
         public Company? Responsible { get; set; }

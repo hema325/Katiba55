@@ -1,0 +1,96 @@
+<section id="basic-details">
+  <!-- عنوان تفاصيل العمل -->
+  <h6 class="text-secondary mb-4">
+    <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
+    تفاصيل العمل
+  </h6>
+
+  <!-- كارد نسبة التنفيذ -->
+  <c-card class="mb-4 shadow-sm border-0 p-2">
+    <c-card-body>
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
+        <app-circular-progress [percent]="work?.executionPercent || 0" color="#31a751" />
+        <div class="mt-2 text-muted">
+          آخر تحديث: <span dir="ltr">{{(work?.executionDate | date:'dd-MM-yyyy') || '-'}}</span>
+        </div>
+      </div>
+    </c-card-body>
+  </c-card>
+
+  <div class="row g-3 mb-5">
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-briefcase text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">اسم العمل</div>
+            <div class="text-muted small">{{work?.name || 'لا يوجد'}}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-building text-secondary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">الشركة المسؤولة</div>
+            <a [routerLink]="['/companies', work?.responsible?.id]" class=" btn-link small">
+              {{work?.responsible?.name}}
+            </a>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">حالة التنفيذ</div>
+            <div class="text-muted small">
+              {{work?.executionStatus | executionStatus}}
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-chart-line text-info fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">نسبة التنفيذ</div>
+            <div class="text-muted small">{{work?.executionPercent || 0}}%</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-day text-warning fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ نسبة التنفيذ</div>
+            <div class="text-muted small">{{(work?.executionDate | date:'dd-MM-yyyy') || 'لا يوجد'}}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+  </div>
+
+  <!-- سكشن الملاحظات -->
+  <div class="mb-5">
+    <h6 class="text-secondary mb-3">
+      <i class="fa-solid fa-note-sticky text-warning me-2"></i>
+      الملاحظات
+    </h6>
+    <c-card class="shadow-sm border-0 rounded-3">
+      <c-card-body>
+        <div class="text-muted" [innerText]="work?.notes || 'لا توجد ملاحظات حالياً.'" style="min-height: 80px;">
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+</section>

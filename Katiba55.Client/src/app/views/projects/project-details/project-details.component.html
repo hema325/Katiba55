@@ -72,7 +72,7 @@
 <app-items />
 }
 @else if(activeTab === 'works') {
-<app-list-works />
+<app-list-works [projectId]="projectId" />
 }
 @else if(activeTab === 'medias') {
 <app-medias />

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ButtonDirective, CardBodyComponent, CardComponent } from '@coreui/angular';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { BasicDetailsComponent } from './basic-details/basic-details.component';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
@@ -26,10 +26,36 @@ import { ListWorksComponent } from '../../works/list-works/list-works.component'
     ListWorksComponent
   ]
 })
-export class ProjectDetailsComponent {
+export class ProjectDetailsComponent implements OnInit {
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  projectId: number = 0;
+
   activeTab: 'basic-details' | 'execution-status' | 'financial-status' | 'items' | 'works' | 'medias' = 'basic-details';
+
+  ngOnInit() {
+    this.projectId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.initActiveTab();
+  }
+
+  initActiveTab() {
+    const fragment = this.activatedRoute.snapshot.fragment;
+    switch (fragment) {
+      case 'basic-details':
+      case 'execution-status':
+      case 'financial-status':
+      case 'items':
+      case 'works':
+      case 'medias':
+        this.activeTab = fragment;
+        break;
+      default:
+        this.activeTab = 'basic-details';
+    }
+  }
+
 
   setActiveTab(tab: 'basic-details' | 'execution-status' | 'financial-status' | 'items' | 'works' | 'medias') {
     this.activeTab = tab;
   }
+
 }

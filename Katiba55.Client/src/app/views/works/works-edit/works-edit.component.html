@@ -1,0 +1,108 @@
+<div class="container-fluid px-0 my-3">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <!-- عنوان الصفحة -->
+      <c-card class="mb-4 border-0 shadow-sm bg-warning bg-opacity-10">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3">
+          <span class="fw-bold fs-4 text-warning text-center mb-1">تعديل بيانات العمل</span>
+          <div class="text-secondary text-center small">يمكنك تعديل بيانات العمل ثم حفظ التغييرات.</div>
+        </c-card-body>
+      </c-card>
+
+      <form [formGroup]="workForm" (ngSubmit)="onSubmit()">
+        <!-- بيانات العمل -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-gears text-primary me-2"></i>
+              <span class="fw-semibold text-primary">بيانات العمل</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="اسم العمل" placeholder="ادخل اسم العمل" formControlName="name" required />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-select-input label="الشركة المسؤولة" formControlName="responsibleId" required>
+                  <option value="" disabled hidden>اختر الشركة المسؤولة</option>
+                  @for(company of companies; track company.id) {
+                  <option value="{{company.id}}">{{company.name}}</option>
+                  }
+                </app-select-input>
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- حالة التنفيذ ونسبته -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-shield-halved text-success me-2"></i>
+              <span class="fw-semibold text-success">حالة التنفيذ ونسبته</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12">
+                <app-select-input label="حالة التنفيذ" formControlName="executionStatus" required>
+                  <option value="" disabled hidden>اختر حالة التنفيذ</option>
+                  <option value="Pending">لم يبدأ</option>
+                  <option value="OnHold">متوقف</option>
+                  <option value="Underconstruction">قيد الانشاء</option>
+                  <option value="Completed">مكتمل</option>
+                  <option value="Cancelled">ملغي</option>
+                </app-select-input>
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="نسبة التنفيذ" placeholder="ادخل نسبة التنفيذ" formControlName="executionPercent"
+                  type="number" [max]="100" [min]="0" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ نسبة التنفيذ" placeholder="اختر تاريخ نسبة التنفيذ"
+                  formControlName="executionDate" type="date" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- الملاحظات -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-note-sticky text-warning me-2"></i>
+              <span class="fw-semibold text-warning">ملاحظات إضافية</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12">
+                <app-text-area-input label="ملاحظات" placeholder="ادخل أي ملاحظات إضافية" formControlName="notes"
+                  [rows]="4" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- زر الحفظ -->
+        <c-card class="mb-0 border-0 shadow-sm">
+          <c-card-body class="p-4">
+            <button type="submit" [disabled]="isSubmitting || workForm.invalid"
+              class="btn btn-warning w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+              aria-label="تعديل بيانات العمل">
+              @if(isSubmitting) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              <span class="px-1">جارى حفظ التغيرات</span>
+              }
+              @else {
+              <i class="fa-solid fa-floppy-disk opacity-75"></i>
+              <span class="px-1">حفظ التغيرات</span>
+              }
+            </button>
+          </c-card-body>
+        </c-card>
+      </form>
+    </div>
+  </div>
+</div>
