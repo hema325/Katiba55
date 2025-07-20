@@ -1,15 +1,11 @@
 ﻿namespace Katiba55.API.Dtos.Works
 {
-    public class WorkDto
+    public class WorkBriefDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
         public double? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
         public string ExecutionStatus { get; set; }
-        public int? ResponsibleId { get; set; }
-        public int ProjectId { get; set; }
     }
 }

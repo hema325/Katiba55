@@ -12,6 +12,5 @@ namespace Katiba55.API.Dtos.Works
         [EnumDataType(typeof(ExecutionStatus))]
         public string ExecutionStatus { get; set; }
         public int? ResponsibleId { get; set; }
-        public int ProjectId { get; set; }
     }
 }

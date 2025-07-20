@@ -73,6 +73,10 @@ namespace Katiba55.API.Controllers
         [HttpDelete("{id}/delete")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
+            if (await _context.WorkItems.AnyAsync(wi => wi.WorkId == id))
+                return Response(ResultFactory.Conflict("تعذّر حذف هذا العمل لأنه يحتوي على بنود مرتبطة.\r\n"));
+
+
             var work = await _context.Works.FindAsync(id);
 
             if (work == null)
@@ -87,9 +91,6 @@ namespace Katiba55.API.Controllers
         [HttpGet("{id}/getById")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            if (await _context.WorkItems.AnyAsync(wi => wi.WorkId == id))
-                return Response(ResultFactory.Conflict("تعذّر حذف هذا العمل لأنه يحتوي على بنود مرتبطة.\r\n"));
-
             var work = await _context.Works
                 .ProjectTo<WorkDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(w => w.Id == id);
@@ -100,12 +101,25 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(work));
         }
 
-        [HttpGet("GetByProjectId")]
+        [HttpGet("{id}/getDetailedById")]
+        public async Task<IActionResult> GetDetailedByIdAsync(int id)
+        {
+            var work = await _context.Works
+                .ProjectTo<WorkDetailedDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(w => w.Id == id);
+
+            if (work == null)
+                return Response(ResultFactory.NotFound());
+
+            return Response(ResultFactory.Ok(work));
+        }
+
+        [HttpGet("getByProjectId")]
         public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
         {
             var works = await _context.Works
                 .Where(w => w.ProjectId == projectId)
-                .ProjectTo<WorkDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkBriefDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(works));

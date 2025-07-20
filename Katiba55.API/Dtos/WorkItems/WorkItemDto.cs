@@ -1,5 +1,4 @@
 ﻿using Katiba55.API.Dtos.Items;
-using System.ComponentModel.DataAnnotations;
 
 namespace Katiba55.API.Dtos.WorkItems
 {
