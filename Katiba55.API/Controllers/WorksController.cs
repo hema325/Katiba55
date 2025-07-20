@@ -1,6 +1,5 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
-using Katiba55.API.Dtos.Projects;
 using Katiba55.API.Dtos.Works;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
