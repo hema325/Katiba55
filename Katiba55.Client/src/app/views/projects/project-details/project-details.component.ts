@@ -5,8 +5,8 @@ import { BasicDetailsComponent } from './basic-details/basic-details.component';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
 import { ItemsComponent } from './items/items.component';
-import { WorksComponent } from './works/works.component';
 import { MediasComponent } from './medias/medias.component';
+import { ListWorksComponent } from '../../works/list-works/list-works.component';
 
 @Component({
   selector: 'app-project-details',
@@ -18,12 +18,12 @@ import { MediasComponent } from './medias/medias.component';
     BasicDetailsComponent,
     ExecutionStatusComponent,
     ItemsComponent,
-    WorksComponent,
     MediasComponent,
     CardComponent,
     CardBodyComponent,
     CircularProgressComponent,
-    RouterOutlet
+    RouterOutlet,
+    ListWorksComponent
   ]
 })
 export class ProjectDetailsComponent {

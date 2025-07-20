@@ -1,5 +1,4 @@
 import { ExecutionStatus } from "../../enums/execution-status.enum";
-import { CompanyBrief } from "../companies/companyBrief";
 
 export interface WorkDetailed {
     id: number,
@@ -9,5 +8,5 @@ export interface WorkDetailed {
     executionPercent?: number,
     executionDate?: Date,
     executionStatus: ExecutionStatus,
-    responsible: CompanyBrief
+    // responsible: CompanyBrief
 }
