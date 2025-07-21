@@ -19,7 +19,7 @@ namespace Katiba55.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateAsync(CreateProjectMediaDto dto)
+        public async Task<IActionResult> CreateAsync(CreateMediaDto dto)
         {
             var media = _mapper.Map<Media>(dto);
 
@@ -58,7 +58,7 @@ namespace Katiba55.API.Controllers
         {
             var medias = await _context.Medias
                 .Where(m => m.ProjectId == projectId)
-                .ProjectTo<ProjectMediaDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<MediaDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(medias));

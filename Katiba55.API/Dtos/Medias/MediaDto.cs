@@ -1,6 +1,6 @@
 ﻿namespace Katiba55.API.Dtos.ProjectMedias
 {
-    public class ProjectMediaDto
+    public class MediaDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

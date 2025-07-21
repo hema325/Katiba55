@@ -7,8 +7,8 @@ namespace Katiba55.API.Profiles
     {
         public MediasProfile()
         {
-            CreateMap<CreateProjectMediaDto, Media>();
-            CreateMap<Media, ProjectMediaDto>();
+            CreateMap<CreateMediaDto, Media>();
+            CreateMap<Media, MediaDto>();
         }
     }
 }

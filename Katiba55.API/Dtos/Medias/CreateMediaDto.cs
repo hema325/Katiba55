@@ -2,7 +2,7 @@
 
 namespace Katiba55.API.Dtos.ProjectMedias
 {
-    public class CreateProjectMediaDto
+    public class CreateMediaDto
     {
         public string Name { get; set; }
         public string Path { get; set; }
