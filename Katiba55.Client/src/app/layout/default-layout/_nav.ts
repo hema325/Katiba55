@@ -2,13 +2,13 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'لوحة الادارة',
+    name: 'الصفحة الرئيسية',
     url: '/dashboard',
-    iconComponent: { name: 'cil-speedometer' },
-    badge: {
-      color: 'info',
-      text: 'جديد'
-    }
+    icon: 'fa-solid fa-house'
+    // badge: {
+    //   color: 'info',
+    //   text: 'جديد'
+    // }
   },
   {
     title: true,
@@ -40,20 +40,8 @@ export const navItems: INavData[] = [
   },
   {
     name: 'الحساب',
-    url: '/projects',
-    icon: 'fa-solid fa-user',
-    children: [
-      {
-        name: 'تحديث البيانات',
-        url: '/account/update',
-        icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'تغير كلمة السر',
-        url: '/account/update',
-        icon: 'nav-icon-bullet'
-      }
-    ]
+    url: '/account',
+    icon: 'fa-solid fa-user'
   },
   {
     name: 'تسجيل الخروج',
