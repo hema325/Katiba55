@@ -1,0 +1,46 @@
+<div class="row g-4 mb-4">
+  <div class="col-12"></div>
+
+  <div class="col-12">
+    <h6 class="text-secondary mb-2">
+      <i class="fa-solid fa-photo-film text-primary me-2"></i>
+      وسائط التنفيذ
+    </h6>
+  </div>
+  <!-- 
+      <div class="col-12 my-3 d-flex justify-content-center gap-2">
+        <button type="button" class="btn btn-outline-primary active">الكل</button>
+        <button type="button" class="btn btn-outline-primary">الصور</button>
+        <button type="button" class="btn btn-outline-primary">الفيديوهات</button>
+      </div> -->
+
+  @for(media of medias; track media.id) {
+  <div class="col-12 col-md-6 col-lg-4 d-flex">
+    <a [href]="baseUrl + media.path" target="_blank"
+      class="media-card card border-0 shadow-sm rounded-4 overflow-hidden position-relative h-100 w-100 text-decoration-none">
+      <div class="ratio ratio-4x3">
+        @if(media.type === 'Video') {
+        <video class="w-100 h-100 object-fit-cover" controls>
+          <source [src]="baseUrl + media.path" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        } @else if(media.type === 'Image') {
+        <img [src]="baseUrl + media.path" class="img-fluid object-fit-cover w-100 h-100">
+        }
+        @else if(media.type === 'Pdf') {
+        <img src="assets/imgs/pdf.png" class="img-fluid object-fit-cover w-100 ">
+        }
+        @else if(media.type === 'Word') {
+        <img src="assets/imgs/word.png" class="img-fluid object-fit-cover w-100 ">
+        }
+        @else if(media.type === 'Excel') {
+        <img src="assets/imgs/excel.png" class="img-fluid object-fit-cover w-100 ">
+        }
+        @else if(media.type === 'PowerPoint') {
+        <img src="assets/imgs/powerpoint.png" class="img-fluid object-fit-cover w-100 ">
+        }
+      </div>
+    </a>
+  </div>
+  }
+</div>

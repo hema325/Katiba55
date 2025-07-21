@@ -3,5 +3,6 @@ export enum MediaTypes {
     Video = 'Video',
     Pdf = 'Pdf',
     Word = 'Word',
-    Excel = 'Excel'
+    Excel = 'Excel',
+    PowerPoint = 'PowerPoint'
 }

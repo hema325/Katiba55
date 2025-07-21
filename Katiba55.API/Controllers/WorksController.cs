@@ -114,12 +114,23 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(work));
         }
 
-        [HttpGet("getByProjectId")]
-        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
+        [HttpGet("getBriefByProjectId")]
+        public async Task<IActionResult> GetBriefByProjectIdAsync([FromQuery] int projectId)
         {
             var works = await _context.Works
                 .Where(w => w.ProjectId == projectId)
                 .ProjectTo<WorkBriefDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return Response(ResultFactory.Ok(works));
+        }
+
+        [HttpGet("getDetailedByProjectId")]
+        public async Task<IActionResult> GetDetailedByProjectIdAsync([FromQuery] int projectId)
+        {
+            var works = await _context.Works
+                .Where(w => w.ProjectId == projectId)
+                .ProjectTo<WorkDetailedDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(works));

@@ -6,5 +6,5 @@ export interface Media {
     date: Date,
     category: string,
     size: number,
-    ShowInExecutionStatusPage: boolean
+    showInExecutionStatusPage: boolean
 }

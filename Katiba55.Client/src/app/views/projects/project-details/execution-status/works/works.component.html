@@ -1,0 +1,61 @@
+@for(work of works; track work.id) {
+<div class="col-12">
+  <c-card class="mb-3 border-0 shadow-sm rounded-4 bg-white">
+    <c-card-header class="bg-white border-0 pb-1">
+      <div class="d-flex justify-content-between align-items-center">
+        <h6 class="mb-0 fw-bold text-primary">{{ work.name }}</h6>
+        <span class="badge bg-success fs-6 px-3 py-2 rounded-pill shadow-sm">{{work.executionPercent}}%</span>
+      </div>
+      <div class="text-muted small mt-1">
+        الشركة المسؤولة:
+        <a [routerLink]="['/companies', work.responsible.id]" class="text-decoration-underline text-primary fw-bold">{{
+          work.responsible.name }}</a>
+      </div>
+      <!-- حالة التنفيذ وتاريخ آخر تحديث للعمل -->
+      <div class="mt-2 d-flex flex-wrap gap-2 align-items-center">
+        <c-badge [color]="getStatusBadgeColor(work.executionStatus)"
+          class="px-3 py-2  d-inline-flex align-items-center gap-1">
+          حالة التنفيذ: {{ work.executionStatus | executionStatus }}
+        </c-badge>
+        <c-badge color="secondary" class=" px-3 py-2  d-inline-flex align-items-center gap-1">
+          آخر تحديث: <span dir="ltr">{{work.executionDate | date: 'dd-MM-yyyy'}} </span>
+        </c-badge>
+      </div>
+    </c-card-header>
+    <c-card-body class="pt-3 pb-2">
+      <div class="row g-3">
+
+        @for(workItem of work.workItems; track workItem.id) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <c-card class="h-100 border-0 shadow-sm rounded-3 bg-light bg-opacity-50 mb-3 mb-md-0">
+            <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+              <div class="w-100 mb-2">
+                <span
+                  class="fw-bold fs-6 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+                  [cTooltip]="workItem.item.name" cTooltipPlacement="bottom">
+                  {{ workItem.item.name }}
+                </span>
+              </div>
+              <hr class="w-100 my-2" style="opacity:0.12;" />
+              <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+                <c-badge [color]="getStatusBadgeColor(workItem.executionStatus)"
+                  class="px-3 py-1 small">{{workItem.executionStatus |
+                  executionStatus}}</c-badge>
+                <span class="small text-muted">نسبة التنفيذ</span>
+              </div>
+              <c-progress [value]="workItem.executionPercent" height="12"
+                [color]="getExecutionProgressColor(workItem.executionPercent)" class=" w-100
+                mb-1">{{workItem.executionPercent}}%</c-progress>
+              <div class="d-flex align-items-center justify-content-center w-100 mt-1">
+                <span class="small text-muted">آخر تحديث: <span dir="ltr">{{workItem.executionDate | date:
+                    'dd-MM-yyyy'}}</span></span>
+              </div>
+            </c-card-body>
+          </c-card>
+        </div>
+        }
+      </div>
+    </c-card-body>
+  </c-card>
+</div>
+}

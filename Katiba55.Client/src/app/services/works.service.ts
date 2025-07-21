@@ -35,7 +35,11 @@ export class WorksService {
     return this.httpClient.get<Result<WorkDetailed>>(`${this.baseUrl}/${workId}/getDetailedById`);
   }
 
-  getByProjectId(projectId: number): Observable<Result<WorkBrief[]>> {
-    return this.httpClient.get<Result<WorkBrief[]>>(`${this.baseUrl}/getByProjectId?projectId=${projectId}`);
+  getBriefByProjectId(projectId: number): Observable<Result<WorkBrief[]>> {
+    return this.httpClient.get<Result<WorkBrief[]>>(`${this.baseUrl}/getBriefByProjectId?projectId=${projectId}`);
+  }
+
+  getDetailedByProjectId(projectId: number): Observable<Result<WorkDetailed[]>> {
+    return this.httpClient.get<Result<WorkDetailed[]>>(`${this.baseUrl}/getDetailedByProjectId?projectId=${projectId}`);
   }
 }

@@ -19,25 +19,28 @@
     @for(media of medias; track media.id) {
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 border-0 rounded-4 shadow-sm bg-white overflow-hidden p-0">
-        <div class="bg-white d-flex justify-content-center align-items-center">
+        <div class="bg-white d-flex justify-content-center align-items-center ratio ratio-21x9">
           @if(media.type === 'Image') {
-          <img [src]="baseUrl + media.path" alt="صورة الموقع" class="w-100 rounded-top-4"
-            style="height:180px;object-fit:cover;">
+          <img [src]="baseUrl + media.path" alt="صورة الموقع" class="w-100 h-100 rounded-top-4 object-fit-cover">
           }
           @else if(media.type === 'Video') {
-          <video class="w-100 h-100 rounded-top-4" style="object-fit:cover;" controls>
+          <video class="w-100 h-100 rounded-top-4  object-fit-cover" controls>
             <source [src]="baseUrl + media.path" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
           </video>
           }
           @else if(media.type === 'Pdf') {
-          <img src="assets/imgs/pdf.png" class="rounded-top-4 p-4" style="height:180px;object-fit:cover;">
+          <img src="assets/imgs/pdf.png" class="rounded-top-4 p-4 object-fit-contain">
           }
           @else if(media.type === 'Word') {
-          <img src="assets/imgs/word.png" class="rounded-top-4 p-4" style="height:180px;object-fit:cover;">
+          <img src="assets/imgs/word.png" class="rounded-top-4 p-4 object-fit-contain"
+            style="height:180px;object-fit:cover;">
           }
           @else if(media.type === 'Excel') {
-          <img src="assets/imgs/excel.png" class="rounded-top-4 p-4" style="height:180px;object-fit:cover;">
+          <img src="assets/imgs/excel.png" class="rounded-top-4 p-4 object-fit-contain">
+          }
+          @else if(media.type === 'PowerPoint') {
+          <img src="assets/imgs/powerpoint.png" class="rounded-top-4 p-4 object-fit-contain">
           }
         </div>
         <c-card-body class="bg-white p-4 d-flex flex-column h-100">
@@ -65,15 +68,15 @@
               @if(isTogglingExecutionStatus && toggledMediaId === media.id) {
               <c-spinner aria-hidden="true" size="sm"></c-spinner>}
               @else {
-              @if(media.ShowInExecutionStatusPage) {
+              @if(media.showInExecutionStatusPage) {
               <i class="fa-solid fa-eye-slash"></i>
               }
               @else {
               <i class="fa-solid fa-eye fa-lg"></i>
               }
               }
-
             </button>
+
             <a [href]="baseUrl + media.path" target="_blank"
               class="btn btn-outline-success btn-sm rounded-circle card-btn" title="تحميل">
               <i class="fa-solid fa-search fa-lg"></i>

@@ -6,6 +6,7 @@
         Video = 2,
         Pdf = 3,
         Word = 4,
-        Excel = 5
+        Excel = 5,
+        PowerPoint = 6
     }
 }

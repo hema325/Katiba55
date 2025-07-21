@@ -109,6 +109,11 @@ export class MediasCreateComponent implements OnInit {
       mimeType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     ) return MediaTypes.Excel;
 
+    if (
+      mimeType === "application/vnd.ms-powerpoint" ||
+      mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    ) return MediaTypes.PowerPoint;
+
     return undefined;
   }
 }

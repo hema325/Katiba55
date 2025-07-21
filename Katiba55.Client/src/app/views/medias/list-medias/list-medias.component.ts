@@ -78,12 +78,12 @@ export class ListMediasComponent implements OnInit {
     this.isTogglingExecutionStatus = true;
     this.toggledMediaId = media.id;
 
-    if (!media.ShowInExecutionStatusPage) {
+    if (!media.showInExecutionStatusPage) {
       this.mediasService.showInExecutionStatusPage(media.id)
         .pipe(finalize(() => this.isTogglingExecutionStatus = false), first())
         .subscribe(response => {
           if (response.success) {
-            media.ShowInExecutionStatusPage = true;
+            media.showInExecutionStatusPage = true;
             this.toasterService.showToast('نجاح', 'تم عرض الملف في الموقف التنفيذي!', 'success');
           }
         });
@@ -93,7 +93,7 @@ export class ListMediasComponent implements OnInit {
         .pipe(finalize(() => this.isTogglingExecutionStatus = false), first())
         .subscribe(response => {
           if (response.success) {
-            media.ShowInExecutionStatusPage = false;
+            media.showInExecutionStatusPage = false;
             this.toasterService.showToast('نجاح', 'تم إخفاء الملف من الموقف التنفيذي!', 'success');
           }
         });

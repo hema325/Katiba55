@@ -2,10 +2,13 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BasicDetailsComponent } from '../basic-details/basic-details.component';
 import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ProgressComponent, RowComponent, TableDirective, TooltipDirective, WidgetStatFComponent } from '@coreui/angular';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PaginatorComponent } from '../../../../shared/paginator/paginator.component';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { CircularProgressComponent } from '../../../../shared/circular-progress/circular-progress.component';
+import { ProjectExecutionComponent } from './project-execution/project-execution.component';
+import { WorksComponent } from './works/works.component';
+import { MediasComponent } from './medias/medias.component';
 
 @Component({
   selector: 'app-execution-status',
@@ -27,7 +30,10 @@ import { CircularProgressComponent } from '../../../../shared/circular-progress/
     RouterLink,
     WidgetStatFComponent,
     CircularProgressComponent,
-    TooltipDirective
+    TooltipDirective,
+    ProjectExecutionComponent,
+    WorksComponent,
+    MediasComponent
   ]
 })
 export class ExecutionStatusComponent implements OnInit {
@@ -116,9 +122,13 @@ export class ExecutionStatusComponent implements OnInit {
   projectTimelineChartType: 'line' | 'bar' = 'line';
   compareChartType: 'line' | 'bar' = 'bar';
 
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+
+  projectId: number = 0;
   constructor() { }
 
   ngOnInit() {
+    this.projectId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
   }
 
   setWorksTimelineChartType(type: 'bar' | 'line') {

@@ -1,0 +1,11 @@
+<c-card class="mb-4 shadow-sm border-0 p-2">
+  <c-card-body>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
+      <app-circular-progress [percent]="project?.executionPercent || 0" color="#31a751" />
+      <div class="mt-2 text-muted">
+        آخر تحديث: {{ (project?.executionDate | date: 'dd-MM-yyyy') || '-' }}
+      </div>
+    </div>
+  </c-card-body>
+</c-card>

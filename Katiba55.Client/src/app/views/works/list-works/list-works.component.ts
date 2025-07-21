@@ -42,7 +42,7 @@ export class ListWorksComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.worksService.getByProjectId(this.projectId)
+    this.worksService.getBriefByProjectId(this.projectId)
       .pipe(finalize(() => this.isLoading = false), first())
       .subscribe(response => this.works = response.data);
   }

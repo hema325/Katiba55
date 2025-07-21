@@ -17,6 +17,8 @@ export class MediaTypePipe implements PipeTransform {
         return "Word";
       case "Excel":
         return "Excel";
+      case "PowerPoint":
+        return "PowerPoint";
       default:
         return "نوع غير معروف";
     }
