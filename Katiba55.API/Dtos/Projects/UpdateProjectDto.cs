@@ -17,8 +17,6 @@ namespace Katiba55.API.Dtos.Projects
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public int SupervisorId { get; set; }
-        public double? ExecutionPercent { get; set; }
-        public DateTime? ExecutionDate { get; set; }
         [EnumDataType(typeof(ExecutionStatus))]
         public string ExecutionStatus { get; set; }
         public string? Notes { get; set; }

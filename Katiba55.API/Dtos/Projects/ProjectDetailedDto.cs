@@ -17,7 +17,7 @@ namespace Katiba55.API.Dtos.Projects
         public string? Address { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
-        public double? ExecutionPercent { get; set; }
+        public decimal? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
         public string ExecutionStatus { get; set; }
 

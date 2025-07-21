@@ -5,6 +5,6 @@
         public string ProjectName { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
-        public double Percentage { get; set; }
+        public decimal Percentage { get; set; }
     }
 }

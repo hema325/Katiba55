@@ -49,8 +49,6 @@ export class ProjectsAddComponent implements OnInit {
     latitude: [null],
     longitude: [null],
     executionStatus: ['', [Validators.required]],
-    executionPercent: [{ value: null, disabled: true }, [Validators.max(100), Validators.min(0)]],
-    executionDate: [{ value: null, disabled: true }],
     supervisorId: ['', [Validators.required]],
     notes: [null]
   });
@@ -79,30 +77,5 @@ export class ProjectsAddComponent implements OnInit {
           this.router.navigate([`/projects`]);
         }
       });
-  }
-
-  onStatusChange(value: string) {
-    const executionPercent = this.projectForm.get('executionPercent');
-    const executionDate = this.projectForm.get('executionDate');
-
-    if (value === ExecutionStatus.Pending) {
-      executionPercent?.clearValidators();
-      executionPercent?.reset();
-      executionPercent?.disable();
-
-      executionDate?.clearValidators();
-      executionDate?.reset();
-      executionDate?.disable();
-    }
-    else {
-      executionPercent?.setValidators([Validators.required, Validators.max(100), Validators.min(0)]);
-      executionPercent?.enable();
-
-      executionDate?.setValidators(Validators.required);
-      executionDate?.enable();
-    }
-
-    executionPercent?.updateValueAndValidity();
-    executionDate?.updateValueAndValidity();
   }
 }

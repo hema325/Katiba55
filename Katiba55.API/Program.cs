@@ -1,5 +1,6 @@
 using Katiba55.API.Extensions.DependencyInjection;
 using Katiba55.API.Handlers;
+using Katiba55.API.Services.ProgressUpdater;
 using Katiba55.API.Settings;
 using Katiba55.API.Transformers;
 using Scalar.AspNetCore;
@@ -22,6 +23,11 @@ builder.Services
     .ConfigureDB(builder.Configuration)
     .AddAutoMapper(Assembly.GetExecutingAssembly());
 
+#endregion
+
+#region DI
+builder.Services
+    .AddScoped<IProgressUpdaterService, ProgressUpdaterService>();
 #endregion
 
 #region configs

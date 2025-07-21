@@ -82,5 +82,16 @@ namespace Katiba55.API.Controllers
 
             return Response(ResultFactory.Ok(items));
         }
+
+        [HttpGet("getByWorkId")]
+        public async Task<IActionResult> GetByWorkIdAsync([FromQuery] int workId)
+        {
+            var items = await _context.Items
+                .Where(i => _context.Works.Where(w => w.Id == workId).Select(w=>w.ProjectId).Distinct().Any(projectId=> projectId == i.ProjectId))
+                .ProjectTo<ItemDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return Response(ResultFactory.Ok(items));
+        }
     }
 }

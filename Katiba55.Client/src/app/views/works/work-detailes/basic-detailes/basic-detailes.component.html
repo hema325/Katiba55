@@ -59,6 +59,23 @@
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 shadow-sm border-0 rounded-3">
         <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">قيمة المقايسة الكلية</div>
+            <div class="text-muted small">
+              @if(work?.totalContractValue) {
+              {{work?.totalContractValue | number}} ج.م
+              } @else {
+              لا يوجد
+              }
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
           <i class="fa-solid fa-chart-line text-info fs-4 me-3"></i>
           <div>
             <div class="fw-bold">نسبة التنفيذ</div>

@@ -28,18 +28,6 @@ namespace Katiba55.API.Controllers
 
             var project = _mapper.Map<Project>(dto);
 
-            if (project.ExecutionPercent != null && project.ExecutionDate != null)
-            {
-                project.ExecutionHistories =
-                [
-                    new ProjectExecutionHistory
-                    {
-                        Percentage = project.ExecutionPercent.Value,
-                        Date =  project.ExecutionDate.Value
-                    }
-                ];
-            }
-
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
 
@@ -56,18 +44,6 @@ namespace Katiba55.API.Controllers
 
             if (await _context.Projects.AnyAsync(p => p.Id != id && p.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
-
-            if((dto.ExecutionDate != null && dto.ExecutionPercent != null) && (dto.ExecutionDate != project.ExecutionDate || dto.ExecutionPercent != project.ExecutionPercent))
-            {
-                project.ExecutionHistories =
-                [
-                    new ProjectExecutionHistory
-                    {
-                        Percentage = dto.ExecutionPercent.Value,
-                        Date =  dto.ExecutionDate.Value
-                    }
-                ];
-            }
 
             _mapper.Map(dto, project);
 
@@ -193,7 +169,7 @@ namespace Katiba55.API.Controllers
             // fill all progress gaps with last progress
             var progressDic = progress.ToDictionary(s => new DateTime(s.Year, s.Month, 1));
             var progressFilled = new List<ProjectMonthlyProgressItem>();
-            var lastPercent = 0d;
+            var lastPercent = 0m;
             foreach (var date in progressDates) { 
                 if(progressDic.TryGetValue(date, out var prog))
                 {
@@ -262,7 +238,7 @@ namespace Katiba55.API.Controllers
                     });
 
                 var progressFilled = new List<ProjectMonthlyProgressItem>();
-                var lastPercent = 0d;
+                var lastPercent = 0m;
                 foreach (var date in progressDates)
                 {
                     if (progressDic.TryGetValue(date, out var prog))

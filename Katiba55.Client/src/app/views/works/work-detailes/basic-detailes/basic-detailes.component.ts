@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
@@ -19,7 +19,8 @@ import { CircularProgressComponent } from 'src/app/shared/circular-progress/circ
     CircularProgressComponent,
     DatePipe,
     ExecutionStatusPipe,
-    RouterLink
+    RouterLink,
+    DecimalPipe
   ]
 })
 export class BasicDetailesComponent implements OnInit {

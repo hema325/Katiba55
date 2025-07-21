@@ -7,6 +7,7 @@ export interface WorkDetailed {
     executionPercent?: number,
     executionDate?: Date,
     executionStatus: ExecutionStatus,
+    totalContractValue?: number,
     notes?: string,
     responsible: CompanyBrief
 }

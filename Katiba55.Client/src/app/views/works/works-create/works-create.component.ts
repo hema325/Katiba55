@@ -39,10 +39,9 @@ export class WorksCreateComponent implements OnInit {
 
   workForm = this.fb.group({
     name: ['', [Validators.required]],
-    executionPercent: [null, [Validators.max(100), Validators.min(0)]],
-    executionDate: [null],
     executionStatus: ['', [Validators.required]],
     responsibleId: ['', [Validators.required]],
+    totalContractValue: [null, [Validators.required, Validators.min(1)]],
     notes: ['']
   })
 

@@ -2,7 +2,7 @@
 {
     public class ProjectExecutionHistory: BaseEntity
     {
-        public double Percentage { get; set; }
+        public decimal Percentage { get; set; }
         public DateTime Date { get; set; }
 
         public int ProjectId { get; set; }

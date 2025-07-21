@@ -42,6 +42,7 @@ export class WorksEditComponent implements OnInit {
     executionDate: [null],
     executionStatus: ['', [Validators.required]],
     responsibleId: ['', [Validators.required]],
+    totalContractValue: [null, [Validators.required, Validators.min(1)]],
     notes: ['']
   })
 
@@ -69,7 +70,7 @@ export class WorksEditComponent implements OnInit {
       .pipe(first())
       .subscribe(response => {
         if (response.success) {
-          this.workForm.patchValue({ ...response.data as any, executionDate: formatInputDate(response.data.executionDate) });
+          this.workForm.patchValue({ ...response.data as any });
         }
       })
   }

@@ -210,8 +210,8 @@ namespace Katiba55.API.Migrations
                     b.Property<DateTime?>("ExecutionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("ExecutionPercent")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ExecutionPercent")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ExecutionStatus")
                         .HasColumnType("int");
@@ -256,8 +256,8 @@ namespace Katiba55.API.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Percentage")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Percentage")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -314,8 +314,8 @@ namespace Katiba55.API.Migrations
                     b.Property<DateTime?>("ExecutionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("ExecutionPercent")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ExecutionPercent")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ExecutionStatus")
                         .HasColumnType("int");
@@ -332,6 +332,9 @@ namespace Katiba55.API.Migrations
 
                     b.Property<int?>("ResponsibleId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("TotalContractValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -353,8 +356,8 @@ namespace Katiba55.API.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Percentage")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Percentage")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("WorkId")
                         .HasColumnType("int");
@@ -374,17 +377,29 @@ namespace Katiba55.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("ExecutionDate")
+                    b.Property<decimal>("ExecutedValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ExecutionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("ExecutionPercent")
-                        .HasColumnType("float");
+                    b.Property<decimal>("ExecutionPercent")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ExecutionStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("RelativeExecutionPercent")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RelativeWeight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("WorkId")
                         .HasColumnType("int");
@@ -396,30 +411,6 @@ namespace Katiba55.API.Migrations
                     b.HasIndex("WorkId");
 
                     b.ToTable("WorkItems");
-                });
-
-            modelBuilder.Entity("Katiba55.API.Entities.WorkItemExecutionHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("Percentage")
-                        .HasColumnType("float");
-
-                    b.Property<int>("WorkItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WorkItemId");
-
-                    b.ToTable("WorkItemExecutionHistories");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Item", b =>
@@ -513,17 +504,6 @@ namespace Katiba55.API.Migrations
                     b.Navigation("Work");
                 });
 
-            modelBuilder.Entity("Katiba55.API.Entities.WorkItemExecutionHistory", b =>
-                {
-                    b.HasOne("Katiba55.API.Entities.WorkItem", "WorkItem")
-                        .WithMany("ExecutionHistories")
-                        .HasForeignKey("WorkItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WorkItem");
-                });
-
             modelBuilder.Entity("Katiba55.API.Entities.Company", b =>
                 {
                     b.Navigation("Works");
@@ -555,11 +535,6 @@ namespace Katiba55.API.Migrations
                     b.Navigation("ExecutionHistories");
 
                     b.Navigation("WorkItems");
-                });
-
-            modelBuilder.Entity("Katiba55.API.Entities.WorkItem", b =>
-                {
-                    b.Navigation("ExecutionHistories");
                 });
 #pragma warning restore 612, 618
         }

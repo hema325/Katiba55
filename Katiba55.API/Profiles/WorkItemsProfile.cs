@@ -9,8 +9,7 @@ namespace Katiba55.API.Profiles
             CreateMap<CreateWorkItemDto, WorkItem>();
             CreateMap<UpdateWorkItemDto, WorkItem>();
             CreateMap<WorkItem, WorkItemDto>();
-
-            CreateMap<WorkItemExecutionHistory, WorkItemExecutionHistoryDto>();
+            CreateMap<WorkItem, WorkItemDetailedDto>();
         }
     }
 }

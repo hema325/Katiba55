@@ -32,4 +32,7 @@ export class ItemsService {
   getByProjectId(projectId: number): Observable<Result<Item[]>> {
     return this.httpClient.get<Result<Item[]>>(`${this.baseUrl}/getByProjectId?projectId=${projectId}`);
   }
+  getByWorkId(workId: number): Observable<Result<Item[]>> {
+    return this.httpClient.get<Result<Item[]>>(`${this.baseUrl}/getByWorkId?workId=${workId}`);
+  }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.Works;
+using Katiba55.API.Entities;
+using Katiba55.API.Services.ProgressUpdater;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +13,13 @@ namespace Katiba55.API.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IProgressUpdaterService _progressUpdater;
 
-        public WorksController(ApplicationDbContext context, IMapper mapper)
+        public WorksController(ApplicationDbContext context, IMapper mapper, IProgressUpdaterService progressUpdaterService)
         {
             _context = context;
             _mapper = mapper;
+            _progressUpdater = progressUpdaterService;
         }
 
         [HttpPost("create")]
@@ -49,22 +53,19 @@ namespace Katiba55.API.Controllers
             if (work == null)
                 return Response(ResultFactory.NotFound());
 
-            if ((dto.ExecutionDate != null && dto.ExecutionPercent != null) && (dto.ExecutionDate != work.ExecutionDate || dto.ExecutionPercent != work.ExecutionPercent))
-            {
-                work.ExecutionHistories =
-                [
-                    new WorkExecutionHistory
-                    {
-                        Percentage = dto.ExecutionPercent.Value,
-                        Date =  dto.ExecutionDate.Value
-                    }
-                ];
-            }
+            var contractValueChanged = dto.TotalContractValue != work.TotalContractValue;
 
             _mapper.Map(dto, work);
 
             _context.Works.Update(work);
             await _context.SaveChangesAsync();
+
+            if(contractValueChanged)
+            {
+                await _progressUpdater.UpdateWorkItemsAsync(id);
+                await _progressUpdater.UpdateWorkAsync(id);
+                await _progressUpdater.UpdateProjectAsync(id);
+            }
 
             return Response(ResultFactory.Ok());
         }
@@ -156,7 +157,7 @@ namespace Katiba55.API.Controllers
 
             var progressDic = progress.ToDictionary(s => new DateTime(s.Year, s.Month, 1));
             var progressFilled = new List<WorkMonthlyProgressItem>();
-            var lastPercent = 0d;
+            var lastPercent = 0m;
 
             foreach (var date in progressDates)
             {
@@ -224,7 +225,7 @@ namespace Katiba55.API.Controllers
                     });
 
                 var progressFilled = new List<WorkMonthlyProgressItem>();
-                var lastPercent = 0d;
+                var lastPercent = 0m;
                 foreach (var date in progressDates)
                 {
                     if (progressDic.TryGetValue(date, out var prog))
