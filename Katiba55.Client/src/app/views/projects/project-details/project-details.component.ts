@@ -5,8 +5,8 @@ import { BasicDetailsComponent } from './basic-details/basic-details.component';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
 import { ItemsComponent } from './items/items.component';
-import { MediasComponent } from './medias/medias.component';
 import { ListWorksComponent } from '../../works/list-works/list-works.component';
+import { ListMediasComponent } from '../../medias/list-medias/list-medias.component';
 
 @Component({
   selector: 'app-project-details',
@@ -18,12 +18,12 @@ import { ListWorksComponent } from '../../works/list-works/list-works.component'
     BasicDetailsComponent,
     ExecutionStatusComponent,
     ItemsComponent,
-    MediasComponent,
     CardComponent,
     CardBodyComponent,
     CircularProgressComponent,
     RouterOutlet,
-    ListWorksComponent
+    ListWorksComponent,
+    ListMediasComponent
   ]
 })
 export class ProjectDetailsComponent implements OnInit {

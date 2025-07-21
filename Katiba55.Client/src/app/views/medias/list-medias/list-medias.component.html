@@ -1,0 +1,100 @@
+<div class="container-fluid px-0 my-3">
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h6 class="mb-0 text-secondary">
+        <i class="fa-solid fa-photo-film text-info me-2"></i>
+        الوسائط
+      </h6>
+      <button [routerLink]="['/medias/create']" [queryParams]="{projectId: projectId}"
+        class="btn btn-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"
+        title="إضافة وسيلة">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+
+    @for(media of medias; track media.id) {
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 border-0 rounded-4 shadow-sm bg-white overflow-hidden p-0">
+        <div class="bg-white d-flex justify-content-center align-items-center">
+          @if(media.type === 'Image') {
+          <img [src]="baseUrl + media.path" alt="صورة الموقع" class="w-100 rounded-top-4"
+            style="height:180px;object-fit:cover;">
+          }
+          @else if(media.type === 'Video') {
+          <video class="w-100 h-100 rounded-top-4" style="object-fit:cover;" controls>
+            <source [src]="baseUrl + media.path" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+          </video>
+          }
+          @else if(media.type === 'Pdf') {
+          <img src="assets/imgs/pdf.png" class="rounded-top-4 p-4" style="height:180px;object-fit:cover;">
+          }
+          @else if(media.type === 'Word') {
+          <img src="assets/imgs/word.png" class="rounded-top-4 p-4" style="height:180px;object-fit:cover;">
+          }
+          @else if(media.type === 'Excel') {
+          <img src="assets/imgs/excel.png" class="rounded-top-4 p-4" style="height:180px;object-fit:cover;">
+          }
+        </div>
+        <c-card-body class="bg-white p-4 d-flex flex-column h-100">
+          <div class="fw-bold fs-5 text-truncate mb-2" title="صور">
+            {{media.name}}
+          </div>
+          <div class="d-flex justify-content-start gap-2 mb-2">
+            <span class="badge bg-primary">{{media.category | mediaCategory}}</span>
+            <span class="badge bg-success">{{media.type | mediaType}}</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-calendar-days text-muted"></i>
+              <span class="small text-muted">{{media.date | date: 'dd-MM-yyyy'}}</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-file text-muted"></i>
+              <span class="small text-muted">{{media.size | fileSize}}</span>
+            </div>
+          </div>
+          <hr class="my-2 w-100" />
+          <div class="d-flex gap-3 justify-content-center mt-2">
+            <button (click)="toggleExecutionStatus(media)" class="btn btn-outline-info btn-sm rounded-circle card-btn"
+              title="عرض فى الموقف التنفيذى">
+              @if(isTogglingExecutionStatus && toggledMediaId === media.id) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>}
+              @else {
+              @if(media.ShowInExecutionStatusPage) {
+              <i class="fa-solid fa-eye-slash"></i>
+              }
+              @else {
+              <i class="fa-solid fa-eye fa-lg"></i>
+              }
+              }
+
+            </button>
+            <a [href]="baseUrl + media.path" target="_blank"
+              class="btn btn-outline-success btn-sm rounded-circle card-btn" title="تحميل">
+              <i class="fa-solid fa-search fa-lg"></i>
+            </a>
+            <button (click)="fireDeleteConfirmationModal(media)"
+              class="btn btn-outline-danger btn-sm rounded-circle card-btn" title="حذف">
+              @if(deletedItem?.id == media.id) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              }
+              @else {
+              <i class="fa-solid fa-trash"></i>
+              }
+            </button>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    }
+  </div>
+</div>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />

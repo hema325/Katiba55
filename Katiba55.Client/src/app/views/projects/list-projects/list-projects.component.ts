@@ -94,4 +94,6 @@ export class ListProjectsComponent implements OnInit {
     if (percent > 0) return 'danger';
     return 'secondary';
   }
+
+
 }

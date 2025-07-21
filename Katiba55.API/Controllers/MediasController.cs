@@ -54,14 +54,51 @@ namespace Katiba55.API.Controllers
         }
 
         [HttpGet("getByProjectId")]
-        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
+        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId, [FromQuery] bool? showInExecutionStatusPage = null)
         {
-            var medias = await _context.Medias
+            var query =  _context.Medias.AsQueryable();
+
+            if(showInExecutionStatusPage != null)
+                query = query.Where(m=>m.ShowInExecutionStatusPage == showInExecutionStatusPage);
+
+            var medias = await query
                 .Where(m => m.ProjectId == projectId)
                 .ProjectTo<MediaDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(medias));
+        }
+
+        [HttpPatch("{id}/showInExecutionStatusPage")]
+        public async Task<IActionResult> ShowInExecutionStatusPageAsync(int id)
+        {
+            var media = await _context.Medias.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (media == null)
+                return Response(ResultFactory.NotFound());
+
+            media.ShowInExecutionStatusPage = true;
+
+            _context.Medias.Update(media);
+            await _context.SaveChangesAsync();
+
+            return Response(ResultFactory.Ok());
+        }
+
+        [HttpPatch("{id}/hideFromExecutionStatusPage")]
+        public async Task<IActionResult> HideFromExecutionStatusPageAsync(int id)
+        {
+            var media = await _context.Medias.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (media == null)
+                return Response(ResultFactory.NotFound());
+
+            media.ShowInExecutionStatusPage = false;
+
+            _context.Medias.Update(media);
+            await _context.SaveChangesAsync();
+
+            return Response(ResultFactory.Ok());
         }
     }
 }

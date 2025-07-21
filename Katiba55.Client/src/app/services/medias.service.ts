@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Environment } from '../static-data/environment';
 import { Observable } from 'rxjs';
@@ -21,8 +21,16 @@ export class MediasService {
     return this.httpClient.delete<Result<any>>(`${this.baseUrl}/${id}/delete`);
   }
 
-  getByProjectId(projectId: number): Observable<Result<Media[]>> {
-    return this.httpClient.get<Result<Media[]>>(`${this.baseUrl}/getByProjectId?projectId=${projectId}`);
+  getByProjectId(projectId: number, showInExecutionStatusPage: boolean | null | undefined = null): Observable<Result<Media[]>> {
+    let param = new HttpParams();
+
+    if (showInExecutionStatusPage !== null && showInExecutionStatusPage !== undefined) {
+      param = param.append('showInExecutionStatusPage', showInExecutionStatusPage);
+    }
+
+    param = param.append('projectId', projectId);
+
+    return this.httpClient.get<Result<Media[]>>(`${this.baseUrl}/getByProjectId`, { params: param });
   }
 
   showInExecutionStatusPage(mediaId: number): Observable<Result<any>> {

@@ -6,6 +6,8 @@ namespace Katiba55.API.Controllers
     public class FilesController : BaseController
     {
         [HttpPost("upload")]
+        [RequestSizeLimit(long.MaxValue)]
+        [RequestFormLimits(MultipartBodyLengthLimit = long.MaxValue)]
         public async Task<IActionResult> UploadAsync([FromForm] IFormFile file)
         {
             var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
