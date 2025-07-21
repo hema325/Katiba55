@@ -1,85 +1,67 @@
-﻿//using AutoMapper.QueryableExtensions;
-//using Katiba55.API.Data;
-//using Katiba55.API.Dtos.ProjectMedias;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper.QueryableExtensions;
+using Katiba55.API.Data;
+using Katiba55.API.Dtos.ProjectMedias;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-//namespace Katiba55.API.Controllers
-//{
-//    [Route("api/medias")]
-//    public class MediasController: BaseController
-//    {
-//        private readonly ApplicationDbContext _context;
-//        private readonly IMapper _mapper;
+namespace Katiba55.API.Controllers
+{
+    [Route("api/medias")]
+    public class MediasController : BaseController
+    {
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-//        public MediasController(ApplicationDbContext context, IMapper mapper)
-//        {
-//            _context = context;
-//            _mapper = mapper;
-//        }
+        public MediasController(ApplicationDbContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
 
-//        [HttpPost("create")]
-//        public async Task<IActionResult> CreateAsync(CreateProjectMediaDto dto)
-//        {
-//            var supportedImageExtensions = new[] { ".jpg", ".jpeg", ".png", ".svg", ".gif", ".bmp", ".webp", ".tiff" };
-//            var supportedVideosExtensions = new[] { ".mp4", ".avi", ".mov", ".wmv", ".flv", ".mkv", ".webm" };
-//            var fileExtension = Path.GetExtension(dto.Path);
-//            var media = new Media();
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateAsync(CreateProjectMediaDto dto)
+        {
+            var media = _mapper.Map<Media>(dto);
 
-//            if (supportedImageExtensions.Any(ex => ex == fileExtension))
-//            {
-//                media.Type = MediaTypes.Image;
-//            }
-//            else if(supportedVideosExtensions.Any(ex => ex == fileExtension))
-//            {
-//                media.Type = MediaTypes.Video;
-//            }
-//            else
-//            {
-//                return Response(ResultFactory.BadRequest(message: "هذا الملف غير مدعوم."));
-//            }
+            _context.Medias.Add(media);
+            await _context.SaveChangesAsync();
 
-//            _mapper.Map(dto, media);
+            return Response(ResultFactory.Ok(media.Id));
+        }
 
-//            _context.Medias.Add(media);
-//            await _context.SaveChangesAsync();
+        [HttpDelete("{id}/delete")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var media = await _context.Medias.FirstOrDefaultAsync(m => m.Id == id);
 
-//            return Response(ResultFactory.Ok(media.Id));
-//        }
+            if (media == null)
+                return Response(ResultFactory.NotFound());
 
-//        [HttpDelete("{mediaId}/delete")]
-//        public async Task<IActionResult> DeleteAsync(int mediaId)
-//        {
-//            var media = await _context.Medias.FirstOrDefaultAsync(m => m.Id == mediaId);
+            try
+            {
+                if (System.IO.File.Exists(media.Path))
+                    System.IO.File.Delete(media.Path);
+            }
+            catch
+            {
+                return Response(ResultFactory.BadRequest(message: "حدث خطأ أثناء حذف الملف. يرجى المحاولة مرة أخرى."));
+            }
 
-//            if (media == null)
-//                return Response(ResultFactory.NotFound());
+            _context.Medias.Remove(media);
+            await _context.SaveChangesAsync();
 
-//            try
-//            {
-//                if(System.IO.File.Exists(media.Path))
-//                    System.IO.File.Delete(media.Path);
-//            }
-//            catch
-//            {
-//                return Response(ResultFactory.BadRequest(message: "حدث خطأ أثناء حذف الملف. يرجى المحاولة مرة أخرى."));
-//            }
+            return Response(ResultFactory.Ok());
+        }
 
-//            _context.Medias.Remove(media);
-//            await _context.SaveChangesAsync();
+        [HttpGet("getByProjectId")]
+        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
+        {
+            var medias = await _context.Medias
+                .Where(m => m.ProjectId == projectId)
+                .ProjectTo<ProjectMediaDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
 
-//            return Response(ResultFactory.Ok());
-//        }
-
-//        [HttpGet("getByProjectId")]
-//        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
-//        {
-//            var medias = await _context.Medias
-//                .Where(m => m.ProjectId == projectId)
-//                .ProjectTo<ProjectMediaDto>(_mapper.ConfigurationProvider)
-//                .ToListAsync();
-
-//            return Response(ResultFactory.Ok(medias));
-//        }
-//    }
-//}
+            return Response(ResultFactory.Ok(medias));
+        }
+    }
+}

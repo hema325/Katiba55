@@ -57,7 +57,7 @@ namespace Katiba55.API.Services.ProgressUpdater
             if (work == null)
                 throw new NullReferenceException(nameof(work));
 
-            work!.ExecutionPercent = await _context.WorkItems.SumAsync(wi => wi.RelativeExecutionPercent) * 100;
+            work!.ExecutionPercent = await _context.WorkItems.Where(wi => wi.WorkId == workId).SumAsync(wi => wi.RelativeExecutionPercent);
             work.ExecutionDate = DateTime.Now;
             work.ExecutionHistories =
             [
@@ -78,10 +78,9 @@ namespace Katiba55.API.Services.ProgressUpdater
             if (project == null)
                 throw new InvalidOperationException(nameof(project));
 
-            // update project
             var totalExecutionPercent = await _context.Works.SumAsync(w => w.ExecutionPercent);
             var totalWorksCount = await _context.Works.Where(w => w.ProjectId == project.Id).CountAsync();
-            project.ExecutionPercent = SafeDivide(totalExecutionPercent.Value, totalWorksCount) * 100;
+            project.ExecutionPercent = SafeDivide(totalExecutionPercent.Value, totalWorksCount);
             project.ExecutionDate = DateTime.Now;
             project.ExecutionHistories =
             [

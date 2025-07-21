@@ -66,6 +66,9 @@ namespace Katiba55.API.Controllers
         [HttpDelete("{id}/delete")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
+            if(await _context.Companies.AnyAsync(c=>c.Id == id && c.Works.Any()))
+                return Response(ResultFactory.Conflict("لا يمكن حذف هذه الشركة نظرًا لإشرافها على بعض أعمال المشاريع الجارية."));
+
             var company = await _context.Companies.FindAsync(id);
 
             if (company == null)

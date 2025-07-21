@@ -47,17 +47,19 @@ namespace Katiba55.API.Controllers
             if (workItem == null)
                 return Response(ResultFactory.NotFound());
 
-            if (workItem.TotalValue != dto.TotalValue || workItem.ExecutedValue != dto.ExecutedValue)
-            {
-                await _progressUpdater.UpdateWorkItemAsync(workItem.Id);
-                await _progressUpdater.UpdateWorkAsync(workItem.WorkId);
-                await _progressUpdater.UpdateProjectAsync(workItem.WorkId);
-            }
+            var updateProgress = workItem.TotalValue != dto.TotalValue || workItem.ExecutedValue != dto.ExecutedValue;
 
             _mapper.Map(dto, workItem);
 
             _context.WorkItems.Update(workItem);
             await _context.SaveChangesAsync();
+
+            if(updateProgress)
+            {
+                await _progressUpdater.UpdateWorkItemAsync(workItem.Id);
+                await _progressUpdater.UpdateWorkAsync(workItem.WorkId);
+                await _progressUpdater.UpdateProjectAsync(workItem.WorkId);
+            }
 
             return Response(ResultFactory.Ok());
         }

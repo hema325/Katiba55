@@ -1,5 +1,5 @@
 <div class="row g-3 mb-4 justify-content-center">
-  <div class="col-12 col-md-6 col-lg-3">
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('projects')" [class.active]="activeTab === 'projects'"
         class="btn btn-outline-primary w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -8,7 +8,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6 col-lg-3">
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('companies')" [class.active]="activeTab === 'companies'"
         class="btn btn-outline-success w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -17,7 +17,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6 col-lg-3">
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('officers')" [class.active]="activeTab === 'officers'"
         class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -26,7 +26,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6 col-lg-3">
+  <!-- <div class="col-12 col-md-6 col-lg-3">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button [routerLink]="['/projects/23/edit']" routerLinkActive="router-link-active"
         class="btn btn-outline-info w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -34,15 +34,16 @@
         التقارير
       </button>
     </c-card>
-  </div>
+  </div> -->
 </div>
 
 @if(activeTab === 'projects') {
-<app-projects />
+<app-list-projects />
 }
 @else if(activeTab === 'companies') {
-<app-companies />
+<app-list-companies />
 }
 @else if(activeTab === 'officers') {
-<app-officers />
+<app-list-officers />
+
 }
