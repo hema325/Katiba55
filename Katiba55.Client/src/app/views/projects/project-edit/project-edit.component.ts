@@ -51,6 +51,8 @@ export class ProjectEditComponent implements OnInit {
     address: [null],
     latitude: [null],
     longitude: [null],
+    executionPercent: [{ value: null, disabled: true }],
+    executionDate: [{ value: null, disabled: true }],
     executionStatus: ['', [Validators.required]],
     supervisorId: ['', [Validators.required]],
     notes: [null]
@@ -87,7 +89,10 @@ export class ProjectEditComponent implements OnInit {
             estimatedEndDate: formatInputDate(project.estimatedEndDate),
             actualStartDate: formatInputDate(project.actualStartDate),
             actualEndDate: formatInputDate(project.actualEndDate),
+            executionDate: formatInputDate(project.executionDate),
           });
+
+          this.onExecutionStatusChange(project.executionStatus);
         }
       })
   }
@@ -102,6 +107,30 @@ export class ProjectEditComponent implements OnInit {
           this.router.navigate([`/projects`]);
         }
       });
+  }
+
+  onExecutionStatusChange(status: any) {
+    const executionPercentControl = this.projectForm.get('executionPercent');
+    const executionDateControl = this.projectForm.get('executionDate');
+
+    if (status === ExecutionStatus.Pending) {
+      executionPercentControl?.clearValidators();
+      executionPercentControl?.disable();
+      executionPercentControl?.reset();
+
+      executionDateControl?.clearValidators();
+      executionDateControl?.disable();
+      executionDateControl?.reset();
+    } else {
+      executionPercentControl?.setValidators([Validators.required, Validators.min(0), Validators.max(100)]);
+      executionPercentControl?.enable();
+
+      executionDateControl?.setValidators([Validators.required]);
+      executionDateControl?.enable();
+    }
+
+    executionPercentControl?.updateValueAndValidity();
+    executionDateControl?.updateValueAndValidity();
   }
 
 }

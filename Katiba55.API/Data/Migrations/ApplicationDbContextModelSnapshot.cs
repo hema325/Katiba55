@@ -67,7 +67,7 @@ namespace Katiba55.API.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Item", b =>
@@ -89,7 +89,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Media", b =>
@@ -131,7 +131,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Medias");
+                    b.ToTable("Medias", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Officer", b =>
@@ -172,7 +172,7 @@ namespace Katiba55.API.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Officers");
+                    b.ToTable("Officers", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Project", b =>
@@ -242,7 +242,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("SupervisorId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.ProjectExecutionHistory", b =>
@@ -266,7 +266,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectExecutionHistories");
+                    b.ToTable("ProjectExecutionHistories", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.User", b =>
@@ -300,7 +300,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Work", b =>
@@ -342,7 +342,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("ResponsibleId");
 
-                    b.ToTable("Works");
+                    b.ToTable("Works", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.WorkExecutionHistory", b =>
@@ -366,7 +366,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("WorkId");
 
-                    b.ToTable("WorkExecutionHistories");
+                    b.ToTable("WorkExecutionHistories", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.WorkItem", b =>
@@ -410,7 +410,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("WorkId");
 
-                    b.ToTable("WorkItems");
+                    b.ToTable("WorkItems", (string)null);
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Item", b =>
