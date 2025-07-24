@@ -26,6 +26,5 @@ namespace Katiba55.API.Data
         public DbSet<Work> Works { get; private set; }
         public DbSet<WorkExecutionHistory> WorkExecutionHistories { get; private set; }
         public DbSet<Item> Items { get; private set; }
-        public DbSet<WorkItem> WorkItems { get; private set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Katiba55.API.Dtos.Works
         public string ExecutionStatus { get; set; }
         public string? Notes { get; set; }
         public CompanyBriefDto? Responsible { get; set; }
-        public ICollection<WorkItemDetailedDto> WorkItems { get; set; }
+        public ICollection<WorkItems.ItemDetailedDto> WorkItems { get; set; }
 
     }
 }

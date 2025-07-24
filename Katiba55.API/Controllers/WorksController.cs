@@ -72,10 +72,6 @@ namespace Katiba55.API.Controllers
         [HttpDelete("{id}/delete")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            if (await _context.WorkItems.AnyAsync(wi => wi.WorkId == id))
-                return Response(ResultFactory.Conflict("تعذّر حذف هذا العمل لأنه يحتوي على بنود مرتبطة.\r\n"));
-
-
             var work = await _context.Works.FindAsync(id);
 
             if (work == null)

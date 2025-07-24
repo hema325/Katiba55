@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Katiba55.API.Dtos.WorkItems
+﻿namespace Katiba55.API.Dtos.WorkItems
 {
-    public class CreateItemDto
+    public class ItemDetailedDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime? EstimatedStartDate { get; set; }
         public DateTime? EstimatedEndDate { get; set; }
@@ -15,10 +14,7 @@ namespace Katiba55.API.Dtos.WorkItems
         public decimal? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
         public decimal? RelativeExecutionPercent { get; set; }
-        public string? Notes { get; set; }
-
-        [EnumDataType(typeof(ExecutionStatus))]
         public string ExecutionStatus { get; set; }
-        public int WorkId { get; set; }
+        public string? Notes { get; set; }
     }
 }

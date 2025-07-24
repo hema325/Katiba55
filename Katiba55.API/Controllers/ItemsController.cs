@@ -1,6 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.Items;
+using Katiba55.API.Dtos.WorkItems;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -72,26 +73,32 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(item));
         }
 
-        [HttpGet("getByProjectId")]
-        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
-        {
-            var items = await _context.Items
-                .Where(i => i.ProjectId == projectId)
-                .ProjectTo<ItemDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
 
-            return Response(ResultFactory.Ok(items));
+        [HttpGet("{id}/getDetailedById")]
+        public async Task<IActionResult> GetDetailedByIdAsync(int id)
+        {
+            var item = await _context.Items
+                .ProjectTo<ItemDetailedDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (item == null)
+                return Response(ResultFactory.NotFound());
+
+            return Response(ResultFactory.Ok(item));
         }
 
-        [HttpGet("getByWorkId")]
+        [HttpGet("getBriefByWorkId")]
         public async Task<IActionResult> GetByWorkIdAsync([FromQuery] int workId)
         {
-            var items = await _context.Items
-                .Where(i => _context.Works.Where(w => w.Id == workId).Select(w=>w.ProjectId).Distinct().Any(projectId=> projectId == i.ProjectId))
-                .ProjectTo<ItemDto>(_mapper.ConfigurationProvider)
+            var item = await _context.Items
+                .Where(w => w.WorkId == workId)
+                .ProjectTo<ItemBriefDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            return Response(ResultFactory.Ok(items));
+            if (item == null)
+                return Response(ResultFactory.NotFound());
+
+            return Response(ResultFactory.Ok(item));
         }
     }
 }
