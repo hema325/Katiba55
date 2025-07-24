@@ -8,6 +8,7 @@ import { WorkBrief } from '../models/works/work-brief';
 import { WorkDetailed } from '../models/works/work-detailed';
 import { WorkDetailedWithItems } from '../models/works/work-detailed-with-items';
 import { WorkMonthlyProgressItem } from '../models/works/work-monthly-progress-item';
+import { WorkMonthlyProgressList } from '../models/works/work-monthly-progress-list';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +42,16 @@ export class WorksService {
     return this.httpClient.get<Result<WorkBrief[]>>(`${this.baseUrl}/getBriefByProjectId?projectId=${projectId}`);
   }
 
-  getDetailedByProjectId(projectId: number): Observable<Result<WorkDetailedWithItems[]>> {
-    return this.httpClient.get<Result<WorkDetailedWithItems[]>>(`${this.baseUrl}/getDetailedByProjectId?projectId=${projectId}`);
+  getDetailedByProjectId(projectId: number): Observable<Result<WorkDetailed[]>> {
+    return this.httpClient.get<Result<WorkDetailed[]>>(`${this.baseUrl}/getDetailedByProjectId?projectId=${projectId}`);
   }
 
   getMonthlyTimelineProgressById(workId: number): Observable<Result<WorkMonthlyProgressItem[]>> {
     return this.httpClient.get<Result<WorkMonthlyProgressItem[]>>(`${this.baseUrl}/${workId}/getMonthlyTimelineProgress`);
   }
+
+  getMonthlyTimelineProgressByProjectId(projectId: number): Observable<Result<WorkMonthlyProgressList[]>> {
+    return this.httpClient.get<Result<WorkMonthlyProgressList[]>>(`${this.baseUrl}/getMonthlyTimelineProgressByProjectId?projectId=${projectId}`);
+  }
 }
+

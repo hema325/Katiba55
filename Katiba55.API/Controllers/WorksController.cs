@@ -125,7 +125,7 @@ namespace Katiba55.API.Controllers
         {
             var works = await _context.Works
                 .Where(w => w.ProjectId == projectId)
-                .ProjectTo<WorkDetailedWithItems>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkDetailedDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(works));
@@ -187,10 +187,11 @@ namespace Katiba55.API.Controllers
         }
         
         
-        [HttpGet("getMonthlyTimelineProgress")]
-        public async Task<IActionResult> GetMonthlyTimelineProgressAsync()
+        [HttpGet("getMonthlyTimelineProgressByProjectId")]
+        public async Task<IActionResult> GetMonthlyTimelineProgressByProjectIdAsync([FromQuery] int projectId)
         {
             var progress = await _context.WorkExecutionHistories
+                .Where(h=>h.Work.ProjectId == projectId)
                 .GroupBy(h => new { h.WorkId, h.Date.Year, h.Date.Month })
                 .Select(g => new FlatWorkMonthlyProgress
                 {

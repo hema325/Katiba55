@@ -138,7 +138,7 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(projects));
         }
 
-        [HttpGet("{id}/monthlyTimelineProgress")]
+        [HttpGet("{id}/getMonthlyTimelineProgress")]
         public async Task<IActionResult> GetMonthlyTimelineProgressAsync(int id)
         {
             // get timeline data
@@ -195,7 +195,7 @@ namespace Katiba55.API.Controllers
         }
        
         
-        [HttpGet("monthlyTimelineProgress")]
+        [HttpGet("getMonthlyTimelineProgress")]
         public async Task<IActionResult> GetMonthlyTimelineProgressAsync()
         {
             // get timeline data

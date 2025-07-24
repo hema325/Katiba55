@@ -6,9 +6,21 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PaginatorComponent } from '../../../../shared/paginator/paginator.component';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { CircularProgressComponent } from '../../../../shared/circular-progress/circular-progress.component';
-import { ProjectExecutionComponent } from './project-execution/project-execution.component';
-import { WorksComponent } from './works/works.component';
-import { MediasComponent } from './medias/medias.component';
+import { ProjectsService } from '../../../../services/projects.service';
+import { WorksService } from '../../../../services/works.service';
+import { MediasService } from '../../../../services/medias.service';
+import { ProjectDetailed } from '../../../../models/projects/project-detailed';
+import { WorkDetailedWithItems } from '../../../../models/works/work-detailed-with-items';
+import { Media } from '../../../../models/medias/media';
+import { finalize, first } from 'rxjs';
+import { MediaReferenceTypes } from '../../../../enums/media-reference-types.enum';
+import { Environment } from '../../../../static-data/environment';
+import { getExecutionStatusBadgeColor } from '../../../../helpers/execution-status.helper';
+import { ExecutionStatusPipe } from '../../../../pipes/execution-status.pipe';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { WorkDetailed } from '../../../../models/works/work-detailed';
+import { getRandomChartColorObject } from '../../../../helpers/chart-color.helper';
+import { getArabicMonthName } from '../../../../helpers/date.helper';
 
 @Component({
   selector: 'app-execution-status',
@@ -31,102 +43,122 @@ import { MediasComponent } from './medias/medias.component';
     WidgetStatFComponent,
     CircularProgressComponent,
     TooltipDirective,
-    ProjectExecutionComponent,
-    WorksComponent,
-    MediasComponent
+    ExecutionStatusPipe,
+    DatePipe,
+    DecimalPipe,
+    ExecutionStatusPipe
   ]
 })
 export class ExecutionStatusComponent implements OnInit {
+  baseUrl = Environment.apiUrl;
 
-  projectTimelineData: ChartData = {
-    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-    datasets: [
-      {
-        label: 'نسبة التنفيذ',
-        data: [0, 10, 35, 40, 60, 70, 80, 85, 90, 95, 98, 100],
-        backgroundColor: 'rgba(51,153,255,0.85)', // أزرق واضح
-        borderColor: '#39f',
-        pointBackgroundColor: '#39f',
-        pointBorderColor: '#fff',
-        tension: 0.4,
-        fill: false
-      }
-    ]
-  }
-
-  compareChartData: ChartData = {
-    labels: ['هنجر 4', 'هنجر 3', 'هنجر 2', 'هنجر 1'],
-    datasets: [
-      {
-        label: 'نسبة التنفيذ',
-        data: [25, 50, 80, 100],
-        backgroundColor: 'rgba(0,204,102,0.85)', // أخضر واضح
-        borderColor: '#0c6',
-        pointBackgroundColor: '#0c6',
-        pointBorderColor: '#fff',
-        tension: 0.4,
-        fill: false
-      }
-    ]
-  };
-
-  worksTimelineData: ChartData = {
-    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-    datasets: [
-      {
-        label: 'هنجر 1',
-        data: [0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-        backgroundColor: 'rgba(51,153,255,0.85)', // أزرق واضح
-        borderColor: '#39f',
-        pointBackgroundColor: '#39f',
-        pointBorderColor: '#fff',
-      },
-      {
-        label: 'هنجر 2',
-        data: [0, 3, 8, 15, 25, 35, 45, 55, 65, 75, 85, 95],
-        backgroundColor: 'rgba(255,152,0,0.85)', // برتقالي واضح
-        borderColor: '#f90',
-        pointBackgroundColor: '#f90',
-        pointBorderColor: '#fff',
-        tension: 0.4,
-        fill: false
-      },
-      {
-        label: 'هنجر 3',
-        data: [0, 2, 6, 12, 18, 28, 38, 48, 58, 68, 78, 88],
-        backgroundColor: 'rgba(0,204,102,0.85)', // أخضر واضح
-        borderColor: '#0c6',
-        pointBackgroundColor: '#0c6',
-        pointBorderColor: '#fff',
-        tension: 0.4,
-        fill: false
-      },
-      {
-        label: 'هنجر 4',
-        data: [0, 4, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90],
-        backgroundColor: 'rgba(232,62,140,0.85)', // وردي واضح
-        borderColor: '#e83e8c',
-        pointBackgroundColor: '#e83e8c',
-        pointBorderColor: '#fff',
-        tension: 0.4,
-        fill: false
-      }
-    ]
-  };
-
-  worksTimelineChartType: 'line' | 'bar' = 'line';
-  projectTimelineChartType: 'line' | 'bar' = 'line';
-  compareChartType: 'line' | 'bar' = 'bar';
-
+  private projectsService: ProjectsService = inject(ProjectsService);
+  private worksService: WorksService = inject(WorksService);
+  private mediasService: MediasService = inject(MediasService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
+  project: ProjectDetailed | null = null;
+  works: WorkDetailed[] = [];
+  medias: Media[] = [];
+
+  worksExecutionChartData: any | null = null;
+  projectTimelineData: any | null = null;
+  worksTimelineData: any | null = null;
+
+  projectTimelineChartType: 'line' | 'bar' = 'line';
+  worksTimelineChartType: 'line' | 'bar' = 'line';
+
+
   projectId: number = 0;
-  constructor() { }
+  isLoadingProject = false;
+  isLoadingWorks = false;
+  isLoadingMedias = false;
 
   ngOnInit() {
     this.projectId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.loadProject();
+    this.loadWorks();
+    this.loadMedias();
+    this.loadProjectTimeLineProgressData();
+    this.loadWorksTimeLineProgressData();
+  }
+
+  loadProject() {
+    this.isLoadingProject = true;
+    this.projectsService.getDetailedById(this.projectId)
+      .pipe(finalize(() => this.isLoadingProject = false), first())
+      .subscribe(response => this.project = response.data);
+  }
+
+  loadWorks() {
+    this.isLoadingWorks = true;
+    this.worksService.getDetailedByProjectId(this.projectId)
+      .pipe(finalize(() => this.isLoadingWorks = false), first())
+      .subscribe(response => {
+        if (response.success) {
+          this.works = response.data
+
+          if (this.works.length > 0) {
+            this.worksExecutionChartData = {
+              labels: this.works.map(w => w.name),
+              datasets: [{
+                label: 'نسبة التنفيذ',
+                data: this.works.map(w => w.executionPercent),
+                ...getRandomChartColorObject()
+              }]
+            };
+          }
+        }
+      });
+  }
+
+  loadMedias() {
+    this.isLoadingMedias = true;
+    this.mediasService.getByReference(this.projectId, MediaReferenceTypes.Project, true)
+      .pipe(finalize(() => this.isLoadingMedias = false), first())
+      .subscribe(response => this.medias = response.data);
+  }
+
+  loadProjectTimeLineProgressData() {
+    this.projectsService.getMonthlyTimelineProgressById(this.projectId)
+      .pipe(first())
+      .subscribe(response => {
+        if (response.success) {
+          const items = response.data;
+          let useMonthNames = items[0].year == items[items.length - 1].year;
+          this.projectTimelineData = {
+            labels: items.map(item => useMonthNames ? getArabicMonthName(item.month) : `${item.year}-${item.month}`),
+            datasets: [{
+              label: 'نسبة التنفيذ',
+              data: [...items.map(item => item.percentage || 0), 100],
+              tension: 0.4,
+              ...getRandomChartColorObject()
+            }]
+          };
+        }
+      });
+  }
+
+  loadWorksTimeLineProgressData() {
+    this.worksService.getMonthlyTimelineProgressByProjectId(this.projectId)
+      .pipe(first())
+      .subscribe(response => {
+        if (response.success) {
+          const works = response.data;
+          let useMonthNames = works[0].items[0].year == works[0].items[works[0].items.length - 1].year;
+          if (works && works.length > 0) {
+            this.worksTimelineData = {
+              labels: works[0].items.map(item => useMonthNames ? getArabicMonthName(item.month) : `${item.year}-${item.month}`),
+              datasets: works.map(work => ({
+                label: work.workName,
+                data: [...work.items.map(item => item.percentage || 0), 100],
+                tension: 0.4,
+                ...getRandomChartColorObject()
+              }))
+            };
+          }
+        }
+      });
   }
 
   setWorksTimelineChartType(type: 'bar' | 'line') {
@@ -137,8 +169,8 @@ export class ExecutionStatusComponent implements OnInit {
     this.projectTimelineChartType = type;
   }
 
-  setCompareChartType(type: 'line' | 'bar') {
-    this.compareChartType = type;
+  getExecutionStatusBadgeColor(status: any): string {
+    return getExecutionStatusBadgeColor(status);
   }
 
 }

@@ -1,184 +1,243 @@
-<section id="execution-status">
+<!-- كارد نسبة التنفيذ -->
+<c-card class="mb-5 border-0 shadow-sm bg-white rounded-4 position-relative">
+  <c-card-body>
+    <div class="d-flex flex-column align-items-center justify-content-center p-4">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <h5 class="fw-bold text-success mb-0">المنفذ</h5>
+      </div>
+      <!-- الحالة badge absolute -->
+      <c-badge [color]="getExecutionStatusBadgeColor(project?.executionStatus)"
+        class=" position-absolute top-0 end-0 m-3 px-3 py-2 fs-6 shadow-sm" style="z-index:2;">
+        {{ (project?.executionStatus | executionStatus) || '-' }}
+      </c-badge>
+      <div class="mb-4">
+        <app-circular-progress [percent]="project?.executionPercent || 0" color="#31a751"
+          size="120"></app-circular-progress>
+      </div>
+      <div class="mb-4  text-muted d-flex align-items-center gap-1">
+        <span>آخر تحديث:</span>
+        <span dir="ltr" class="fw-semibold">{{ (project?.executionDate | date:'dd-MM-yyyy') || '-' }}</span>
+      </div>
+      <div class="row w-100 g-3 justify-content-center">
+        <div class="col-12 col-md-6">
+          <div class="bg-light rounded-3 p-3 h-100 d-flex flex-column">
+            <span class="fw-bold text-secondary mb-1">تاريخ البدء التقديري</span>
+            <span class="text-dark">{{ (project?.estimatedStartDate | date:'dd-MM-yyyy') || '-' }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="bg-light rounded-3 p-3 h-100 d-flex flex-column">
+            <span class="fw-bold text-secondary mb-1">تاريخ البدء الفعلي</span>
+            <span class="text-dark">{{ (project?.actualStartDate | date:'dd-MM-yyyy') || '-' }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="bg-light rounded-3 p-3 h-100 d-flex flex-column">
+            <span class="fw-bold text-secondary mb-1">تاريخ الانتهاء التقديري</span>
+            <span class="text-dark">{{ (project?.estimatedEndDate | date:'dd-MM-yyyy') || '-' }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="bg-light rounded-3 p-3 h-100 d-flex flex-column">
+            <span class="fw-bold text-secondary mb-1">تاريخ الانتهاء الفعلي</span>
+            <span class="text-dark">{{ (project?.actualEndDate | date:'dd-MM-yyyy') || '-' }}</span>
+          </div>
+        </div>
+        @if(project?.notes) {
+        <div class="col-12">
+          <div class="bg-light rounded-3 p-3 d-flex flex-column">
+            <span class="fw-bold text-secondary mb-1">ملاحظات</span>
+            <span class="text-dark" [innerText]="project?.notes || 'لا يوجد'"></span>
+          </div>
+        </div>
+        }
+      </div>
 
-  <div class="row g-4 mb-4">
-    <div class="col-12">
-      <h6 class="text-secondary mb-0">
-        <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
-        الموقف التنفيذى
-      </h6>
     </div>
-    <div class="col-12">
-      <app-project-execution [projectId]="projectId" />
-    </div>
+  </c-card-body>
+</c-card>
 
-    <div class="col-12">
-      <h6 class="text-secondary mb-0">
-        <i class="fa-solid fa-layer-group text-danger me-2"></i>
-        الاعمال
-      </h6>
-    </div>
+@if(works && works.length > 0) {
+<!-- جدول الموقف التنفيذي للأعمال مع البنود التابعة لها -->
+<h6 class="text-secondary mb-4">
+  <i class="fa-solid fa-table-list text-primary me-2"></i>
+  جدول الموقف التنفيذي
+</h6>
 
-    <app-works [projectId]="projectId" />
+<div class="overflow-auto mb-5">
+  <table class="text-center table table-hover table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
+    <thead class="table-secondary">
+      <tr>
+        <th rowspan="2">اسم العمل</th>
+        <th rowspan="2">الشركة المسؤلة</th>
+        <th rowspan="2">القيمة الكلية</th>
+        <th rowspan="2">القيمة المنفذة</th>
+        <th rowspan="2">الوزن النسبي</th>
+        <th rowspan="2">نسبة التنفيذ</th>
+        <th rowspan="2">نسبة التنفيذ النسبي</th>
+        <th rowspan="2">حالة التنفيذ</th>
+        <th colspan="2">تاريخ البدء</th>
+        <th colspan="2">تاريخ الانتهاء</th>
+        <th rowspan="2">ملاحظات</th>
+      </tr>
+      <tr>
+        <th>تقديري</th>
+        <th>فعلي</th>
+        <th>تقديري</th>
+        <th>فعلي</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(work of works; track work.id) {
+      <tr [routerLink]="['/works', work.id]" [fragment]="'execution-status'">
+        <td>{{ work?.name || '-' }}</td>
+        <td>
+          <a [routerLink]="['/companies', work.responsible.id]" class="btn-link">
+            {{ work?.responsible?.name || '-' }}
+          </a>
+        </td>
+        <td>{{ (work?.totalValue | number) || '-' }}</td>
+        <td>{{ (work?.executedValue | number) || '-' }}</td>
+        <td>{{ (work?.relativeWeightPercent != null ? work.relativeWeightPercent + '%' : '-') }}</td>
+        <td>{{ (work?.executionPercent != null ? work.executionPercent + '%' : '-') }}</td>
+        <td>{{ (work?.relativeExecutionPercent != null ? work.relativeExecutionPercent + '%' : '-') }}</td>
+        <td>{{ (work?.executionStatus | executionStatus) || '-' }}</td>
+        <td>{{ work?.estimatedStartDate ? (work.estimatedStartDate | date:'dd-MM-yyyy') : '-' }}</td>
+        <td>{{ work?.actualStartDate ? (work.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>
+        <td>{{ work?.estimatedEndDate ? (work.estimatedEndDate | date:'dd-MM-yyyy') : '-' }}</td>
+        <td>{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy') : '-' }}</td>
+        <td>{{ work?.notes || 'لا يوجد' }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
+
+
+<!-- عنوان مخطط زمني لجميع الأعمال -->
+<h6 class="text-secondary mb-4">
+  <i class="fa-solid fa-chart-line text-warning me-2"></i>
+  المخططات البيانية
+</h6>
+<div class="row mb-4">
+
+  @if(worksExecutionChartData) {
+  <div class="col-12" lg="6">
+    <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
+      <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
+        <i class="fa-solid fa-chart-bar text-success"></i>
+        <span class="fw-bold">نسب تنفيذ الأعمال</span>
+      </c-card-header>
+      <c-card-body class="p-4">
+        <c-chart type="bar" [data]="worksExecutionChartData" />
+      </c-card-body>
+    </c-card>
+  </div>
+  }
+
+  <div class="col-12">
+    <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
+      <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
+        <i class="fa-solid fa-chart-line text-success me-2"></i>
+        <span class="fw-bold">مخطط الأعمال الزمنى</span>
+        <div class="ms-auto">
+          <button type="button" class="btn btn-outline-primary btn-sm me-2"
+            [class.active]="worksTimelineChartType === 'bar'" (click)="setWorksTimelineChartType('bar')">
+            أعمدة
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-sm"
+            [class.active]="worksTimelineChartType === 'line'" (click)="setWorksTimelineChartType('line')">
+            خطوط
+          </button>
+        </div>
+      </c-card-header>
+      <c-card-body class="p-4">
+        @if(worksTimelineChartType === 'bar') {
+        <c-chart type="bar" [data]="worksTimelineData" />
+        }
+        @else {
+        <c-chart type="line" [data]="worksTimelineData" />
+        }
+      </c-card-body>
+    </c-card>
   </div>
 
-  <!-- <div class="mb-5">
-    <h6 class="text-secondary mb-4">
-      <i class="fa-solid fa-table-list text-primary me-2"></i>
-      ملخص التنفيذ
-    </h6>
+  @if(projectTimelineData) {
+  <div class="col-12" lg="6">
+    <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
+      <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
+        <i class="fa-solid fa-chart-line text-info"></i>
+        <span class="fw-bold">مخطط المشروع الزمنى</span>
+        <div class="ms-auto">
+          <button type="button" class="btn btn-outline-primary btn-sm me-2"
+            [class.active]="projectTimelineChartType === 'bar'" (click)="setProjectTimelineChartType('bar')">
+            أعمدة
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-sm "
+            [class.active]="projectTimelineChartType === 'line'" (click)="setProjectTimelineChartType('line')">
+            خطوط
+          </button>
+        </div>
+      </c-card-header>
+      <c-card-body class="p-4">
+        @if(projectTimelineChartType === 'line') {
+        <c-chart type="line" [data]="projectTimelineData" />
+        }
+        @else {
+        <c-chart type="bar" [data]="projectTimelineData" />
+        }
+      </c-card-body>
+    </c-card>
+  </div>
+  }
 
-    <div class="overflow-auto mt-3">
-      <table [bordered]="true" cTable
-        class="text-center table table-hover table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
-        <thead class="table-secondary">
-          <tr>
-            <th rowspan="2" class="align-middle">العمل</th>
-            <th rowspan="2" class="align-middle">الشركة</th>
-            <th colspan="4">نسبة التنفيذ</th>
-            <th rowspan="2" class="align-middle">الإجمالي</th>
-          </tr>
-          <tr>
-            <th>الهيكل الخرساني</th>
-            <th>الهيكل المعدني</th>
-            <th>تركيب الصاج</th>
-            <th>التشطيبات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>هنجر 1</td>
-            <td><a [routerLink]="['/companies/4']" class="text-decoration-underline text-primary fw-bold">شركة مصر
-                للمقاولات</a></td>
-            <td>80%</td>
-            <td>50%</td>
-            <td>25%</td>
-            <td>33%</td>
-            <td>47%</td>
-          </tr>
-          <tr>
-            <td>هنجر 2</td>
-            <td><a [routerLink]="['/companies/5']" class="text-decoration-underline text-primary fw-bold">شركة النصر
-                للإنشاءات</a></td>
-            <td>100%</td>
-            <td>83%</td>
-            <td>75%</td>
-            <td>100%</td>
-            <td>90%</td>
-          </tr>
-          <tr>
-            <td>هنجر 3</td>
-            <td><a [routerLink]="['/companies/6']" class="text-decoration-underline text-primary fw-bold">شركة الرواد
-                للمقاولات</a></td>
-            <td><span class="text-danger">20%</span></td>
-            <td><span class="text-danger">25%</span></td>
-            <td><span class="text-danger">10%</span></td>
-            <td><span class="text-danger">0%</span></td>
-            <td><span class="text-danger">14%</span></td>
-          </tr>
-          <tr>
-            <td>هنجر 4</td>
-            <td><a [routerLink]="['/companies/7']" class="text-decoration-underline text-primary fw-bold">شركة
-                التعمير</a>
-            </td>
-            <td>70%</td>
-            <td>67%</td>
-            <td>60%</td>
-            <td>50%</td>
-            <td>62%</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+</div>
+
+@if(medias && medias.length > 0) {
+<div class="row g-4 mb-4">
+
+  <div class="col-12">
+    <h6 class="text-secondary mb-2">
+      <i class="fa-solid fa-photo-film text-primary me-2"></i>
+      الصور والفيديوهات
+    </h6>
+  </div>
+
+  <!-- <div class="col-12 my-3 d-flex justify-content-center gap-2">
+    <button type="button" class="btn btn-outline-primary active">الكل</button>
+    <button type="button" class="btn btn-outline-primary">الصور</button>
+    <button type="button" class="btn btn-outline-primary">الفيديوهات</button>
   </div> -->
 
-  <!-- عنوان مخطط زمني لجميع الأعمال -->
-  <h6 class="text-secondary mb-4">
-    <i class="fa-solid fa-chart-line text-warning me-2"></i>
-    المخططات البيانية
-  </h6>
-  <div class="row mb-4">
-    <div class="col-12" lg="6">
-      <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
-        <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
-          <i class="fa-solid fa-chart-bar text-success"></i>
-          <span class="fw-bold">نسب تنفيذ الأعمال</span>
-          <div class="ms-auto">
-            <button type="button" class="btn btn-outline-primary btn-sm me-2"
-              [class.active]="compareChartType === 'bar'" (click)="setCompareChartType('bar')">
-              أعمدة
-            </button>
-            <button type="button" class="btn btn-outline-primary btn-sm" [class.active]="compareChartType === 'line'"
-              (click)="setCompareChartType('line')">
-              خطوط
-            </button>
-          </div>
-        </c-card-header>
-        <c-card-body class="p-4">
-          @if(compareChartType === 'bar') {
-          <c-chart type="bar" [data]="compareChartData" />
-          }
-          @else {
-          <c-chart type="line" [data]="compareChartData" />
-          }
-        </c-card-body>
-      </c-card>
-    </div>
-
-    <div class="col-12">
-      <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
-        <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
-          <i class="fa-solid fa-chart-line text-success me-2"></i>
-          <span class="fw-bold">مخطط الأعمال الزمنى</span>
-          <div class="ms-auto">
-            <button type="button" class="btn btn-outline-primary btn-sm me-2"
-              [class.active]="worksTimelineChartType === 'bar'" (click)="setWorksTimelineChartType('bar')">
-              أعمدة
-            </button>
-            <button type="button" class="btn btn-outline-primary btn-sm"
-              [class.active]="worksTimelineChartType === 'line'" (click)="setWorksTimelineChartType('line')">
-              خطوط
-            </button>
-          </div>
-        </c-card-header>
-        <c-card-body class="p-4">
-          @if(worksTimelineChartType === 'bar') {
-          <c-chart type="bar" [data]="worksTimelineData" />
-          }
-          @else {
-          <c-chart type="line" [data]="worksTimelineData" />
-          }
-        </c-card-body>
-      </c-card>
-    </div>
-
-    <div class="col-12" lg="6">
-      <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
-        <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
-          <i class="fa-solid fa-chart-line text-info"></i>
-          <span class="fw-bold">مخطط المشروع الزمنى</span>
-          <div class="ms-auto">
-            <button type="button" class="btn btn-outline-primary btn-sm me-2"
-              [class.active]="projectTimelineChartType === 'bar'" (click)="setProjectTimelineChartType('bar')">
-              أعمدة
-            </button>
-            <button type="button" class="btn btn-outline-primary btn-sm "
-              [class.active]="projectTimelineChartType === 'line'" (click)="setProjectTimelineChartType('line')">
-              خطوط
-            </button>
-          </div>
-        </c-card-header>
-        <c-card-body class="p-4">
-          @if(projectTimelineChartType === 'line') {
-          <c-chart type="line" [data]="projectTimelineData" />
-          }
-          @else {
-          <c-chart type="bar" [data]="projectTimelineData" />
-          }
-        </c-card-body>
-      </c-card>
-    </div>
+  @for(media of medias; track media.id) {
+  <div class="col-12 col-md-6 col-lg-4 d-flex">
+    <a [href]="baseUrl + media.path" target="_blank"
+      class="media-card card border-0 shadow-sm rounded-4 overflow-hidden position-relative h-100 w-100 text-decoration-none">
+      <div class="ratio ratio-4x3">
+        @if(media.type === 'Video') {
+        <video class="w-100 h-100 object-fit-cover" controls>
+          <source [src]="baseUrl + media.path" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        } @else if(media.type === 'Image') {
+        <img [src]="baseUrl + media.path" class="img-fluid object-fit-cover w-100 h-100">
+        }
+        @else if(media.type === 'Pdf') {
+        <img src="assets/imgs/pdf.png" class="img-fluid object-fit-cover w-100 ">
+        }
+        @else if(media.type === 'Word') {
+        <img src="assets/imgs/word.png" class="img-fluid object-fit-cover w-100 ">
+        }
+        @else if(media.type === 'Excel') {
+        <img src="assets/imgs/excel.png" class="img-fluid object-fit-cover w-100 ">
+        }
+        @else if(media.type === 'PowerPoint') {
+        <img src="assets/imgs/powerpoint.png" class="img-fluid object-fit-cover w-100 ">
+        }
+      </div>
+    </a>
   </div>
-
-  <app-medias [projectId]="projectId" />
-
-</section>
+  }
+</div>
+}
