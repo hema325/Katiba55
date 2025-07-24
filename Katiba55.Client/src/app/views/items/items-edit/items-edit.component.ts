@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
 import { finalize, first } from 'rxjs';
 import { ExecutionStatus } from 'src/app/enums/execution-status.enum';
-import { formatInputDate } from 'src/app/helpers/format-date';
+import { formatInputDate } from 'src/app/helpers/date.helper';
 import { ItemsService } from 'src/app/services/items.service';
 import { ToasterService } from 'src/app/services/toaster.service';
 import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-input.component';

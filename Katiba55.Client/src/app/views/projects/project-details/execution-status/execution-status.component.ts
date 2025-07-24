@@ -82,8 +82,6 @@ export class ExecutionStatusComponent implements OnInit {
         borderColor: '#39f',
         pointBackgroundColor: '#39f',
         pointBorderColor: '#fff',
-        tension: 0.4,
-        fill: false
       },
       {
         label: 'هنجر 2',

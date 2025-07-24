@@ -63,6 +63,8 @@
           </div>
           <hr class="my-2 w-100" />
           <div class="d-flex gap-3 justify-content-center mt-2">
+
+            @if(media.type === 'Image' || media.type === 'Video') {
             <button (click)="toggleExecutionStatus(media)" class="btn btn-outline-info btn-sm rounded-circle card-btn"
               title="عرض فى الموقف التنفيذى">
               @if(isTogglingExecutionStatus && toggledMediaId === media.id) {
@@ -76,6 +78,7 @@
               }
               }
             </button>
+            }
 
             <a [href]="baseUrl + media.path" target="_blank"
               class="btn btn-outline-success btn-sm rounded-circle card-btn" title="تحميل">

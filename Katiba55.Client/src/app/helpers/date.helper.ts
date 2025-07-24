@@ -8,3 +8,8 @@ export function formatInputDate(date: Date | null | undefined): string | null {
 
     return `${year}-${month}-${day}`;
 }
+
+export function getArabicMonthName(month: number): string {
+    const date = new Date(2000, month - 1);
+    return date.toLocaleString('ar', { month: 'long' });
+}

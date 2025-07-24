@@ -7,7 +7,7 @@ import { finalize, first } from 'rxjs';
 import { OfficerBrief } from '../../../models/officers/officer-brief';
 import { ProjectsService } from '../../../services/projects.service';
 import { OfficersService } from '../../../services/officers.service';
-import { formatInputDate } from '../../../helpers/format-date';
+import { formatInputDate } from '../../../helpers/date.helper';
 import { ToasterService } from '../../../services/toaster.service';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';

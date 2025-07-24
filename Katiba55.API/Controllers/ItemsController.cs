@@ -100,5 +100,19 @@ namespace Katiba55.API.Controllers
 
             return Response(ResultFactory.Ok(item));
         }
+
+        [HttpGet("getDetailedByWorkId")]
+        public async Task<IActionResult> GetDetailedByWorkIdAsync([FromQuery] int workId)
+        {
+            var item = await _context.Items
+                .Where(w => w.WorkId == workId)
+                .ProjectTo<ItemDetailedDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            if (item == null)
+                return Response(ResultFactory.NotFound());
+
+            return Response(ResultFactory.Ok(item));
+        }
     }
 }

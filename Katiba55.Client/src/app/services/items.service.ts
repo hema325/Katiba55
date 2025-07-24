@@ -38,5 +38,8 @@ export class ItemsService {
   getByWorkId(workId: number): Observable<Result<ItemBrief[]>> {
     return this.httpClient.get<Result<ItemBrief[]>>(`${this.baseUrl}/getByWorkId?workId=${workId}`);
   }
+  getDetailedByWorkId(workId: number): Observable<Result<ItemDetailed[]>> {
+    return this.httpClient.get<Result<ItemDetailed[]>>(`${this.baseUrl}/getDetailedByWorkId?workId=${workId}`);
+  }
 
 }

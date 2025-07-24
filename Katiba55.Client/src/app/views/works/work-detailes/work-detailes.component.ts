@@ -6,6 +6,7 @@ import { DecimalPipe } from '@angular/common';
 import { ListItemsComponent } from '../../items/list-items/list-items.component';
 import { ListMediasComponent } from '../../medias/list-medias/list-medias.component';
 import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
+import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 @Component({
   selector: 'app-work-detailes',
   templateUrl: './work-detailes.component.html',
@@ -16,7 +17,8 @@ import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
     CardBodyComponent,
     BasicDetailesComponent,
     ListItemsComponent,
-    ListMediasComponent
+    ListMediasComponent,
+    ExecutionStatusComponent
   ]
 })
 export class WorkDetailesComponent implements OnInit {
@@ -24,9 +26,9 @@ export class WorkDetailesComponent implements OnInit {
 
   workId: number = 0;
   referenceType: MediaReferenceTypes = MediaReferenceTypes.Work;
-  activeTab: 'basic-details' | 'items' | 'medias' = 'basic-details';
+  activeTab: 'basic-details' | 'items' | 'medias' | 'execution-status' | 'financial-status' = 'basic-details';
 
-  setActiveTab(tab: 'basic-details' | 'items' | 'medias') {
+  setActiveTab(tab: 'basic-details' | 'items' | 'medias' | 'execution-status' | 'financial-status') {
     this.activeTab = tab;
   }
 
@@ -36,6 +38,8 @@ export class WorkDetailesComponent implements OnInit {
       case 'basic-details':
       case 'items':
       case 'medias':
+      case 'execution-status':
+      case 'financial-status':
         this.activeTab = fragment;
         break;
       default:

@@ -3,7 +3,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
 import { finalize, first } from 'rxjs';
-import { formatInputDate } from 'src/app/helpers/format-date';
 import { CompanyBrief } from 'src/app/models/companies/company-brief';
 import { CompaniesService } from 'src/app/services/companies.service';
 import { ToasterService } from 'src/app/services/toaster.service';
@@ -12,6 +11,7 @@ import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-i
 import { TextAreaInputComponent } from 'src/app/shared/forms/text-area-input/text-area-input.component';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 import { ExecutionStatus } from '../../../enums/execution-status.enum';
+import { formatInputDate } from '../../../helpers/date.helper';
 
 @Component({
   selector: 'app-works-edit',

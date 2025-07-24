@@ -26,7 +26,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12">
+  <div class="col-12 col-md-6">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('execution-status')" [class.active]="activeTab === 'execution-status'"
         class="btn btn-outline-success w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -35,7 +35,7 @@
       </button>
     </c-card>
   </div>
-  <!-- <div class="col-12 col-md-6">
+  <div class="col-12 col-lg-6">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('financial-status')" [class.active]="activeTab === 'financial-status'"
         class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -43,7 +43,7 @@
         الموقف المالي
       </button>
     </c-card>
-  </div> -->
+  </div>
 </div>
 
 @if(activeTab === 'basic-details') {

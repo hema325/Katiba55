@@ -131,7 +131,7 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(works));
         }
 
-        [HttpGet("{id}/monthlyTimelineProgress")]
+        [HttpGet("{id}/getMonthlyTimelineProgress")]
         public async Task<IActionResult> GetMonthlyTimelineProgressAsync(int id)
         {
             var progress = await _context.WorkExecutionHistories
@@ -156,7 +156,7 @@ namespace Katiba55.API.Controllers
             var endDate = new DateTime(progress.Last().Year, progress.Last().Month, 1);
 
             var progressDates = new List<DateTime>();
-            for(var current = startDate.AddMonths(-1); current <= endDate; current = current.AddMonths(1))
+            for(var current = startDate.AddMonths(progress.First().Percentage != 0 ? -1 : 0); current <= endDate; current = current.AddMonths(1))
             {
                 progressDates.Add(current);
             }
@@ -187,7 +187,7 @@ namespace Katiba55.API.Controllers
         }
         
         
-        [HttpGet("monthlyTimelineProgress")]
+        [HttpGet("getMonthlyTimelineProgress")]
         public async Task<IActionResult> GetMonthlyTimelineProgressAsync()
         {
             var progress = await _context.WorkExecutionHistories
@@ -212,7 +212,7 @@ namespace Katiba55.API.Controllers
             var endDate = new DateTime(progress.Last().Year, progress.Last().Month, 1);
 
             var progressDates = new List<DateTime>();
-            for(var current = startDate.AddMonths(-1); current <= endDate; current = current.AddMonths(1))
+            for(var current = startDate.AddMonths(progress.First().Percentage != 0 ? -1 : 0); current <= endDate; current = current.AddMonths(1))
             {
                 progressDates.Add(current);
             }

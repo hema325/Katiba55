@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OfficersService } from '../../../services/officers.service';
 import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
-import { formatInputDate } from '../../../helpers/format-date';
+import { formatInputDate } from '../../../helpers/date.helper';
 import { OfficerStatus } from '../../../enums/officer-status.enum';
 
 @Component({
