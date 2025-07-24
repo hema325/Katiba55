@@ -32,8 +32,8 @@ namespace Katiba55.API.Controllers
                 [
                     new ProjectExecutionHistory
                     {
-                        Percentage = project.ExecutionPercent!.Value,
-                        Date =  project.ExecutionDate!.Value
+                        Percentage = dto.ExecutionPercent!.Value,
+                        Date =  dto.ExecutionDate!.Value
                     }
                 ];
             }
@@ -55,14 +55,14 @@ namespace Katiba55.API.Controllers
             if (await _context.Projects.AnyAsync(p => p.Id != id && p.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
 
-            if (dto.ExecutionPercent != null && dto.ExecutionPercent != project.ExecutionPercent && dto.ExecutionDate != null && dto.ExecutionDate != project.ExecutionDate)
+            if ((dto.ExecutionPercent != null && dto.ExecutionPercent != project.ExecutionPercent) || (dto.ExecutionDate != null && dto.ExecutionDate != project.ExecutionDate))
             {
                 project.ExecutionHistories =
                 [
                     new ProjectExecutionHistory
                     {
-                        Percentage = project.ExecutionPercent!.Value,
-                        Date =  project.ExecutionDate!.Value
+                        Percentage = dto.ExecutionPercent!.Value,
+                        Date =  dto.ExecutionDate!.Value
                     }
                 ];
             }
