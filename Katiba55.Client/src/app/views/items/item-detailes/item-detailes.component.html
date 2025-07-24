@@ -22,3 +22,6 @@
 @if(activeTab === 'basic-details') {
 <app-basic-detailes />
 }
+@else if(activeTab === 'medias') {
+<app-list-medias [referenceId]="itemId" [referenceType]="referenceType" />
+}

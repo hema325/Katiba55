@@ -4,6 +4,8 @@ import { BasicDetailesComponent } from './basic-detailes/basic-detailes.componen
 import { ActivatedRoute } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
 import { ListItemsComponent } from '../../items/list-items/list-items.component';
+import { ListMediasComponent } from '../../medias/list-medias/list-medias.component';
+import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
 @Component({
   selector: 'app-work-detailes',
   templateUrl: './work-detailes.component.html',
@@ -13,13 +15,15 @@ import { ListItemsComponent } from '../../items/list-items/list-items.component'
     CardHeaderComponent,
     CardBodyComponent,
     BasicDetailesComponent,
-    ListItemsComponent
+    ListItemsComponent,
+    ListMediasComponent
   ]
 })
 export class WorkDetailesComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   workId: number = 0;
+  referenceType: MediaReferenceTypes = MediaReferenceTypes.Work;
   activeTab: 'basic-details' | 'items' | 'medias' = 'basic-details';
 
   setActiveTab(tab: 'basic-details' | 'items' | 'medias') {
@@ -31,6 +35,7 @@ export class WorkDetailesComponent implements OnInit {
     switch (fragment) {
       case 'basic-details':
       case 'items':
+      case 'medias':
         this.activeTab = fragment;
         break;
       default:

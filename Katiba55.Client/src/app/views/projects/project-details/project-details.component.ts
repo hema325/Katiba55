@@ -6,6 +6,7 @@ import { ExecutionStatusComponent } from './execution-status/execution-status.co
 import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
 import { ListWorksComponent } from '../../works/list-works/list-works.component';
 import { ListMediasComponent } from '../../medias/list-medias/list-medias.component';
+import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
 
 @Component({
   selector: 'app-project-details',
@@ -27,6 +28,7 @@ import { ListMediasComponent } from '../../medias/list-medias/list-medias.compon
 export class ProjectDetailsComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   projectId: number = 0;
+  referenceType: MediaReferenceTypes = MediaReferenceTypes.Project;
 
   activeTab: 'basic-details' | 'execution-status' | 'financial-status' | 'works' | 'medias' = 'basic-details';
 

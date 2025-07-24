@@ -53,8 +53,8 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok());
         }
 
-        [HttpGet("getByProjectId")]
-        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId, [FromQuery] bool? showInExecutionStatusPage = null)
+        [HttpGet("getByReference")]
+        public async Task<IActionResult> GetByReferenceAsync([FromQuery] int referenceId, [FromQuery] MediaReferenceTypes referenceType, [FromQuery] bool? showInExecutionStatusPage = null)
         {
             var query =  _context.Medias.AsQueryable();
 
@@ -62,7 +62,7 @@ namespace Katiba55.API.Controllers
                 query = query.Where(m=>m.ShowInExecutionStatusPage == showInExecutionStatusPage);
 
             var medias = await query
-                .Where(m => m.ProjectId == projectId)
+                .Where(m => m.ReferenceType == referenceType && m.ReferenceId == referenceId)
                 .ProjectTo<MediaDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 

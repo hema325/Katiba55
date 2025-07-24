@@ -4,6 +4,8 @@ import { Environment } from '../static-data/environment';
 import { Observable } from 'rxjs';
 import { Result } from '../models/Result';
 import { Media } from '../models/medias/media';
+import { MediaReferenceTypes } from '../enums/media-reference-types.enum';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +23,17 @@ export class MediasService {
     return this.httpClient.delete<Result<any>>(`${this.baseUrl}/${id}/delete`);
   }
 
-  getByProjectId(projectId: number, showInExecutionStatusPage: boolean | null | undefined = null): Observable<Result<Media[]>> {
+  getByReference(referenceId: number, referenceType: MediaReferenceTypes, showInExecutionStatusPage: boolean | null | undefined = null): Observable<Result<Media[]>> {
     let param = new HttpParams();
+
+    param = param.append('referenceId', referenceId);
+    param = param.append('referenceType', referenceType);
 
     if (showInExecutionStatusPage !== null && showInExecutionStatusPage !== undefined) {
       param = param.append('showInExecutionStatusPage', showInExecutionStatusPage);
     }
 
-    param = param.append('projectId', projectId);
-
-    return this.httpClient.get<Result<Media[]>>(`${this.baseUrl}/getByProjectId`, { params: param });
+    return this.httpClient.get<Result<Media[]>>(`${this.baseUrl}/getByReference`, { params: param });
   }
 
   showInExecutionStatusPage(mediaId: number): Observable<Result<any>> {

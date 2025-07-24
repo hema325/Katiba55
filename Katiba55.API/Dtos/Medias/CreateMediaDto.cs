@@ -12,7 +12,9 @@ namespace Katiba55.API.Dtos.ProjectMedias
         public string Category { get; set; }
         public double Size { get; set; }
         public DateTime? Date { get; set; }
+        [EnumDataType(typeof(MediaReferenceTypes))]
 
-        public int ProjectId { get; set; }
+        public string ReferenceType { get; set; }
+        public int ReferenceId { get; set; }
     }
 }

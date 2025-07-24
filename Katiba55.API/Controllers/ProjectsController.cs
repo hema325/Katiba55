@@ -83,11 +83,6 @@ namespace Katiba55.API.Controllers
             if (project == null)
                 return Response(ResultFactory.NotFound());
 
-            var mediaPaths = await _context.Medias
-                    .Where(m => m.ProjectId == id)
-                    .Select(m => m.Path)
-                    .ToListAsync();
-
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync();
 

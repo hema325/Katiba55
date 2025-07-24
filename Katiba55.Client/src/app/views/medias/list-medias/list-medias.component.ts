@@ -11,6 +11,7 @@ import { MediaCategoryPipe } from 'src/app/pipes/media-category.pipe';
 import { FileSizePipe } from 'src/app/pipes/file-size.pipe';
 import { Environment } from 'src/app/static-data/environment';
 import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
+import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
 
 @Component({
   selector: 'app-list-medias',
@@ -36,7 +37,8 @@ export class ListMediasComponent implements OnInit {
   private mediasService: MediasService = inject(MediasService);
   private toasterService: ToasterService = inject(ToasterService);
 
-  @Input() projectId: number = 0;
+  @Input() referenceId: number = 0;
+  @Input() referenceType: MediaReferenceTypes | null = null;
 
   medias: Media[] = [];
   deleteConfirmationModalVisible: boolean = false;
@@ -46,10 +48,12 @@ export class ListMediasComponent implements OnInit {
   toggledMediaId: number | null = null;
 
   ngOnInit() {
-    this.isLoading = true;
-    this.mediasService.getByProjectId(this.projectId)
-      .pipe(finalize(() => this.isLoading = false), first())
-      .subscribe(response => this.medias = response.data);
+    if (this.referenceType && this.referenceId) {
+      this.isLoading = true;
+      this.mediasService.getByReference(this.referenceId, this.referenceType)
+        .pipe(finalize(() => this.isLoading = false), first())
+        .subscribe(response => this.medias = response.data);
+    }
   }
 
   fireDeleteConfirmationModal(media: Media) {

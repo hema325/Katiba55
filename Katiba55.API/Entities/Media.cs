@@ -10,7 +10,7 @@
         public double Size { get; set; } 
         public bool ShowInExecutionStatusPage { get; set; }
 
-        public int ProjectId { get; set; }
-        public Project Project { get; set; }
+        public MediaReferenceTypes ReferenceType { get; set; }
+        public int ReferenceId { get; set; }
     }
 }

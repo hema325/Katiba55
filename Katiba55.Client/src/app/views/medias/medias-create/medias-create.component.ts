@@ -10,6 +10,7 @@ import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-i
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 import { FileInputComponent } from 'src/app/shared/forms/file-input/file-input.component';
 import { FilesService } from 'src/app/services/files.service';
+import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
 
 @Component({
   selector: 'app-medias-create',
@@ -41,13 +42,15 @@ export class MediasCreateComponent implements OnInit {
     file: [null, [Validators.required]]
   });
 
-  projectId: number = 0;
+  referenceId: number = 0;
+  referenceType: MediaReferenceTypes | null = null;
   mediaPath: string = '';
   isSubmitting: boolean = false;
   isUploadingFile: boolean = false;
 
   ngOnInit() {
-    this.projectId = Number(this.activatedRoute.snapshot.queryParamMap.get('projectId'));
+    this.referenceId = Number(this.activatedRoute.snapshot.queryParamMap.get('referenceId'));
+    this.referenceType = this.activatedRoute.snapshot.queryParamMap.get('referenceType') as MediaReferenceTypes;
   }
 
   onSubmit(): void {
@@ -73,7 +76,14 @@ export class MediasCreateComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم إضافة الملف بنجاح!', 'success');
-          this.router.navigate([`/projects`, this.projectId], { fragment: 'medias' });
+
+          if (this.referenceType === MediaReferenceTypes.Project) {
+            this.router.navigate([`/projects`, this.referenceId], { fragment: 'medias' });
+          } else if (this.referenceType === MediaReferenceTypes.Work) {
+            this.router.navigate([`/works`, this.referenceId], { fragment: 'medias' });
+          } else if (this.referenceType === MediaReferenceTypes.Item) {
+            this.router.navigate([`/items`, this.referenceId], { fragment: 'medias  ' });
+          }
         }
       });
   }
@@ -84,7 +94,8 @@ export class MediasCreateComponent implements OnInit {
       name: mediaFormValue.name,
       category: mediaFormValue.category,
       type: this.determineMediaType(mediaFormValue.file as any),
-      projectId: this.projectId,
+      referenceId: this.referenceId,
+      referenceType: this.referenceType,
       date: new Date(),
       path: this.mediaPath,
       size: (mediaFormValue.file as any).size,

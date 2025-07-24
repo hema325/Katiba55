@@ -34,3 +34,6 @@
 @else if(activeTab === 'items') {
 <app-list-items [workId]="workId" />
 }
+@else if(activeTab === 'medias') {
+<app-list-medias [referenceId]="workId" [referenceType]="referenceType" />
+}

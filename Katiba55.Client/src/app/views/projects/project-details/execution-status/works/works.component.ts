@@ -4,7 +4,9 @@ import { RouterLink } from '@angular/router';
 import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent, ProgressBarComponent, ProgressComponent, TooltipDirective } from '@coreui/angular';
 import { finalize, first } from 'rxjs';
 import { ExecutionStatus } from 'src/app/enums/execution-status.enum';
+import { getExecutionProgressColor, getExecutionStatusBadgeColor } from 'src/app/helpers/execution-status.helper';
 import { WorkDetailed } from 'src/app/models/works/work-detailed';
+import { WorkDetailedWithItems } from 'src/app/models/works/work-detailed-with-items';
 import { ExecutionStatusPipe } from 'src/app/pipes/execution-status.pipe';
 import { WorksService } from 'src/app/services/works.service';
 
@@ -30,7 +32,7 @@ export class WorksComponent implements OnInit {
 
   @Input() projectId: number = 0;
 
-  works: WorkDetailed[] = [];
+  works: WorkDetailedWithItems[] = [];
   isLoading: boolean = false;
 
   ngOnInit() {
@@ -40,28 +42,11 @@ export class WorksComponent implements OnInit {
       .subscribe(response => this.works = response.data);
   }
 
-  getStatusBadgeColor(status: string): string {
-    switch (status) {
-      case ExecutionStatus.Pending:
-        return 'secondary';
-      case ExecutionStatus.OnHold:
-        return 'danger';
-      case ExecutionStatus.Underconstruction:
-        return 'warning';
-      case ExecutionStatus.Completed:
-        return 'success';
-      case ExecutionStatus.Cancelled:
-        return 'danger';
-      default:
-        return 'info';
-    }
+  getExecutionStatusBadgeColor(status: string): string {
+    return getExecutionStatusBadgeColor(status as ExecutionStatus);
   }
 
   getExecutionProgressColor(percent: number): string {
-    if (percent >= 85) return 'success';
-    if (percent >= 50) return 'info';
-    if (percent >= 25) return 'warning';
-    if (percent > 0) return 'danger';
-    return 'secondary';
+    return getExecutionProgressColor(percent);
   }
 }
