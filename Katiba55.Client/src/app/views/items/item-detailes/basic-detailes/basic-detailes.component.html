@@ -1,0 +1,222 @@
+<section id="item-basic-details">
+  <h6 class="text-secondary mb-4">
+    <i class="fa-solid fa-clipboard-list text-primary me-2"></i>
+    تفاصيل البند
+  </h6>
+
+  <!-- كارد نسبة التنفيذ -->
+  <c-card class="mb-4 shadow-sm border-0 p-2">
+    <c-card-body>
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
+        <app-circular-progress [percent]="item?.executionPercent || 0" color="#31a751" />
+        <div class="mt-2 text-muted">
+          آخر تحديث: <span dir="ltr">{{(item?.executionDate | date:'dd-MM-yyyy') || '-'}}</span>
+        </div>
+      </div>
+    </c-card-body>
+  </c-card>
+
+  <div class="row g-3 mb-5">
+    <!-- اسم البند -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-list-ul text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">اسم البند</div>
+            <div class="text-muted small">{{item?.name || 'لا يوجد'}}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- حالة التنفيذ -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">حالة التنفيذ</div>
+            <div class="text-muted small">
+              {{item?.executionStatus | executionStatus}}
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- نسبة التنفيذ -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-chart-line text-info fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">نسبة التنفيذ</div>
+            <div class="text-muted small">
+              @if(item?.executionPercent != null) {
+              {{item?.executionPercent}}%
+              } @else {
+              لا يوجد
+              }
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- تاريخ نسبة التنفيذ -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-day text-warning fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ نسبة التنفيذ</div>
+            <div class="text-muted small">
+              {{item?.executionDate ? (item?.executionDate | date:'dd-MM-yyyy') : 'لا يوجد'}}
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- القيمة الكلية -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">القيمة الكلية</div>
+            <div class="text-muted small">
+              @if(item?.totalValue != null) {
+              {{item?.totalValue | number}} ج.م
+              } @else {
+              لا يوجد
+              }
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- القيمة المنفذة -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-money-bill-trend-up text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">القيمة المنفذة</div>
+            <div class="text-muted small">
+              @if(item?.executedValue != null) {
+              {{item?.executedValue | number}} ج.م
+              } @else {
+              لا يوجد
+              }
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- النسبة المئوية للوزن النسبي -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-percent text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">النسبة المئوية للوزن النسبي</div>
+            <div class="text-muted small">
+              @if(item?.relativeWeightPercent != null) {
+              {{item?.relativeWeightPercent}}%
+              } @else {
+              لا يوجد
+              }
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- النسبة المئوية للتنفيذ النسبي -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-percent text-info fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">النسبة المئوية للتنفيذ النسبي</div>
+            <div class="text-muted small">
+              @if(item?.relativeExecutionPercent != null) {
+              {{item?.relativeExecutionPercent}}%
+              } @else {
+              لا يوجد
+              }
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- تاريخ البدء التقديري -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-plus text-info fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ البدء التقديري</div>
+            <div class="text-muted small">
+              {{item?.estimatedStartDate ? (item?.estimatedStartDate | date:'dd-MM-yyyy') : 'لا يوجد'}}
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- تاريخ الانتهاء التقديري -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-minus text-info fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ الانتهاء التقديري</div>
+            <div class="text-muted small">
+              {{item?.estimatedEndDate ? (item?.estimatedEndDate | date:'dd-MM-yyyy') : 'لا يوجد'}}
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- تاريخ البدء الفعلي -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-check text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ البدء الفعلي</div>
+            <div class="text-muted small">
+              {{item?.actualStartDate ? (item?.actualStartDate | date:'dd-MM-yyyy') : 'لا يوجد'}}
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <!-- تاريخ الانتهاء الفعلي -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-calendar-check text-danger fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">تاريخ الانتهاء الفعلي</div>
+            <div class="text-muted small">
+              {{item?.actualEndDate ? (item?.actualEndDate | date:'dd-MM-yyyy') : 'لا يوجد'}}
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+  </div>
+
+  <!-- سكشن الملاحظات -->
+  <div class="mb-5">
+    <h6 class="text-secondary mb-3">
+      <i class="fa-solid fa-note-sticky text-warning me-2"></i>
+      الملاحظات
+    </h6>
+    <c-card class="shadow-sm border-0 rounded-3">
+      <c-card-body>
+        <div class="text-muted" [innerText]="item?.notes || 'لا توجد ملاحظات حالياً.'" style="min-height: 80px;">
+        </div>
+      </c-card-body>
+    </c-card>
+  </div>
+</section>

@@ -29,14 +29,16 @@
 
           <hr class="w-100 my-2" style="opacity:0.12;" />
           <div class="d-flex justify-content-between align-items-center w-100 mb-2">
-            <c-badge [color]="getStatusBadgeColor(work.executionStatus)" class="px-3 py-1">{{work.executionStatus |
+            <c-badge [color]="getExecutionStatusBadgeColor(work.executionStatus)"
+              class="px-3 py-1">{{work.executionStatus |
               executionStatus}}</c-badge>
             <span class="small text-muted">نسبة التنفيذ: <span class="text-primary fw-semibold">{{work.executionPercent
                 || 0}}%
               </span></span>
           </div>
-          <c-progress [value]="work.executionPercent" height="12" color="warning"
-            class="w-100 mb-1">{{work.executionPercent}}%</c-progress>
+          <c-progress [value]="work.executionPercent || 0" height="12"
+            [color]="getExecutionProgressColor(work.executionPercent || 0)" class="w-100 mb-1">{{work.executionPercent
+            || 0}}%</c-progress>
           <div class="d-flex align-items-center justify-content-center w-100 mt-2 small text-muted">
             آخر تحديث: <span dir="ltr">{{(work.executionDate |date:'dd-MM-yyyy') || '-'}}</span>
           </div>

@@ -1,6 +1,6 @@
 import { ExecutionStatus } from "../../enums/execution-status.enum";
 import { CompanyBrief } from "../companies/company-brief";
-import { WorkItemDetailed } from "../work-items/work-item-detailed";
+import { ItemBrief } from "../items/item-brief";
 
 export interface WorkDetailedWithItems {
     id: number,
@@ -18,5 +18,5 @@ export interface WorkDetailedWithItems {
     executionStatus: ExecutionStatus,
     notes?: string,
     responsible: CompanyBrief,
-    workItems: WorkItemDetailed[]
+    items: ItemBrief[]
 }

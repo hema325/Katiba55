@@ -4,7 +4,6 @@ import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { BasicDetailsComponent } from './basic-details/basic-details.component';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { CircularProgressComponent } from '../../../shared/circular-progress/circular-progress.component';
-import { ItemsComponent } from './items/items.component';
 import { ListWorksComponent } from '../../works/list-works/list-works.component';
 import { ListMediasComponent } from '../../medias/list-medias/list-medias.component';
 
@@ -17,7 +16,6 @@ import { ListMediasComponent } from '../../medias/list-medias/list-medias.compon
     RouterLink,
     BasicDetailsComponent,
     ExecutionStatusComponent,
-    ItemsComponent,
     CardComponent,
     CardBodyComponent,
     CircularProgressComponent,
@@ -30,7 +28,7 @@ export class ProjectDetailsComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   projectId: number = 0;
 
-  activeTab: 'basic-details' | 'execution-status' | 'financial-status' | 'items' | 'works' | 'medias' = 'basic-details';
+  activeTab: 'basic-details' | 'execution-status' | 'financial-status' | 'works' | 'medias' = 'basic-details';
 
   ngOnInit() {
     this.projectId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -43,7 +41,6 @@ export class ProjectDetailsComponent implements OnInit {
       case 'basic-details':
       case 'execution-status':
       case 'financial-status':
-      case 'items':
       case 'works':
       case 'medias':
         this.activeTab = fragment;
@@ -54,7 +51,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
 
-  setActiveTab(tab: 'basic-details' | 'execution-status' | 'financial-status' | 'items' | 'works' | 'medias') {
+  setActiveTab(tab: 'basic-details' | 'execution-status' | 'financial-status' | 'works' | 'medias') {
     this.activeTab = tab;
   }
 

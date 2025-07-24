@@ -9,6 +9,7 @@ import { ProjectBrief } from '../../../models/projects/project-brief';
 import { finalize, first } from 'rxjs';
 import { ExecutionStatusPipe } from '../../../pipes/execution-status.pipe';
 import { ExecutionStatus } from '../../../enums/execution-status.enum';
+import { getExecutionProgressColor, getExecutionStatusBadgeColor } from 'src/app/helpers/execution-status.helper';
 
 @Component({
   selector: 'app-list-projects',
@@ -70,30 +71,13 @@ export class ListProjectsComponent implements OnInit {
     }
   }
 
-  getStatusBadgeColor(status: string): string {
-    switch (status) {
-      case ExecutionStatus.Pending:
-        return 'secondary';
-      case ExecutionStatus.OnHold:
-        return 'danger';
-      case ExecutionStatus.Underconstruction:
-        return 'warning';
-      case ExecutionStatus.Completed:
-        return 'success';
-      case ExecutionStatus.Cancelled:
-        return 'danger';
-      default:
-        return 'info';
-    }
+
+  getExecutionStatusBadgeColor(status: any): string {
+    return getExecutionStatusBadgeColor(status);
   }
 
   getExecutionProgressColor(percent: number): string {
-    if (percent >= 85) return 'success';
-    if (percent >= 50) return 'info';
-    if (percent >= 25) return 'warning';
-    if (percent > 0) return 'danger';
-    return 'secondary';
+    return getExecutionProgressColor(percent);
   }
-
 
 }

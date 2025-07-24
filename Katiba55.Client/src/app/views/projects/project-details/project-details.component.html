@@ -1,5 +1,5 @@
 <div class="row g-3 mb-4 justify-content-center">
-  <div class="col-12 col-md-6 col-lg-3">
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('basic-details')" [class.active]="activeTab === 'basic-details'"
         class="btn btn-outline-primary w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -8,16 +8,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6 col-lg-3">
-    <c-card class="text-center border-0 rounded-3 h-100 p-0">
-      <button (click)="setActiveTab('items')" [class.active]="activeTab === 'items'"
-        class="btn btn-outline-success w-100 h-100 py-3 rounded-3 fw-bold fs-6">
-        <i class="fa-solid fa-list-check me-2"></i>
-        البنود العامة
-      </button>
-    </c-card>
-  </div>
-  <div class="col-12 col-md-6 col-lg-3">
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('works')" [class.active]="activeTab === 'works'"
         class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -26,7 +17,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6 col-lg-3">
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center  border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('medias')" [class.active]="activeTab === 'medias'"
         class="btn btn-outline-info w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -67,9 +58,6 @@
   <h4 class="mb-3">الموقف المالي</h4>
   <p class="text-muted">سيتم عرض بيانات الموقف المالي هنا قريباً.</p>
 </div>
-}
-@else if(activeTab === 'items') {
-<app-items />
 }
 @else if(activeTab === 'works') {
 <app-list-works [projectId]="projectId" />

@@ -1,4 +1,4 @@
-export interface Item {
+export interface ItemDetailed {
     id: number;
     name: string;
     estimatedStartDate?: Date;

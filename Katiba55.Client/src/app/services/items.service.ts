@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { Environment } from '../static-data/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Result } from '../models/Result';
+import { Observable } from 'rxjs';
 import { Item } from '../models/items/item';
+import { ItemBrief } from '../models/items/item-brief';
+import { ItemDetailed } from '../models/items/item-detailed';
 
 @Injectable({
   providedIn: 'root'
@@ -18,21 +20,23 @@ export class ItemsService {
   }
 
   update(itemId: number, item: any): Observable<Result<any>> {
-    return this.httpClient.put<any>(`${this.baseUrl}/${itemId}/update`, item);
+    return this.httpClient.put<Result<any>>(`${this.baseUrl}/${itemId}/update`, item);
   }
 
-  delete(itemId: number): Observable<Result<any>> {
-    return this.httpClient.delete<any>(`${this.baseUrl}/${itemId}/delete`);
+  delete(workItemId: number): Observable<Result<any>> {
+    return this.httpClient.delete<Result<any>>(`${this.baseUrl}/${workItemId}/delete`);
   }
 
   getById(itemId: number): Observable<Result<Item>> {
     return this.httpClient.get<Result<Item>>(`${this.baseUrl}/${itemId}/getById`);
   }
 
-  getByProjectId(projectId: number): Observable<Result<Item[]>> {
-    return this.httpClient.get<Result<Item[]>>(`${this.baseUrl}/getByProjectId?projectId=${projectId}`);
+  getDetailedById(itemId: number): Observable<Result<ItemDetailed>> {
+    return this.httpClient.get<Result<ItemDetailed>>(`${this.baseUrl}/${itemId}/getDetailedById`);
   }
-  getByWorkId(workId: number): Observable<Result<Item[]>> {
-    return this.httpClient.get<Result<Item[]>>(`${this.baseUrl}/getByWorkId?workId=${workId}`);
+
+  getByWorkId(workId: number): Observable<Result<ItemBrief[]>> {
+    return this.httpClient.get<Result<ItemBrief[]>>(`${this.baseUrl}/getByWorkId?workId=${workId}`);
   }
+
 }

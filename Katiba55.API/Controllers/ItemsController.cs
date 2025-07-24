@@ -87,7 +87,7 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(item));
         }
 
-        [HttpGet("getBriefByWorkId")]
+        [HttpGet("getByWorkId")]
         public async Task<IActionResult> GetByWorkIdAsync([FromQuery] int workId)
         {
             var item = await _context.Items

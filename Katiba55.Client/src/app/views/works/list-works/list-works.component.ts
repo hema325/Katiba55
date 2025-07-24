@@ -4,11 +4,11 @@ import { ToasterService } from '../../../services/toaster.service';
 import { WorkBrief } from '../../../models/works/work-brief';
 import { WorksService } from '../../../services/works.service';
 import { finalize, first } from 'rxjs';
-import { ExecutionStatus } from '../../../enums/execution-status.enum';
 import { DatePipe } from '@angular/common';
 import { ExecutionStatusPipe } from '../../../pipes/execution-status.pipe';
 import { RouterLink } from '@angular/router';
 import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
+import { getExecutionProgressColor, getExecutionStatusBadgeColor } from '../../../helpers/execution-status.helper';
 
 @Component({
   selector: 'app-list-works',
@@ -68,20 +68,11 @@ export class ListWorksComponent implements OnInit {
     }
   }
 
-  getStatusBadgeColor(status: string): string {
-    switch (status) {
-      case ExecutionStatus.Pending:
-        return 'secondary';
-      case ExecutionStatus.OnHold:
-        return 'danger';
-      case ExecutionStatus.Underconstruction:
-        return 'warning';
-      case ExecutionStatus.Completed:
-        return 'success';
-      case ExecutionStatus.Cancelled:
-        return 'danger';
-      default:
-        return 'info';
-    }
+  getExecutionStatusBadgeColor(status: any): string {
+    return getExecutionStatusBadgeColor(status);
+  }
+
+  getExecutionProgressColor(percent: number): string {
+    return getExecutionProgressColor(percent);
   }
 }

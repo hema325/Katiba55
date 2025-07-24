@@ -2,44 +2,52 @@
   <div class="col-12 d-flex justify-content-between align-items-center">
     <h6 class="mb-0 text-secondary">
       <i class="fa-solid fa-list text-success me-2"></i>
-      بنود العمل
+      البنود
     </h6>
     <div class="d-flex align-items-center gap-2">
-      <button routerLink="/workItems/create" [queryParams]="{workId: workId}" type="button" class="btn btn-primary"> <i
+      <button routerLink="/items/create" [queryParams]="{workId: workId}" type="button" class="btn btn-primary"> <i
           class="fa-solid fa-plus"></i></button>
     </div>
   </div>
 
-  @for(workItem of workItems; track workItem.id) {
+  @for(item of items; track item.id) {
   <div class="col-12 col-md-6 col-lg-4">
     <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3">
       <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
         <div class="w-100 mb-2">
           <span
             class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
-            [cTooltip]="workItem.item.name" cTooltipPlacement="bottom">
-            {{workItem.item.name}}
+            [cTooltip]="item.name" cTooltipPlacement="bottom">
+            {{item.name}}
           </span>
         </div>
         <hr class="w-100 my-2" style="opacity:0.12;" />
         <div class="d-flex justify-content-between align-items-center w-100 mb-2">
-          <c-badge color="success" class="px-3 py-1">{{workItem.executionStatus | executionStatus}}</c-badge>
-          <span class="small text-muted">نسبة التنفيذ</span>
+          <c-badge [color]="getExecutionStatusBadgeColor(item.executionStatus)" class="px-3 py-1">{{item.executionStatus
+            | executionStatus}}</c-badge>
+          <span class="small text-muted">نسبة التنفيذ: <span class="text-primary fw-semibold">{{item.executionPercent ||
+              0}} %</span></span>
         </div>
-        <c-progress [value]="workItem.executionPercent || 0" height="12" color="success"
-          class="w-100 mb-1">{{workItem.executionPercent || 0}} %</c-progress>
+        <c-progress [value]="item.executionPercent || 0" height="12"
+          [color]="getExecutionProgressColor(item.executionPercent || 0)" class="w-100 mb-1">{{item.executionPercent ||
+          0}} %</c-progress>
         <div class="d-flex align-items-center justify-content-center w-100 mt-1">
-          <span class="small text-muted">آخر تحديث: <span dir="ltr">{{workItem.executionDate |
+          <span class="small text-muted">آخر تحديث: <span dir="ltr">{{item.executionDate |
               date:'dd-MM-yyyy'}}</span></span>
         </div>
         <div class="d-flex gap-2 w-100 mt-3 justify-content-center">
-          <button routerLink="/workItems/{{workItem.id}}/edit" [queryParams]="{workId: workId}"
+          <button [routerLink]="['/items', item.id]"
+            class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+            title="عرض">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+          <button routerLink="/items/{{item.id}}/edit" [queryParams]="{workId: workId}"
             class="btn btn-outline-secondary btn-sm rounded-circle card-btn" title="تعديل">
             <i class="fa-solid fa-pen"></i>
           </button>
           <button class="btn btn-outline-danger btn-sm rounded-circle card-btn"
-            (click)="fireDeleteConfirmationModal(workItem)" title="حذف">
-            @if(deletedItem?.id == workItem.id) {
+            (click)="fireDeleteConfirmationModal(item)" title="حذف">
+            @if(deletedItem?.id == item.id) {
             <c-spinner aria-hidden="true" size="sm"></c-spinner>
             }
             @else {

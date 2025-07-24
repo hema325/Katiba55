@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
 import { BasicDetailesComponent } from './basic-detailes/basic-detailes.component';
-import { ListWorkItemsComponent } from '../../work-items/list-work-items/list-work-items.component';
 import { ActivatedRoute } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
-
+import { ListItemsComponent } from '../../items/list-items/list-items.component';
 @Component({
   selector: 'app-work-detailes',
   templateUrl: './work-detailes.component.html',
@@ -14,17 +13,16 @@ import { DecimalPipe } from '@angular/common';
     CardHeaderComponent,
     CardBodyComponent,
     BasicDetailesComponent,
-    ListWorkItemsComponent,
-
+    ListItemsComponent
   ]
 })
 export class WorkDetailesComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   workId: number = 0;
-  activeTab: 'basic-details' | 'items' = 'basic-details';
+  activeTab: 'basic-details' | 'items' | 'medias' = 'basic-details';
 
-  setActiveTab(tab: 'basic-details' | 'items') {
+  setActiveTab(tab: 'basic-details' | 'items' | 'medias') {
     this.activeTab = tab;
   }
 

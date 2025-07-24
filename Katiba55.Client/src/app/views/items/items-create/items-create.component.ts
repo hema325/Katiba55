@@ -1,25 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { WorksService } from '../../../services/works.service';
-import { finalize, first } from 'rxjs';
-import { ToasterService } from '../../../services/toaster.service';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
-import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
-import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
-import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
-import { CompaniesService } from '../../../services/companies.service';
-import { CompanyBrief } from '../../../models/companies/company-brief';
-import { ExecutionStatus } from '../../../enums/execution-status.enum';
+import { finalize, first } from 'rxjs';
+import { ExecutionStatus } from 'src/app/enums/execution-status.enum';
+import { ItemsService } from 'src/app/services/items.service';
+import { ToasterService } from 'src/app/services/toaster.service';
+import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-input.component';
+import { TextAreaInputComponent } from 'src/app/shared/forms/text-area-input/text-area-input.component';
+import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 
 @Component({
-  selector: 'app-works-create',
-  templateUrl: './works-create.component.html',
-  styleUrls: ['./works-create.component.css'],
+  selector: 'app-items-create',
+  templateUrl: './items-create.component.html',
+  styleUrls: ['./items-create.component.css'],
   imports: [
     CardComponent,
-    CardHeaderComponent,
     CardBodyComponent,
+    CardHeaderComponent,
     ReactiveFormsModule,
     TextInputComponent,
     TextAreaInputComponent,
@@ -27,16 +25,15 @@ import { ExecutionStatus } from '../../../enums/execution-status.enum';
     SpinnerComponent
   ]
 })
-export class WorksCreateComponent implements OnInit {
+export class ItemsCreateComponent implements OnInit {
 
-  private worksService: WorksService = inject(WorksService);
-  private companiesService: CompaniesService = inject(CompaniesService);
+  private itemsService: ItemsService = inject(ItemsService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private toasterService: ToasterService = inject(ToasterService);
   private fb: FormBuilder = inject(FormBuilder);
 
-  workForm = this.fb.group({
+  itemForm = this.fb.group({
     name: ['', [Validators.required]],
     totalValue: [null],
     executedValue: [null],
@@ -49,41 +46,31 @@ export class WorksCreateComponent implements OnInit {
     estimatedEndDate: [null],
     actualStartDate: [null],
     actualEndDate: [null],
-    responsibleId: ['', [Validators.required]],
     notes: ['']
-  })
+  });
 
-  companies: CompanyBrief[] = [];
-  projectId: number = 0;
+  workId: number = 0;
   isSubmitting: boolean = false;
 
-
   ngOnInit() {
-    this.projectId = Number(this.activatedRoute.snapshot.queryParamMap.get('projectId'));
-    this.loadCompanies();
-  }
-
-  loadCompanies() {
-    this.companiesService.getAll()
-      .pipe(first())
-      .subscribe(response => this.companies = response.data);
+    this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
   }
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.worksService.create({ ...this.workForm.value, projectId: this.projectId })
+    this.itemsService.create({ ...this.itemForm.value, workId: this.workId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {
-          this.toasterService.showToast('نجاح', 'تم إضافة العمل بنجاح!', 'success');
-          this.router.navigate([`/projects/${this.projectId}`], { fragment: 'works' });
+          this.toasterService.showToast('نجاح', 'تم إضافة البند بنجاح!', 'success');
+          this.router.navigate([`/works/${this.workId}`], { fragment: 'items' });
         }
       });
   }
 
   onExecutionStatusChange(status: any) {
-    const executionPercentControl = this.workForm.get('executionPercent');
-    const executionDateControl = this.workForm.get('executionDate');
+    const executionPercentControl = this.itemForm.get('executionPercent');
+    const executionDateControl = this.itemForm.get('executionDate');
 
     if (status === ExecutionStatus.Pending) {
       executionPercentControl?.clearValidators();
