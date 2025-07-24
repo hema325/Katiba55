@@ -11,6 +11,7 @@ namespace Katiba55.API.Profiles
             CreateMap<Work, WorkDto>();
             CreateMap<Work, WorkBriefDto>();
             CreateMap<Work, WorkDetailedDto>();
+            CreateMap<Work, WorkDetailedWithItems>();
 
             CreateMap<WorkExecutionHistory, WorkExecutionHistoryDto>();
         }

@@ -11,6 +11,7 @@ import { WorksService } from 'src/app/services/works.service';
 import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-input.component';
 import { TextAreaInputComponent } from 'src/app/shared/forms/text-area-input/text-area-input.component';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
+import { ExecutionStatus } from '../../../enums/execution-status.enum';
 
 @Component({
   selector: 'app-works-edit',
@@ -38,11 +39,18 @@ export class WorksEditComponent implements OnInit {
 
   workForm = this.fb.group({
     name: ['', [Validators.required]],
-    executionPercent: [null, [Validators.max(100), Validators.min(0)]],
-    executionDate: [null],
+    totalValue: [null],
+    executedValue: [null],
+    relativeWeightPercent: [null, [Validators.min(0), Validators.max(100)]],
+    relativeExecutionPercent: [null, [Validators.min(0), Validators.max(100)]],
+    executionPercent: [{ value: null, disabled: true }],
+    executionDate: [{ value: null, disabled: true }],
     executionStatus: ['', [Validators.required]],
+    estimatedStartDate: [null],
+    estimatedEndDate: [null],
+    actualStartDate: [null],
+    actualEndDate: [null],
     responsibleId: ['', [Validators.required]],
-    totalContractValue: [null, [Validators.required, Validators.min(1)]],
     notes: ['']
   })
 
@@ -70,7 +78,17 @@ export class WorksEditComponent implements OnInit {
       .pipe(first())
       .subscribe(response => {
         if (response.success) {
-          this.workForm.patchValue({ ...response.data as any });
+          const work = response.data;
+
+          this.workForm.patchValue({
+            ...work as any,
+            estimatedStartDate: formatInputDate(work.estimatedStartDate),
+            estimatedEndDate: formatInputDate(work.estimatedEndDate),
+            actualStartDate: formatInputDate(work.actualStartDate),
+            actualEndDate: formatInputDate(work.actualEndDate),
+            executionDate: formatInputDate(work.executionDate),
+          });
+          this.onExecutionStatusChange(work.executionStatus);
         }
       })
   }
@@ -85,6 +103,31 @@ export class WorksEditComponent implements OnInit {
           this.router.navigate([`/projects/${this.projectId}`], { fragment: 'works' });
         }
       });
+  }
+
+
+  onExecutionStatusChange(status: any) {
+    const executionPercentControl = this.workForm.get('executionPercent');
+    const executionDateControl = this.workForm.get('executionDate');
+
+    if (status === ExecutionStatus.Pending) {
+      executionPercentControl?.clearValidators();
+      executionPercentControl?.disable();
+      executionPercentControl?.reset();
+
+      executionDateControl?.clearValidators();
+      executionDateControl?.disable();
+      executionDateControl?.reset();
+    } else {
+      executionPercentControl?.setValidators([Validators.required, Validators.min(0), Validators.max(100)]);
+      executionPercentControl?.enable();
+
+      executionDateControl?.setValidators([Validators.required]);
+      executionDateControl?.enable();
+    }
+
+    executionPercentControl?.updateValueAndValidity();
+    executionDateControl?.updateValueAndValidity();
   }
 
 }

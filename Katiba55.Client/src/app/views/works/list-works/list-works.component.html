@@ -31,6 +31,9 @@
           <div class="d-flex justify-content-between align-items-center w-100 mb-2">
             <c-badge [color]="getStatusBadgeColor(work.executionStatus)" class="px-3 py-1">{{work.executionStatus |
               executionStatus}}</c-badge>
+            <span class="small text-muted">نسبة التنفيذ: <span class="text-primary fw-semibold">{{work.executionPercent
+                || 0}}%
+              </span></span>
           </div>
           <c-progress [value]="work.executionPercent" height="12" color="warning"
             class="w-100 mb-1">{{work.executionPercent}}%</c-progress>

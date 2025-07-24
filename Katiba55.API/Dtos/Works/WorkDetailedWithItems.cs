@@ -1,7 +1,11 @@
-﻿namespace Katiba55.API.Entities
+﻿using Katiba55.API.Dtos.Companies;
+using Katiba55.API.Dtos.WorkItems;
+
+namespace Katiba55.API.Dtos.Works
 {
-    public class Work: BaseEntity
+    public class WorkDetailedWithItems
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime? EstimatedStartDate { get; set; }
         public DateTime? EstimatedEndDate { get; set; }
@@ -9,21 +13,14 @@
         public DateTime? ActualEndDate { get; set; }
         public decimal? TotalValue { get; set; }
         public decimal? ExecutedValue { get; set; }
-        public decimal? RelativeWeightPercent { get; set; } 
+        public decimal? RelativeWeightPercent { get; set; }
         public decimal? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
         public decimal? RelativeExecutionPercent { get; set; }
-        public ExecutionStatus ExecutionStatus { get; set; } 
+        public string ExecutionStatus { get; set; }
         public string? Notes { get; set; }
-
-        public int? ResponsibleId { get; set; }
-        public Company? Responsible { get; set; }
-
-        public int ProjectId { get; set; }
-        public Project Project { get; set; }
-
-        public ICollection<WorkItem> WorkItems { get; set; }
-        public ICollection<WorkExecutionHistory>? ExecutionHistories { get; set; }
+        public CompanyBriefDto? Responsible { get; set; }
+        public ICollection<WorkItemDetailedDto> WorkItems { get; set; }
 
     }
 }

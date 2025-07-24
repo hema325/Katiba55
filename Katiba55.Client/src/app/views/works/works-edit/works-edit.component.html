@@ -31,26 +31,27 @@
                   }
                 </app-select-input>
               </div>
-              <div class="col-12">
-                <app-text-input label="قيمة المقايسة الاجمالية" placeholder="ادخل قيمة المقايسة الاجمالية"
-                  formControlName="totalContractValue" type="number" [min]="1" required />
+              <div class="col-12 ">
+                <app-text-input label="القيمة الكلية" placeholder="ادخل القيمة الكلية" formControlName="totalValue"
+                  type="number" />
               </div>
             </div>
           </c-card-body>
         </c-card>
 
-        <!-- حالة التنفيذ ونسبته -->
+        <!-- بيانات التنفيذ -->
         <c-card class="mb-4 border-0 shadow-sm">
           <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-shield-halved text-success me-2"></i>
-              <span class="fw-semibold text-success">حالة التنفيذ </span>
+              <span class="fw-semibold text-success">بيانات التنفيذ</span>
             </div>
           </c-card-header>
           <c-card-body class="pt-0 pb-3 px-3">
             <div class="row g-3">
-              <div class="col-12">
-                <app-select-input label="حالة التنفيذ" formControlName="executionStatus" required>
+              <div class="col-12 ">
+                <app-select-input label="حالة التنفيذ" formControlName="executionStatus"
+                  (valueChanged)="onExecutionStatusChange($event)">
                   <option value="" disabled hidden>اختر حالة التنفيذ</option>
                   <option value="Pending">لم يبدأ</option>
                   <option value="OnHold">متوقف</option>
@@ -59,9 +60,77 @@
                   <option value="Cancelled">ملغي</option>
                 </app-select-input>
               </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="نسبة التنفيذ" placeholder="ادخل نسبة التنفيذ" formControlName="executionPercent"
+                  type="number" [min]="0" [max]="100" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ التنفيذ" placeholder="اختر تاريخ التنفيذ" formControlName="executionDate"
+                  type="date" />
+              </div>
             </div>
           </c-card-body>
         </c-card>
+
+        <!-- تفاصيل التنفيذ -->
+        <section class="mb-4">
+          <c-card class="border-0 shadow-sm">
+            <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+              <div class="d-flex align-items-center">
+                <i class="fa-solid fa-list-check text-primary me-2"></i>
+                <span class="fw-semibold text-primary">تفاصيل التنفيذ</span>
+              </div>
+            </c-card-header>
+            <c-card-body class="pt-0 pb-3 px-3">
+              <div class="row g-3">
+
+                <div class="col-12">
+                  <app-text-input label="القيمة المنفذة" placeholder="ادخل القيمة المنفذة"
+                    formControlName="executedValue" type="number" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <app-text-input label="النسبة المئوية للوزن النسبي" placeholder="ادخل النسبة المئوية للوزن النسبي"
+                    formControlName="relativeWeightPercent" type="number" [min]="0" [max]="100" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <app-text-input label="النسبة المئوية للتنفيذ النسبي" placeholder="ادخل النسبة المئوية للتنفيذ النسبي"
+                    formControlName="relativeExecutionPercent" type="number" [min]="0" [max]="100" />
+                </div>
+              </div>
+            </c-card-body>
+          </c-card>
+        </section>
+
+        <!-- بيانات التواريخ -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-calendar-days text-info me-2"></i>
+              <span class="fw-semibold text-info">تواريخ التنفيذ</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ البدء التقديري" placeholder="اختر تاريخ البدء التقديري"
+                  formControlName="estimatedStartDate" type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ الانتهاء التقديري" placeholder="اختر تاريخ الانتهاء التقديري"
+                  formControlName="estimatedEndDate" type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ البدء الفعلي" placeholder="اختر تاريخ البدء الفعلي"
+                  formControlName="actualStartDate" type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="تاريخ الانتهاء الفعلي" placeholder="اختر تاريخ الانتهاء الفعلي"
+                  formControlName="actualEndDate" type="date" />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
 
         <!-- الملاحظات -->
         <c-card class="mb-4 border-0 shadow-sm">
@@ -80,13 +149,12 @@
             </div>
           </c-card-body>
         </c-card>
-
         <!-- زر الحفظ -->
         <c-card class="mb-0 border-0 shadow-sm">
           <c-card-body class="p-4">
             <button type="submit" [disabled]="isSubmitting || workForm.invalid"
-              class="btn btn-warning w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
-              aria-label="تعديل بيانات العمل">
+              class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+              aria-label="إضافة عمل جديد">
               @if(isSubmitting) {
               <c-spinner aria-hidden="true" size="sm"></c-spinner>
               <span class="px-1">جارى حفظ التغيرات</span>

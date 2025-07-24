@@ -12,6 +12,7 @@ import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/te
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 import { CompaniesService } from '../../../services/companies.service';
 import { CompanyBrief } from '../../../models/companies/company-brief';
+import { ExecutionStatus } from '../../../enums/execution-status.enum';
 
 @Component({
   selector: 'app-works-create',
@@ -39,9 +40,18 @@ export class WorksCreateComponent implements OnInit {
 
   workForm = this.fb.group({
     name: ['', [Validators.required]],
+    totalValue: [null],
+    executedValue: [null],
+    relativeWeightPercent: [null, [Validators.min(0), Validators.max(100)]],
+    relativeExecutionPercent: [null, [Validators.min(0), Validators.max(100)]],
+    executionPercent: [{ value: null, disabled: true }],
+    executionDate: [{ value: null, disabled: true }],
     executionStatus: ['', [Validators.required]],
+    estimatedStartDate: [null],
+    estimatedEndDate: [null],
+    actualStartDate: [null],
+    actualEndDate: [null],
     responsibleId: ['', [Validators.required]],
-    totalContractValue: [null, [Validators.required, Validators.min(1)]],
     notes: ['']
   })
 
@@ -71,5 +81,29 @@ export class WorksCreateComponent implements OnInit {
           this.router.navigate([`/projects/${this.projectId}`], { fragment: 'works' });
         }
       });
+  }
+
+  onExecutionStatusChange(status: any) {
+    const executionPercentControl = this.workForm.get('executionPercent');
+    const executionDateControl = this.workForm.get('executionDate');
+
+    if (status === ExecutionStatus.Pending) {
+      executionPercentControl?.clearValidators();
+      executionPercentControl?.disable();
+      executionPercentControl?.reset();
+
+      executionDateControl?.clearValidators();
+      executionDateControl?.disable();
+      executionDateControl?.reset();
+    } else {
+      executionPercentControl?.setValidators([Validators.required, Validators.min(0), Validators.max(100)]);
+      executionPercentControl?.enable();
+
+      executionDateControl?.setValidators([Validators.required]);
+      executionDateControl?.enable();
+    }
+
+    executionPercentControl?.updateValueAndValidity();
+    executionDateControl?.updateValueAndValidity();
   }
 }

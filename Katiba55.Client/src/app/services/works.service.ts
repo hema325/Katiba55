@@ -6,6 +6,7 @@ import { Result } from '../models/Result';
 import { Work } from '../models/works/work';
 import { WorkBrief } from '../models/works/work-brief';
 import { WorkDetailed } from '../models/works/work-detailed';
+import { WorkDetailedWithItems } from '../models/works/work-detailed-with-items';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class WorksService {
     return this.httpClient.get<Result<WorkBrief[]>>(`${this.baseUrl}/getBriefByProjectId?projectId=${projectId}`);
   }
 
-  getDetailedByProjectId(projectId: number): Observable<Result<WorkDetailed[]>> {
-    return this.httpClient.get<Result<WorkDetailed[]>>(`${this.baseUrl}/getDetailedByProjectId?projectId=${projectId}`);
+  getDetailedByProjectId(projectId: number): Observable<Result<WorkDetailedWithItems[]>> {
+    return this.httpClient.get<Result<WorkDetailedWithItems[]>>(`${this.baseUrl}/getDetailedByProjectId?projectId=${projectId}`);
   }
 }

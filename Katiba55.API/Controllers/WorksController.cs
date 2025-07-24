@@ -1,8 +1,6 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.Works;
-using Katiba55.API.Entities;
-using Katiba55.API.Services.ProgressUpdater;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,13 +11,11 @@ namespace Katiba55.API.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IProgressUpdaterService _progressUpdater;
 
-        public WorksController(ApplicationDbContext context, IMapper mapper, IProgressUpdaterService progressUpdaterService)
+        public WorksController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _progressUpdater = progressUpdaterService;
         }
 
         [HttpPost("create")]
@@ -27,14 +23,14 @@ namespace Katiba55.API.Controllers
         {
             var work = _mapper.Map<Work>(dto);
 
-            if (work.ExecutionPercent != null && work.ExecutionDate != null)
+            if (dto.ExecutionPercent != null && dto.ExecutionDate != null)
             {
                 work.ExecutionHistories =
                 [
                     new WorkExecutionHistory
                     {
-                        Percentage = work.ExecutionPercent.Value,
-                        Date =  work.ExecutionDate.Value
+                        Percentage = dto.ExecutionPercent.Value,
+                        Date =  dto.ExecutionDate.Value
                     }
                 ];
             }
@@ -53,6 +49,17 @@ namespace Katiba55.API.Controllers
             if (work == null)
                 return Response(ResultFactory.NotFound());
 
+            if ((dto.ExecutionPercent != null && dto.ExecutionPercent != work.ExecutionPercent) || (dto.ExecutionDate != null && dto.ExecutionDate != work.ExecutionDate))
+            {
+                work.ExecutionHistories =
+                [
+                    new WorkExecutionHistory
+                    {
+                        Percentage = dto.ExecutionPercent!.Value,
+                        Date =  dto.ExecutionDate!.Value
+                    }
+                ];
+            }
 
             _mapper.Map(dto, work);
 
@@ -122,7 +129,7 @@ namespace Katiba55.API.Controllers
         {
             var works = await _context.Works
                 .Where(w => w.ProjectId == projectId)
-                .ProjectTo<WorkDetailedDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkDetailedWithItems>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(works));
