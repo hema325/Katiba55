@@ -1,10 +1,8 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
-using Katiba55.API.Dtos;
 using Katiba55.API.Dtos.Projects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Katiba55.API.Controllers
 {
@@ -28,6 +26,18 @@ namespace Katiba55.API.Controllers
 
             var project = _mapper.Map<Project>(dto);
 
+            if(dto.ExecutionPercent != null && dto.ExecutionDate != null)
+            {
+                project.ExecutionHistories =
+                [
+                    new ProjectExecutionHistory
+                    {
+                        Percentage = project.ExecutionPercent!.Value,
+                        Date =  project.ExecutionDate!.Value
+                    }
+                ];
+            }
+  
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
 
@@ -44,6 +54,18 @@ namespace Katiba55.API.Controllers
 
             if (await _context.Projects.AnyAsync(p => p.Id != id && p.Name == dto.Name))
                 return Response(ResultFactory.Conflict("الاسم المدخل موجود مسبقًا. يرجى اختيار اسم آخر"));
+
+            if (dto.ExecutionPercent != null && dto.ExecutionPercent != project.ExecutionPercent && dto.ExecutionDate != null && dto.ExecutionDate != project.ExecutionDate)
+            {
+                project.ExecutionHistories =
+                [
+                    new ProjectExecutionHistory
+                    {
+                        Percentage = project.ExecutionPercent!.Value,
+                        Date =  project.ExecutionDate!.Value
+                    }
+                ];
+            }
 
             _mapper.Map(dto, project);
 
@@ -65,19 +87,6 @@ namespace Katiba55.API.Controllers
                     .Where(m => m.ProjectId == id)
                     .Select(m => m.Path)
                     .ToListAsync();
-
-            foreach (var path in mediaPaths)
-            {
-                try
-                {
-                    if (System.IO.File.Exists(path))
-                        System.IO.File.Delete(path);
-                }
-                catch
-                {
-
-                }
-            }
 
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync();

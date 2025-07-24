@@ -3,9 +3,8 @@
     public class Work: BaseEntity
     {
         public string Name { get; set; }
-        public decimal TotalContractValue { get; set; }
-        public decimal? ExecutionPercent { get; set; } // calculated
-        public DateTime? ExecutionDate { get; set; } // calculated
+        public decimal? ExecutionPercent { get; set; }
+        public DateTime? ExecutionDate { get; set; } 
         public ExecutionStatus ExecutionStatus { get; set; } 
         public string? Notes { get; set; }
 

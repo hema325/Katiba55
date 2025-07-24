@@ -24,7 +24,7 @@ namespace Katiba55.API.Services.ProgressUpdater
 
             foreach(var workItem in work.WorkItems)
             {
-                workItem!.RelativeWeight = SafeDivide(workItem.TotalValue, work!.TotalContractValue);
+                //workItem!.RelativeWeight = SafeDivide(workItem.TotalValue, work!.TotalContractValue);
                 workItem.ExecutionPercent = SafeDivide(workItem.ExecutedValue, workItem.TotalValue) * 100;
                 workItem.ExecutionDate = DateTime.Now;
                 workItem.RelativeExecutionPercent = workItem.RelativeWeight * workItem.ExecutionPercent;
@@ -42,7 +42,7 @@ namespace Katiba55.API.Services.ProgressUpdater
             if (workItem == null)
                 throw new NullReferenceException(nameof(workItem));
 
-            workItem!.RelativeWeight = SafeDivide(workItem.TotalValue, workItem.Work!.TotalContractValue);
+            //workItem!.RelativeWeight = SafeDivide(workItem.TotalValue, workItem.Work!.TotalContractValue);
             workItem.ExecutionPercent = SafeDivide(workItem.ExecutedValue, workItem.TotalValue) * 100;
             workItem.ExecutionDate = DateTime.Now;
             workItem.RelativeExecutionPercent = workItem.RelativeWeight * workItem.ExecutionPercent;

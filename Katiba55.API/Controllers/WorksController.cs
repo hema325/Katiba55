@@ -53,19 +53,11 @@ namespace Katiba55.API.Controllers
             if (work == null)
                 return Response(ResultFactory.NotFound());
 
-            var contractValueChanged = dto.TotalContractValue != work.TotalContractValue;
 
             _mapper.Map(dto, work);
 
             _context.Works.Update(work);
             await _context.SaveChangesAsync();
-
-            if(contractValueChanged)
-            {
-                await _progressUpdater.UpdateWorkItemsAsync(id);
-                await _progressUpdater.UpdateWorkAsync(id);
-                await _progressUpdater.UpdateProjectAsync(id);
-            }
 
             return Response(ResultFactory.Ok());
         }
