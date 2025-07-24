@@ -109,25 +109,6 @@
       </tr>
       }
 
-      <!-- صف الإجمالي -->
-      @if(work) {
-      <tr class="table-primary fw-semibold">
-        <td>{{ work?.name || '-' }}</td>
-        <td>{{ work?.totalValue != null ? (work.totalValue | number) : '-' }}</td>
-        <td>{{ work?.executedValue != null ? (work.executedValue | number) : '-' }}</td>
-        <td>{{ work?.relativeWeightPercent != null ? work.relativeWeightPercent + '%' : '-' }}</td>
-        <td>{{ work?.executionPercent != null ? work.executionPercent + '%' : '-' }}</td>
-        <td>{{ work?.relativeExecutionPercent != null ? work.relativeExecutionPercent + '%' : '-' }}</td>
-        <td>{{ (work?.executionStatus | executionStatus) || '-' }}</td>
-        <td>{{ work?.executionDate ? (work.executionDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.estimatedStartDate ? (work.estimatedStartDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.actualStartDate ? (work.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.estimatedEndDate ? (work.estimatedEndDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.notes || 'لا يوجد' }}</td>
-      </tr>
-      }
-
     </tbody>
   </table>
 </div>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
+using Katiba55.API.Dtos.Items;
 using Katiba55.API.Dtos.Works;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -129,6 +130,29 @@ namespace Katiba55.API.Controllers
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(works));
+        }
+
+        [HttpGet("getWorksExecutionSummaryByProjectId")] 
+        public async Task<IActionResult> GetWorksExecutionSummaryByProjectIdAsync([FromQuery] int projectId)
+        {
+            var items = await _context.Items
+                .Where(i => i.Work.ProjectId == projectId)
+                .Select(i => i.Name)
+                .Distinct()
+                .ToListAsync();
+
+            var works = await _context.Works
+                .Where(w => w.ProjectId == projectId)
+                .ProjectTo<WorkWithItemsBriefDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            var result = new WorkExecutionSummary
+            {
+                Items = items,
+                Works = works
+            };
+
+            return Response(ResultFactory.Ok(result));
         }
 
         [HttpGet("{id}/getMonthlyTimelineProgress")]

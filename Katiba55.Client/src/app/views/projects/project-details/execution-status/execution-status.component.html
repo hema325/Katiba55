@@ -1,3 +1,9 @@
+<h6 class="text-secondary mb-4">
+  <i class="fa-solid fa-table-list text-primary me-2"></i>
+  الموقف التنفيذي
+</h6>
+
+
 <!-- كارد نسبة التنفيذ -->
 <c-card class="mb-5 border-0 shadow-sm bg-white rounded-4 position-relative">
   <c-card-body>
@@ -114,12 +120,48 @@
 </div>
 }
 
+@if(worksExecutionSummary && worksExecutionSummary.items && worksExecutionSummary.items.length > 0) {
+<!-- جدول الموقف التنفيذي للأعمال مع البنود التابعة لها -->
+<h6 class="text-secondary mb-4">
+  <i class="fa-solid fa-table-list text-primary me-2"></i>
+  جدول ملخص نسب التنفيذ
+</h6>
 
-<!-- عنوان مخطط زمني لجميع الأعمال -->
+<div class="overflow-auto mb-5">
+  <table class="text-center table table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
+    <thead class="table-secondary">
+      <tr>
+        <th rowspan="2">اسم العمل</th>
+        <th [attr.colspan]="worksExecutionSummary.items.length">نسبة التنفيذ</th>
+        <th rowspan="2">الاجمالى</th>
+      </tr>
+      <tr>
+        @for(item of worksExecutionSummary.items; track item) {
+        <th>{{ item }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(work of worksExecutionSummary.works; track work.id) {
+      <tr>
+        <td>{{ work?.name || '-' }}</td>
+        @for(item of worksExecutionSummary.items; track item) {
+        <td>{{getItemPercentageByName(item, work!.items) || '-' }}</td>
+        }
+        <td>{{ work?.executionPercent ? work?.executionPercent + '%' : '-' }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
+
+@if(worksExecutionChartData || worksTimelineData || projectTimelineData) {
 <h6 class="text-secondary mb-4">
   <i class="fa-solid fa-chart-line text-warning me-2"></i>
   المخططات البيانية
 </h6>
+}
 <div class="row mb-4">
 
   @if(worksExecutionChartData) {
@@ -136,6 +178,7 @@
   </div>
   }
 
+  @if(worksTimelineData) {
   <div class="col-12">
     <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
       <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
@@ -162,6 +205,8 @@
       </c-card-body>
     </c-card>
   </div>
+  }
+
 
   @if(projectTimelineData) {
   <div class="col-12" lg="6">

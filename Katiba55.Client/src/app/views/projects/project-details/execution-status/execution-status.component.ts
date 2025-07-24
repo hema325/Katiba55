@@ -21,6 +21,8 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { WorkDetailed } from '../../../../models/works/work-detailed';
 import { getRandomChartColorObject } from '../../../../helpers/chart-color.helper';
 import { getArabicMonthName } from '../../../../helpers/date.helper';
+import { WorkExecutionSummary } from 'src/app/models/works/work-execution-summary';
+import { ItemBrief } from 'src/app/models/items/item-brief';
 
 @Component({
   selector: 'app-execution-status',
@@ -60,6 +62,7 @@ export class ExecutionStatusComponent implements OnInit {
   project: ProjectDetailed | null = null;
   works: WorkDetailed[] = [];
   medias: Media[] = [];
+  worksExecutionSummary: WorkExecutionSummary | null = null;
 
   worksExecutionChartData: any | null = null;
   projectTimelineData: any | null = null;
@@ -81,6 +84,7 @@ export class ExecutionStatusComponent implements OnInit {
     this.loadMedias();
     this.loadProjectTimeLineProgressData();
     this.loadWorksTimeLineProgressData();
+    this.loadWorksExecutionSummary();
   }
 
   loadProject() {
@@ -161,6 +165,13 @@ export class ExecutionStatusComponent implements OnInit {
       });
   }
 
+  loadWorksExecutionSummary() {
+    this.worksService.getWorksExecutionSummaryByProjectId(this.projectId)
+      .pipe(first())
+      .subscribe(response => this.worksExecutionSummary = response.data);
+  }
+
+
   setWorksTimelineChartType(type: 'bar' | 'line') {
     this.worksTimelineChartType = type;
   }
@@ -171,6 +182,10 @@ export class ExecutionStatusComponent implements OnInit {
 
   getExecutionStatusBadgeColor(status: any): string {
     return getExecutionStatusBadgeColor(status);
+  }
+
+  getItemPercentageByName(name: string, items: ItemBrief[]) {
+    return items.find(i => i.name == name)?.executionPercent || 0;
   }
 
 }
