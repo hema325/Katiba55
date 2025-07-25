@@ -23,8 +23,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "aot": true,
-            "outputPath": "dist/coreui-free-angular-admin-template",
+            "outputPath": "../Katiba55.API/wwwroot",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
