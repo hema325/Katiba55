@@ -1,6 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.Items;
+using Katiba55.API.Dtos.Projects;
 using Katiba55.API.Dtos.Works;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -130,6 +131,27 @@ namespace Katiba55.API.Controllers
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(works));
+        }
+
+        [HttpGet("reportByProjectId")]
+        public async Task<IActionResult> GetReportByProjectIdAsync([FromQuery] int projectId)
+        {
+            var query = _context.Works
+                .Where(w => w.ProjectId == projectId)
+                .AsQueryable();
+
+            var report = new WorksReportDto
+            {
+                TotalWorks = await query.CountAsync(),
+                PendingWorks = await query.Where(p => p.ExecutionStatus == ExecutionStatus.Pending).CountAsync(),
+                OnHoldWorks = await query.Where(p => p.ExecutionStatus == ExecutionStatus.OnHold).CountAsync(),
+                UnderconstructionWorks = await query.Where(p => p.ExecutionStatus == ExecutionStatus.Underconstruction).CountAsync(),
+                CompletedWorks = await query.Where(p => p.ExecutionStatus == ExecutionStatus.Completed).CountAsync(),
+                CancelledWorks = await query.Where(p => p.ExecutionStatus == ExecutionStatus.Cancelled).CountAsync(),
+                TotalExecutionPercent = await query.SumAsync(p => p.ExecutionPercent!.Value)
+            };
+
+            return Response(ResultFactory.Ok(report));
         }
 
         [HttpGet("getWorksExecutionSummaryByProjectId")] 

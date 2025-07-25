@@ -8,6 +8,7 @@ import { ProjectBrief } from '../models/projects/project-brief';
 import { ProjectDetailed } from '../models/projects/project-detailed';
 import { ProjectMonthlyProgressList } from '../models/projects/project-monthly-progress-list';
 import { ProjectMonthlyProgressItem } from '../models/projects/project-monthly-progress-item';
+import { ProjectsReport } from '../models/projects/projects-report';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class ProjectsService {
 
   getAll(): Observable<Result<ProjectBrief[]>> {
     return this.httpClient.get<Result<ProjectBrief[]>>(`${this.baseUrl}/getAll`);
+  }
+
+  report(): Observable<Result<ProjectsReport>> {
+    return this.httpClient.get<Result<ProjectsReport>>(`${this.baseUrl}/report`);
   }
 
   getMonthlyTimelineProgressById(projectId: number): Observable<Result<ProjectMonthlyProgressItem[]>> {

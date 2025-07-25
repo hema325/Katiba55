@@ -138,6 +138,23 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(projects));
         }
 
+        [HttpGet("report")]
+        public async Task<IActionResult> GetReportAsync()
+        {
+            var report = new ProjectsReportDto
+            {
+                TotalProjects = await _context.Projects.CountAsync(),
+                PendingProjects = await _context.Projects.Where(p => p.ExecutionStatus == ExecutionStatus.Pending).CountAsync(),
+                OnHoldProjects = await _context.Projects.Where(p => p.ExecutionStatus == ExecutionStatus.OnHold).CountAsync(),
+                UnderconstructionProjects = await _context.Projects.Where(p => p.ExecutionStatus == ExecutionStatus.Underconstruction).CountAsync(),
+                CompletedProjects = await _context.Projects.Where(p => p.ExecutionStatus == ExecutionStatus.Completed).CountAsync(),
+                CancelledProjects = await _context.Projects.Where(p => p.ExecutionStatus == ExecutionStatus.Cancelled).CountAsync(),
+                TotalExecutionPercent = await _context.Projects.SumAsync(p => p.ExecutionPercent!.Value)
+            };
+
+            return Response(ResultFactory.Ok(report));
+        }
+
         [HttpGet("{id}/getMonthlyTimelineProgress")]
         public async Task<IActionResult> GetMonthlyTimelineProgressAsync(int id)
         {

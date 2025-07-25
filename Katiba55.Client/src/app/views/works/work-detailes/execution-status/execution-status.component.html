@@ -78,7 +78,7 @@
         <th rowspan="2">نسبة التنفيذ</th>
         <th rowspan="2">نسبة التنفيذ النسبي</th>
         <th rowspan="2">حالة التنفيذ</th>
-        <th rowspan="2">تاريخ التنفيذ</th>
+        <!-- <th rowspan="2">تاريخ التنفيذ</th> -->
         <th colspan="2">تاريخ البدء</th>
         <th colspan="2">تاريخ الانتهاء</th>
         <th rowspan="2">ملاحظات</th>
@@ -100,7 +100,7 @@
         <td>{{ item.executionPercent != null ? item.executionPercent + '%' : '-' }}</td>
         <td>{{ item.relativeExecutionPercent != null ? item.relativeExecutionPercent + '%' : '-' }}</td>
         <td>{{ (item.executionStatus | executionStatus) || '-' }}</td>
-        <td>{{ item.executionDate ? (item.executionDate | date:'dd-MM-yyyy') : '-' }}</td>
+        <!-- <td>{{ item.executionDate ? (item.executionDate | date:'dd-MM-yyyy') : '-' }}</td> -->
         <td>{{ item.estimatedStartDate ? (item.estimatedStartDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ item.actualStartDate ? (item.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ item.estimatedEndDate ? (item.estimatedEndDate | date:'dd-MM-yyyy') : '-' }}</td>

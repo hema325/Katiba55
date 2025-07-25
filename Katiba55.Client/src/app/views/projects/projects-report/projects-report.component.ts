@@ -1,9 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ProgressComponent, RowComponent, TableDirective, WidgetStatFComponent } from '@coreui/angular';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
 import { RouterLink } from '@angular/router';
 import { ChartData } from 'chart.js';
+import { ProjectsService } from '../../../services/projects.service';
+import { ProjectsReport } from '../../../models/projects/projects-report';
+import { ProjectBrief } from '../../../models/projects/project-brief';
+import { finalize, first } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
+import { getRandomChartColorObject } from '../../../helpers/chart-color.helper';
+import { getArabicMonthName } from '../../../helpers/date.helper';
 
 @Component({
   selector: 'app-projects-report',
@@ -23,83 +30,82 @@ import { ChartData } from 'chart.js';
     CardFooterComponent,
     PaginatorComponent,
     RouterLink,
-    WidgetStatFComponent
+    WidgetStatFComponent,
+    DecimalPipe
   ]
 })
 export class ProjectsReportComponent implements OnInit {
 
-  months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  private projectsService = inject(ProjectsService);
 
-  options = {
-    maintainAspectRatio: false
-  };
+  projectReport: ProjectsReport | null = null;
+  projects: ProjectBrief[] = [];
+  isLoadingReport: boolean = false;
+  isLoadingProjects: boolean = false;
 
-  chartBarData: ChartData = {
-    labels: ['حسب اللة الكفراوى', 'ممشى اهل مصر', 'الدلتا الجديدة', 'الطريق الساحلى'].slice(0, 7),
-    datasets: [
-      {
-        label: 'نسبة التنفيذ',
-        backgroundColor: '#f87979',
-        data: [100, 80, 50, 25]
-      }
-    ]
-  };
-
-  chartLineData: ChartData = {
-    labels: [...this.months].slice(0, 7),
-    datasets: [
-      {
-        label: 'ممشى اهل مصر',
-        backgroundColor: 'rgba(220, 220, 220, 0.2)',
-        borderColor: 'rgba(220, 220, 220, 1)',
-        pointBackgroundColor: 'rgba(220, 220, 220, 1)',
-        pointBorderColor: '#fff',
-        data: [0, 10, 40, 50, 60, 100, 100]
-      },
-      {
-        label: 'الطريق الساحلى',
-        backgroundColor: 'rgba(151, 187, 205, 0.2)',
-        borderColor: 'rgba(151, 187, 205, 1)',
-        pointBackgroundColor: 'rgba(151, 187, 205, 1)',
-        pointBorderColor: '#fff',
-        data: [0, 25, 30, 30, 50, 80, 100]
-      },
-      {
-        label: 'الدلتا الجديدة',
-        backgroundColor: 'rgba(248, 121, 121, 0.2)',
-        borderColor: 'rgba(248, 121, 121, 1)',
-        pointBackgroundColor: 'rgba(248, 121, 121, 1)',
-        pointBorderColor: '#fff',
-        data: [0, 50, 80, 90, 100, 100, 100]
-      }
-    ]
-  };
-
-  chartPieData: ChartData = {
-    labels: ['مكتمل', 'تحت الانشاء', 'متوقف'],
-    datasets: [
-      {
-        data: [100, 50, 20],
-        backgroundColor: ['#41B883', '#FFCE56', '#E46651'],
-        hoverBackgroundColor: ['#41B883', '#FFCE56', '#E46651']
-      }
-    ]
-  };
-
-  chartDoughnutData: ChartData = {
-    labels: ['ضباط على قوة الكتيبة', 'ضباط ليست على قوت الكتيبة'],
-    datasets: [
-      {
-        backgroundColor: ['#41B883', '#E46651'],
-        data: [100, 20]
-      }
-    ]
-  };
-
-
-  constructor() { }
+  projectsExecutionChartData: any = null;
+  projectsTimelineData: any = null;
+  projectsTimelineChartType: 'bar' | 'line' = 'line';
 
   ngOnInit() {
+    this.loadReport();
+    this.loadProjects();
+    this.loadProjectsTimeLineProgressData();
+  }
+
+  loadReport() {
+    this.isLoadingReport = true;
+    this.projectsService.report()
+      .pipe(finalize(() => this.isLoadingReport = false))
+      .subscribe(response => this.projectReport = response.data);
+  }
+
+  loadProjects() {
+    this.isLoadingProjects = true;
+    this.projectsService.getAll()
+      .pipe(finalize(() => this.isLoadingProjects = false))
+      .subscribe(response => {
+        if (response.success) {
+          this.projects = response.data;
+
+          if (this.projects && this.projects.length > 0) {
+            this.projectsExecutionChartData = {
+              labels: this.projects.map(p => p.name),
+              datasets: [{
+                label: 'نسبة التنفيذ',
+                data: this.projects.map(p => p.executionPercent || 0),
+                ...getRandomChartColorObject()
+              }]
+            }
+          }
+        }
+      });
+  }
+
+  loadProjectsTimeLineProgressData() {
+    this.projectsService.getMonthlyTimelineProgress()
+      .pipe(first())
+      .subscribe(response => {
+        if (response.success) {
+          const projects = response.data;
+          let useMonthNames = projects[0].items[0].year == projects[0].items[projects[0].items.length - 1].year;
+          if (projects && projects.length > 0) {
+            this.projectsTimelineData = {
+              labels: projects[0].items.map(item => useMonthNames ? getArabicMonthName(item.month) : `${item.year}-${item.month}`),
+              datasets: projects.map(project => ({
+                label: project.projectName,
+                data: [...project.items.map(item => item.percentage || 0), 100],
+                tension: 0.4,
+                ...getRandomChartColorObject()
+              }))
+            };
+          }
+        }
+      });
+  }
+
+  setProjectsTimelineChartType(type: 'bar' | 'line') {
+    this.projectsTimelineChartType = type;
   }
 
 }
