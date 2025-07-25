@@ -6,20 +6,34 @@
       <svg cIcon name="cilMenu" size="lg"></svg>
     </button>
 
+    <c-header-nav class="d-none d-md-flex me-auto">
+      <c-nav-item>
+        <a cNavLink routerLink="/" routerLinkActive="active">الصفحة الرئيسية</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/projects" routerLinkActive="active">المشروعات</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/companies" routerLinkActive="active">الشركات</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/officers" routerLinkActive="active">الضباط</a>
+      </c-nav-item>
+    </c-header-nav>
 
     <c-header-nav class="ms-auto ms-md-0">
       <div class="py-2" style="font-size: 14px;">
         <strong>مرحبا,</strong> ابراهيم
       </div>
-      <div class="nav-item py-1">
+      <!-- <div class="nav-item py-1">
         <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-      </div>
-      <ng-container *ngTemplateOutlet="themeDropdown" />
+      </div> -->
+      <!-- <ng-container *ngTemplateOutlet="themeDropdown" /> -->
     </c-header-nav>
   </c-container>
-  <c-container [fluid]="true" class="px-4">
+  <!-- <c-container [fluid]="true" class="px-4">
     <c-breadcrumb-router />
-  </c-container>
+  </c-container> -->
 </ng-container>
 
 
