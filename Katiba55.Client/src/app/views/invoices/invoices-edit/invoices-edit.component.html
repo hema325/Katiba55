@@ -2,38 +2,37 @@
   <div class="row justify-content-center">
     <div class="col-12">
       <!-- عنوان الصفحة -->
-      <c-card class="mb-4 border-0 shadow-sm bg-primary bg-opacity-10">
+      <c-card class="mb-4 border-0 shadow-sm bg-warning bg-opacity-10">
         <c-card-body class="d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3">
-          <span class="fw-bold fs-4 text-primary text-center mb-1">تعديل المقايسة</span>
-          <div class="text-secondary text-center small">يرجى تعديل بيانات المقايسة بدقة لضمان نتائج أفضل.</div>
+          <span class="fw-bold fs-4 text-warning text-center mb-1">تعديل المستخلص</span>
+          <div class="text-secondary text-center small">يرجى تعديل بيانات المستخلص بدقة لضمان نتائج أفضل.</div>
         </c-card-body>
       </c-card>
 
-      <form [formGroup]="boqForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+        <!-- بيانات المستخلص -->
         <c-card class="mb-4 border-0 shadow-sm">
           <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
             <div class="d-flex align-items-center">
-              <i class="fa-solid fa-list-ol text-primary me-2"></i>
-              <span class="fw-semibold text-primary">بيانات المقايسة</span>
+              <i class="fa-solid fa-file-invoice-dollar text-warning me-2"></i>
+              <span class="fw-semibold text-warning">بيانات المستخلص</span>
             </div>
           </c-card-header>
           <c-card-body class="pt-0 pb-3 px-3">
             <div class="row g-3">
               <div class="col-12 col-md-6">
-                <app-text-input label="عنوان المقايسة" placeholder="ادخل عنوان المقايسة" formControlName="title"
+                <app-text-input label="نوع المستخلص" placeholder="ادخل نوع المستخلص" formControlName="type" required />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="موقف المستخلص" placeholder="ادخل موقف المستخلص" formControlName="status"
                   required />
               </div>
               <div class="col-12 col-md-6">
-                <app-text-input label="رقم المقايسة" placeholder="ادخل رقم المقايسة" formControlName="number"
+                <app-text-input label="القيمة" placeholder="ادخل قيمة المستخلص" formControlName="value" type="number"
                   required />
               </div>
               <div class="col-12 col-md-6">
-                <app-text-input label="موقف المقايسة" placeholder="ادخل موقف المقايسة" formControlName="status"
-                  required />
-              </div>
-              <div class="col-12 col-md-6">
-                <app-text-input label="قيمة المقايسة" placeholder="ادخل قيمة المقايسة" formControlName="value"
-                  type="number" required />
+                <app-text-input label="الموقع" placeholder="ادخل موقع المستخلص" formControlName="location" required />
               </div>
             </div>
           </c-card-body>
@@ -42,9 +41,9 @@
         <!-- زر الحفظ -->
         <c-card class="mb-0 border-0 shadow-sm">
           <c-card-body class="p-4">
-            <button type="submit" [disabled]="isSubmitting || boqForm.invalid"
-              class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
-              aria-label="تعديل المقايسة">
+            <button type="submit" [disabled]="isSubmitting || invoiceForm.invalid"
+              class="btn btn-warning w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+              aria-label="تعديل المستخلص">
               @if(isSubmitting) {
               <c-spinner aria-hidden="true" size="sm"></c-spinner>
               <span class="px-1">جارى حفظ التغيرات</span>

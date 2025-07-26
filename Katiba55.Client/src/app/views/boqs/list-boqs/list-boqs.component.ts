@@ -2,7 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { BOQsService } from '../../../services/BOQs.service';
 import { BOQ } from '../../../models/boqs/BOQ';
 import { finalize, first } from 'rxjs';
-import { BadgeComponent, CardBodyComponent, CardComponent, SpinnerComponent, TooltipDirective } from '@coreui/angular';
+import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent, TooltipDirective } from '@coreui/angular';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ToasterService } from '../../../services/toaster.service';
@@ -14,6 +14,7 @@ import { DeleteConfirmationModalComponent } from '../../../shared/delete-confirm
   styleUrls: ['./list-boqs.component.css'],
   imports: [
     CardComponent,
+    CardHeaderComponent,
     CardBodyComponent,
     DecimalPipe,
     RouterLink,

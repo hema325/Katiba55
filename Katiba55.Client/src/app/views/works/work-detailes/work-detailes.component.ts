@@ -8,6 +8,7 @@ import { ListMediasComponent } from '../../medias/list-medias/list-medias.compon
 import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { ListBoqsComponent } from '../../boqs/list-boqs/list-boqs.component';
+import { FinancialStatusComponent } from './financial-status/financial-status.component';
 
 @Component({
   selector: 'app-work-detailes',
@@ -22,6 +23,7 @@ import { ListBoqsComponent } from '../../boqs/list-boqs/list-boqs.component';
     ListMediasComponent,
     ExecutionStatusComponent,
     ListBoqsComponent,
+    FinancialStatusComponent,
   ]
 })
 export class WorkDetailesComponent implements OnInit {

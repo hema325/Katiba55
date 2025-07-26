@@ -3,4 +3,5 @@ export interface Invoice {
     type: string;
     status: string;
     value: number;
+    location: string;
 }

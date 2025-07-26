@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Result } from '../models/Result';
 import { Observable } from 'rxjs';
 import { BOQ } from '../models/boqs/BOQ';
+import { BoqDetailed } from '../models/boqs/boq-detailed';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,8 @@ export class BOQsService {
 
   getByWorkId(workId: number): Observable<Result<BOQ[]>> {
     return this.httpClient.get<Result<BOQ[]>>(`${this.baseUrl}/getByWorkId?workId=${workId}`);
+  }
+  getByDetailedWorkId(workId: number): Observable<Result<BoqDetailed[]>> {
+    return this.httpClient.get<Result<BoqDetailed[]>>(`${this.baseUrl}/getByDetailedWorkId?workId=${workId}`);
   }
 }

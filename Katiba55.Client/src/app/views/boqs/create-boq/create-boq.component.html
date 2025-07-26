@@ -21,15 +21,20 @@
           <c-card-body class="pt-0 pb-3 px-3">
             <div class="row g-3">
               <div class="col-12 col-md-6">
+                <app-text-input label="عنوان المقايسة" placeholder="ادخل عنوان المقايسة" formControlName="title"
+                  required />
+              </div>
+              <div class="col-12 col-md-6">
                 <app-text-input label="رقم المقايسة" placeholder="ادخل رقم المقايسة" formControlName="number"
                   required />
               </div>
               <div class="col-12 col-md-6">
-                <app-text-input label="الحالة" placeholder="ادخل حالة المقايسة" formControlName="status" required />
-              </div>
-              <div class="col-12">
-                <app-text-input label="القيمة" placeholder="ادخل قيمة المقايسة" formControlName="value" type="number"
+                <app-text-input label="موقف المقايسة" placeholder="ادخل موقف المقايسة" formControlName="status"
                   required />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="قيمة المقايسة" placeholder="ادخل قيمة المقايسة" formControlName="value"
+                  type="number" required />
               </div>
             </div>
           </c-card-body>

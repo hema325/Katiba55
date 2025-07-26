@@ -9,6 +9,7 @@ namespace Katiba55.API.Profiles
             CreateMap<CreateContractDto, Contract>();
             CreateMap<UpdateContractDto, Contract>();
             CreateMap<Contract, ContractDto>();
+            CreateMap<Contract, ContractDetailedDto>();
         }
     }
 }

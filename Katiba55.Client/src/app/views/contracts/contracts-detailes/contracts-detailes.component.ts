@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { BasicDetailesComponent } from './basic-detailes/basic-detailes.component';
 import { ActivatedRoute } from '@angular/router';
 import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
+import { ListInvoicesComponent } from '../../invoices/list-invoices/list-invoices.component';
 
 @Component({
   selector: 'app-contracts-detailes',
@@ -11,7 +12,8 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/a
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent,
-    BasicDetailesComponent
+    BasicDetailesComponent,
+    ListInvoicesComponent
   ]
 })
 export class ContractsDetailesComponent implements OnInit {
@@ -27,6 +29,19 @@ export class ContractsDetailesComponent implements OnInit {
 
   ngOnInit() {
     this.contractId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.initActiveTab();
   }
 
+  initActiveTab() {
+    const fragment = this.activatedRoute.snapshot.fragment;
+    switch (fragment) {
+      case 'basic-detailes':
+      case 'invoices':
+      case 'advances':
+        this.activeTab = fragment;
+        break;
+      default:
+        this.activeTab = 'basic-detailes';
+    }
+  }
 }

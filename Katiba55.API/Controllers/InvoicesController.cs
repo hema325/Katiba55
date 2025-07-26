@@ -21,6 +21,9 @@ namespace Katiba55.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateAsync(CreateInvoiceDto dto)
         {
+            if (await _context.Invoices.AnyAsync(i => i.ContractId == dto.ContractId && i.Type == dto.Type))
+                return Response(ResultFactory.Conflict("هذا المستخلص موجود بالفعل."));
+
             var invoice = _mapper.Map<Invoice>(dto);
 
             _context.Invoices.Add(invoice);
@@ -36,6 +39,9 @@ namespace Katiba55.API.Controllers
 
             if (invoice == null)
                 return Response(ResultFactory.NotFound());
+
+            if (await _context.Invoices.AnyAsync(i => i.Id != invoice.Id && i.ContractId == invoice.ContractId && i.Type == dto.Type))
+                return Response(ResultFactory.Conflict("هذا المستخلص موجود بالفعل."));
 
             _mapper.Map(dto, invoice);
 

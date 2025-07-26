@@ -2,11 +2,12 @@
   <div class="row mb-3">
     <div class="col-12 d-flex justify-content-between align-items-center">
       <h6 class="mb-0 text-secondary">
-        <i class="fa-solid fa-list-ol text-primary me-2"></i>
-        المقايسات
+        <i class="fa-solid fa-file-invoice-dollar text-warning me-2"></i>
+        المستخلصات
       </h6>
       <div class="d-flex align-items-center gap-2">
-        <button [routerLink]="['/boqs/create']" [queryParams]="{workId: workId}" type="button" class="btn btn-primary">
+        <button [routerLink]="['/invoices/create']" [queryParams]="{contractId: contractId}" type="button"
+          class="btn btn-primary">
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -14,42 +15,42 @@
   </div>
 
   <div class="row g-3">
-    @for(boq of boqs; track boq.id) {
+    @for(invoice of invoices; track invoice.id) {
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3">
         <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
           <div class="w-100 mb-3">
             <span
               class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
-              [cTooltip]="boq.title" cTooltipPlacement="bottom">
-              {{boq.title}}
+              [cTooltip]="invoice.type" cTooltipPlacement="bottom">
+              {{invoice.type}}
             </span>
           </div>
           <hr class="w-100 my-2" style="opacity:0.12;" />
           <div class="d-flex justify-content-between align-items-center w-100 mb-2">
-            <span class="small text-muted">القيمة: <span class="text-success fw-semibold">{{boq.value |
+            <span class="small text-muted">القيمة: <span class="text-success fw-semibold">{{invoice.value |
                 number}}</span></span>
-            <span class="px-3 py-1 small text-muted">الموقف: <span class="text-primary">{{boq.status}}</span></span>
+            <span class="px-3 py-1 small text-muted">الموقف: <span class="text-primary">{{invoice.status}}</span></span>
           </div>
           <div class="d-flex justify-content-between align-items-center w-100 mb-2">
-            <span class="small text-muted">رقم المقايسة: <span
-                class="text-secondary fw-semibold">{{boq.number}}</span></span>
+            <span class="small text-muted">الموقع: <span
+                class="text-secondary fw-semibold">{{invoice.location}}</span></span>
           </div>
           <div class="d-flex gap-2 w-100 mt-3 justify-content-center">
-            <button [routerLink]="['/boqs', boq.id]"
+            <!-- <button [routerLink]="['/invoices', invoice.id]"
               class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
               title="عرض التفاصيل">
               <i class="fa-solid fa-eye"></i>
-            </button>
-            <button [routerLink]="['/boqs', boq.id, 'edit']" [queryParams]="{workId: workId}"
+            </button> -->
+            <button [routerLink]="['/invoices', invoice.id, 'edit']" [queryParams]="{contractId: contractId}"
               class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
               title="تعديل">
               <i class="fa-solid fa-pen"></i>
             </button>
-            <button (click)="fireDeleteConfirmationModal(boq)"
+            <button (click)="fireDeleteConfirmationModal(invoice)"
               class="btn btn-outline-danger btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
               title="حذف">
-              @if(deletedItem?.id == boq.id) {
+              @if(deletedItem?.id == invoice.id) {
               <c-spinner aria-hidden="true" size="sm"></c-spinner>
               }
               @else {

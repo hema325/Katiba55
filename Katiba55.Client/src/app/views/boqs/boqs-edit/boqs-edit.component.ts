@@ -29,6 +29,7 @@ export class BoqsEditComponent implements OnInit {
   private fb: FormBuilder = inject(FormBuilder);
 
   boqForm = this.fb.group({
+    title: ['', [Validators.required]],
     number: ['', [Validators.required]],
     value: [null, [Validators.required, Validators.min(0)]],
     status: ['', [Validators.required]]

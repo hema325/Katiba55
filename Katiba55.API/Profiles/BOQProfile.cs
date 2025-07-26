@@ -9,6 +9,7 @@ namespace Katiba55.API.Profiles
             CreateMap<CreateBOQDto, BOQ>();
             CreateMap<UpdateBOQDto, BOQ>();
             CreateMap<BOQ, BOQDto>();
+            CreateMap<BOQ, BOQDetailedDto>();
         }
     }
 }

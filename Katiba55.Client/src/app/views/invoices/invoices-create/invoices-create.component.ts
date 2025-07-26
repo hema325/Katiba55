@@ -5,54 +5,52 @@ import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
-import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
-import { BOQsService } from '../../../services/BOQs.service';
+import { InvoicesService } from '../../../services/invoices.service';
 
 @Component({
-  selector: 'app-create-boq',
-  templateUrl: './create-boq.component.html',
-  styleUrls: ['./create-boq.component.css'],
+  selector: 'app-invoices-create',
+  templateUrl: './invoices-create.component.html',
+  styleUrls: ['./invoices-create.component.css'],
   imports: [
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent,
     ReactiveFormsModule,
     TextInputComponent,
-    SelectInputComponent,
     SpinnerComponent
   ]
 })
-export class CreateBoqComponent implements OnInit {
+export class InvoicesCreateComponent implements OnInit {
 
-  private boqsService: BOQsService = inject(BOQsService);
+  private invoicesService: InvoicesService = inject(InvoicesService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private toasterService: ToasterService = inject(ToasterService);
   private fb: FormBuilder = inject(FormBuilder);
 
-  boqForm = this.fb.group({
-    title: ['', [Validators.required]],
-    number: ['', [Validators.required]],
+  invoiceForm = this.fb.group({
+    type: ['', [Validators.required]],
+    status: ['', [Validators.required]],
     value: [null, [Validators.required, Validators.min(0)]],
-    status: ['', [Validators.required]]
+    location: ['', [Validators.required]]
   });
 
-  workId: number = 0;
+  contractId: number = 0;
   isSubmitting: boolean = false;
 
   ngOnInit() {
-    this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
+    this.contractId = Number(this.activatedRoute.snapshot.queryParamMap.get('contractId'));
   }
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.boqsService
-      .create({ ...this.boqForm.value, workId: this.workId })
+    this.invoicesService
+      .create({ ...this.invoiceForm.value, contractId: this.contractId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {
-          this.toasterService.showToast('نجاح', 'تم إضافة المقايسة بنجاح!', 'success');
-          this.router.navigate([`/works/${this.workId}`], { fragment: 'boqs' });
+          this.toasterService.showToast('نجاح', 'تم إضافة المستخلص بنجاح!', 'success');
+          this.router.navigate([`/contracts/${this.contractId}`], { fragment: 'invoices' });
         }
       });
   }

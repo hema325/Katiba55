@@ -4,6 +4,18 @@
     تفاصيل المقايسة
   </h6>
   <div class="row g-3 mb-5">
+    <!-- كارد عنوان المقايسة -->
+    <div class="col-12">
+      <c-card class="h-100 shadow-sm border-0 rounded-3 ">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-heading text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">عنوان المقايسة</div>
+            <div class="text-muted small">{{ boq?.title || 'لا يوجد' }}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 shadow-sm border-0 rounded-3">
         <c-card-body class="d-flex align-items-center">
@@ -20,7 +32,7 @@
         <c-card-body class="d-flex align-items-center">
           <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
           <div>
-            <div class="fw-bold">حالة المقايسة</div>
+            <div class="fw-bold">موقف المقايسة</div>
             <div class="text-muted small">{{ boq?.status || 'لا يوجد' }}</div>
           </div>
         </c-card-body>
@@ -90,7 +102,7 @@
         <c-card-body class="d-flex align-items-center">
           <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
           <div>
-            <div class="fw-bold">حالة العقد</div>
+            <div class="fw-bold">موقف العقد</div>
             <div class="text-muted small">{{ contract?.status || 'لا يوجد' }}</div>
           </div>
         </c-card-body>
@@ -115,7 +127,6 @@
   </div>
   }
 </section>
-
 
 <!-- modals -->
 <app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"

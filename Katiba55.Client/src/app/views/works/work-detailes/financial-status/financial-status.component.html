@@ -1,0 +1,46 @@
+@if(boqs && boqs.length > 0) {
+<h6 class="text-secondary mb-4">
+  <i class="fa-solid fa-sack-dollar text-primary me-2"></i>
+  الموقف المالي
+</h6>
+<div class="overflow-auto mb-5">
+  <table class="table table-bordered align-middle text-center shadow-sm rounded-4 overflow-hidden">
+    <thead class="table-secondary">
+      <tr>
+        <th>رقم المقايسة</th>
+        <th>عنوان المقايسة</th>
+        <th>قيمة المقايسة</th>
+        <th>موقف المقايسة</th>
+        <th>رقم العقد</th>
+        <th>حالة العقد</th>
+        <th>قيمة العقد</th>
+        <th>نوع المستخلص</th>
+        <th>قيمة المستخلص</th>
+        <th>موقف المستخلص</th>
+        <th>الموقع</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(boq of boqs; track boq.id) {
+      @for(invoice of boq.contract.invoices; track invoice.id; let i = $index) {
+      <tr>
+        @if(i === 0) {
+        <td [rowSpan]="boq.contract.invoices?.length || 1">{{ boq.number }}</td>
+        <td [rowSpan]="boq.contract.invoices?.length || 1">{{ boq.title }}</td>
+        <td [rowSpan]="boq.contract.invoices?.length || 1">{{ boq.value | number }}</td>
+        <td [rowSpan]="boq.contract.invoices?.length || 1">{{ boq.status }}</td>
+        <td [rowSpan]="boq.contract.invoices?.length || 1">{{ boq.contract.number }}</td>
+        <td [rowSpan]="boq.contract.invoices?.length || 1">{{ boq.contract.status }}</td>
+        <td [rowSpan]="boq.contract.invoices?.length || 1">{{ boq.contract.value | number }}</td>
+        }
+        <td>{{ invoice.type }}</td>
+        <td>{{ invoice.value | number }}</td>
+        <td>{{ invoice.status }}</td>
+        <td>{{ invoice.location }}</td>
+      </tr>
+      }
+      }
+    </tbody>
+  </table>
+</div>
+}
