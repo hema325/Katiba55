@@ -9,22 +9,22 @@
   <c-card-body>
     <div class="d-flex flex-column align-items-center justify-content-center p-4">
       <div class="d-flex align-items-center gap-2 mb-3">
-        <h5 class="fw-bold text-success mb-0">المنفذ</h5>
+        <h5 class="fw-bold text-success mb-1">المنفذ</h5>
       </div>
       <!-- الحالة badge absolute -->
       <c-badge [color]="getExecutionStatusBadgeColor(project?.executionStatus)"
-        class=" position-absolute top-0 end-0 m-3 px-3 py-2 fs-6 shadow-sm" style="z-index:2;">
+        class=" position-absolute top-0 end-0 m-3 px-3 py-2 shadow-sm" style="z-index:2;">
         {{ (project?.executionStatus | executionStatus) || '-' }}
       </c-badge>
-      <div class="mb-4">
+      <div class="mb-3">
         <app-circular-progress [percent]="project?.executionPercent || 0" color="#31a751"
           size="120"></app-circular-progress>
       </div>
-      <div class="mb-4  text-muted d-flex align-items-center gap-1">
+      <div class="mb-4  small text-muted d-flex align-items-center gap-1">
         <span>آخر تحديث:</span>
         <span dir="ltr" class="fw-semibold">{{ (project?.executionDate | date:'dd-MM-yyyy') || '-' }}</span>
       </div>
-      <div class="row w-100 g-3 justify-content-center">
+      <div class="row w-100 g-3 justify-content-center small">
         <div class="col-12 col-md-6">
           <div class="bg-light rounded-3 p-3 h-100 d-flex flex-column">
             <span class="fw-bold text-secondary mb-1">تاريخ البدء التقديري</span>

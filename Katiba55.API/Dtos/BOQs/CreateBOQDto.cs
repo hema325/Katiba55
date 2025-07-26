@@ -1,0 +1,10 @@
+﻿namespace Katiba55.API.Dtos.BOQs
+{
+    public class CreateBOQDto
+    {
+        public string Status { get; set; }
+        public string Number { get; set; }
+        public decimal Value { get; set; }
+        public int WorkId { get; set; }
+    }
+}

@@ -4,6 +4,7 @@ using Katiba55.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Katiba55.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250726085544_InvoicesAdvancesBOQsContracts")]
+    partial class InvoicesAdvancesBOQsContracts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("ContractId");
 
-                    b.ToTable("Advances");
+                    b.ToTable("Advance");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.BOQ", b =>
@@ -60,7 +63,7 @@ namespace Katiba55.API.Migrations
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -69,17 +72,9 @@ namespace Katiba55.API.Migrations
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("WorkId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("Number")
-                        .IsUnique();
-
-                    b.HasIndex("WorkId");
-
-                    b.ToTable("BOQs");
+                    b.ToTable("BOQ");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Company", b =>
@@ -143,7 +138,7 @@ namespace Katiba55.API.Migrations
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -157,10 +152,7 @@ namespace Katiba55.API.Migrations
                     b.HasIndex("BOQId")
                         .IsUnique();
 
-                    b.HasIndex("Number")
-                        .IsUnique();
-
-                    b.ToTable("Contracts");
+                    b.ToTable("Contract");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Invoice", b =>
@@ -173,6 +165,10 @@ namespace Katiba55.API.Migrations
 
                     b.Property<int>("ContractId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -189,7 +185,7 @@ namespace Katiba55.API.Migrations
 
                     b.HasIndex("ContractId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoice");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Item", b =>
@@ -568,17 +564,6 @@ namespace Katiba55.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Contract");
-                });
-
-            modelBuilder.Entity("Katiba55.API.Entities.BOQ", b =>
-                {
-                    b.HasOne("Katiba55.API.Entities.Work", "Work")
-                        .WithMany()
-                        .HasForeignKey("WorkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Work");
                 });
 
             modelBuilder.Entity("Katiba55.API.Entities.Contract", b =>

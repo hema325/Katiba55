@@ -185,7 +185,12 @@ export class ExecutionStatusComponent implements OnInit {
   }
 
   getItemPercentageByName(name: string, items: ItemBrief[]) {
-    return items.find(i => i.name == name)?.executionPercent || 0;
+    var item = items.find(i => i.name == name);
+    if (item) {
+      return item.executionPercent ? item.executionPercent + "%" : "0%";
+    }
+
+    return 0;
   }
 
 }
