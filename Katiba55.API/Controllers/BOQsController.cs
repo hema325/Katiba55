@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Katiba55.API.Controllers
 {
-    [Route("/api/boqs")]
+    [Route("api/boqs")]
     public class BOQsController : BaseController
     {
         private readonly ApplicationDbContext _context;

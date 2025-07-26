@@ -1,0 +1,41 @@
+<section id="basic-details">
+  <h6 class="text-secondary mb-4">
+    <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
+    تفاصيل المقايسة
+  </h6>
+  <div class="row g-3 mb-5">
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-list-ol text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">رقم المقايسة</div>
+            <div class="text-muted small">{{ boq?.number || 'لا يوجد' }}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">الحالة</div>
+            <div class="text-muted small">{{ boq?.status || 'لا يوجد' }}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">القيمة</div>
+            <div class="text-muted small">{{ boq?.value | number }}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+  </div>
+</section>
