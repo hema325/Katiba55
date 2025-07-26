@@ -1,0 +1,39 @@
+<div class="row g-3 mb-4 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+        <c-card class="text-center border-0 rounded-3 h-100 p-0">
+            <button (click)="setActiveTab('basic-detailes')" [class.active]="activeTab === 'basic-detailes'"
+                class="btn btn-outline-primary w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+                <i class="fa-solid fa-file-contract me-2"></i>
+                معلومات العقد
+            </button>
+        </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <c-card class="text-center border-0 rounded-3 h-100 p-0">
+            <button (click)="setActiveTab('invoices')" [class.active]="activeTab === 'invoices'"
+                class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+                <i class="fa-solid fa-file-invoice-dollar me-2"></i>
+                المستخلصات
+            </button>
+        </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <c-card class="text-center border-0 rounded-3 h-100 p-0">
+            <button (click)="setActiveTab('advances')" [class.active]="activeTab === 'advances'"
+                class="btn btn-outline-info w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+                <i class="fa-solid fa-money-bill-wave me-2"></i>
+                السلف
+            </button>
+        </c-card>
+    </div>
+</div>
+
+@if(activeTab === 'basic-detailes') {
+<app-basic-detailes />
+}
+@else if(activeTab === 'invoices') {
+<!-- <app-list-invoices [contractId]="contractId" /> -->
+}
+@else if(activeTab === 'advances') {
+<!-- <app-list-advances [contractId]="contractId" /> -->
+}

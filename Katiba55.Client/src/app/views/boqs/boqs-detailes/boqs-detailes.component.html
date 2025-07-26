@@ -20,7 +20,7 @@
         <c-card-body class="d-flex align-items-center">
           <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
           <div>
-            <div class="fw-bold">الحالة</div>
+            <div class="fw-bold">حالة المقايسة</div>
             <div class="text-muted small">{{ boq?.status || 'لا يوجد' }}</div>
           </div>
         </c-card-body>
@@ -31,7 +31,7 @@
         <c-card-body class="d-flex align-items-center">
           <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
           <div>
-            <div class="fw-bold">القيمة</div>
+            <div class="fw-bold">قيمة المقايسة</div>
             <div class="text-muted small">{{ boq?.value | number }}</div>
           </div>
         </c-card-body>
@@ -39,3 +39,84 @@
     </div>
   </div>
 </section>
+
+<!-- سكشن تفاصيل العقد -->
+<section id="contract-details">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h6 class="text-secondary mb-0">
+      <i class="fa-solid fa-file-contract text-warning me-2"></i>
+      تفاصيل العقد
+    </h6>
+    <div class="d-flex gap-2">
+      @if(contract) {
+      <button [routerLink]="['/contracts', contract.id]" type="button" class="btn btn-primary">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+      <button type="button" class="btn btn-danger" (click)="fireDeleteConfirmationModal(contract)">
+        @if(deletedItem?.id == contract.id) {
+        <c-spinner aria-hidden="true" size="sm"></c-spinner>
+        }
+        @else {
+        <i class="fa-solid fa-trash"></i>
+        }
+      </button>
+      <button [routerLink]="['/contracts', contract?.id, 'edit']" [queryParams]="{boqId: boqId}" type="button"
+        class="btn btn-secondary">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+      }
+      @else {
+      <button [routerLink]="['/contracts/create']" [queryParams]="{boqId: boqId}" type="button" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      }
+    </div>
+  </div>
+  @if(contract) {
+  <div class="row g-3 mb-5">
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-hashtag text-primary fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">رقم العقد</div>
+            <div class="text-muted small">{{ contract?.number || 'لا يوجد' }}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-shield-halved text-success fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">حالة العقد</div>
+            <div class="text-muted small">{{ contract?.status || 'لا يوجد' }}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">قيمة العقد</div>
+            <div class="text-muted small">{{ (contract?.value | number) || 'لا يوجد' }}</div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+  </div>
+  } @else {
+  <div class="alert alert-info">
+    <i class="fa-solid fa-info-circle me-2"></i>
+    لا يوجد عقد مرتبط بهذه المقايسة.
+  </div>
+  }
+</section>
+
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />

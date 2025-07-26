@@ -32,7 +32,7 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(contract.Id));
         }
 
-        [HttpPut("{id}/update")]
+        [HttpPut("{id}/edit")]
         public async Task<IActionResult> UpdateAsync(int id, UpdateContractDto dto)
         {
             if (await _context.Contracts.AnyAsync(c => c.Id != id && c.Number == dto.Number))
