@@ -5,7 +5,6 @@ import { finalize, first } from 'rxjs';
 import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
 import { DecimalPipe } from '@angular/common';
 import { DeleteConfirmationModalComponent } from '../../../shared/delete-confirmation-modal/delete-confirmation-modal.component';
-import { BOQ } from '../../../models/boqs/BOQ';
 import { BOQsService } from '../../../services/BOQs.service';
 
 @Component({

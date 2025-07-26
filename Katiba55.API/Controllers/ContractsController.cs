@@ -79,12 +79,12 @@ namespace Katiba55.API.Controllers
         }
 
         [HttpGet("getByBOQId")]
-        public async Task<IActionResult> GetByBOQIdAsync(int boqId)
+        public async Task<IActionResult> GetByBOQIdAsync([FromQuery] int boqId)
         {
             var contract = await _context.Contracts
                 .Where(c => c.BOQId == boqId)
                 .ProjectTo<ContractDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .FirstOrDefaultAsync();
 
             return Response(ResultFactory.Ok(contract));
         }
