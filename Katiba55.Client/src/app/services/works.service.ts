@@ -10,6 +10,7 @@ import { WorkDetailedWithItems } from '../models/works/work-detailed-with-items'
 import { WorkMonthlyProgressItem } from '../models/works/work-monthly-progress-item';
 import { WorkMonthlyProgressList } from '../models/works/work-monthly-progress-list';
 import { WorkExecutionSummary } from '../models/works/work-execution-summary';
+import { WorkWithDetailedBoq } from '../models/works/work-with-detailed-boq';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,9 @@ export class WorksService {
 
   getDetailedByProjectId(projectId: number): Observable<Result<WorkDetailed[]>> {
     return this.httpClient.get<Result<WorkDetailed[]>>(`${this.baseUrl}/getDetailedByProjectId?projectId=${projectId}`);
+  }
+  getDetailedWithBOQByProjectId(projectId: number): Observable<Result<WorkWithDetailedBoq[]>> {
+    return this.httpClient.get<Result<WorkWithDetailedBoq[]>>(`${this.baseUrl}/getDetailedWithBOQByProjectId?projectId=${projectId}`);
   }
 
   getWorksExecutionSummaryByProjectId(projectId: number): Observable<Result<WorkExecutionSummary>> {

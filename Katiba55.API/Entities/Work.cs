@@ -23,6 +23,7 @@
         public Project Project { get; set; }
 
         public ICollection<Item> Items { get; set; }
+        public ICollection<BOQ> BOQs { get; set; }
         public ICollection<WorkExecutionHistory>? ExecutionHistories { get; set; }
 
     }

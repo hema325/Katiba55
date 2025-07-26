@@ -7,6 +7,7 @@ import { CircularProgressComponent } from '../../../shared/circular-progress/cir
 import { ListWorksComponent } from '../../works/list-works/list-works.component';
 import { ListMediasComponent } from '../../medias/list-medias/list-medias.component';
 import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
+import { FinancialStatusComponent } from './financial-status/financial-status.component';
 
 @Component({
   selector: 'app-project-details',
@@ -22,7 +23,8 @@ import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
     CircularProgressComponent,
     RouterOutlet,
     ListWorksComponent,
-    ListMediasComponent
+    ListMediasComponent,
+    FinancialStatusComponent
   ]
 })
 export class ProjectDetailsComponent implements OnInit {

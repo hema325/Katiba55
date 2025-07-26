@@ -133,6 +133,17 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(works));
         }
 
+        [HttpGet("getDetailedWithBOQByProjectId")]
+        public async Task<IActionResult> GetDetailedWithBOQByProjectIdAsync([FromQuery] int projectId)
+        {
+            var works = await _context.Works
+                .Where(w => w.ProjectId == projectId)
+                .ProjectTo<WorkWithDetailedBOQDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return Response(ResultFactory.Ok(works));
+        }
+
         [HttpGet("reportByProjectId")]
         public async Task<IActionResult> GetReportByProjectIdAsync([FromQuery] int projectId)
         {
