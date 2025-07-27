@@ -76,7 +76,12 @@ export class WorksCreateComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم إضافة العمل بنجاح!', 'success');
-          this.router.navigate([`/projects/${this.projectId}`], { fragment: 'works' });
+          if (this.projectId) {
+            this.router.navigate([`/projects/${this.projectId}`], { fragment: 'works' });
+          }
+          else {
+            this.router.navigate(['/']);
+          }
         }
       });
   }

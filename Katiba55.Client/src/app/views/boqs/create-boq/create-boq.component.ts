@@ -52,7 +52,10 @@ export class CreateBoqComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم إضافة المقايسة بنجاح!', 'success');
-          this.router.navigate([`/works/${this.workId}`], { fragment: 'boqs' });
+          if (this.workId)
+            this.router.navigate([`/works/${this.workId}`], { fragment: 'boqs' });
+          else
+            this.router.navigate(['/']);
         }
       });
   }

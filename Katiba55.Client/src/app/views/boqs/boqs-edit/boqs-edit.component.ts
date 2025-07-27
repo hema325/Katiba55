@@ -65,7 +65,10 @@ export class BoqsEditComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم تعديل المقايسة بنجاح!', 'success');
-          this.router.navigate([`/works/${this.workId}`], { fragment: 'boqs' });
+          if (this.workId)
+            this.router.navigate(['/works', this.workId], { fragment: 'boqs' });
+          else
+            this.router.navigate(['/boqs']);
         }
       });
   }

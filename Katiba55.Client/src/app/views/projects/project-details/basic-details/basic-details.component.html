@@ -1,18 +1,56 @@
 <section id="basic-details">
   <!-- عنوان تفاصيل المشروع -->
-  <h6 class="text-secondary mb-4">
-    <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
-    تفاصيل المشروع
-  </h6>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="text-secondary mb-0">
+      <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
+      تفاصيل المشروع
+    </h6>
+    <div>
+      <button type="button" class="btn btn-danger me-2" (click)="fireDeleteConfirmationModal()">
+        @if(isDeleting) {
+        <c-spinner aria-hidden="true" size="sm"></c-spinner>
+        }
+        @else {
+        <i class="fa-solid fa-trash"></i>
+        }
+      </button>
+      <button [routerLink]="['/projects', projectId, 'edit']" type="button" class="btn btn-secondary">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+    </div>
+  </div>
 
   <!-- كارد نسبة التنفيذ -->
-  <c-card class="mb-4 shadow-sm border-0 p-2">
+  <!-- <c-card class="mb-4 shadow-sm border-0 p-2">
     <c-card-body>
       <div class="d-flex justify-content-center align-items-center flex-column">
         <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
         <app-circular-progress [percent]="project?.executionPercent || 0" color="#31a751" />
         <div class="mt-2 text-muted">
           آخر تحديث: <span dir="ltr">{{(project?.executionDate | date:'dd-MM-yyyy') || '-'}}</span>
+        </div>
+      </div>
+    </c-card-body>
+  </c-card> -->
+
+  <c-card class="mb-5 border-0 shadow-sm bg-white rounded-4 position-relative">
+    <c-card-body>
+      <div class="d-flex flex-column align-items-center justify-content-center p-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <h5 class="fw-bold text-success mb-0">المنفذ</h5>
+        </div>
+        <!-- الحالة badge absolute -->
+        <c-badge [color]="getExecutionStatusBadgeColor(project?.executionStatus)"
+          class=" position-absolute top-0 end-0 m-3 px-3 py-2 shadow-sm" style="z-index:2;">
+          {{ (project?.executionStatus | executionStatus) || '-' }}
+        </c-badge>
+        <div class="mb-3">
+          <app-circular-progress [percent]="project?.executionPercent || 0" color="#31a751"
+            size="120"></app-circular-progress>
+        </div>
+        <div class="text-muted d-flex align-items-center gap-1">
+          <span>آخر تحديث:</span>
+          <span dir="ltr" class="fw-semibold">{{ (project?.executionDate | date:'dd-MM-yyyy') || '-' }}</span>
         </div>
       </div>
     </c-card-body>
@@ -206,3 +244,7 @@
     </c-card>
   </div>
 </section>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />

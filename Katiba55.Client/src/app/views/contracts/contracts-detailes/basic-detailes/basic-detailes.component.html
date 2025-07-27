@@ -1,10 +1,26 @@
 <section id="basic-details">
   <!-- سكشن تفاصيل العقد -->
   <section id="contract-details">
-    <h6 class="text-secondary mb-3">
-      <i class="fa-solid fa-file-contract text-warning me-2"></i>
-      تفاصيل العقد
-    </h6>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h6 class="text-secondary mb-0">
+        <i class="fa-solid fa-file-contract text-warning me-2"></i>
+        تفاصيل العقد
+      </h6>
+      <div>
+        <button type="button" class="btn btn-danger me-2" (click)="fireDeleteConfirmationModal()">
+          @if(isDeleting) {
+          <c-spinner aria-hidden="true" size="sm"></c-spinner>
+          }
+          @else {
+          <i class="fa-solid fa-trash"></i>
+          }
+        </button>
+        <button [routerLink]="['/contracts', id, 'edit']" [queryParams]="{ boqId: boqId }" type="button"
+          class="btn btn-secondary">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+      </div>
+    </div>
     <div class="row g-3 mb-5">
       <div class="col-12 col-md-6 col-lg-4">
         <c-card class="h-100 shadow-sm border-0 rounded-3">
@@ -41,3 +57,7 @@
       </div>
     </div>
   </section>
+
+  <!-- modals -->
+  <app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+    (confirmation)="handleDeleteConfirmationModalChange($event)" />

@@ -78,13 +78,19 @@ export class MediasCreateComponent implements OnInit {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم إضافة الملف بنجاح!', 'success');
 
-          if (this.referenceType === MediaReferenceTypes.Project) {
-            this.router.navigate([`/projects`, this.referenceId], { fragment: 'medias' });
-          } else if (this.referenceType === MediaReferenceTypes.Work) {
-            this.router.navigate([`/works`, this.referenceId], { fragment: 'medias' });
-          } else if (this.referenceType === MediaReferenceTypes.Item) {
-            this.router.navigate([`/items`, this.referenceId], { fragment: 'medias  ' });
+          if (this.referenceId && this.referenceType) {
+            if (this.referenceType === MediaReferenceTypes.Project) {
+              this.router.navigate([`/projects`, this.referenceId], { fragment: 'medias' });
+            } else if (this.referenceType === MediaReferenceTypes.Work) {
+              this.router.navigate([`/works`, this.referenceId], { fragment: 'medias' });
+            } else if (this.referenceType === MediaReferenceTypes.Item) {
+              this.router.navigate([`/items`, this.referenceId], { fragment: 'medias  ' });
+            }
           }
+          else {
+            this.router.navigate(['/']);
+          }
+
         }
       });
   }

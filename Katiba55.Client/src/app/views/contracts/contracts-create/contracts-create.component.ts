@@ -37,10 +37,12 @@ export class ContractsCreateComponent implements OnInit {
   });
 
   boqId: number = 0;
+  workId: number = 0;
   isSubmitting: boolean = false;
 
   ngOnInit() {
     this.boqId = Number(this.activatedRoute.snapshot.queryParamMap.get('boqId'));
+    this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
   }
 
   onSubmit(): void {
@@ -51,7 +53,10 @@ export class ContractsCreateComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم إضافة العقد بنجاح!', 'success');
-          this.router.navigate([`/boqs/${this.boqId}`], { fragment: 'contract-details' });
+          if (this.boqId)
+            this.router.navigate([`/boqs/${this.boqId}`], { queryParams: { workId: this.workId }, fragment: 'contract-details' });
+          else
+            this.router.navigate(['/']);
         }
       });
   }

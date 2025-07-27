@@ -1,14 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ProgressComponent, RowComponent, TableDirective, WidgetStatFComponent } from '@coreui/angular';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, SpinnerComponent } from '@coreui/angular';
 import { CircularProgressComponent } from '../../../../shared/circular-progress/circular-progress.component';
-import { PaginatorComponent } from '../../../../shared/paginator/paginator.component';
-import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { ProjectsService } from '../../../../services/projects.service';
 import { ProjectDetailed } from '../../../../models/projects/project-detailed';
 import { finalize, first } from 'rxjs';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ToasterService } from 'src/app/services/toaster.service';
+import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
+import { ExecutionStatusPipe } from 'src/app/pipes/execution-status.pipe';
+import { getExecutionStatusBadgeColor } from 'src/app/helpers/execution-status.helper';
 
 @Component({
   selector: 'app-basic-details',
@@ -21,7 +23,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     RouterLink,
     CircularProgressComponent,
     DatePipe,
-    DecimalPipe
+    DecimalPipe,
+    SpinnerComponent,
+    DeleteConfirmationModalComponent,
+    BadgeComponent,
+    ExecutionStatusPipe,
+    BadgeComponent
   ]
 })
 export class BasicDetailsComponent implements OnInit {
@@ -29,10 +36,14 @@ export class BasicDetailsComponent implements OnInit {
   private projectsService: ProjectsService = inject(ProjectsService);
   private activatedRoute = inject(ActivatedRoute);
   private santitizer: DomSanitizer = inject(DomSanitizer);
+  private toasterService = inject(ToasterService);
+  private router: Router = inject(Router);
   sanitizedMapUrl: SafeResourceUrl | null = null;
   project: ProjectDetailed | null = null;
   projectId: number = 0;
   isLoading: boolean = false;
+  deleteConfirmationModalVisible: boolean = false;
+  isDeleting: boolean = false;
 
   getSanitizedMapUrl(latitude: any, longitude: any): SafeResourceUrl | null {
     if (latitude && longitude) {
@@ -56,5 +67,31 @@ export class BasicDetailsComponent implements OnInit {
         this.project = response.data;
         this.sanitizedMapUrl = this.getSanitizedMapUrl(this.project.latitude, this.project.longitude);
       });
+  }
+
+  fireDeleteConfirmationModal() {
+    this.isDeleting = true;
+    this.deleteConfirmationModalVisible = true;
+  }
+
+  handleDeleteConfirmationModalChange(event: boolean) {
+    if (event) {
+      this.projectsService
+        .delete(this.projectId)
+        .pipe(finalize(() => this.isDeleting = false), first())
+        .subscribe(response => {
+          if (response.success) {
+            this.toasterService.showToast('نجاح', 'تم حذف المشروع بنجاح!', 'success');
+            this.router.navigate(['/projects']);
+          }
+        });
+    }
+    else {
+      this.isDeleting = false
+    }
+  }
+
+  getExecutionStatusBadgeColor(status: any) {
+    return getExecutionStatusBadgeColor(status);
   }
 }

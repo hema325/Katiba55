@@ -87,7 +87,10 @@ export class ItemsEditComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم تعديل البند بنجاح!', 'success');
-          this.router.navigate([`/works/${this.workId}`], { fragment: 'items' });
+          if (this.workId)
+            this.router.navigate([`/works/${this.workId}`], { fragment: 'items' });
+          else
+            this.router.navigate(['/']);
         }
       });
   }

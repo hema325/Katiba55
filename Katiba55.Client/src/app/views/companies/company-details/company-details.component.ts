@@ -1,12 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, RowComponent } from '@coreui/angular';
+import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, RowComponent, SpinnerComponent } from '@coreui/angular';
 import { CompaniesService } from '../../../services/companies.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Company } from '../../../models/companies/company';
 import { finalize, first } from 'rxjs';
 import { CompanyStatusPipe } from '../../../pipes/company-status.pipe';
 import { Environment } from '../../../static-data/environment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DeleteConfirmationModalComponent } from 'src/app/shared/delete-confirmation-modal/delete-confirmation-modal.component';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-company-details',
@@ -21,7 +23,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     CardFooterComponent,
     BadgeComponent,
     ButtonDirective,
-    CompanyStatusPipe
+    CompanyStatusPipe,
+    RouterLink,
+    SpinnerComponent,
+    DeleteConfirmationModalComponent
   ]
 })
 export class CompanyDetailsComponent implements OnInit {
@@ -29,10 +34,14 @@ export class CompanyDetailsComponent implements OnInit {
   private companiesService: CompaniesService = inject(CompaniesService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private santitizer: DomSanitizer = inject(DomSanitizer);
+  private toasterService = inject(ToasterService);
+  private router: Router = inject(Router);
   sanitizedMapUrl: SafeResourceUrl | null = null;
   company: Company | null = null;
   companyId: number = 0;
   isLoading: boolean = false;
+  deleteConfirmationModalVisible: boolean = false;
+  isDeleting: boolean = false;
 
   getSanitizedMapUrl(latitude: any, longitude: any): SafeResourceUrl | null {
     if (latitude && longitude) {
@@ -60,4 +69,26 @@ export class CompanyDetailsComponent implements OnInit {
       });
   }
 
+
+  fireDeleteConfirmationModal() {
+    this.isDeleting = true;
+    this.deleteConfirmationModalVisible = true;
+  }
+
+  handleDeleteConfirmationModalChange(event: boolean) {
+    if (event) {
+      this.companiesService
+        .delete(this.companyId)
+        .pipe(finalize(() => this.isDeleting = false), first())
+        .subscribe(response => {
+          if (response.success) {
+            this.toasterService.showToast('نجاح', 'تم حذف الشركة بنجاح!', 'success');
+            this.router.navigate(['/companies']);
+          }
+        });
+    }
+    else {
+      this.isDeleting = false
+    }
+  }
 }

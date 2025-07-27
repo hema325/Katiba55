@@ -1,8 +1,24 @@
 <!-- بيانات الشركة الأساسية -->
-<h6 class="text-secondary mb-3">
-  <i class="fa-solid fa-circle-info text-primary me-2"></i>
-  البيانات الأساسية
-</h6>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h6 class="text-secondary mb-0">
+    <i class="fa-solid fa-circle-info text-primary me-2"></i>
+    البيانات الأساسية
+  </h6>
+  <div>
+    <button type="button" class="btn btn-danger me-2" (click)="fireDeleteConfirmationModal()">
+      @if(isDeleting) {
+      <c-spinner aria-hidden="true" size="sm"></c-spinner>
+      }
+      @else {
+      <i class="fa-solid fa-trash"></i>
+      }
+    </button>
+    <button [routerLink]="['/companies', companyId, 'edit']" type="button" class="btn btn-secondary">
+      <i class="fa-solid fa-pen"></i>
+    </button>
+  </div>
+</div>
+
 <div class="row g-3 mb-4">
   <!-- اسم الشركة -->
   <div class="col-12 col-md-6 col-lg-4">
@@ -140,3 +156,7 @@
     </c-card-body>
   </c-card>
 </div>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />

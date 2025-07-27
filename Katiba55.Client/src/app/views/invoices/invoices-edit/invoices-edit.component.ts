@@ -65,7 +65,10 @@ export class InvoicesEditComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم تعديل المستخلص بنجاح!', 'success');
-          this.router.navigate([`/contracts/${this.contractId}`], { fragment: 'invoices' });
+          if (this.contractId)
+            this.router.navigate([`/contracts/${this.contractId}`], { fragment: 'invoices' });
+          else
+            this.router.navigate(['/']);
         }
       });
   }

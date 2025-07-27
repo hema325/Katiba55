@@ -1,9 +1,25 @@
 <section id="basic-details">
   <!-- عنوان تفاصيل العمل -->
-  <h6 class="text-secondary mb-4">
-    <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
-    تفاصيل العمل
-  </h6>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="text-secondary mb-0">
+      <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
+      تفاصيل العمل
+    </h6>
+    <div>
+      <button type="button" class="btn btn-danger me-2" (click)="fireDeleteConfirmationModal()">
+        @if(isDeleting) {
+        <c-spinner aria-hidden="true" size="sm"></c-spinner>
+        }
+        @else {
+        <i class="fa-solid fa-trash"></i>
+        }
+      </button>
+      <button [routerLink]="['/works', workId, 'edit']" [queryParams]="{projectId: projectId}" type="button"
+        class="btn btn-secondary">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+    </div>
+  </div>
 
   <!-- كارد نسبة التنفيذ -->
   <c-card class="mb-5 border-0 shadow-sm bg-white rounded-4 position-relative">
@@ -232,3 +248,7 @@
     </c-card>
   </div>
 </section>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />

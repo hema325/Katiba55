@@ -35,11 +35,14 @@ export class BoqsDetailesComponent implements OnInit {
   boq: BOQ | null = null;
   contract: Contract | null = null;
   boqId: number = 0;
+  workId: number = 0;
   deleteConfirmationModalVisible: boolean = false;
-  deletedItem: Contract | null = null;
+  isDeletingBoq: boolean = false;
+  isDeletingContract: boolean = false;
 
   ngOnInit() {
     this.boqId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
     this.loadBoq();
     this.loadContract();
   }
@@ -65,25 +68,41 @@ export class BoqsDetailesComponent implements OnInit {
       });
   }
 
-  fireDeleteConfirmationModal(contract: Contract) {
+  deleteBoq() {
+    this.isDeletingBoq = true;
     this.deleteConfirmationModalVisible = true;
-    this.deletedItem = contract;
   }
-
+  deleteContract() {
+    this.isDeletingContract = true;
+    this.deleteConfirmationModalVisible = true;
+  }
   handleDeleteConfirmationModalChange(event: boolean) {
     if (event) {
-      this.contractsService.delete(this.deletedItem!.id)
-        .pipe(finalize(() => this.deletedItem = null), first())
-        .subscribe(response => {
-          if (response.success) {
-            this.toasterService.showToast('نجاح', 'تم حذف العمل بنجاح!', 'success');
-            this.contract = null;
-          }
-        });
-    }
-    else {
-      this.deletedItem = null;
+      if (this.isDeletingBoq) {
+        this.boqsService.delete(this.boqId)
+          .pipe(finalize(() => this.isDeletingBoq = false), first())
+          .subscribe(response => {
+            if (response.success) {
+              this.toasterService.showToast('نجاح', 'تم حذف البند بنجاح!', 'success');
+              if (this.workId)
+                this.router.navigate(['/works', this.workId], { fragment: 'boqs' });
+              else
+                this.router.navigate(['/']);
+            }
+          });
+      } else if (this.isDeletingContract && this.contract) {
+        this.contractsService.delete(this.contract.id)
+          .pipe(finalize(() => this.isDeletingContract = false), first())
+          .subscribe(response => {
+            if (response.success) {
+              this.toasterService.showToast('نجاح', 'تم حذف العقد بنجاح!', 'success');
+              this.contract = null;
+            }
+          });
+      }
+    } else {
+      this.isDeletingBoq = false;
+      this.isDeletingContract = false;
     }
   }
-
 }

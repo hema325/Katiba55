@@ -1,8 +1,26 @@
 <section id="basic-details">
-  <h6 class="text-secondary mb-4">
-    <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
-    تفاصيل المقايسة
-  </h6>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="text-secondary mb-0">
+      <i class="fa-solid fa-clipboard-list text-warning me-2"></i>
+      تفاصيل المقايسة
+    </h6>
+    <div>
+      <button type="button" class="btn btn-danger me-2" (click)="deleteBoq()">
+        @if(isDeletingBoq) {
+        <c-spinner aria-hidden="true" size="sm"></c-spinner>
+        }
+        @else {
+        <i class="fa-solid fa-trash"></i>
+        }
+      </button>
+      <button [routerLink]="['/boqs', boqId, 'edit']" [queryParams]="{workId: workId}" type="button"
+        class="btn btn-secondary">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+    </div>
+  </div>
+
   <div class="row g-3 mb-5">
     <!-- كارد عنوان المقايسة -->
     <div class="col-12">
@@ -61,24 +79,26 @@
     </h6>
     <div class="d-flex gap-2">
       @if(contract) {
-      <button [routerLink]="['/contracts', contract.id]" type="button" class="btn btn-primary">
-        <i class="fa-solid fa-eye"></i>
-      </button>
-      <button type="button" class="btn btn-danger" (click)="fireDeleteConfirmationModal(contract)">
-        @if(deletedItem?.id == contract.id) {
+      <button type="button" class="btn btn-danger" (click)="deleteContract()">
+        @if(isDeletingContract) {
         <c-spinner aria-hidden="true" size="sm"></c-spinner>
         }
         @else {
         <i class="fa-solid fa-trash"></i>
         }
       </button>
-      <button [routerLink]="['/contracts', contract?.id, 'edit']" [queryParams]="{boqId: boqId}" type="button"
-        class="btn btn-secondary">
+      <button [routerLink]="['/contracts', contract?.id, 'edit']" [queryParams]="{boqId: boqId, workId: workId}"
+        type="button" class="btn btn-secondary">
         <i class="fa-solid fa-pen"></i>
+      </button>
+      <button [routerLink]="['/contracts', contract.id]" [queryParams]="{boqId: boqId}" type="button"
+        class="btn btn-primary">
+        <i class="fa-solid fa-eye"></i>
       </button>
       }
       @else {
-      <button [routerLink]="['/contracts/create']" [queryParams]="{boqId: boqId}" type="button" class="btn btn-primary">
+      <button [routerLink]="['/contracts/create']" [queryParams]="{boqId: boqId, workId: workId}" type="button"
+        class="btn btn-primary">
         <i class="fa-solid fa-plus"></i>
       </button>
       }
