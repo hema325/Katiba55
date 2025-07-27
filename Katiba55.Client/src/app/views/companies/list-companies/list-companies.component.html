@@ -12,9 +12,14 @@
   </div>
 
   @if(isLoading) {
+  <div class="w-100 d-flex justify-content-center align-items-center py-5">
+    <c-spinner color="primary" />
+  </div>
   }
   @else if (companies.length === 0) {
-
+  <div class="alert alert-info">
+    <i class="fa-solid fa-info-circle me-2"></i>لا توجد شركات لعرضها.
+  </div>
   }
   @else {
   @for(company of companies; track company.id) {

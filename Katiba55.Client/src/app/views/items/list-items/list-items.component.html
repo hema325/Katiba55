@@ -9,7 +9,19 @@
           class="fa-solid fa-plus"></i></button>
     </div>
   </div>
-
+  @if(isLoading)
+  {
+  <div class="w-100 d-flex justify-content-center align-items-center py-5">
+    <c-spinner color="primary" />
+  </div>
+  }
+  @else if(items.length == 0) {
+  <div class="alert alert-info">
+    <i class="fa-solid fa-info-circle me-2"></i>لا توجد بنود لعرضها.
+  </div>
+  }
+  @else
+  {
   @for(item of items; track item.id) {
   <div class="col-12 col-md-6 col-lg-4">
     <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3">
@@ -58,6 +70,7 @@
       </c-card-body>
     </c-card>
   </div>
+  }
   }
 </div>
 

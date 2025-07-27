@@ -3,13 +3,15 @@ import { BOQsService } from '../../../../services/BOQs.service';
 import { BoqDetailed } from '../../../../models/boqs/boq-detailed';
 import { finalize, first } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
+import { SpinnerComponent } from '@coreui/angular';
 
 @Component({
   selector: 'app-financial-status',
   templateUrl: './financial-status.component.html',
   styleUrls: ['./financial-status.component.css'],
   imports: [
-    DecimalPipe
+    DecimalPipe,
+    SpinnerComponent
   ]
 })
 export class FinancialStatusComponent implements OnInit {

@@ -1,8 +1,20 @@
-@if(boqs && boqs.length > 0) {
 <h6 class="text-secondary mb-4">
   <i class="fa-solid fa-sack-dollar text-primary me-2"></i>
   الموقف المالي
 </h6>
+
+@if(isLoading)
+{
+<div class="w-100 d-flex justify-content-center align-items-center py-5">
+  <c-spinner color="primary" />
+</div>
+}
+@else if(boqs.length == 0) {
+<div class="alert alert-info">
+  <i class="fa-solid fa-info-circle me-2"></i>لا يوجد موقف مالى لعرضة.
+</div>
+}
+@else {
 <div class="overflow-auto mb-5">
   <table class="table table-bordered align-middle text-center shadow-sm rounded-4 overflow-hidden">
     <thead class="table-secondary">

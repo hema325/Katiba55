@@ -15,6 +15,20 @@
   </div>
 
   <div class="row g-3">
+
+    @if(isLoading)
+    {
+    <div class="w-100 d-flex justify-content-center align-items-center py-5">
+      <c-spinner color="primary" />
+    </div>
+    }
+    @else if(invoices.length == 0) {
+    <div class="alert alert-info">
+      <i class="fa-solid fa-info-circle me-2"></i>لا توجد مستخلصات لعرضها.
+    </div>
+    }
+    @else
+    {
     @for(invoice of invoices; track invoice.id) {
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3">
@@ -38,10 +52,10 @@
           </div>
           <div class="d-flex gap-2 w-100 mt-3 justify-content-center">
             <!-- <button [routerLink]="['/invoices', invoice.id]"
-              class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
-              title="عرض التفاصيل">
-              <i class="fa-solid fa-eye"></i>
-            </button> -->
+                          class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+                          title="عرض التفاصيل">
+                          <i class="fa-solid fa-eye"></i>
+                        </button> -->
             <button [routerLink]="['/invoices', invoice.id, 'edit']" [queryParams]="{contractId: contractId}"
               class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
               title="تعديل">
@@ -61,6 +75,7 @@
         </c-card-body>
       </c-card>
     </div>
+    }
     }
   </div>
 </div>

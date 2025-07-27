@@ -10,6 +10,17 @@
     </div>
   </div>
 
+  @if(isLoading) {
+  <div class="w-100 d-flex justify-content-center align-items-center py-5">
+    <c-spinner color="primary" />
+  </div>
+  }
+  @else if (officers.length === 0) {
+  <div class="alert alert-info">
+    <i class="fa-solid fa-info-circle me-2"></i>لا يوجد ضباط لعرضهم.
+  </div>
+  }
+  @else {
   @for(officer of officers; track officer.id) {
   <div class="col-12 col-md-6 col-lg-4 col-xl-4">
     <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3 card-animation">
@@ -55,7 +66,7 @@
     </c-card>
   </div>
   }
-
+  }
 
 </div>
 

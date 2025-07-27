@@ -3,6 +3,7 @@ import { WorksService } from '../../../../services/works.service';
 import { WorkWithDetailedBoq } from '../../../../models/works/work-with-detailed-boq';
 import { finalize, first } from 'rxjs';
 import { DecimalPipe, JsonPipe } from '@angular/common';
+import { SpinnerComponent } from '@coreui/angular';
 
 @Component({
   selector: 'app-financial-status',
@@ -10,7 +11,7 @@ import { DecimalPipe, JsonPipe } from '@angular/common';
   styleUrls: ['./financial-status.component.css'],
   imports: [
     DecimalPipe,
-    JsonPipe
+    SpinnerComponent
   ]
 })
 export class FinancialStatusComponent implements OnInit {

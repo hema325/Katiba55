@@ -14,7 +14,18 @@
   </div>
 
   <div class="row g-3">
-
+    @if(isLoading)
+    {
+    <div class="w-100 d-flex justify-content-center align-items-center py-5">
+      <c-spinner color="primary" />
+    </div>
+    }
+    @else if(works.length == 0) {
+    <div class="alert alert-info">
+      <i class="fa-solid fa-info-circle me-2"></i>لا توجد اعمال لعرضها.
+    </div>
+    }
+    @else {
     @for(work of works; track work.id) {
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3">
@@ -67,6 +78,7 @@
         </c-card-body>
       </c-card>
     </div>
+    }
     }
   </div>
 </div>

@@ -15,7 +15,18 @@
 
   <div class="row g-4">
 
-
+    @if(isLoading)
+    {
+    <div class="w-100 d-flex justify-content-center align-items-center py-5">
+      <c-spinner color="primary" />
+    </div>
+    }
+    @else if(medias.length == 0) {
+    <div class="alert alert-info">
+      <i class="fa-solid fa-info-circle me-2"></i>لا توجد وسائط لعرضها.
+    </div>
+    }
+    @else {
     @for(media of medias; track media.id) {
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 border-0 rounded-4 shadow-sm bg-white overflow-hidden p-0">
@@ -98,6 +109,8 @@
       </c-card>
     </div>
     }
+    }
+
   </div>
 </div>
 
