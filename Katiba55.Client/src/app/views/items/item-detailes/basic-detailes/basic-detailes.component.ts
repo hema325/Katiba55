@@ -1,13 +1,14 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
+import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
 import { finalize, first } from 'rxjs';
 import { ExecutionStatus } from 'src/app/enums/execution-status.enum';
 import { ItemDetailed } from 'src/app/models/items/item-detailed';
-import { ExecutionStatusPipe } from 'src/app/pipes/execution-status.pipe';
 import { ItemsService } from 'src/app/services/items.service';
 import { CircularProgressComponent } from 'src/app/shared/circular-progress/circular-progress.component';
+import { getExecutionStatusBadgeColor } from '../../../../helpers/execution-status.helper';
+import { ExecutionStatusPipe } from '../../../../pipes/execution-status.pipe';
 
 @Component({
   selector: 'app-basic-detailes',
@@ -20,7 +21,8 @@ import { CircularProgressComponent } from 'src/app/shared/circular-progress/circ
     ExecutionStatusPipe,
     DatePipe,
     DecimalPipe,
-    CircularProgressComponent
+    CircularProgressComponent,
+    BadgeComponent
   ]
 })
 export class BasicDetailesComponent implements OnInit {
@@ -42,6 +44,10 @@ export class BasicDetailesComponent implements OnInit {
     this.itemsService.getDetailedById(this.itemId)
       .pipe(finalize(() => this.isLoading = false), first())
       .subscribe(response => this.item = response.data);
+  }
+
+  getExecutionStatusBadgeColor(status: any): string {
+    return getExecutionStatusBadgeColor(status);
   }
 
 }

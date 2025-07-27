@@ -4,13 +4,13 @@
       <!-- عنوان الصفحة -->
       <c-card class="mb-4 border-0 shadow-sm bg-success bg-opacity-10">
         <c-card-body class="d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3">
-          <span class="fw-bold fs-4 text-success text-center mb-1">إضافة بند جديد</span>
-          <div class="text-secondary text-center small">يرجى تعبئة بيانات البند بدقة لضمان نتائج أفضل.</div>
+          <span class="fw-bold fs-4 text-success text-center mb-1">تعديل بيانات البند</span>
+          <div class="text-secondary text-center small">يمكنك تعديل بيانات البند ثم حفظ التغييرات.</div>
         </c-card-body>
       </c-card>
 
       <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-        <!-- بيانات العمل -->
+        <!-- بيانات البند -->
         <c-card class="mb-4 border-0 shadow-sm">
           <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
             <div class="d-flex align-items-center">
@@ -22,10 +22,6 @@
             <div class="row g-3">
               <div class="col-12">
                 <app-text-input label="اسم البند" placeholder="ادخل اسم البند" formControlName="name" required />
-              </div>
-              <div class="col-12 ">
-                <app-text-input label="القيمة الكلية" placeholder="ادخل القيمة الكلية" formControlName="totalValue"
-                  type="number" />
               </div>
             </div>
           </c-card-body>
@@ -75,18 +71,21 @@
             </c-card-header>
             <c-card-body class="pt-0 pb-3 px-3">
               <div class="row g-3">
-
-                <div class="col-12">
+                <div class="col-12 col-md-6">
+                  <app-text-input label="القيمة الكلية" placeholder="ادخل القيمة الكلية" formControlName="totalValue"
+                    type="number" />
+                </div>
+                <div class="col-12 col-md-6">
                   <app-text-input label="القيمة المنفذة" placeholder="ادخل القيمة المنفذة"
                     formControlName="executedValue" type="number" />
                 </div>
                 <div class="col-12 col-md-6">
-                  <app-text-input label="النسبة المئوية للوزن النسبي" placeholder="ادخل النسبة المئوية للوزن النسبي"
-                    formControlName="relativeWeightPercent" type="number" [min]="0" [max]="100" />
+                  <app-text-input label="القيمة المتبقية" placeholder="ادخل القيمة المتبقية"
+                    formControlName="remainingValue" type="number" />
                 </div>
                 <div class="col-12 col-md-6">
-                  <app-text-input label="النسبة المئوية للتنفيذ النسبي" placeholder="ادخل النسبة المئوية للتنفيذ النسبي"
-                    formControlName="relativeExecutionPercent" type="number" [min]="0" [max]="100" />
+                  <app-text-input label="الوزن النسبي" placeholder="ادخل الوزن النسبي"
+                    formControlName="relativeWeightPercent" type="number" [min]="0" [max]="100" />
                 </div>
               </div>
             </c-card-body>
@@ -123,7 +122,6 @@
           </c-card-body>
         </c-card>
 
-
         <!-- الملاحظات -->
         <c-card class="mb-4 border-0 shadow-sm">
           <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
@@ -146,7 +144,7 @@
           <c-card-body class="p-4">
             <button type="submit" [disabled]="isSubmitting || itemForm.invalid"
               class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
-              aria-label="إضافة عمل جديد">
+              aria-label="تعديل بيانات البند">
               @if(isSubmitting) {
               <c-spinner aria-hidden="true" size="sm"></c-spinner>
               <span class="px-1">جارى حفظ التغيرات</span>

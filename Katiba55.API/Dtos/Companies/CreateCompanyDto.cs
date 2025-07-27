@@ -6,9 +6,9 @@ namespace Katiba55.API.Dtos.Companies
     {
         public string Name { get; set; }
         public string? RepresentativeName { get; set; }
-        [EmailAddress]
+        //[EmailAddress]
         public string? Email { get; set; }
-        [Phone]
+        //[Phone]
         public string? Phone { get; set; }
         [EnumDataType(typeof(CompanyStatus))]
         public string Status { get; set; }

@@ -11,10 +11,10 @@ namespace Katiba55.API.Dtos.WorkItems
         public DateTime? ActualEndDate { get; set; }
         public decimal? TotalValue { get; set; }
         public decimal? ExecutedValue { get; set; }
+        public decimal? RemainingValue { get; set; }
         public decimal? RelativeWeightPercent { get; set; }
         public decimal? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
-        public decimal? RelativeExecutionPercent { get; set; }
         public string? Notes { get; set; }
 
         [EnumDataType(typeof(ExecutionStatus))]

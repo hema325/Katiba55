@@ -7,10 +7,10 @@ export interface ItemDetailed {
     actualEndDate?: Date;
     totalValue?: number;
     executedValue?: number;
+    remainingValue?: number;
     relativeWeightPercent?: number;
     executionPercent?: number;
     executionDate?: Date;
-    relativeExecutionPercent?: number;
     executionStatus: string;
     notes?: string;
 }
