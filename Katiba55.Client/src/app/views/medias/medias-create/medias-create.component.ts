@@ -39,6 +39,7 @@ export class MediasCreateComponent implements OnInit {
   mediaForm = this.fb.group({
     name: ['', [Validators.required]],
     category: ['', [Validators.required]],
+    date: ['', [Validators.required]],
     file: [null, [Validators.required]]
   });
 
@@ -96,7 +97,7 @@ export class MediasCreateComponent implements OnInit {
       type: this.determineMediaType(mediaFormValue.file as any),
       referenceId: this.referenceId,
       referenceType: this.referenceType,
-      date: new Date(),
+      date: mediaFormValue.date,
       path: this.mediaPath,
       size: (mediaFormValue.file as any).size,
     }
