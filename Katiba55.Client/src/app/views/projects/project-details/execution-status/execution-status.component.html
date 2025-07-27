@@ -78,9 +78,9 @@
         <th rowspan="2">الشركة المسؤلة</th>
         <th rowspan="2">القيمة الكلية</th>
         <th rowspan="2">القيمة المنفذة</th>
+        <th rowspan="2">القيمة المتبقية</th>
         <th rowspan="2">الوزن النسبي</th>
         <th rowspan="2">نسبة التنفيذ</th>
-        <th rowspan="2">نسبة التنفيذ النسبي</th>
         <th rowspan="2">حالة التنفيذ</th>
         <th colspan="2">تاريخ البدء</th>
         <th colspan="2">تاريخ الانتهاء</th>
@@ -104,9 +104,9 @@
         </td>
         <td>{{ (work?.totalValue | number) || '-' }}</td>
         <td>{{ (work?.executedValue | number) || '-' }}</td>
+        <td>{{ (work?.remainingValue | number) || '-' }}</td>
         <td>{{ (work?.relativeWeightPercent != null ? work.relativeWeightPercent + '%' : '-') }}</td>
         <td>{{ (work?.executionPercent != null ? work.executionPercent + '%' : '-') }}</td>
-        <td>{{ (work?.relativeExecutionPercent != null ? work.relativeExecutionPercent + '%' : '-') }}</td>
         <td>{{ (work?.executionStatus | executionStatus) || '-' }}</td>
         <td>{{ work?.estimatedStartDate ? (work.estimatedStartDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ work?.actualStartDate ? (work.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>

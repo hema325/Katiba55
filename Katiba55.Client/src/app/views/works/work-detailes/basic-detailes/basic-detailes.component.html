@@ -6,13 +6,36 @@
   </h6>
 
   <!-- كارد نسبة التنفيذ -->
-  <c-card class="mb-4 shadow-sm border-0 p-2">
+  <!-- <c-card class="mb-4 shadow-sm border-0 p-2">
     <c-card-body>
       <div class="d-flex justify-content-center align-items-center flex-column">
         <h5 class="text-center mb-2 color-success mb-3">المنفذ</h5>
         <app-circular-progress [percent]="work?.executionPercent || 0" color="#31a751" />
         <div class="mt-2 text-muted">
           آخر تحديث: <span dir="ltr">{{(work?.executionDate | date:'dd-MM-yyyy') || '-'}}</span>
+        </div>
+      </div>
+    </c-card-body>
+  </c-card> -->
+
+  <c-card class="mb-5 border-0 shadow-sm bg-white rounded-4 position-relative">
+    <c-card-body>
+      <div class="d-flex flex-column align-items-center justify-content-center p-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <h5 class="fw-bold text-success mb-0">المنفذ</h5>
+        </div>
+        <!-- الحالة badge absolute -->
+        <c-badge [color]="getExecutionStatusBadgeColor(work!.executionStatus)"
+          class=" position-absolute top-0 end-0 m-3 px-3 py-2 shadow-sm" style="z-index:2;">
+          {{ (work?.executionStatus | executionStatus) || '-' }}
+        </c-badge>
+        <div class="mb-3">
+          <app-circular-progress [percent]="work?.executionPercent || 0" color="#31a751"
+            size="120"></app-circular-progress>
+        </div>
+        <div class="text-muted d-flex align-items-center gap-1">
+          <span>آخر تحديث:</span>
+          <span dir="ltr" class="fw-semibold">{{ (work?.executionDate | date:'dd-MM-yyyy') || '-' }}</span>
         </div>
       </div>
     </c-card-body>
@@ -95,13 +118,31 @@
         </c-card-body>
       </c-card>
     </div>
+    <!-- القيمة المتبقية -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 shadow-sm border-0 rounded-3">
+        <c-card-body class="d-flex align-items-center">
+          <i class="fa-solid fa-money-bill-wave text-danger fs-4 me-3"></i>
+          <div>
+            <div class="fw-bold">القيمة المتبقية</div>
+            <div class="text-muted small">
+              @if(work?.remainingValue) {
+              {{work?.remainingValue | number}} ج.م
+              } @else {
+              لا يوجد
+              }
+            </div>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
     <!-- النسبة المئوية للوزن النسبي -->
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 shadow-sm border-0 rounded-3">
         <c-card-body class="d-flex align-items-center">
           <i class="fa-solid fa-percent text-primary fs-4 me-3"></i>
           <div>
-            <div class="fw-bold">النسبة المئوية للوزن النسبي</div>
+            <div class="fw-bold">الوزن النسبي</div>
             <div class="text-muted small">
               @if(work?.relativeWeightPercent != null) {
               {{work?.relativeWeightPercent}}%
@@ -113,16 +154,16 @@
         </c-card-body>
       </c-card>
     </div>
-    <!-- النسبة المئوية للتنفيذ النسبي -->
+    <!-- نسبة التنفيذ -->
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 shadow-sm border-0 rounded-3">
         <c-card-body class="d-flex align-items-center">
-          <i class="fa-solid fa-percent text-info fs-4 me-3"></i>
+          <i class="fa-solid fa-chart-line text-success fs-4 me-3"></i>
           <div>
-            <div class="fw-bold">النسبة المئوية للتنفيذ النسبي</div>
+            <div class="fw-bold">نسبة التنفيذ</div>
             <div class="text-muted small">
-              @if(work?.relativeExecutionPercent != null) {
-              {{work?.relativeExecutionPercent}}%
+              @if(work?.executionPercent != null) {
+              {{work?.executionPercent}}%
               } @else {
               لا يوجد
               }

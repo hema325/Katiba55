@@ -1,12 +1,13 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
+import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
 import { first } from 'rxjs';
 import { WorkDetailed } from 'src/app/models/works/work-detailed';
-import { ExecutionStatusPipe } from 'src/app/pipes/execution-status.pipe';
 import { WorksService } from 'src/app/services/works.service';
 import { CircularProgressComponent } from 'src/app/shared/circular-progress/circular-progress.component';
+import { getExecutionStatusBadgeColor } from '../../../../helpers/execution-status.helper';
+import { ExecutionStatusPipe } from '../../../../pipes/execution-status.pipe';
 
 @Component({
   selector: 'app-basic-detailes',
@@ -20,7 +21,8 @@ import { CircularProgressComponent } from 'src/app/shared/circular-progress/circ
     DatePipe,
     ExecutionStatusPipe,
     RouterLink,
-    DecimalPipe
+    DecimalPipe,
+    BadgeComponent
   ]
 })
 export class BasicDetailesComponent implements OnInit {
@@ -42,4 +44,7 @@ export class BasicDetailesComponent implements OnInit {
       .subscribe(response => this.work = response.data);
   }
 
+  getExecutionStatusBadgeColor(status: string): string {
+    return getExecutionStatusBadgeColor(status);
+  }
 }

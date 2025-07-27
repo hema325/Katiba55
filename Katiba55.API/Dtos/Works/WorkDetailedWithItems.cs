@@ -13,10 +13,10 @@ namespace Katiba55.API.Dtos.Works
         public DateTime? ActualEndDate { get; set; }
         public decimal? TotalValue { get; set; }
         public decimal? ExecutedValue { get; set; }
+        public decimal? RemainingValue { get; set; }
         public decimal? RelativeWeightPercent { get; set; }
         public decimal? ExecutionPercent { get; set; }
         public DateTime? ExecutionDate { get; set; }
-        public decimal? RelativeExecutionPercent { get; set; }
         public string ExecutionStatus { get; set; }
         public string? Notes { get; set; }
         public CompanyBriefDto? Responsible { get; set; }
