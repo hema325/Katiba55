@@ -3,5 +3,5 @@ export interface BOQ {
     title: string;
     status: string;
     number: string;
-    value: number;
+    value?: number;
 }

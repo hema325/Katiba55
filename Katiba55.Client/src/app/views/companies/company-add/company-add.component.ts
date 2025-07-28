@@ -12,6 +12,7 @@ import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/te
 import { FileInputComponent } from '../../../shared/forms/file-input/file-input.component';
 import { finalize, first } from 'rxjs';
 import { CompanyStatus } from '../../../enums/company-status.enum';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-company-add',
@@ -82,7 +83,7 @@ export class CompanyAddComponent implements OnInit {
   }
 
   saveChanges(): void {
-    this.companiesService.create(this.getCreateCompanyModel()).pipe(finalize(() => this.isSubmitting = false), first())
+    this.companiesService.create(fillDefaultObjectPropertiesWithNull(this.getCreateCompanyModel())).pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم إضافة الشركة بنجاح!', 'success');

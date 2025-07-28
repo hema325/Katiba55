@@ -6,6 +6,7 @@ import { finalize, first } from 'rxjs';
 import { ToasterService } from 'src/app/services/toaster.service';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 import { BOQsService } from '../../../services/BOQs.service';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-boqs-edit',
@@ -31,7 +32,7 @@ export class BoqsEditComponent implements OnInit {
   boqForm = this.fb.group({
     title: ['', [Validators.required]],
     number: ['', [Validators.required]],
-    value: [null, [Validators.required, Validators.min(0)]],
+    value: [null, [Validators.min(0)]],
     status: ['', [Validators.required]]
   });
 
@@ -60,7 +61,7 @@ export class BoqsEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.boqsService.update(this.boqId, { ...this.boqForm.value })
+    this.boqsService.update(this.boqId, fillDefaultObjectPropertiesWithNull(this.boqForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

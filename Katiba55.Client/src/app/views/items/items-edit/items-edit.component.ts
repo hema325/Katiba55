@@ -10,6 +10,7 @@ import { ToasterService } from 'src/app/services/toaster.service';
 import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-input.component';
 import { TextAreaInputComponent } from 'src/app/shared/forms/text-area-input/text-area-input.component';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-items-edit',
@@ -82,7 +83,7 @@ export class ItemsEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.itemsService.update(this.itemId, { ...this.itemForm.value })
+    this.itemsService.update(this.itemId, fillDefaultObjectPropertiesWithNull(this.itemForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

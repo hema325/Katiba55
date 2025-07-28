@@ -6,6 +6,7 @@ import { ToasterService } from '../../../services/toaster.service';
 import { InvoicesService } from '../../../services/invoices.service';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-invoices-edit',
@@ -32,7 +33,7 @@ export class InvoicesEditComponent implements OnInit {
     type: ['', [Validators.required]],
     status: ['', [Validators.required]],
     value: [null, [Validators.required, Validators.min(0)]],
-    location: ['', [Validators.required]]
+    location: ['']
   });
 
   invoiceId: number = 0;
@@ -60,7 +61,7 @@ export class InvoicesEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.invoicesService.update(this.invoiceId, { ...this.invoiceForm.value })
+    this.invoicesService.update(this.invoiceId, fillDefaultObjectPropertiesWithNull(this.invoiceForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

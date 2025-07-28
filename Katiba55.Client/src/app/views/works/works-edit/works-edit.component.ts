@@ -12,6 +12,7 @@ import { TextAreaInputComponent } from 'src/app/shared/forms/text-area-input/tex
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 import { ExecutionStatus } from '../../../enums/execution-status.enum';
 import { formatInputDate } from '../../../helpers/date.helper';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-works-edit',
@@ -95,7 +96,7 @@ export class WorksEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.worksService.update(this.workId, { ...this.workForm.value })
+    this.worksService.update(this.workId, { ...fillDefaultObjectPropertiesWithNull(this.workForm.value) })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

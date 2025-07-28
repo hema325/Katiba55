@@ -5,6 +5,6 @@ export interface BoqDetailed {
     title: string;
     status: string;
     number: string;
-    value: number;
+    value?: number;
     contract: ContractDetailed;
 }

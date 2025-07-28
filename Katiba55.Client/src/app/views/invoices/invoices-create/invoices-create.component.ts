@@ -6,6 +6,7 @@ import { ToasterService } from '../../../services/toaster.service';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { InvoicesService } from '../../../services/invoices.service';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-invoices-create',
@@ -32,7 +33,7 @@ export class InvoicesCreateComponent implements OnInit {
     type: ['', [Validators.required]],
     status: ['', [Validators.required]],
     value: [null, [Validators.required, Validators.min(0)]],
-    location: ['', [Validators.required]]
+    location: ['']
   });
 
   contractId: number = 0;
@@ -45,7 +46,7 @@ export class InvoicesCreateComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     this.invoicesService
-      .create({ ...this.invoiceForm.value, contractId: this.contractId })
+      .create({ ...fillDefaultObjectPropertiesWithNull(this.invoiceForm.value), contractId: this.contractId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

@@ -8,7 +8,7 @@ namespace Katiba55.API.Dtos.BOQs
         public string Title { get; set; }
         public string Status { get; set; }
         public string Number { get; set; }
-        public decimal Value { get; set; }
+        public decimal? Value { get; set; }
         public ContractDetailedDto Contract { get; set; }
     }
 }

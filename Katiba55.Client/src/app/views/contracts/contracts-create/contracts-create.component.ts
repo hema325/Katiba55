@@ -7,6 +7,7 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 import { ContractsService } from '../../../services/contracts.service';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-contracts-create',
@@ -48,7 +49,7 @@ export class ContractsCreateComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     this.contractsService
-      .create({ ...this.contractForm.value, boqId: this.boqId })
+      .create({ ...fillDefaultObjectPropertiesWithNull(this.contractForm.value), boqId: this.boqId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

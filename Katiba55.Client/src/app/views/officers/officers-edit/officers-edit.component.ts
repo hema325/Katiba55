@@ -11,6 +11,7 @@ import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
 import { formatInputDate } from '../../../helpers/date.helper';
 import { OfficerStatus } from '../../../enums/officer-status.enum';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-officers-edit',
@@ -76,7 +77,7 @@ export class OfficersEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.officersService.update(this.officerId!, this.officerForm.value)
+    this.officersService.update(this.officerId!, fillDefaultObjectPropertiesWithNull(this.officerForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

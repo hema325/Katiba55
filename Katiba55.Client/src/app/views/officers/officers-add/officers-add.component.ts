@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { finalize, first } from 'rxjs';
 import { ToasterService } from '../../../services/toaster.service';
 import { OfficerStatus } from '../../../enums/officer-status.enum';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-officers-add',
@@ -58,7 +59,7 @@ export class OfficersAddComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.officersService.create(this.officerForm.value)
+    this.officersService.create(fillDefaultObjectPropertiesWithNull(this.officerForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

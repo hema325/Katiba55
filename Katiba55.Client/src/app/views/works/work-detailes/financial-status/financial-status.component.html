@@ -38,7 +38,7 @@
       <tr>
         <td>{{ boq.number }}</td>
         <td>{{ boq.title }}</td>
-        <td>{{ boq.value | number }}</td>
+        <td>{{ (boq.value | number) || '-' }}</td>
         <td>{{ boq.status }}</td>
         <td></td>
         <td></td>
@@ -63,7 +63,7 @@
         <td>{{ invoice.type }}</td>
         <td>{{ invoice.value | number }}</td>
         <td>{{ invoice.status }}</td>
-        <td>{{ invoice.location }}</td>
+        <td>{{ invoice.location || '-' }}</td>
       </tr>
       }
       }

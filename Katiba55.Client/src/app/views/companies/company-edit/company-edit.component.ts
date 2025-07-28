@@ -12,6 +12,7 @@ import { SelectInputComponent } from '../../../shared/forms/select-input/select-
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
 import { FileInputComponent } from '../../../shared/forms/file-input/file-input.component';
 import { CompanyStatus } from '../../../enums/company-status.enum';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-company-edit',
@@ -104,7 +105,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   saveChanges(): void {
-    this.companiesService.update(this.companyId, this.getUpdateCompanyModel()).pipe(finalize(() => this.isSubmitting = false), first())
+    this.companiesService.update(this.companyId, fillDefaultObjectPropertiesWithNull(this.getUpdateCompanyModel())).pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم تعديل الشركة بنجاح!', 'success');

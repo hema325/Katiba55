@@ -62,7 +62,7 @@
           <i class="fa-solid fa-coins text-warning fs-4 me-3"></i>
           <div>
             <div class="fw-bold">قيمة المقايسة</div>
-            <div class="text-muted small">{{ boq?.value | number }}</div>
+            <div class="text-muted small">{{ (boq?.value | number) || '-' }}</div>
           </div>
         </c-card-body>
       </c-card>

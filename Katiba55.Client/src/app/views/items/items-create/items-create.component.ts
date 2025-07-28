@@ -9,6 +9,7 @@ import { ToasterService } from 'src/app/services/toaster.service';
 import { SelectInputComponent } from 'src/app/shared/forms/select-input/select-input.component';
 import { TextAreaInputComponent } from 'src/app/shared/forms/text-area-input/text-area-input.component';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-items-create',
@@ -58,7 +59,7 @@ export class ItemsCreateComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.itemsService.create({ ...this.itemForm.value, workId: this.workId })
+    this.itemsService.create({ ...fillDefaultObjectPropertiesWithNull(this.itemForm.value), workId: this.workId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

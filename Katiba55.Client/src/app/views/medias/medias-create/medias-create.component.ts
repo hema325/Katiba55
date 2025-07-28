@@ -11,6 +11,7 @@ import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.c
 import { FileInputComponent } from 'src/app/shared/forms/file-input/file-input.component';
 import { FilesService } from 'src/app/services/files.service';
 import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-medias-create',
@@ -72,7 +73,7 @@ export class MediasCreateComponent implements OnInit {
   }
 
   saveChanges() {
-    this.mediasService.create(this.getCreateMediaModel())
+    this.mediasService.create(fillDefaultObjectPropertiesWithNull(this.getCreateMediaModel()))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

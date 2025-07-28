@@ -7,6 +7,7 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 import { BOQsService } from '../../../services/BOQs.service';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-create-boq',
@@ -33,7 +34,7 @@ export class CreateBoqComponent implements OnInit {
   boqForm = this.fb.group({
     title: ['', [Validators.required]],
     number: ['', [Validators.required]],
-    value: [null, [Validators.required, Validators.min(0)]],
+    value: [null, [Validators.min(0)]],
     status: ['', [Validators.required]]
   });
 
@@ -47,7 +48,7 @@ export class CreateBoqComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     this.boqsService
-      .create({ ...this.boqForm.value, workId: this.workId })
+      .create({ ...fillDefaultObjectPropertiesWithNull(this.boqForm.value), workId: this.workId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

@@ -11,6 +11,7 @@ import { TextInputComponent } from '../../../shared/forms/text-input/text-input.
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 import { ExecutionStatus } from '../../../enums/execution-status.enum';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-projects-add',
@@ -71,7 +72,7 @@ export class ProjectsAddComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.projectsService.create(this.projectForm.value)
+    this.projectsService.create(fillDefaultObjectPropertiesWithNull(this.projectForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

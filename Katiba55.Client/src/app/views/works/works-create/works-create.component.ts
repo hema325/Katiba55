@@ -11,6 +11,7 @@ import { SelectInputComponent } from '../../../shared/forms/select-input/select-
 import { CompaniesService } from '../../../services/companies.service';
 import { CompanyBrief } from '../../../models/companies/company-brief';
 import { ExecutionStatus } from '../../../enums/execution-status.enum';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-works-create',
@@ -71,7 +72,7 @@ export class WorksCreateComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.worksService.create({ ...this.workForm.value, projectId: this.projectId })
+    this.worksService.create({ ...fillDefaultObjectPropertiesWithNull(this.workForm.value), projectId: this.projectId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

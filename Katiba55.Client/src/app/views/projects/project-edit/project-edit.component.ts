@@ -12,6 +12,7 @@ import { ToasterService } from '../../../services/toaster.service';
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { TextAreaInputComponent } from '../../../shared/forms/text-area-input/text-area-input.component';
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-project-edit',
@@ -99,7 +100,7 @@ export class ProjectEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.projectsService.update(this.projectId, this.projectForm.value)
+    this.projectsService.update(this.projectId, fillDefaultObjectPropertiesWithNull(this.projectForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

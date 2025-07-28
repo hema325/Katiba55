@@ -6,6 +6,7 @@ import { finalize, first } from 'rxjs';
 import { ToasterService } from 'src/app/services/toaster.service';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 import { ContractsService } from '../../../services/contracts.service';
+import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-contracts-edit',
@@ -61,7 +62,7 @@ export class ContractsEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.contractsService.update(this.contractId, { ...this.contractForm.value })
+    this.contractsService.update(this.contractId, fillDefaultObjectPropertiesWithNull(this.contractForm.value))
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {
