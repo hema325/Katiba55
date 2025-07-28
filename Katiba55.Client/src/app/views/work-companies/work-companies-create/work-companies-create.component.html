@@ -1,0 +1,57 @@
+<div class="container-fluid px-0 my-3">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <!-- عنوان الصفحة -->
+      <c-card class="mb-4 border-0 shadow-sm bg-success bg-opacity-10">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3">
+          <span class="fw-bold fs-4 text-success text-center mb-1">إضافة شركة للعمل</span>
+          <div class="text-secondary text-center small">يرجى اختيار الشركة وتحديد الدور بدقة لضمان نتائج أفضل.</div>
+        </c-card-body>
+      </c-card>
+
+      <form [formGroup]="workCompanyForm" (ngSubmit)="onSubmit()">
+        <!-- بيانات الشركة للعمل -->
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-building text-primary me-2"></i>
+              <span class="fw-semibold text-primary">بيانات الشركة</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12">
+                <app-select-input label="الشركة" formControlName="companyId" required>
+                  <option value="" disabled hidden>اختر الشركة</option>
+                  @for(company of companies; track company.id) {
+                  <option value="{{company.id}}">{{company.name}}</option>
+                  }
+                </app-select-input>
+              </div>
+              <div class="col-12">
+                <app-text-input label="الدور" placeholder="ادخل دور الشركة في العمل" formControlName="role" required />
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+        <!-- زر الحفظ -->
+        <c-card class="mb-0 border-0 shadow-sm">
+          <c-card-body class="p-4">
+            <button type="submit" [disabled]="isSubmitting || workCompanyForm.invalid"
+              class="btn btn-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+              aria-label="إضافة شركة للعمل">
+              @if(isSubmitting) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              <span class="px-1">جارى حفظ التغيرات</span>
+              }
+              @else {
+              <i class="fa-solid fa-floppy-disk opacity-75"></i>
+              <span class="px-1">حفظ التغيرات</span>
+              }
+            </button>
+          </c-card-body>
+        </c-card>
+      </form>
+    </div>
+  </div>
+</div>

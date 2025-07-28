@@ -8,21 +8,22 @@
       </button>
     </c-card>
   </div>
+  <!-- زر الشركات المسئولة -->
   <div class="col-12 col-md-6 col-lg-3">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
-      <button (click)="setActiveTab('items')" [class.active]="activeTab === 'items'"
+      <button (click)="setActiveTab('companies')" [class.active]="activeTab === 'companies'"
         class="btn btn-outline-success w-100 h-100 py-3 rounded-3 fw-bold fs-6">
-        <i class="fa-solid fa-list-check me-2"></i>
-        البنود
+        <i class="fa-solid fa-building me-2"></i>
+        الشركات المسئولة
       </button>
     </c-card>
   </div>
   <div class="col-12 col-md-6 col-lg-3">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
-      <button (click)="setActiveTab('boqs')" [class.active]="activeTab === 'boqs'"
+      <button (click)="setActiveTab('items')" [class.active]="activeTab === 'items'"
         class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
-        <i class="fa-solid fa-file-invoice me-2"></i>
-        المقايسات
+        <i class="fa-solid fa-list-check me-2"></i>
+        البنود
       </button>
     </c-card>
   </div>
@@ -35,7 +36,17 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 col-lg-4">
+    <c-card class="text-center border-0 rounded-3 h-100 p-0">
+      <button (click)="setActiveTab('boqs')" [class.active]="activeTab === 'boqs'"
+        class="btn btn-outline-danger w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+        <i class="fa-solid fa-file-invoice me-2"></i>
+        المقايسات
+      </button>
+    </c-card>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('execution-status')" [class.active]="activeTab === 'execution-status'"
         class="btn btn-outline-success w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -44,7 +55,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 col-lg-4">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('financial-status')" [class.active]="activeTab === 'financial-status'"
         class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -72,4 +83,7 @@
 }
 @else if(activeTab === 'boqs') {
 <app-list-boqs [workId]="workId" />
+}
+@else if(activeTab === 'companies') {
+<app-list-work-companies [workId]="workId" />
 }

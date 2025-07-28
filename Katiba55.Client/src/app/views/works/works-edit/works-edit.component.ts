@@ -51,7 +51,7 @@ export class WorksEditComponent implements OnInit {
     estimatedEndDate: [null],
     actualStartDate: [null],
     actualEndDate: [null],
-    responsibleId: ['', [Validators.required]],
+    // responsibleId: ['', [Validators.required]],
     notes: ['']
   })
 
@@ -64,7 +64,7 @@ export class WorksEditComponent implements OnInit {
   ngOnInit() {
     this.workId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.projectId = Number(this.activatedRoute.snapshot.queryParamMap.get('projectId'));
-    this.loadCompanies();
+    // this.loadCompanies();
     this.loadWork();
   }
 

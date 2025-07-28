@@ -16,15 +16,12 @@
         public ExecutionStatus ExecutionStatus { get; set; } 
         public string? Notes { get; set; }
 
-        public int? ResponsibleId { get; set; }
-        public Company? Responsible { get; set; }
-
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 
         public ICollection<Item> Items { get; set; }
         public ICollection<BOQ> BOQs { get; set; }
         public ICollection<WorkExecutionHistory>? ExecutionHistories { get; set; }
-
+        public ICollection<WorkCompany> WorkCompanies { get; set; }
     }
 }

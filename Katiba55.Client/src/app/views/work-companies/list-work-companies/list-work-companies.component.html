@@ -1,0 +1,77 @@
+<div class="container-fluid px-0 my-3">
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h6 class="mb-0 text-secondary">
+        <i class="fa-solid fa-building text-warning me-2"></i>
+        الشركات المسئولة
+      </h6>
+      <div class="d-flex align-items-center gap-2">
+        <button [routerLink]="['/work-companies/create']" [queryParams]="{workId: workId}"
+          routerLinkActive="router-link-active" type="button" class="btn btn-primary">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    @if(isLoading)
+    {
+    <div class="w-100 d-flex justify-content-center align-items-center py-5">
+      <c-spinner color="primary" />
+    </div>
+    }
+    @else if(workCompanies.length == 0) {
+    <div class="alert alert-info">
+      <i class="fa-solid fa-info-circle me-2"></i>لا توجد شركات لعرضها.
+    </div>
+    }
+    @else {
+    @for(company of workCompanies; track company.id) {
+    <div class="col-12 col-md-6 col-lg-4">
+      <c-card class="h-100 border-0 rounded-4 text-center shadow-sm bg-white p-3">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-between h-100">
+          <div class="w-100 mb-3">
+            <span
+              class="fw-bold fs-5 text-nowrap text-truncate w-100 d-inline-flex align-items-center justify-content-center"
+              [cTooltip]="company.company?.name" cTooltipPlacement="bottom">
+              {{company.company?.name}}
+            </span>
+          </div>
+          <hr class="w-100 my-2" style="opacity:0.12;" />
+          <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+            <span class="small text-muted">الدور: <span class="fw-semibold">{{company.role || '-'}}</span></span>
+          </div>
+          <div class="d-flex gap-2 w-100 mt-3 justify-content-center">
+            <button [routerLink]="['/companies', company.company?.id]"
+              class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+              title="عرض الشركة">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            <button [routerLink]="['/work-companies', company.id, 'edit']" [queryParams]="{workId: workId}"
+              class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+              title="تعديل">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button (click)="fireDeleteConfirmationModal(company)"
+              class="btn btn-outline-danger btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
+              title="حذف">
+              @if(deletedItem?.id == company.id) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              }
+              @else {
+              <i class="fa-solid fa-trash"></i>
+              }
+            </button>
+          </div>
+        </c-card-body>
+      </c-card>
+    </div>
+    }
+    }
+  </div>
+</div>
+
+<!-- modals -->
+<app-delete-confirmation-modal [(visible)]="deleteConfirmationModalVisible"
+  (confirmation)="handleDeleteConfirmationModalChange($event)" />

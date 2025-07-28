@@ -71,11 +71,11 @@
 </h6>
 
 <div class="overflow-auto mb-5">
-  <table class="text-center table table-hover table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
+  <table class="text-center table table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
     <thead class="table-secondary">
       <tr>
         <th rowspan="2">اسم العمل</th>
-        <th rowspan="2">الشركة المسؤلة</th>
+        <th colspan="2">الشركة المسؤلة</th>
         <th rowspan="2">القيمة الكلية</th>
         <th rowspan="2">القيمة المنفذة</th>
         <th rowspan="2">القيمة المتبقية</th>
@@ -87,6 +87,8 @@
         <th rowspan="2">ملاحظات</th>
       </tr>
       <tr>
+        <th>الاسم</th>
+        <th>الدور</th>
         <th>تقديري</th>
         <th>فعلي</th>
         <th>تقديري</th>
@@ -95,13 +97,49 @@
     </thead>
     <tbody>
       @for(work of works; track work.id) {
+      @if(work.workCompanies && work.workCompanies.length > 0) {
+      @for( workCompany of work.workCompanies; let i = $index; track workCompany.id) {
       <tr [routerLink]="['/works', work.id]" [fragment]="'execution-status'">
-        <td>{{ work?.name || '-' }}</td>
+        @if(i === 0) {
+        <td [attr.rowspan]="work.workCompanies.length">{{ work?.name || '-' }}</td>
+        }
         <td>
-          <a [routerLink]="['/companies', work.responsible.id]" class="btn-link">
-            {{ work?.responsible?.name || '-' }}
+          <a [routerLink]="['/companies', workCompany.company!.id!]" class="btn-link">
+            {{ workCompany.company!.name! || '-' }}
           </a>
         </td>
+        <td>
+          {{ workCompany.role || '-' }}
+        </td>
+        @if(i === 0) {
+        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.totalValue | number) || '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executedValue | number) || '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.remainingValue | number) || '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.relativeWeightPercent != null ?
+          work.relativeWeightPercent
+          + '%' : '-') }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executionPercent != null ? work.executionPercent + '%'
+          :
+          '-') }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executionStatus | executionStatus) || '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ work?.estimatedStartDate ? (work.estimatedStartDate |
+          date:'dd-MM-yyyy') : '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ work?.actualStartDate ? (work.actualStartDate |
+          date:'dd-MM-yyyy')
+          : '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ work?.estimatedEndDate ? (work.estimatedEndDate |
+          date:'dd-MM-yyyy') : '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy')
+          :
+          '-' }}</td>
+        <td [attr.rowspan]="work.workCompanies.length">{{ work?.notes || 'لا يوجد' }}</td>
+        }
+      </tr>
+      }
+      } @else {
+      <tr [routerLink]="['/works', work.id]" [fragment]="'execution-status'">
+        <td>{{ work?.name || '-' }}</td>
+        <td colspan="2">-</td>
         <td>{{ (work?.totalValue | number) || '-' }}</td>
         <td>{{ (work?.executedValue | number) || '-' }}</td>
         <td>{{ (work?.remainingValue | number) || '-' }}</td>
@@ -114,6 +152,7 @@
         <td>{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ work?.notes || 'لا يوجد' }}</td>
       </tr>
+      }
       }
     </tbody>
   </table>

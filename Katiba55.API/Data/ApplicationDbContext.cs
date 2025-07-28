@@ -30,5 +30,6 @@ namespace Katiba55.API.Data
         public DbSet<Contract> Contracts { get; private set; }
         public DbSet<Invoice> Invoices { get; private set; }
         public DbSet<Advance> Advances { get; private set; }
+        public DbSet<WorkCompany> WorkCompanies { get; private set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Katiba55.API.Dtos.Contracts;
+﻿using Katiba55.API.Dtos.Companies;
+using Katiba55.API.Dtos.Contracts;
 
 namespace Katiba55.API.Dtos.BOQs
 {
@@ -9,6 +10,7 @@ namespace Katiba55.API.Dtos.BOQs
         public string Status { get; set; }
         public string Number { get; set; }
         public decimal? Value { get; set; }
+        public CompanyBriefDto Company { get; set; }
         public ContractDetailedDto Contract { get; set; }
     }
 }

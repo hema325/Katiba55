@@ -12,7 +12,7 @@
         public double? Longitude { get; set; }
         public string? ApprovalImagePath { get; set; }
         public string? Notes { get; set; }
-
-        public ICollection<Work> Works { get; set; }
+        public ICollection<WorkCompany> WorkCompanies { get; set; }
+        public ICollection<BOQ> BOQs { get; set; }
     }
 }

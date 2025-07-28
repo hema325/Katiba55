@@ -7,7 +7,6 @@ namespace Katiba55.API.Dtos.Works
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public CompanyBriefDto? Responsible { get; set; }
         public ICollection<BOQDetailedDto> BOQs { get; set; }
     }
 }

@@ -11,7 +11,6 @@ import { SelectInputComponent } from '../../../shared/forms/select-input/select-
 import { CompaniesService } from '../../../services/companies.service';
 import { CompanyBrief } from '../../../models/companies/company-brief';
 import { ExecutionStatus } from '../../../enums/execution-status.enum';
-import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
 
 @Component({
   selector: 'app-works-create',
@@ -50,7 +49,7 @@ export class WorksCreateComponent implements OnInit {
     estimatedEndDate: [null],
     actualStartDate: [null],
     actualEndDate: [null],
-    responsibleId: ['', [Validators.required]],
+    // responsibleId: ['', [Validators.required]],
     notes: ['']
   })
 
@@ -61,7 +60,7 @@ export class WorksCreateComponent implements OnInit {
 
   ngOnInit() {
     this.projectId = Number(this.activatedRoute.snapshot.queryParamMap.get('projectId'));
-    this.loadCompanies();
+    // this.loadCompanies();
   }
 
   loadCompanies() {
@@ -72,7 +71,7 @@ export class WorksCreateComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.worksService.create({ ...fillDefaultObjectPropertiesWithNull(this.workForm.value), projectId: this.projectId })
+    this.worksService.create({ ...this.workForm.value, projectId: this.projectId })
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {

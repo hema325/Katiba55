@@ -19,7 +19,6 @@ namespace Katiba55.API.Dtos.Works
         public DateTime? ExecutionDate { get; set; }
         public string ExecutionStatus { get; set; }
         public string? Notes { get; set; }
-        public CompanyBriefDto? Responsible { get; set; }
         public ICollection<ItemDetailedDto> Items { get; set; }
 
     }

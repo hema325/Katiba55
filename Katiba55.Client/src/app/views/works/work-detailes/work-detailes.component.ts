@@ -9,7 +9,7 @@ import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
 import { ExecutionStatusComponent } from './execution-status/execution-status.component';
 import { ListBoqsComponent } from '../../boqs/list-boqs/list-boqs.component';
 import { FinancialStatusComponent } from './financial-status/financial-status.component';
-
+import { ListWorkCompaniesComponent } from '../../work-companies/list-work-companies/list-work-companies.component';
 @Component({
   selector: 'app-work-detailes',
   templateUrl: './work-detailes.component.html',
@@ -24,6 +24,7 @@ import { FinancialStatusComponent } from './financial-status/financial-status.co
     ExecutionStatusComponent,
     ListBoqsComponent,
     FinancialStatusComponent,
+    ListWorkCompaniesComponent,
   ]
 })
 export class WorkDetailesComponent implements OnInit {
@@ -31,9 +32,9 @@ export class WorkDetailesComponent implements OnInit {
 
   workId: number = 0;
   referenceType: MediaReferenceTypes = MediaReferenceTypes.Work;
-  activeTab: 'basic-details' | 'items' | 'medias' | 'execution-status' | 'financial-status' | 'boqs' = 'basic-details';
+  activeTab: 'basic-details' | 'items' | 'medias' | 'execution-status' | 'financial-status' | 'boqs' | 'companies' = 'basic-details';
 
-  setActiveTab(tab: 'basic-details' | 'items' | 'medias' | 'execution-status' | 'financial-status' | 'boqs') {
+  setActiveTab(tab: 'basic-details' | 'items' | 'medias' | 'execution-status' | 'financial-status' | 'boqs' | 'companies') {
     this.activeTab = tab;
   }
 
@@ -46,6 +47,7 @@ export class WorkDetailesComponent implements OnInit {
       case 'execution-status':
       case 'financial-status':
       case 'boqs':
+      case 'companies':
         this.activeTab = fragment;
         break;
       default:

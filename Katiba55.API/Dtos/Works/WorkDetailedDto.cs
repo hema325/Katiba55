@@ -1,4 +1,5 @@
 ﻿using Katiba55.API.Dtos.Companies;
+using Katiba55.API.Dtos.WorkCompanies;
 using Katiba55.API.Dtos.WorkItems;
 
 namespace Katiba55.API.Dtos.Works
@@ -19,6 +20,7 @@ namespace Katiba55.API.Dtos.Works
         public DateTime? ExecutionDate { get; set; }
         public string ExecutionStatus { get; set; }
         public string? Notes { get; set; }
-        public CompanyBriefDto? Responsible { get; set; }
+
+        public ICollection<WorkCompanyDetailedDto> WorkCompanies { get; set; }
     }
 }
