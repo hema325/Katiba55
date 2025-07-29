@@ -1,6 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.Companies;
+using Katiba55.API.Dtos.Works;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -89,6 +90,18 @@ namespace Katiba55.API.Controllers
                          .ToListAsync();
 
             return Response(ResultFactory.Ok(companies));
+        }
+
+
+        [HttpGet("getDetailedWithBOQByWorkId")]
+        public async Task<IActionResult> GetDetailedWithBOQByWorkIdAsync([FromQuery] int workId)
+        {
+            var works = await _context.Companies
+                .Where(c => c.BOQs.Any(boq => boq.WorkId == workId))
+                .ProjectTo<CompanyWithBOQsDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return Response(ResultFactory.Ok(works));
         }
     }
 }

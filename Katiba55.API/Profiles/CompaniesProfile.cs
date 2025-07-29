@@ -11,6 +11,7 @@ namespace Katiba55.API.Profiles
             CreateMap<UpdateCompanyDto, Company>();
             CreateMap<Company, CompanyBriefDto>();
             CreateMap<Company, CompanyDto>();
+            CreateMap<Company, CompanyWithBOQsDto>();
         }
     }
 }

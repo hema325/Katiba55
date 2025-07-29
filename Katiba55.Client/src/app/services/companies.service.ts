@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Result } from '../models/Result';
 import { Company } from '../models/companies/company';
 import { CompanyBrief } from '../models/companies/company-brief';
+import { CompanyWithBoqs } from '../models/companies/company-with-boqs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class CompaniesService {
 
   getAll(): Observable<Result<CompanyBrief[]>> {
     return this.httpClient.get<Result<CompanyBrief[]>>(`${this.baseUrl}/getAll`);
+  }
+
+  getDetailedWithBOQByWorkId(workId: number): Observable<Result<CompanyWithBoqs[]>> {
+    return this.httpClient.get<Result<CompanyWithBoqs[]>>(`${this.baseUrl}/getDetailedWithBOQByWorkId?workId=${workId}`);
   }
 }
