@@ -4,6 +4,7 @@ import { WorkWithDetailedBoq } from '../../../../models/works/work-with-detailed
 import { finalize, first } from 'rxjs';
 import { DecimalPipe, JsonPipe } from '@angular/common';
 import { SpinnerComponent } from '@coreui/angular';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-financial-status',
@@ -11,7 +12,8 @@ import { SpinnerComponent } from '@coreui/angular';
   styleUrls: ['./financial-status.component.css'],
   imports: [
     DecimalPipe,
-    SpinnerComponent
+    SpinnerComponent,
+    FormsModule
   ]
 })
 export class FinancialStatusComponent implements OnInit {
@@ -20,13 +22,18 @@ export class FinancialStatusComponent implements OnInit {
   @Input() projectId: number = 0;
 
   works: WorkWithDetailedBoq[] = [];
+  filteredWorks: WorkWithDetailedBoq[] = [];
+  searchText: string = '';
   isLoading: boolean = false;
 
   ngOnInit() {
     this.isLoading = true;
     this.worksService.getDetailedWithBOQByProjectId(this.projectId)
       .pipe(finalize(() => this.isLoading = false), first())
-      .subscribe(response => this.works = response.data);
+      .subscribe(response => {
+        this.works = response.data;
+        this.filteredWorks = this.works;
+      });
   }
 
   getWorkRowSpan(work: any): number {
@@ -38,21 +45,31 @@ export class FinancialStatusComponent implements OnInit {
   }
 
   get totalBoqValue(): number {
-    return this.works?.reduce((sum, work) =>
+    return this.filteredWorks?.reduce((sum, work) =>
       sum + (work.boQs?.reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
     );
   }
 
   get totalContractValue(): number {
-    return this.works?.reduce((sum, work) =>
+    return this.filteredWorks?.reduce((sum, work) =>
       sum + (work.boQs?.reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
     );
   }
 
   get totalInvoicesValue(): number {
-    return this.works?.reduce((sum, work) =>
+    return this.filteredWorks?.reduce((sum, work) =>
       sum + (work.boQs?.reduce((bSum, boq) =>
         bSum + (boq.contract?.invoices?.reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
     );
+  }
+
+  onSearchChange() {
+    this.filteredWorks = this.works.filter(work => {
+      return work.name.includes(this.searchText) ||
+        // work.boQs.some(boq => boq.title.includes(this.searchText)) ||
+        work.boQs.some(boq => boq.company.name.includes(this.searchText)) ||
+        work.boQs.some(boq => boq.number == this.searchText) ||
+        work.boQs.some(boq => boq.contract?.number == this.searchText);
+    });
   }
 }
