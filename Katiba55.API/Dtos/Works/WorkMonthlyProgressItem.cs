@@ -4,6 +4,6 @@
     {
         public int Year { get; set; }
         public int Month { get; set; }
-        public decimal Percentage { get; set; }
+        public double Percentage { get; set; }
     }
 }

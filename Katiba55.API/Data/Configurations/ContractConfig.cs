@@ -7,7 +7,7 @@ namespace Katiba55.API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Contract> builder)
         {
-            builder.HasIndex(c => c.Number).IsUnique();
+            builder.HasIndex(c => c.Number).IsUnique(false);
 
             builder.HasOne(c => c.BOQ).WithOne(b => b.Contract).HasForeignKey<Contract>(c => c.BOQId);
             builder.HasMany(c => c.Invoices).WithOne(i => i.Contract).HasForeignKey(i => i.ContractId);

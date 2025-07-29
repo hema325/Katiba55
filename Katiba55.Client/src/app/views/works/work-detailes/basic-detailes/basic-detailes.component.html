@@ -58,20 +58,6 @@
         </c-card-body>
       </c-card>
     </div>
-    <!-- الشركة المسؤولة -->
-    <div class="col-12 col-md-6 col-lg-4">
-      <c-card class="h-100 shadow-sm border-0 rounded-3">
-        <c-card-body class="d-flex align-items-center">
-          <i class="fa-solid fa-building text-secondary fs-4 me-3"></i>
-          <div>
-            <div class="fw-bold">الشركة المسؤولة</div>
-            <a [routerLink]="['/companies', work?.responsible?.id]" class="btn-link small">
-              {{work?.responsible?.name}}
-            </a>
-          </div>
-        </c-card-body>
-      </c-card>
-    </div>
     <!-- حالة التنفيذ -->
     <div class="col-12 col-md-6 col-lg-4">
       <c-card class="h-100 shadow-sm border-0 rounded-3">

@@ -9,8 +9,8 @@
         public int CompletedProjects { get; set; }
         public int CancelledProjects { get; set; }
 
-        public decimal TotalExecutionPercent { get; set; }
-        public decimal AverageExecutionPercent
+        public double TotalExecutionPercent { get; set; }
+        public double AverageExecutionPercent
         {
             get
             {
@@ -20,12 +20,12 @@
             }
         }
 
-        public decimal StartPercent
+        public double StartPercent
         {
             get
             {
                 var started = OnHoldProjects + UnderconstructionProjects + CompletedProjects;
-                return TotalProjects > 0 ? Math.Round((decimal)started / TotalProjects * 100, 1) : 0;
+                return TotalProjects > 0 ? Math.Round((double)started / TotalProjects * 100, 1) : 0;
             }
         }
     }

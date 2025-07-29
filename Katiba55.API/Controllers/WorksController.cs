@@ -220,7 +220,7 @@ namespace Katiba55.API.Controllers
 
             var progressDic = progress.ToDictionary(s => new DateTime(s.Year, s.Month, 1));
             var progressFilled = new List<WorkMonthlyProgressItem>();
-            var lastPercent = 0m;
+            var lastPercent = 0d;
 
             foreach (var date in progressDates)
             {
@@ -289,7 +289,7 @@ namespace Katiba55.API.Controllers
                     });
 
                 var progressFilled = new List<WorkMonthlyProgressItem>();
-                var lastPercent = 0m;
+                var lastPercent = 0d;
                 foreach (var date in progressDates)
                 {
                     if (progressDic.TryGetValue(date, out var prog))

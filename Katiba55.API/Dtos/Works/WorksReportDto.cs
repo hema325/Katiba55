@@ -9,8 +9,8 @@
         public int CompletedWorks { get; set; }
         public int CancelledWorks { get; set; }
 
-        public decimal TotalExecutionPercent { get; set; }
-        public decimal AverageExecutionPercent
+        public double TotalExecutionPercent { get; set; }
+        public double AverageExecutionPercent
         {
             get
             {
@@ -20,12 +20,12 @@
             }
         }
 
-        public decimal StartPercent
+        public double StartPercent
         {
             get
             {
                 var started = OnHoldWorks + UnderconstructionWorks + CompletedWorks;
-                return TotalWorks > 0 ? Math.Round((decimal)started / TotalWorks * 100, 1) : 0;
+                return TotalWorks > 0 ? Math.Round((double)started / TotalWorks * 100, 1) : 0;
             }
         }
     }

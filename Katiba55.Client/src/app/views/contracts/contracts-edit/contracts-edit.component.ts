@@ -30,8 +30,8 @@ export class ContractsEditComponent implements OnInit {
   private fb: FormBuilder = inject(FormBuilder);
 
   contractForm = this.fb.group({
-    number: ['', [Validators.required]],
-    value: [null, [Validators.required, Validators.min(0)]],
+    number: [''],
+    value: [null, [Validators.min(0)]],
     status: ['', [Validators.required]]
   });
 

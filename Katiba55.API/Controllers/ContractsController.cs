@@ -21,7 +21,7 @@ namespace Katiba55.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateAsync(CreateContractDto dto)
         {
-            if (await _context.Contracts.AnyAsync(c => c.Number == dto.Number))
+            if (await _context.Contracts.AnyAsync(c => c.Number == dto.Number && dto.Number != null))
                 return Response(ResultFactory.Conflict("هذا العقد موجود بالفعل."));
 
             var contract = _mapper.Map<Contract>(dto);
@@ -35,7 +35,7 @@ namespace Katiba55.API.Controllers
         [HttpPut("{id}/edit")]
         public async Task<IActionResult> UpdateAsync(int id, UpdateContractDto dto)
         {
-            if (await _context.Contracts.AnyAsync(c => c.Id != id && c.Number == dto.Number))
+            if (await _context.Contracts.AnyAsync(c => c.Id != id && c.Number == dto.Number && dto.Number != null))
                 return Response(ResultFactory.Conflict("هذا العقد موجود بالفعل."));
 
             var contract = await _context.Contracts.FindAsync(id);
