@@ -35,6 +35,14 @@
                 <app-text-input label="قيمة المقايسة" placeholder="ادخل قيمة المقايسة" formControlName="value"
                   type="number" />
               </div>
+              <div class="col-12">
+                <app-select-input label="الشركة" formControlName="companyId" required>
+                  <option value="" disabled hidden selected>اختر الشركة</option>
+                  @for(company of companies; track company.id) {
+                  <option [value]="company.id">{{ company.name }}</option>
+                  }
+                </app-select-input>
+              </div>
             </div>
           </c-card-body>
         </c-card>

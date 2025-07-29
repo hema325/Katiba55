@@ -64,12 +64,17 @@ export class FinancialStatusComponent implements OnInit {
   }
 
   onSearchChange() {
-    this.filteredWorks = this.works.filter(work => {
-      return work.name.includes(this.searchText) ||
-        // work.boQs.some(boq => boq.title.includes(this.searchText)) ||
-        work.boQs.some(boq => boq.company.name.includes(this.searchText)) ||
-        work.boQs.some(boq => boq.number == this.searchText) ||
-        work.boQs.some(boq => boq.contract?.number == this.searchText);
-    });
+    this.filteredWorks = this.works
+      .map(work => {
+        if (work.name.includes(this.searchText)) {
+          return { ...work, boQs: work.boQs };
+        }
+        const filteredBoQs = work.boQs.filter(boq => boq.company?.name?.includes(this.searchText));
+        if (filteredBoQs.length > 0) {
+          return { ...work, boQs: filteredBoQs };
+        }
+        return null;
+      })
+      .filter(work => work !== null) as WorkWithDetailedBoq[];
   }
 }

@@ -7,6 +7,9 @@ import { ToasterService } from 'src/app/services/toaster.service';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 import { BOQsService } from '../../../services/BOQs.service';
 import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
+import { CompaniesService } from '../../../services/companies.service';
+import { CompanyBrief } from '../../../models/companies/company-brief';
+import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 
 @Component({
   selector: 'app-boqs-edit',
@@ -18,7 +21,8 @@ import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.hel
     CardBodyComponent,
     ReactiveFormsModule,
     TextInputComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SelectInputComponent
   ]
 })
 export class BoqsEditComponent implements OnInit {
@@ -27,15 +31,18 @@ export class BoqsEditComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private toasterService: ToasterService = inject(ToasterService);
+  private companiesService: CompaniesService = inject(CompaniesService);
   private fb: FormBuilder = inject(FormBuilder);
 
   boqForm = this.fb.group({
     title: ['', [Validators.required]],
     number: ['', [Validators.required]],
     value: [null, [Validators.min(0)]],
-    status: ['', [Validators.required]]
+    status: ['', [Validators.required]],
+    companyId: ['', [Validators.required]]
   });
 
+  companies: CompanyBrief[] = [];
   boqId: number = 0;
   workId: number = 0;
   isSubmitting: boolean = false;
@@ -44,6 +51,13 @@ export class BoqsEditComponent implements OnInit {
     this.boqId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
     this.loadBoq();
+    this.loadCompanies();
+  }
+
+  loadCompanies() {
+    this.companiesService.getAll()
+      .pipe(first())
+      .subscribe(response => this.companies = response.data);
   }
 
   loadBoq() {
