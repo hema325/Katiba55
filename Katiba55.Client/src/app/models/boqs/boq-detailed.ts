@@ -1,3 +1,4 @@
+import { CompanyBrief } from "../companies/company-brief";
 import { ContractDetailed } from "../contracts/contract-detailed";
 
 export interface BoqDetailed {
@@ -6,5 +7,6 @@ export interface BoqDetailed {
     status: string;
     number: string;
     value?: number;
+    company: CompanyBrief;
     contract: ContractDetailed;
 }

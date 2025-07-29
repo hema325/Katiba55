@@ -82,7 +82,7 @@ namespace Katiba55.API.Controllers
         public async Task<IActionResult> GetByWorkIdAsync([FromQuery] int workId)
         {
             var boq = await _context.BOQs
-                .Where(boq => boq.Works.Any(w => w.Id == workId))
+                .Where(boq => boq.WorkId == workId)
                 .ProjectTo<BOQDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -93,7 +93,7 @@ namespace Katiba55.API.Controllers
         public async Task<IActionResult> GetDetailedByWorkIdAsync([FromQuery] int workId)
         {
             var boq = await _context.BOQs
-                .Where(boq => boq.Works.Any(w => w.Id == workId))
+                .Where(boq => boq.WorkId == workId)
                 .ProjectTo<BOQDetailedDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 

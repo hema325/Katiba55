@@ -23,16 +23,7 @@
                 <app-text-input label="اسم الملف" placeholder="ادخل اسم الملف" formControlName="name" required />
               </div>
               <div class="col-12 col-md-6">
-                <app-select-input label="الفئة" formControlName="category" required>
-                  <option value="" disabled hidden>اختر الفئة</option>
-                  <option value="TamatHadeed">تمام حديد</option>
-                  <option value="TamatAsment">تمام اسمنت</option>
-                  <option value="Ardh">عرض</option>
-                  <option value="MawqefMali">موقف مالى</option>
-                  <option value="MawqefTanfidhi">موقف تنفيذى</option>
-                  <option value="TawtheeqTanfidh">توثيق التنفيذ</option>
-
-                </app-select-input>
+                <app-text-input label="الفئة" placeholder="ادخل الفئة" formControlName="category" />
               </div>
               <div class="col-12 col-md-6">
                 <app-text-input label="التاريخ" placeholder="ادخل التاريخ" formControlName="date" type="date" />

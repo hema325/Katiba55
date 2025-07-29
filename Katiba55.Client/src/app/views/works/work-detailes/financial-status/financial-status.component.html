@@ -48,7 +48,20 @@
         <td></td>
         <td></td>
       </tr>
-      } @else {
+      }
+      @else if(!boq.contract.invoices || boq.contract.invoices.length === 0) {
+      <tr>
+        <td>{{ boq.number }}</td>
+        <td>{{ boq.title }}</td>
+        <td>{{ (boq.value | number) || '-' }}</td>
+        <td>{{ boq.status }}</td>
+        <td>{{ boq.contract.number }}</td>
+        <td>{{ boq.contract.status }}</td>
+        <td>{{ boq.contract.value | number }}</td>
+        <td colspan="4">-</td>
+      </tr>
+      }
+      @else {
       @for(invoice of boq.contract.invoices; track invoice.id; let i = $index) {
       <tr>
         @if(i === 0) {
@@ -69,6 +82,19 @@
       }
       }
     </tbody>
+    <tfoot>
+      <tr class="table-primary fw-bold">
+        <td colspan="2">الإجمالي</td>
+        <td>{{ totalBoqValue | number }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ totalContractValue | number }}</td>
+        <td></td>
+        <td>{{ totalInvoicesValue | number }}</td>
+        <td colspan="2"></td>
+      </tr>
+    </tfoot>
   </table>
 </div>
 }

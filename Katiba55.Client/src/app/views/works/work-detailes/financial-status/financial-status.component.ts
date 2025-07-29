@@ -30,4 +30,16 @@ export class FinancialStatusComponent implements OnInit {
       .subscribe(response => this.boqs = response.data);
   }
 
+  get totalBoqValue(): number {
+    return this.boqs?.reduce((sum, boq) => sum + (boq.value || 0), 0);
+  }
+  get totalContractValue(): number {
+    return this.boqs?.reduce((sum, boq) => sum + (boq.contract?.value || 0), 0);
+  }
+  get totalInvoicesValue(): number {
+    return this.boqs?.reduce((sum, boq) =>
+      sum + (boq.contract?.invoices?.reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0
+    );
+  }
+
 }

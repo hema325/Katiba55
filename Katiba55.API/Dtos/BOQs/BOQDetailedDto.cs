@@ -1,5 +1,6 @@
 ﻿using Katiba55.API.Dtos.Companies;
 using Katiba55.API.Dtos.Contracts;
+using Katiba55.API.Dtos.Works;
 
 namespace Katiba55.API.Dtos.BOQs
 {

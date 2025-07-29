@@ -36,4 +36,23 @@ export class FinancialStatusComponent implements OnInit {
     }
     return count;
   }
+
+  get totalBoqValue(): number {
+    return this.works?.reduce((sum, work) =>
+      sum + (work.boQs?.reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
+    );
+  }
+
+  get totalContractValue(): number {
+    return this.works?.reduce((sum, work) =>
+      sum + (work.boQs?.reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
+    );
+  }
+
+  get totalInvoicesValue(): number {
+    return this.works?.reduce((sum, work) =>
+      sum + (work.boQs?.reduce((bSum, boq) =>
+        bSum + (boq.contract?.invoices?.reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
+    );
+  }
 }

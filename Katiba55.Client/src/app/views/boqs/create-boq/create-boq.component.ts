@@ -8,6 +8,8 @@ import { TextInputComponent } from '../../../shared/forms/text-input/text-input.
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 import { BOQsService } from '../../../services/BOQs.service';
 import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
+import { CompaniesService } from '../../../services/companies.service'
+import { CompanyBrief } from '../../../models/companies/company-brief';
 
 @Component({
   selector: 'app-create-boq',
@@ -30,19 +32,29 @@ export class CreateBoqComponent implements OnInit {
   private router: Router = inject(Router);
   private toasterService: ToasterService = inject(ToasterService);
   private fb: FormBuilder = inject(FormBuilder);
+  private companiesService: CompaniesService = inject(CompaniesService);
 
   boqForm = this.fb.group({
     title: ['', [Validators.required]],
     number: ['', [Validators.required]],
     value: [null, [Validators.min(0)]],
-    status: ['', [Validators.required]]
+    status: ['', [Validators.required]],
+    companyId: ['', [Validators.required]]
   });
 
+  companies: CompanyBrief[] = [];
   workId: number = 0;
   isSubmitting: boolean = false;
 
   ngOnInit() {
     this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
+    this.loadCompanies();
+  }
+
+  loadCompanies() {
+    this.companiesService.getAll()
+      .pipe(first())
+      .subscribe(response => this.companies = response.data);
   }
 
   onSubmit(): void {
