@@ -6,5 +6,5 @@ export interface BoqWithContract {
     status: string;
     number: string;
     value?: number;
-    contract: ContractDetailed;
+    contract?: ContractDetailed;
 }

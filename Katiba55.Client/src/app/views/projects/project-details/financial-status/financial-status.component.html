@@ -28,19 +28,24 @@
   <table class="table table-bordered align-middle text-center shadow-sm rounded-4 overflow-hidden">
     <thead class="table-secondary">
       <tr>
-        <th>اسم العمل</th>
+        <th rowSpan="2">اسم العمل</th>
+        <th colspan="5">المقايسة</th>
+        <th colspan="3">العقد</th>
+        <th colspan="4">المستخلص</th>
+      </tr>
+      <tr>
         <th>الشركة المسؤلة</th>
         <th>رقم المقايسة</th>
         <th>عنوان المقايسة</th>
         <th>قيمة المقايسة</th>
         <th>موقف المقايسة</th>
         <th>رقم العقد</th>
-        <th>حالة العقد</th>
         <th>قيمة العقد</th>
+        <th>موقف العقد</th>
         <th>نوع المستخلص</th>
         <th>قيمة المستخلص</th>
         <th>موقف المستخلص</th>
-        <th>الموقع</th>
+        <th>مكان المستخلص</th>
       </tr>
     </thead>
     <tbody>
@@ -48,20 +53,10 @@
       @if(!work.boQs || work.boQs.length === 0) {
       <tr>
         <td>{{ work.name }}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colspan="12"></td>
       </tr>
-      } @else {
+      }
+      @else {
       @for(boq of work.boQs; track boq.id; let firstBoq = $first) {
       @if(!boq.contract || !boq.contract.invoices || boq.contract.invoices.length === 0) {
       <tr>
@@ -74,11 +69,12 @@
         <td>{{ (boq.value | number) || '-' }}</td>
         <td>{{ boq.status }}</td>
         <td>{{ boq.contract?.number || '-' }}</td>
-        <td>{{ boq.contract?.status || '-' }}</td>
         <td>{{ (boq.contract?.value | number) || '-' }}</td>
+        <td>{{ boq.contract?.status || '-' }}</td>
         <td colspan="4">-</td>
       </tr>
-      } @else {
+      }
+      @else {
       @for(invoice of boq.contract.invoices; track invoice.id; let firstInvoice = $first) {
       <tr>
         @if(firstBoq && firstInvoice) {
@@ -91,13 +87,13 @@
         <td [rowSpan]="boq.contract.invoices.length">{{ boq.value | number }}</td>
         <td [rowSpan]="boq.contract.invoices.length">{{ boq.status }}</td>
         <td [rowSpan]="boq.contract.invoices.length">{{ boq.contract.number }}</td>
-        <td [rowSpan]="boq.contract.invoices.length">{{ boq.contract.status }}</td>
         <td [rowSpan]="boq.contract.invoices.length">{{ boq.contract.value | number }}</td>
+        <td [rowSpan]="boq.contract.invoices.length">{{ boq.contract.status }}</td>
         }
         <td>{{ invoice.type }}</td>
         <td>{{ invoice.value | number }}</td>
         <td>{{ invoice.status }}</td>
-        <td>{{ invoice.location || '-'}}</td>
+        <td>{{ invoice.location || '-' }}</td>
       </tr>
       }
       }

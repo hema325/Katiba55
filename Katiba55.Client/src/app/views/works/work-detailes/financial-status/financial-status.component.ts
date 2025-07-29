@@ -5,6 +5,8 @@ import { finalize, first } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { SpinnerComponent } from '@coreui/angular';
 import { FormsModule } from '@angular/forms';
+import { CompaniesService } from '../../../../services/companies.service';
+import { CompanyWithBoqs } from '../../../../models/companies/company-with-boqs';
 
 @Component({
   selector: 'app-financial-status',
@@ -18,43 +20,49 @@ import { FormsModule } from '@angular/forms';
 })
 export class FinancialStatusComponent implements OnInit {
 
-  private boqsService: BOQsService = inject(BOQsService);
+  private companiesService: CompaniesService = inject(CompaniesService);
 
   @Input() workId: number = 0;
 
-  boqs: BoqDetailed[] = [];
-  filteredBoqs: BoqDetailed[] = [];
+  companies: CompanyWithBoqs[] = [];
+  filteredCompanies: CompanyWithBoqs[] = [];
   searchText: string = '';
   isLoading: boolean = false;
 
   ngOnInit() {
     this.isLoading = true;
-    this.boqsService.getByDetailedWorkId(this.workId)
+    this.companiesService.getDetailedWithBOQByWorkId(this.workId)
       .pipe(finalize(() => this.isLoading = false), first())
       .subscribe(response => {
-        this.boqs = response.data;
-        this.filteredBoqs = response.data;
+        this.companies = response.data;
+        this.filteredCompanies = response.data;
       });
   }
 
   get totalBoqValue(): number {
-    return this.filteredBoqs?.reduce((sum, boq) => sum + (boq.value || 0), 0);
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
+    );
   }
   get totalContractValue(): number {
-    return this.filteredBoqs?.reduce((sum, boq) => sum + (boq.contract?.value || 0), 0);
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
+    );
   }
   get totalInvoicesValue(): number {
-    return this.filteredBoqs?.reduce((sum, boq) =>
-      sum + (boq.contract?.invoices?.reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.reduce((bSum, boq) => bSum + (boq.contract?.invoices?.reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
     );
   }
 
   onSearchChange() {
-    this.filteredBoqs = this.boqs.filter(boq => {
-      return boq.company.name.includes(this.searchText) ||
-        //boq.title.includes(this.searchText) ||
-        boq.number == this.searchText ||
-        boq.contract?.number == this.searchText;
+    this.filteredCompanies = this.companies.filter(company => {
+      return company.name.includes(this.searchText) ||
+        company.boQs.some(boq => boq.number == this.searchText || boq.contract?.number == this.searchText);
     });
+  }
+
+  getCompanyRowSpan(company: CompanyWithBoqs): number {
+    return company.boQs.reduce((sum, b) => sum + (b.contract?.invoices?.length || 1), 0);
   }
 }
