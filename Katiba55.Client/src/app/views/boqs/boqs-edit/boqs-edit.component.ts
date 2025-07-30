@@ -50,8 +50,8 @@ export class BoqsEditComponent implements OnInit {
   ngOnInit() {
     this.boqId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
-    this.loadBoq();
     this.loadCompanies();
+    this.loadBoq();
   }
 
   loadCompanies() {

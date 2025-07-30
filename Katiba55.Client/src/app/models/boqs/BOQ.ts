@@ -4,4 +4,5 @@ export interface BOQ {
     status: string;
     number: string;
     value?: number;
+    companyId: number;
 }
