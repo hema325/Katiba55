@@ -32,3 +32,10 @@
 //  --scrollbar-thumb-transition: height ease-out 150ms, width ease-out 150ms;
 //  --scrollbar-track-transition: height ease-out 150ms, width ease-out 150ms;
 //}
+
+@media print {
+  .print-w-100 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

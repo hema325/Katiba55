@@ -5,6 +5,7 @@ import { finalize, first } from 'rxjs';
 import { DecimalPipe, JsonPipe } from '@angular/common';
 import { SpinnerComponent } from '@coreui/angular';
 import { FormsModule } from '@angular/forms';
+import { NgxPrintModule } from 'ngx-print';
 
 @Component({
   selector: 'app-financial-status',
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     DecimalPipe,
     SpinnerComponent,
-    FormsModule
+    FormsModule,
+    NgxPrintModule
   ]
 })
 export class FinancialStatusComponent implements OnInit {
