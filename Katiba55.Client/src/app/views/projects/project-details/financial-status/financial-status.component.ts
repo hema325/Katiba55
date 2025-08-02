@@ -65,6 +65,50 @@ export class FinancialStatusComponent implements OnInit {
     );
   }
 
+  get totalPaidInvoices(): number {
+    return this.filteredWorks?.reduce((sum, work) =>
+      sum + (work.boQs?.reduce((bSum, boq) =>
+        bSum + (boq.contract?.invoices?.filter(inv => inv.status === 'تم الصرف')
+          .reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
+    );
+  }
+
+  get totalUnpaidInvoices(): number {
+    return this.filteredWorks?.reduce((sum, work) =>
+      sum + (work.boQs?.reduce((bSum, boq) =>
+        bSum + (boq.contract?.invoices?.filter(inv => inv.status !== 'تم الصرف')
+          .reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
+    );
+  }
+
+  get totalContractedBoqsValue(): number {
+    return this.filteredWorks?.reduce((sum, work) =>
+      sum + (work.boQs?.filter(boq => boq.contract?.status === 'تم التعاقد')
+        .reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
+    );
+  }
+
+  get totalUncontractedBoqsValue(): number {
+    return this.filteredWorks?.reduce((sum, work) =>
+      sum + (work.boQs?.filter(boq => !boq.contract || boq.contract?.status !== 'تم التعاقد')
+        .reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
+    );
+  }
+
+  get totalApprovedBoqsValue(): number {
+    return this.filteredWorks?.reduce((sum, work) =>
+      sum + (work.boQs?.filter(boq => boq.status === 'تم الاعتماد')
+        .reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
+    );
+  }
+
+  get totalUnapprovedBoqsValue(): number {
+    return this.filteredWorks?.reduce((sum, work) =>
+      sum + (work.boQs?.filter(boq => boq.status !== 'تم الاعتماد')
+        .reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
+    );
+  }
+
   onSearchChange() {
 
     if (!this.searchText) {

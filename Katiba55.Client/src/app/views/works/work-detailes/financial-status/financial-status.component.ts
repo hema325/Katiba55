@@ -44,14 +44,66 @@ export class FinancialStatusComponent implements OnInit {
       sum + (company.boQs?.reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
     );
   }
+
   get totalContractValue(): number {
     return this.filteredCompanies?.reduce((sum, company) =>
       sum + (company.boQs?.reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
     );
   }
+
   get totalInvoicesValue(): number {
     return this.filteredCompanies?.reduce((sum, company) =>
       sum + (company.boQs?.reduce((bSum, boq) => bSum + (boq.contract?.invoices?.reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
+    );
+  }
+
+  // إجمالي المقايسات التي تم اعتمادها
+  get totalApprovedBoqsValue(): number {
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.filter(boq => boq.status === 'تم الاعتماد')
+        .reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
+    );
+  }
+
+  // إجمالي المقايسات التي لم يتم اعتمادها
+  get totalUnapprovedBoqsValue(): number {
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.filter(boq => boq.status !== 'تم الاعتماد')
+        .reduce((bSum, boq) => bSum + (boq.value || 0), 0) || 0), 0
+    );
+  }
+
+  // إجمالي العقود التي تم التعاقد عليها
+  get totalContractedBoqsValue(): number {
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.filter(boq => boq.contract?.status === 'تم التعاقد')
+        .reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
+    );
+  }
+
+  // إجمالي العقود التي لم يتم التعاقد عليها
+  get totalUncontractedBoqsValue(): number {
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.filter(boq => !boq.contract || boq.contract?.status !== 'تم التعاقد')
+        .reduce((bSum, boq) => bSum + (boq.contract?.value || 0), 0) || 0), 0
+    );
+  }
+
+  // إجمالي المستخلصات التى تم صرفها
+  get totalPaidInvoices(): number {
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.reduce((bSum, boq) =>
+        bSum + (boq.contract?.invoices?.filter(inv => inv.status === 'تم الصرف')
+          .reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
+    );
+  }
+
+  // إجمالي المستخلصات التى لم يتم صرفها
+  get totalUnpaidInvoices(): number {
+    return this.filteredCompanies?.reduce((sum, company) =>
+      sum + (company.boQs?.reduce((bSum, boq) =>
+        bSum + (boq.contract?.invoices?.filter(inv => inv.status !== 'تم الصرف')
+          .reduce((iSum, invoice) => iSum + (invoice.value || 0), 0) || 0), 0) || 0), 0
     );
   }
 

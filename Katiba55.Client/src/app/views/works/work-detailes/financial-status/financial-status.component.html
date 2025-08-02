@@ -98,14 +98,38 @@
       }
     </tbody>
     <tfoot>
-      <tr class="table-primary fw-bold">
-        <td colspan="3">الإجمالي</td>
+      <tr class="table-success fw-bold">
+        <td colspan="3" class="text-end">إجمالي المقايسات التي تم اعتمادها</td>
+        <td>{{ totalApprovedBoqsValue | number }}</td>
+        <td></td>
+        <td class="text-end">إجمالي العقود التي تم التعاقد عليها</td>
+        <td>{{ totalContractedBoqsValue | number }}</td>
+        <td></td>
+        <td class="text-end">إجمالي المستخلصات التى تم صرفها</td>
+        <td>{{ totalPaidInvoices | number }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="table-warning fw-bold">
+        <td colspan="3" class="text-end">إجمالي المقايسات التي لم يتم اعتمادها</td>
+        <td>{{ totalUnapprovedBoqsValue | number }}</td>
+        <td></td>
+        <td class="text-end">إجمالي العقود التي لم يتم التعاقد عليها</td>
+        <td>{{ totalUncontractedBoqsValue | number }}</td>
+        <td></td>
+        <td class="text-end">إجمالي المستخلصات التى لم يتم صرفها</td>
+        <td>{{ totalUnpaidInvoices | number }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="table-secondary fw-bold">
+        <td colspan="3" class="text-end">إجمالي المقايسات</td>
         <td>{{ totalBoqValue | number }}</td>
         <td></td>
-        <td></td>
+        <td class="text-end">إجمالي العقود</td>
         <td>{{ totalContractValue | number }}</td>
         <td></td>
-        <td></td>
+        <td class="text-end">إجمالي المستخلصات</td>
         <td>{{ totalInvoicesValue | number }}</td>
         <td></td>
         <td></td>
