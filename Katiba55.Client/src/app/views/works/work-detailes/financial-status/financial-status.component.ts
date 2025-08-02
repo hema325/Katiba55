@@ -56,9 +56,14 @@ export class FinancialStatusComponent implements OnInit {
   }
 
   onSearchChange() {
+
+    if (!this.searchText) {
+      this.filteredCompanies = this.companies;
+      return;
+    }
+
     this.filteredCompanies = this.companies.filter(company => {
-      return company.name.includes(this.searchText) ||
-        company.boQs.some(boq => boq.number == this.searchText || boq.contract?.number == this.searchText);
+      return company.name === this.searchText;
     });
   }
 
