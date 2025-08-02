@@ -29,8 +29,16 @@
                   required />
               </div>
               <div class="col-12 col-md-6">
-                <app-text-input label="موقف المقايسة" placeholder="ادخل موقف المقايسة" formControlName="status"
-                  required />
+                <!-- <app-text-input label="موقف المقايسة" placeholder="ادخل موقف المقايسة" formControlName="status"
+                  required /> -->
+                <app-select-input label="موقف المقايسة" formControlName="status" required>
+                  <option value="" disabled hidden selected>اختر موقف المقايسة</option>
+                  <option value="تم الاعتماد">تم الاعتماد</option>
+                  <option value="لم يتم الاعتماد">لم يتم الاعتماد</option>
+                  <option value="جارى الاعتماد">جارى الاعتماد</option>
+                  <option value="جارى المراجعه فى الهيئة">جارى المراجعه فى الهيئة</option>
+                  <option value="جارى المراجعه فى الادارة">جارى المراجعه فى الادارة</option>
+                </app-select-input>
               </div>
               <div class="col-12 col-md-6">
                 <app-text-input label="قيمة المقايسة" placeholder="ادخل قيمة المقايسة" formControlName="value"

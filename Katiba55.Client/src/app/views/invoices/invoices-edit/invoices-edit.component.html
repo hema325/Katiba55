@@ -24,8 +24,13 @@
                 <app-text-input label="نوع المستخلص" placeholder="ادخل نوع المستخلص" formControlName="type" required />
               </div>
               <div class="col-12 col-md-6">
-                <app-text-input label="موقف المستخلص" placeholder="ادخل موقف المستخلص" formControlName="status"
-                  required />
+                <!-- <app-text-input label="موقف المستخلص" placeholder="ادخل موقف المستخلص" formControlName="status"
+                  required /> -->
+                <app-select-input label="موقف المستخلص" formControlName="status" required>
+                  <option value="" disabled hidden selected>اختر موقف المستخلص</option>
+                  <option value="تم الصرف">تم الصرف</option>
+                  <option value="لم يتم الصرف">لم يتم الصرف</option>
+                </app-select-input>
               </div>
               <div class="col-12 col-md-6">
                 <app-text-input label="القيمة" placeholder="ادخل قيمة المستخلص" formControlName="value" type="number"

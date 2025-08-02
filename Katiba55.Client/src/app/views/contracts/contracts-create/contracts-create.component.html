@@ -24,7 +24,14 @@
                 <app-text-input label="رقم العقد" placeholder="ادخل رقم العقد" formControlName="number" />
               </div>
               <div class="col-12 col-md-6">
-                <app-text-input label="موقف العقد" placeholder="ادخل موقف العقد" formControlName="status" required />
+                <app-select-input label="موقف العقد" formControlName="status" required>
+                  <option value="" disabled hidden selected>اختر موقف العقد</option>
+                  <option value="تم التعاقد">تم التعاقد</option>
+                  <option value="لم يتم التعاقد">لم يتم التعاقد</option>
+                  <option value="جارى التعاقد">جارى التعاقد</option>
+                  <option value="متوقف التعاقد لحين اعتماد المخصص المالى">متوقف التعاقد لحين اعتماد المخصص المالى
+                  </option>
+                </app-select-input>
               </div>
               <div class="col-12">
                 <app-text-input label="قيمة العقد" placeholder="ادخل قيمة العقد" formControlName="value"

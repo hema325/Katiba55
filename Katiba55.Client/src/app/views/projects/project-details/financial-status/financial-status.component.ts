@@ -66,12 +66,18 @@ export class FinancialStatusComponent implements OnInit {
   }
 
   onSearchChange() {
+
+    if (!this.searchText) {
+      this.filteredWorks = this.works;
+      return;
+    }
+
     this.filteredWorks = this.works
       .map(work => {
-        if (work.name.includes(this.searchText)) {
+        if (work.name == this.searchText) {
           return { ...work, boQs: work.boQs };
         }
-        const filteredBoQs = work.boQs.filter(boq => boq.company?.name?.includes(this.searchText));
+        const filteredBoQs = work.boQs.filter(boq => boq.company?.name == this.searchText);
         if (filteredBoQs.length > 0) {
           return { ...work, boQs: filteredBoQs };
         }

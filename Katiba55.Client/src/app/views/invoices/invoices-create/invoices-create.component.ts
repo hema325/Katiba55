@@ -7,6 +7,7 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent
 import { TextInputComponent } from '../../../shared/forms/text-input/text-input.component';
 import { InvoicesService } from '../../../services/invoices.service';
 import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
+import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 
 @Component({
   selector: 'app-invoices-create',
@@ -18,7 +19,8 @@ import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.hel
     CardBodyComponent,
     ReactiveFormsModule,
     TextInputComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SelectInputComponent
   ]
 })
 export class InvoicesCreateComponent implements OnInit {

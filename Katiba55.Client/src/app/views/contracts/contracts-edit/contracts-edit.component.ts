@@ -7,6 +7,7 @@ import { ToasterService } from 'src/app/services/toaster.service';
 import { TextInputComponent } from 'src/app/shared/forms/text-input/text-input.component';
 import { ContractsService } from '../../../services/contracts.service';
 import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.helper';
+import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
 
 @Component({
   selector: 'app-contracts-edit',
@@ -18,7 +19,8 @@ import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.hel
     CardBodyComponent,
     ReactiveFormsModule,
     TextInputComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SelectInputComponent
   ]
 })
 export class ContractsEditComponent implements OnInit {
