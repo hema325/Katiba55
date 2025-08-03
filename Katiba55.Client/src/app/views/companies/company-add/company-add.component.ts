@@ -47,7 +47,7 @@ export class CompanyAddComponent implements OnInit {
     address: [null],
     latitude: [null],
     longitude: [null],
-    securityApprovalImage: [{ value: null, disabled: true }],
+    securityApprovalImage: [null],
     notes: [null]
   });
   isSubmitting: boolean = false;
@@ -99,18 +99,18 @@ export class CompanyAddComponent implements OnInit {
   }
 
   onStatusChange(status: any) {
-    const securityApprovalImageControl = this.companyForm.get('securityApprovalImage');
-    if (status === CompanyStatus.Approved) {
-      securityApprovalImageControl?.setValidators([Validators.required]);
-      securityApprovalImageControl?.enable();
-    }
-    else {
-      securityApprovalImageControl?.setValidators(null);
-      securityApprovalImageControl?.disable();
-      securityApprovalImageControl?.setValue(null);
-      this.approvalImagePath = null;
-    }
+    // const securityApprovalImageControl = this.companyForm.get('securityApprovalImage');
+    // if (status === CompanyStatus.Approved) {
+    //   securityApprovalImageControl?.setValidators([Validators.required]);
+    //   securityApprovalImageControl?.enable();
+    // }
+    // else {
+    //   securityApprovalImageControl?.setValidators(null);
+    //   securityApprovalImageControl?.disable();
+    //   securityApprovalImageControl?.setValue(null);
+    //   this.approvalImagePath = null;
+    // }
 
-    securityApprovalImageControl?.updateValueAndValidity();
+    // securityApprovalImageControl?.updateValueAndValidity();
   }
 }

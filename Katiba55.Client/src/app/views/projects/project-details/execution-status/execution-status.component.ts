@@ -17,7 +17,7 @@ import { MediaReferenceTypes } from '../../../../enums/media-reference-types.enu
 import { Environment } from '../../../../static-data/environment';
 import { getExecutionStatusBadgeColor } from '../../../../helpers/execution-status.helper';
 import { ExecutionStatusPipe } from '../../../../pipes/execution-status.pipe';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe, SlicePipe } from '@angular/common';
 import { WorkDetailed } from '../../../../models/works/work-detailed';
 import { getRandomChartColorObject } from '../../../../helpers/chart-color.helper';
 import { getArabicMonthName } from '../../../../helpers/date.helper';
@@ -48,7 +48,8 @@ import { ItemBrief } from 'src/app/models/items/item-brief';
     ExecutionStatusPipe,
     DatePipe,
     DecimalPipe,
-    ExecutionStatusPipe
+    ExecutionStatusPipe,
+    SlicePipe
   ]
 })
 export class ExecutionStatusComponent implements OnInit {

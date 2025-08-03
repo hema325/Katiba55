@@ -201,7 +201,7 @@
   المخططات البيانية
 </h6>
 }
-<div class="row mb-4">
+<div class="row justify-content-center mb-4">
 
   @if(worksExecutionChartData) {
   <div class="col-12" lg="6">
@@ -223,7 +223,7 @@
       <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
         <i class="fa-solid fa-chart-line text-success me-2"></i>
         <span class="fw-bold">مخطط الأعمال الزمنى</span>
-        <div class="ms-auto">
+        <div class="d-print-none ms-auto">
           <button type="button" class="btn btn-outline-primary btn-sm me-2"
             [class.active]="worksTimelineChartType === 'bar'" (click)="setWorksTimelineChartType('bar')">
             أعمدة
@@ -253,7 +253,7 @@
       <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
         <i class="fa-solid fa-chart-line text-info"></i>
         <span class="fw-bold">مخطط المشروع الزمنى</span>
-        <div class="ms-auto">
+        <div class="d-print-none ms-auto">
           <button type="button" class="btn btn-outline-primary btn-sm me-2"
             [class.active]="projectTimelineChartType === 'bar'" (click)="setProjectTimelineChartType('bar')">
             أعمدة
@@ -294,7 +294,7 @@
     <button type="button" class="btn btn-outline-primary">الفيديوهات</button>
   </div> -->
 
-  @for(media of medias; track media.id) {
+  <!-- @for(media of medias; track media.id) {
   <div class="col-12 col-md-6 col-lg-4 d-flex">
     <a [href]="baseUrl + media.path" target="_blank"
       class="media-card card border-0 shadow-sm rounded-4 overflow-hidden position-relative h-100 w-100 text-decoration-none">
@@ -319,6 +319,49 @@
         @else if(media.type === 'PowerPoint') {
         <img src="assets/imgs/powerpoint.png" class="img-fluid object-fit-cover w-100 ">
         }
+      </div>
+    </a>
+  </div>
+  } -->
+
+  @for(media of medias; track media.id) {
+  <div class="col-12 mb-4">
+    <a [href]="baseUrl + media.path" target="_blank"
+      class="media-card card border-0 shadow-sm rounded-4 overflow-hidden position-relative w-100 text-decoration-none">
+      <div class="bg-light position-relative">
+        <div class="ratio ratio-21x9">
+          @if(media.type === 'Video') {
+          <video class="w-100 h-100 object-fit-cover" controls poster="assets/imgs/video-placeholder.png">
+            <source [src]="baseUrl + media.path" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          } @else if(media.type === 'Image') {
+          <img [src]="baseUrl + media.path" class="img-fluid object-fit-cover w-100 h-100" alt="صورة">
+          }
+          @else if(media.type === 'Pdf') {
+          <img src="assets/imgs/pdf.png" class="img-fluid object-fit-cover w-100 h-100" alt="PDF">
+          }
+          @else if(media.type === 'Word') {
+          <img src="assets/imgs/word.png" class="img-fluid object-fit-cover w-100 h-100" alt="Word">
+          }
+          @else if(media.type === 'Excel') {
+          <img src="assets/imgs/excel.png" class="img-fluid object-fit-cover w-100 h-100" alt="Excel">
+          }
+          @else if(media.type === 'PowerPoint') {
+          <img src="assets/imgs/powerpoint.png" class="img-fluid object-fit-cover w-100 h-100" alt="PowerPoint">
+          }
+        </div>
+        <!-- Floating date -->
+        <div
+          class="position-absolute bottom-0 end-0  m-2 px-2 py-1 bg-dark bg-opacity-75 text-white rounded small fs-6 fw-semibold"
+          style="width: fit-content; height: fit-content;">
+          {{ media.date ? (media.date | date:'dd-MM-yyyy') : '' }}
+        </div>
+      </div>
+      <div class="p-3 text-center bg-primary border-top">
+        <span class="fw-bold text-white d-block" style="font-size: 1.1rem; word-break: break-all;">
+          {{ media.name || (media.path | slice:-30) }}
+        </span>
       </div>
     </a>
   </div>

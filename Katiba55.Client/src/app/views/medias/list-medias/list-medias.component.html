@@ -55,7 +55,7 @@
           }
         </div>
         <c-card-body class="bg-white p-4 d-flex flex-column h-100">
-          <div class="fw-bold fs-5 text-truncate mb-2" title="صور">
+          <div class="fw-bold fs-5 text-truncate mb-2" [cTooltip]="media.name" cTooltipPlacement="bottom">
             {{media.name}}
           </div>
           <div class="d-flex justify-content-start gap-2 mb-2">

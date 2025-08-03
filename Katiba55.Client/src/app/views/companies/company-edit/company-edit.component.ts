@@ -121,18 +121,18 @@ export class CompanyEditComponent implements OnInit {
   }
 
   onStatusChange(status: any) {
-    const securityApprovalImageControl = this.companyForm.get('securityApprovalImage');
-    if (status === CompanyStatus.Approved) {
-      if (!this.approvalImagePath)
-        securityApprovalImageControl?.setValidators([Validators.required]);
+    // const securityApprovalImageControl = this.companyForm.get('securityApprovalImage');
+    // if (status === CompanyStatus.Approved) {
+    //   if (!this.approvalImagePath)
+    //     securityApprovalImageControl?.setValidators([Validators.required]);
 
-      securityApprovalImageControl?.enable();
-    }
-    else {
-      securityApprovalImageControl?.setValidators(null);
-      securityApprovalImageControl?.disable();
-    }
+    //   securityApprovalImageControl?.enable();
+    // }
+    // else {
+    //   securityApprovalImageControl?.setValidators(null);
+    //   securityApprovalImageControl?.disable();
+    // }
 
-    securityApprovalImageControl?.updateValueAndValidity();
+    // securityApprovalImageControl?.updateValueAndValidity();
   }
 }

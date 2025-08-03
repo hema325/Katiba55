@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe, SlicePipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
@@ -32,7 +32,9 @@ import { getArabicMonthName } from '../../../../helpers/date.helper';
     DecimalPipe,
     RouterLink,
     ChartjsComponent,
-    BadgeComponent
+    BadgeComponent,
+    SlicePipe,
+    DatePipe
   ]
 })
 export class ExecutionStatusComponent implements OnInit {
