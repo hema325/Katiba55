@@ -133,3 +133,7 @@ table {
 .card-animation:hover {
     transform: scale(1.05);
 }
+
+.avoid-page-break-inside {
+    page-break-inside: avoid;
+}

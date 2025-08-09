@@ -1,11 +1,18 @@
-<h6 class="text-secondary mb-4">
-  <i class="fa-solid fa-table-list text-primary me-2"></i>
-  الموقف التنفيذي
-</h6>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h6 class="text-secondary mb-0">
+    <i class="fa-solid fa-table-list text-primary me-2"></i>
+    الموقف التنفيذي
+  </h6>
+  <div class="d-print-none">
+    <button class="btn btn-outline-primary" type="button" onclick="print()">
+      <i class="fa-solid fa-print"></i> طباعة
+    </button>
+  </div>
+</div>
 
 
 <!-- كارد نسبة التنفيذ -->
-<c-card class="mb-5 border-0 shadow-sm bg-white rounded-4 position-relative">
+<c-card class="mb-5 border-0 shadow-sm bg-white rounded-4 position-relative avoid-page-break-inside">
   <c-card-body>
     <div class="d-flex flex-column align-items-center justify-content-center p-4">
       <div class="d-flex align-items-center gap-2 mb-3">
@@ -65,150 +72,156 @@
 
 @if(works && works.length > 0) {
 <!-- جدول الموقف التنفيذي للأعمال مع البنود التابعة لها -->
-<h6 class="text-secondary mb-4">
-  <i class="fa-solid fa-table-list text-primary me-2"></i>
-  جدول الموقف التنفيذي
-</h6>
 
-<div class="overflow-auto mb-5">
-  <table class="text-center table table-hover table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
-    <thead class="table-secondary">
-      <tr>
-        <th rowspan="2">اسم العمل</th>
-        <th colspan="2">الشركة المسؤلة</th>
-        <th rowspan="2">القيمة الكلية</th>
-        <th rowspan="2">القيمة المنفذة</th>
-        <th rowspan="2">القيمة المتبقية</th>
-        <th rowspan="2">الوزن النسبي</th>
-        <th rowspan="2">نسبة التنفيذ</th>
-        <th rowspan="2">حالة التنفيذ</th>
-        <th colspan="2">تاريخ البدء</th>
-        <th colspan="2">تاريخ الانتهاء</th>
-        <!-- <th rowspan="2">ملاحظات</th> -->
-      </tr>
-      <tr>
-        <th>الاسم</th>
-        <th>الدور</th>
-        <th>تقديري</th>
-        <th>فعلي</th>
-        <th>تقديري</th>
-        <th>فعلي</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for(work of works; track work.id) {
-      @if(work.workCompanies && work.workCompanies.length > 0) {
-      @for( workCompany of work.workCompanies; let i = $index; track workCompany.id) {
-      <tr [routerLink]="['/works', work.id]" [fragment]="'execution-status'">
-        @if(i === 0) {
-        <td [attr.rowspan]="work.workCompanies.length">{{ work?.name || '-' }}</td>
+<div class="avoid-page-break-inside">
+  <h6 class="text-secondary mb-4">
+    <i class="fa-solid fa-table-list text-primary me-2"></i>
+    جدول الموقف التنفيذي
+  </h6>
+
+  <div class="overflow-auto mb-5">
+    <table class="text-center table table-hover table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
+      <thead class="table-secondary">
+        <tr>
+          <th rowspan="2">اسم العمل</th>
+          <th colspan="2">الشركة المسؤلة</th>
+          <th rowspan="2">القيمة الكلية</th>
+          <th rowspan="2">القيمة المنفذة</th>
+          <th rowspan="2">القيمة المتبقية</th>
+          <th rowspan="2">الوزن النسبي</th>
+          <th rowspan="2">نسبة التنفيذ</th>
+          <th rowspan="2">حالة التنفيذ</th>
+          <th colspan="2">تاريخ البدء</th>
+          <th colspan="2">تاريخ الانتهاء</th>
+          <!-- <th rowspan="2">ملاحظات</th> -->
+        </tr>
+        <tr>
+          <th>الاسم</th>
+          <th>الدور</th>
+          <th>تقديري</th>
+          <th>فعلي</th>
+          <th>تقديري</th>
+          <th>فعلي</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(work of works; track work.id) {
+        @if(work.workCompanies && work.workCompanies.length > 0) {
+        @for( workCompany of work.workCompanies; let i = $index; track workCompany.id) {
+        <tr [routerLink]="['/works', work.id]" [fragment]="'execution-status'">
+          @if(i === 0) {
+          <td [attr.rowspan]="work.workCompanies.length">{{ work?.name || '-' }}</td>
+          }
+          <td>
+            <a [routerLink]="['/companies', workCompany.company!.id!]" class="btn-link">
+              {{ workCompany.company!.name! || '-' }}
+            </a>
+          </td>
+          <td>
+            {{ workCompany.role || '-' }}
+          </td>
+          @if(i === 0) {
+          <td [attr.rowspan]="work.workCompanies.length">{{ (work?.totalValue | number) || '-' }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executedValue | number) || '-' }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ (work?.remainingValue | number) || '-' }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ (work?.relativeWeightPercent != null ?
+            work.relativeWeightPercent
+            + '%' : '-') }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executionPercent != null ? work.executionPercent +
+            '%'
+            :
+            '-') }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executionStatus | executionStatus) || '-' }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ work?.estimatedStartDate ? (work.estimatedStartDate |
+            date:'dd-MM-yyyy') : '-' }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ work?.actualStartDate ? (work.actualStartDate |
+            date:'dd-MM-yyyy')
+            : '-' }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ work?.estimatedEndDate ? (work.estimatedEndDate |
+            date:'dd-MM-yyyy') : '-' }}</td>
+          <td [attr.rowspan]="work.workCompanies.length">{{ work?.actualEndDate ? (work.actualEndDate |
+            date:'dd-MM-yyyy')
+            :
+            '-' }}</td>
+          <!-- <td [attr.rowspan]="work.workCompanies.length">{{ work?.notes || 'لا يوجد' }}</td> -->
+          }
+        </tr>
         }
-        <td>
-          <a [routerLink]="['/companies', workCompany.company!.id!]" class="btn-link">
-            {{ workCompany.company!.name! || '-' }}
-          </a>
-        </td>
-        <td>
-          {{ workCompany.role || '-' }}
-        </td>
-        @if(i === 0) {
-        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.totalValue | number) || '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executedValue | number) || '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.remainingValue | number) || '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.relativeWeightPercent != null ?
-          work.relativeWeightPercent
-          + '%' : '-') }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executionPercent != null ? work.executionPercent + '%'
-          :
-          '-') }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ (work?.executionStatus | executionStatus) || '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ work?.estimatedStartDate ? (work.estimatedStartDate |
-          date:'dd-MM-yyyy') : '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ work?.actualStartDate ? (work.actualStartDate |
-          date:'dd-MM-yyyy')
-          : '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ work?.estimatedEndDate ? (work.estimatedEndDate |
-          date:'dd-MM-yyyy') : '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy')
-          :
-          '-' }}</td>
-        <!-- <td [attr.rowspan]="work.workCompanies.length">{{ work?.notes || 'لا يوجد' }}</td> -->
+        } @else {
+        <tr [routerLink]="['/works', work.id]" [fragment]="'execution-status'">
+          <td>{{ work?.name || '-' }}</td>
+          <td colspan="2">-</td>
+          <td>{{ (work?.totalValue | number) || '-' }}</td>
+          <td>{{ (work?.executedValue | number) || '-' }}</td>
+          <td>{{ (work?.remainingValue | number) || '-' }}</td>
+          <td>{{ (work?.relativeWeightPercent != null ? work.relativeWeightPercent + '%' : '-') }}</td>
+          <td>{{ (work?.executionPercent != null ? work.executionPercent + '%' : '-') }}</td>
+          <td>{{ (work?.executionStatus | executionStatus) || '-' }}</td>
+          <td>{{ work?.estimatedStartDate ? (work.estimatedStartDate | date:'dd-MM-yyyy') : '-' }}</td>
+          <td>{{ work?.actualStartDate ? (work.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>
+          <td>{{ work?.estimatedEndDate ? (work.estimatedEndDate | date:'dd-MM-yyyy') : '-' }}</td>
+          <td>{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy') : '-' }}</td>
+          <!-- <td>{{ work?.notes || 'لا يوجد' }}</td> -->
+        </tr>
         }
-      </tr>
-      }
-      } @else {
-      <tr [routerLink]="['/works', work.id]" [fragment]="'execution-status'">
-        <td>{{ work?.name || '-' }}</td>
-        <td colspan="2">-</td>
-        <td>{{ (work?.totalValue | number) || '-' }}</td>
-        <td>{{ (work?.executedValue | number) || '-' }}</td>
-        <td>{{ (work?.remainingValue | number) || '-' }}</td>
-        <td>{{ (work?.relativeWeightPercent != null ? work.relativeWeightPercent + '%' : '-') }}</td>
-        <td>{{ (work?.executionPercent != null ? work.executionPercent + '%' : '-') }}</td>
-        <td>{{ (work?.executionStatus | executionStatus) || '-' }}</td>
-        <td>{{ work?.estimatedStartDate ? (work.estimatedStartDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.actualStartDate ? (work.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.estimatedEndDate ? (work.estimatedEndDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <!-- <td>{{ work?.notes || 'لا يوجد' }}</td> -->
-      </tr>
-      }
-      }
-    </tbody>
-  </table>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
 }
 
 <!-- جدول الموقف التنفيذي للأعمال مع البنود التابعة لها -->
 @if(worksExecutionSummary && worksExecutionSummary.items && worksExecutionSummary.items.length > 0) {
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h6 class="text-secondary mb-0">
-    <i class="fa-solid fa-table-list text-primary me-2"></i>
-    ملخص الموقف التنفيذي
-  </h6>
-  <div>
-    <button type="button" class="d-print-none btn btn-outline-primary btn-sm"
-      [disabled]="showWorksFilterModal || isFilteringWorksExecutionSummary" (click)="showWorksFilterModal = true">
-      @if(showWorksFilterModal || isFilteringWorksExecutionSummary) {
-      <c-spinner aria-hidden="true" class="me-1" size="sm"></c-spinner>
-      جارى التصفية
-      }
-      @else {
-      <i class="fa-solid fa-filter me-1"></i>
-      تصفية
-      }
-    </button>
+<div class="avoid-page-break-inside">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h6 class="text-secondary mb-0">
+      <i class="fa-solid fa-table-list text-primary me-2"></i>
+      ملخص الموقف التنفيذي
+    </h6>
+    <div>
+      <button type="button" class="d-print-none btn btn-outline-primary btn-sm"
+        [disabled]="showWorksFilterModal || isFilteringWorksExecutionSummary" (click)="showWorksFilterModal = true">
+        @if(showWorksFilterModal || isFilteringWorksExecutionSummary) {
+        <c-spinner aria-hidden="true" class="me-1" size="sm"></c-spinner>
+        جارى التصفية
+        }
+        @else {
+        <i class="fa-solid fa-filter me-1"></i>
+        تصفية
+        }
+      </button>
+    </div>
+  </div>
+
+  <div class="overflow-auto mb-5">
+    <table class="text-center table table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
+      <thead class="table-secondary">
+        <tr>
+          <th rowspan="2">اسم العمل</th>
+          <th [attr.colspan]="worksExecutionSummary.items.length">نسبة التنفيذ</th>
+          <th rowspan="2">الاجمالى</th>
+        </tr>
+        <tr>
+          @for(item of worksExecutionSummary.items; track item) {
+          <th>{{ item }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for(work of worksExecutionSummary.works; track work.id) {
+        <tr>
+          <td>{{ work?.name || '-' }}</td>
+          @for(item of worksExecutionSummary.items; track item) {
+          <td>{{getItemPercentageByName(item, work!.items) || '-' }}</td>
+          }
+          <td>{{ work?.executionPercent ? work?.executionPercent + '%' : '-' }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
 </div>
-
-<div class="overflow-auto mb-5">
-  <table class="text-center table table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
-    <thead class="table-secondary">
-      <tr>
-        <th rowspan="2">اسم العمل</th>
-        <th [attr.colspan]="worksExecutionSummary.items.length">نسبة التنفيذ</th>
-        <th rowspan="2">الاجمالى</th>
-      </tr>
-      <tr>
-        @for(item of worksExecutionSummary.items; track item) {
-        <th>{{ item }}</th>
-        }
-      </tr>
-    </thead>
-    <tbody>
-      @for(work of worksExecutionSummary.works; track work.id) {
-      <tr>
-        <td>{{ work?.name || '-' }}</td>
-        @for(item of worksExecutionSummary.items; track item) {
-        <td>{{getItemPercentageByName(item, work!.items) || '-' }}</td>
-        }
-        <td>{{ work?.executionPercent ? work?.executionPercent + '%' : '-' }}</td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
-}
 
 <!-- مودال اختيار العمل للتصفية -->
 <c-modal [visible]="showWorksFilterModal" [backdrop]="'static'">
@@ -229,92 +242,93 @@
     <button cButton color="primary" (click)="applyWorkExecutionSummaryFilter()">تصفية</button>
   </c-modal-footer>
 </c-modal>
-
-@if(worksExecutionChartData || worksTimelineData || projectTimelineData) {
-<h6 class="text-secondary mb-4">
-  <i class="fa-solid fa-chart-line text-warning me-2"></i>
-  المخططات البيانية
-</h6>
 }
-<div class="row justify-content-center mb-4">
 
-  @if(worksExecutionChartData) {
-  <div class="col-12" lg="6">
-    <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
-      <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
-        <i class="fa-solid fa-chart-bar text-success"></i>
-        <span class="fw-bold">نسب تنفيذ الأعمال</span>
-      </c-card-header>
-      <c-card-body class="p-4">
-        <c-chart type="bar" [data]="worksExecutionChartData" />
-      </c-card-body>
-    </c-card>
-  </div>
+<div class="avoid-page-break-inside">
+  @if(worksExecutionChartData || worksTimelineData || projectTimelineData) {
+  <h6 class="text-secondary mb-4">
+    <i class="fa-solid fa-chart-line text-warning me-2"></i>
+    المخططات البيانية
+  </h6>
   }
+  <div class="row justify-content-center mb-4">
+    @if(worksExecutionChartData) {
+    <div class="col-12" lg="6">
+      <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white avoid-page-break-inside">
+        <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
+          <i class="fa-solid fa-chart-bar text-success"></i>
+          <span class="fw-bold">نسب تنفيذ الأعمال</span>
+        </c-card-header>
+        <c-card-body class="p-4">
+          <c-chart type="bar" [data]="worksExecutionChartData" />
+        </c-card-body>
+      </c-card>
+    </div>
+    }
 
-  @if(worksTimelineData) {
-  <div class="col-12">
-    <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
-      <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
-        <i class="fa-solid fa-chart-line text-success me-2"></i>
-        <span class="fw-bold">مخطط الأعمال الزمنى</span>
-        <div class="d-print-none ms-auto">
-          <button type="button" class="btn btn-outline-primary btn-sm me-2"
-            [class.active]="worksTimelineChartType === 'bar'" (click)="setWorksTimelineChartType('bar')">
-            أعمدة
-          </button>
-          <button type="button" class="btn btn-outline-primary btn-sm"
-            [class.active]="worksTimelineChartType === 'line'" (click)="setWorksTimelineChartType('line')">
-            خطوط
-          </button>
-        </div>
-      </c-card-header>
-      <c-card-body class="p-4">
-        @if(worksTimelineChartType === 'bar') {
-        <c-chart type="bar" [data]="worksTimelineData" />
-        }
-        @else {
-        <c-chart type="line" [data]="worksTimelineData" />
-        }
-      </c-card-body>
-    </c-card>
+    @if(worksTimelineData) {
+    <div class="col-12">
+      <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white avoid-page-break-inside">
+        <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
+          <i class="fa-solid fa-chart-line text-success me-2"></i>
+          <span class="fw-bold">مخطط الأعمال الزمنى</span>
+          <div class="d-print-none ms-auto">
+            <button type="button" class="btn btn-outline-primary btn-sm me-2"
+              [class.active]="worksTimelineChartType === 'bar'" (click)="setWorksTimelineChartType('bar')">
+              أعمدة
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm"
+              [class.active]="worksTimelineChartType === 'line'" (click)="setWorksTimelineChartType('line')">
+              خطوط
+            </button>
+          </div>
+        </c-card-header>
+        <c-card-body class="p-4">
+          @if(worksTimelineChartType === 'bar') {
+          <c-chart type="bar" [data]="worksTimelineData" />
+          }
+          @else {
+          <c-chart type="line" [data]="worksTimelineData" />
+          }
+        </c-card-body>
+      </c-card>
+    </div>
+    }
+
+    @if(projectTimelineData) {
+    <div class="col-12" lg="6">
+      <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white avoid-page-break-inside">
+        <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
+          <i class="fa-solid fa-chart-line text-info"></i>
+          <span class="fw-bold">مخطط المشروع الزمنى</span>
+          <div class="d-print-none ms-auto">
+            <button type="button" class="btn btn-outline-primary btn-sm me-2"
+              [class.active]="projectTimelineChartType === 'bar'" (click)="setProjectTimelineChartType('bar')">
+              أعمدة
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm "
+              [class.active]="projectTimelineChartType === 'line'" (click)="setProjectTimelineChartType('line')">
+              خطوط
+            </button>
+          </div>
+        </c-card-header>
+        <c-card-body class="p-4">
+          @if(projectTimelineChartType === 'line') {
+          <c-chart type="line" [data]="projectTimelineData" />
+          }
+          @else {
+          <c-chart type="bar" [data]="projectTimelineData" />
+          }
+        </c-card-body>
+      </c-card>
+    </div>
+    }
+
   </div>
-  }
-
-
-  @if(projectTimelineData) {
-  <div class="col-12" lg="6">
-    <c-card class="mb-4 border-0 shadow-sm rounded-4 bg-white">
-      <c-card-header class="bg-white border-0 d-flex align-items-center gap-2">
-        <i class="fa-solid fa-chart-line text-info"></i>
-        <span class="fw-bold">مخطط المشروع الزمنى</span>
-        <div class="d-print-none ms-auto">
-          <button type="button" class="btn btn-outline-primary btn-sm me-2"
-            [class.active]="projectTimelineChartType === 'bar'" (click)="setProjectTimelineChartType('bar')">
-            أعمدة
-          </button>
-          <button type="button" class="btn btn-outline-primary btn-sm "
-            [class.active]="projectTimelineChartType === 'line'" (click)="setProjectTimelineChartType('line')">
-            خطوط
-          </button>
-        </div>
-      </c-card-header>
-      <c-card-body class="p-4">
-        @if(projectTimelineChartType === 'line') {
-        <c-chart type="line" [data]="projectTimelineData" />
-        }
-        @else {
-        <c-chart type="bar" [data]="projectTimelineData" />
-        }
-      </c-card-body>
-    </c-card>
-  </div>
-  }
-
 </div>
 
 @if(medias && medias.length > 0) {
-<div class="row g-4 mb-4">
+<div class="row g-4 mb-4 avoid-page-break-inside">
 
   <div class="col-12">
     <h6 class="text-secondary mb-2">
@@ -360,7 +374,7 @@
   } -->
 
   @for(media of medias; track media.id) {
-  <div class="col-12 mb-4">
+  <div class="col-12 mb-4 avoid-page-break-inside">
     <a [href]="baseUrl + media.path" target="_blank"
       class="media-card card border-0 shadow-sm rounded-4 overflow-hidden position-relative w-100 text-decoration-none">
       <div class="bg-light position-relative">
