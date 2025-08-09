@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Environment } from '../static-data/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Result } from '../models/Result';
 import { Work } from '../models/works/work';
@@ -51,8 +51,15 @@ export class WorksService {
     return this.httpClient.get<Result<WorkWithDetailedBoq[]>>(`${this.baseUrl}/getDetailedWithBOQByProjectId?projectId=${projectId}`);
   }
 
-  getWorksExecutionSummaryByProjectId(projectId: number): Observable<Result<WorkExecutionSummary>> {
-    return this.httpClient.get<Result<WorkExecutionSummary>>(`${this.baseUrl}/getWorksExecutionSummaryByProjectId?projectId=${projectId}`);
+  getWorksExecutionSummaryByProjectId(projectId: number, workIds: number[] | null | undefined = null): Observable<Result<WorkExecutionSummary>> {
+    var params = new HttpParams();
+    params = params.append('projectId', projectId.toString());
+
+    if (workIds && workIds.length > 0) {
+      workIds.forEach(workId => params = params.append('workIds', workId.toString()));
+    }
+
+    return this.httpClient.get<Result<WorkExecutionSummary>>(`${this.baseUrl}/getWorksExecutionSummaryByProjectId`, { params });
   }
 
   getMonthlyTimelineProgressById(workId: number): Observable<Result<WorkMonthlyProgressItem[]>> {

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BasicDetailsComponent } from '../basic-details/basic-details.component';
-import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ProgressComponent, RowComponent, TableDirective, TooltipDirective, WidgetStatFComponent } from '@coreui/angular';
+import { BadgeComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardHeaderComponent, ColComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ProgressComponent, RowComponent, SpinnerComponent, TableDirective, TooltipDirective, WidgetStatFComponent } from '@coreui/angular';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PaginatorComponent } from '../../../../shared/paginator/paginator.component';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
@@ -23,6 +23,7 @@ import { getRandomChartColorObject } from '../../../../helpers/chart-color.helpe
 import { getArabicMonthName } from '../../../../helpers/date.helper';
 import { WorkExecutionSummary } from 'src/app/models/works/work-execution-summary';
 import { ItemBrief } from 'src/app/models/items/item-brief';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-execution-status',
@@ -49,7 +50,13 @@ import { ItemBrief } from 'src/app/models/items/item-brief';
     DatePipe,
     DecimalPipe,
     ExecutionStatusPipe,
-    SlicePipe
+    SlicePipe,
+    ModalComponent,
+    ModalHeaderComponent,
+    ModalBodyComponent,
+    FormsModule,
+    ModalFooterComponent,
+    SpinnerComponent
   ]
 })
 export class ExecutionStatusComponent implements OnInit {
@@ -77,6 +84,10 @@ export class ExecutionStatusComponent implements OnInit {
   isLoadingProject = false;
   isLoadingWorks = false;
   isLoadingMedias = false;
+
+  showWorksFilterModal = false;
+  isFilteringWorksExecutionSummary = false;
+  selectedWorkIds: number[] = [];
 
   ngOnInit() {
     this.projectId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -167,9 +178,16 @@ export class ExecutionStatusComponent implements OnInit {
   }
 
   loadWorksExecutionSummary() {
-    this.worksService.getWorksExecutionSummaryByProjectId(this.projectId)
-      .pipe(first())
+    this.worksService.getWorksExecutionSummaryByProjectId(this.projectId, this.selectedWorkIds)
+      .pipe(finalize(() => this.isFilteringWorksExecutionSummary = false), first())
       .subscribe(response => this.worksExecutionSummary = response.data);
+  }
+
+
+  applyWorkExecutionSummaryFilter() {
+    this.isFilteringWorksExecutionSummary = true;
+    this.loadWorksExecutionSummary();
+    this.showWorksFilterModal = false;
   }
 
 
