@@ -90,11 +90,15 @@
               }
             </button>
             }
-
             <a [href]="baseUrl + media.path" target="_blank"
               class="btn btn-outline-success btn-sm rounded-circle card-btn" title="تحميل">
               <i class="fa-solid fa-search fa-lg"></i>
             </a>
+            <button [routerLink]="['/medias', media.id, 'edit']"
+              [queryParams]="{referenceId: referenceId, referenceType: referenceType}"
+              class="btn btn-outline-secondary btn-sm rounded-circle card-btn" title="تعديل">
+              <i class="fa-solid fa-pen"></i>
+            </button>
             <button (click)="fireDeleteConfirmationModal(media)"
               class="btn btn-outline-danger btn-sm rounded-circle card-btn" title="حذف">
               @if(deletedItem?.id == media.id) {

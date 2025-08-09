@@ -80,7 +80,7 @@
         <th rowspan="2">حالة التنفيذ</th>
         <th colspan="2">تاريخ البدء</th>
         <th colspan="2">تاريخ الانتهاء</th>
-        <th rowspan="2">ملاحظات</th>
+        <!-- <th rowspan="2">ملاحظات</th> -->
       </tr>
       <tr>
         <th>تقديري</th>
@@ -103,7 +103,7 @@
         <td>{{ item.actualStartDate ? (item.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ item.estimatedEndDate ? (item.estimatedEndDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ item.actualEndDate ? (item.actualEndDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ item.notes || 'لا يوجد' }}</td>
+        <!-- <td>{{ item.notes || 'لا يوجد' }}</td> -->
       </tr>
       }
 

@@ -19,8 +19,16 @@ export class MediasService {
     return this.httpClient.post<Result<number>>(`${this.baseUrl}/create`, media);
   }
 
+  update(id: number, media: any): Observable<Result<any>> {
+    return this.httpClient.put<Result<any>>(`${this.baseUrl}/${id}/update`, media);
+  }
+
   delete(id: number): Observable<Result<any>> {
     return this.httpClient.delete<Result<any>>(`${this.baseUrl}/${id}/delete`);
+  }
+
+  getById(id: number): Observable<Result<Media>> {
+    return this.httpClient.get<Result<Media>>(`${this.baseUrl}/${id}/getById`);
   }
 
   getByReference(referenceId: number, referenceType: MediaReferenceTypes, showInExecutionStatusPage: boolean | null | undefined = null): Observable<Result<Media[]>> {

@@ -13,6 +13,13 @@ export const routes: Routes = [
         data: {
           title: 'إضافة ميديا',
         }
+      },
+      {
+        path: ':id/edit',
+        loadComponent: () => import('./medias-update/medias-update.component').then(m => m.MediasUpdateComponent),
+        data: {
+          title: 'تعديل ميديا',
+        }
       }
     ]
   },

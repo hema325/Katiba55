@@ -30,7 +30,7 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(media.Id));
         }
 
-        [HttpPost("{id}/update")]
+        [HttpPut("{id}/update")]
         public async Task<IActionResult> UpdateAsync(int id, UpdateMediaDto dto)
         {
             var media = await _context.Medias.FirstOrDefaultAsync(m => m.Id == id);
@@ -58,6 +58,19 @@ namespace Katiba55.API.Controllers
             await _context.SaveChangesAsync();
 
             return Response(ResultFactory.Ok());
+        }
+
+        [HttpGet("{id}/getById")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var media = await _context.Medias
+                .ProjectTo<MediaDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (media == null)
+                return Response(ResultFactory.NotFound());
+
+            return Response(ResultFactory.Ok(media));
         }
 
         [HttpGet("getByReference")]

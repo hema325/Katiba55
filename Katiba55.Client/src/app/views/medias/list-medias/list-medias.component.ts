@@ -28,7 +28,7 @@ import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
     MediaCategoryPipe,
     FileSizePipe,
     DeleteConfirmationModalComponent,
-    SpinnerComponent
+    SpinnerComponent,
   ]
 })
 export class ListMediasComponent implements OnInit {

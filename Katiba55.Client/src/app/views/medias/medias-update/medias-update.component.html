@@ -1,0 +1,67 @@
+<div class="container-fluid px-0 my-3">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <!-- عنوان الصفحة -->
+      <c-card class="mb-4 border-0 shadow-sm bg-warning bg-opacity-10">
+        <c-card-body class="d-flex flex-column align-items-center justify-content-center px-3 pt-4 pb-3">
+          <span class="fw-bold fs-4 text-warning text-center mb-1">تعديل ملف</span>
+          <div class="text-secondary text-center small">يمكنك تعديل بيانات الملف ثم حفظ التغييرات.</div>
+        </c-card-body>
+      </c-card>
+
+      <form [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
+        <c-card class="mb-4 border-0 shadow-sm">
+          <c-card-header class="bg-transparent border-0 px-3 pt-3 pb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-photo-film text-warning me-2"></i>
+              <span class="fw-semibold text-warning">بيانات الملف</span>
+            </div>
+          </c-card-header>
+          <c-card-body class="pt-0 pb-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <app-text-input label="اسم الملف" placeholder="ادخل اسم الملف" formControlName="name" required />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="الفئة" placeholder="ادخل الفئة" formControlName="category" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-text-input label="التاريخ" placeholder="ادخل التاريخ" formControlName="date" type="date" />
+              </div>
+              <div class="col-12 col-md-6">
+                <app-file-input label="تغيير الملف (اختياري)" formControlName="file" accept="image/*,
+video/*,
+application/pdf,
+application/msword,
+application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+application/vnd.ms-excel,
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+application/vnd.ms-powerpoint,
+application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+                <div class="small text-muted mt-1">اترك الحقل فارغًا إذا كنت لا تريد تغيير الملف الحالي.</div>
+              </div>
+            </div>
+          </c-card-body>
+        </c-card>
+
+        <!-- زر الحفظ -->
+        <c-card class="mb-0 border-0 shadow-sm">
+          <c-card-body class="p-4">
+            <button type="submit" [disabled]="isSubmitting || mediaForm.invalid"
+              class="btn btn-warning w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 px-2 py-2"
+              aria-label="تعديل الملف">
+              @if(isSubmitting) {
+              <c-spinner aria-hidden="true" size="sm"></c-spinner>
+              <span class="px-1">جارى حفظ التغييرات</span>
+              }
+              @else {
+              <i class="fa-solid fa-floppy-disk opacity-75"></i>
+              <span class="px-1">حفظ التغييرات</span>
+              }
+            </button>
+          </c-card-body>
+        </c-card>
+      </form>
+    </div>
+  </div>
+</div>

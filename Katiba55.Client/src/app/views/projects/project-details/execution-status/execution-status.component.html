@@ -71,7 +71,7 @@
 </h6>
 
 <div class="overflow-auto mb-5">
-  <table class="text-center table table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
+  <table class="text-center table table-hover table-bordered align-middle shadow-sm rounded-4 overflow-hidden">
     <thead class="table-secondary">
       <tr>
         <th rowspan="2">اسم العمل</th>
@@ -84,7 +84,7 @@
         <th rowspan="2">حالة التنفيذ</th>
         <th colspan="2">تاريخ البدء</th>
         <th colspan="2">تاريخ الانتهاء</th>
-        <th rowspan="2">ملاحظات</th>
+        <!-- <th rowspan="2">ملاحظات</th> -->
       </tr>
       <tr>
         <th>الاسم</th>
@@ -132,7 +132,7 @@
         <td [attr.rowspan]="work.workCompanies.length">{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy')
           :
           '-' }}</td>
-        <td [attr.rowspan]="work.workCompanies.length">{{ work?.notes || 'لا يوجد' }}</td>
+        <!-- <td [attr.rowspan]="work.workCompanies.length">{{ work?.notes || 'لا يوجد' }}</td> -->
         }
       </tr>
       }
@@ -150,7 +150,7 @@
         <td>{{ work?.actualStartDate ? (work.actualStartDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ work?.estimatedEndDate ? (work.estimatedEndDate | date:'dd-MM-yyyy') : '-' }}</td>
         <td>{{ work?.actualEndDate ? (work.actualEndDate | date:'dd-MM-yyyy') : '-' }}</td>
-        <td>{{ work?.notes || 'لا يوجد' }}</td>
+        <!-- <td>{{ work?.notes || 'لا يوجد' }}</td> -->
       </tr>
       }
       }
@@ -160,7 +160,7 @@
 }
 
 <!-- جدول الموقف التنفيذي للأعمال مع البنود التابعة لها -->
-<!-- @if(worksExecutionSummary && worksExecutionSummary.items && worksExecutionSummary.items.length > 0) {
+@if(worksExecutionSummary && worksExecutionSummary.items && worksExecutionSummary.items.length > 0) {
 <h6 class="text-secondary mb-4">
   <i class="fa-solid fa-table-list text-primary me-2"></i>
   جدول الموقف التنفيذي للبنود
@@ -193,7 +193,7 @@
     </tbody>
   </table>
 </div>
-} -->
+}
 
 @if(worksExecutionChartData || worksTimelineData || projectTimelineData) {
 <h6 class="text-secondary mb-4">

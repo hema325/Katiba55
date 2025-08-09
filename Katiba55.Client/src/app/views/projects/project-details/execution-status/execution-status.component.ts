@@ -85,7 +85,7 @@ export class ExecutionStatusComponent implements OnInit {
     this.loadMedias();
     this.loadProjectTimeLineProgressData();
     this.loadWorksTimeLineProgressData();
-    // this.loadWorksExecutionSummary();
+    this.loadWorksExecutionSummary();
   }
 
   loadProject() {
