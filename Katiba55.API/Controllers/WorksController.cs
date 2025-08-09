@@ -166,18 +166,28 @@ namespace Katiba55.API.Controllers
         }
 
         [HttpGet("getWorksExecutionSummaryByProjectId")] 
-        public async Task<IActionResult> GetWorksExecutionSummaryByProjectIdAsync([FromQuery] int projectId)
+        public async Task<IActionResult> GetWorksExecutionSummaryByProjectIdAsync([FromQuery] int projectId, [FromQuery] int[] workIds = null)
         {
-            var items = await _context.Items
+            var itemsQuery = _context.Items.AsQueryable();
+
+            if (workIds != null && workIds.Length > 0)
+                itemsQuery = itemsQuery.Where(i => workIds.Any(wi => wi == i.WorkId));
+
+            var items = await itemsQuery
                 .Where(i => i.Work.ProjectId == projectId)
                 .Select(i => i.Name)
                 .Distinct()
                 .ToListAsync();
 
-            var works = await _context.Works
-                .Where(w => w.ProjectId == projectId)
-                .ProjectTo<WorkWithItemsBriefDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            var worksQuery = _context.Works.AsQueryable();
+
+            if (workIds != null && workIds.Length > 0)
+                worksQuery = worksQuery.Where(w => workIds.Any(wi => wi == w.Id));
+
+            var works = await worksQuery
+               .Where(w => w.ProjectId == projectId)
+               .ProjectTo<WorkWithItemsBriefDto>(_mapper.ConfigurationProvider)
+               .ToListAsync();
 
             var result = new WorkExecutionSummary
             {
