@@ -1,5 +1,6 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
+using Katiba55.API.Dtos.Medias;
 using Katiba55.API.Dtos.ProjectMedias;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,22 @@ namespace Katiba55.API.Controllers
             return Response(ResultFactory.Ok(media.Id));
         }
 
+        [HttpPost("{id}/update")]
+        public async Task<IActionResult> UpdateAsync(int id, UpdateMediaDto dto)
+        {
+            var media = await _context.Medias.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (media == null)
+                return Response(ResultFactory.NotFound());
+
+            _mapper.Map(dto, media);
+
+            _context.Medias.Update(media);
+            await _context.SaveChangesAsync();
+
+            return Response(ResultFactory.Ok());
+        }
+
         [HttpDelete("{id}/delete")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -36,16 +53,6 @@ namespace Katiba55.API.Controllers
 
             if (media == null)
                 return Response(ResultFactory.NotFound());
-
-            try
-            {
-                if (System.IO.File.Exists(media.Path))
-                    System.IO.File.Delete(media.Path);
-            }
-            catch
-            {
-                return Response(ResultFactory.BadRequest(message: "حدث خطأ أثناء حذف الملف. يرجى المحاولة مرة أخرى."));
-            }
 
             _context.Medias.Remove(media);
             await _context.SaveChangesAsync();

@@ -1,5 +1,5 @@
-﻿using Katiba55.API.Dtos.ProjectMedias;
-using Katiba55.API.Dtos.Projects;
+﻿using Katiba55.API.Dtos.Medias;
+using Katiba55.API.Dtos.ProjectMedias;
 
 namespace Katiba55.API.Profiles
 {
@@ -8,6 +8,7 @@ namespace Katiba55.API.Profiles
         public MediasProfile()
         {
             CreateMap<CreateMediaDto, Media>();
+            CreateMap<UpdateMediaDto, Media>();
             CreateMap<Media, MediaDto>();
         }
     }
