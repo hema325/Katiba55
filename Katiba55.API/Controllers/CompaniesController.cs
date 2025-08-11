@@ -104,5 +104,18 @@ namespace Katiba55.API.Controllers
 
             return Response(ResultFactory.Ok(_mapper.Map<CompanyWithBOQsDto[]>(works)));
         }
+
+        [HttpGet("getDetailedWithBOQByProjectId")]
+        public async Task<IActionResult> GetDetailedWithBOQByProjectIdAsync([FromQuery] int projectId)
+        {
+            var works = await _context.Companies
+                .Include(c => c.BOQs.Where(boq => boq.ProjectId == projectId))
+                .ThenInclude(boq => boq.Contract)
+                .ThenInclude(c => c.Invoices)
+                .Where(c => c.BOQs.Any(boq => boq.ProjectId == projectId))
+                .ToListAsync();
+
+            return Response(ResultFactory.Ok(_mapper.Map<CompanyWithBOQsDto[]>(works)));
+        }
     }
 }

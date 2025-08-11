@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-4 mb-4 no-print">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-4 mb-4">
   <h6 class="text-secondary mb-0">
     <i class="fa-solid fa-sack-dollar text-primary me-2"></i>
     الموقف المالي
@@ -11,30 +11,28 @@
     </button>
   </div>
 </div>
-
 @if(isLoading)
 {
 <div class="w-100 d-flex justify-content-center align-items-center py-5">
   <c-spinner color="primary" />
 </div>
 }
-@else if(works.length == 0) {
+@else if(companies.length == 0) {
 <div class="alert alert-info">
   <i class="fa-solid fa-info-circle me-2"></i>لا يوجد موقف مالى لعرضة.
 </div>
 }
 @else {
-<div id="print-financial-table" class="overflow-auto mb-5">
+<div class="overflow-auto mb-5">
   <table class="table table-bordered align-middle text-center shadow-sm rounded-4 overflow-hidden">
     <thead class="table-secondary">
       <tr>
-        <th rowSpan="2">اسم العمل</th>
-        <th colspan="5">المقايسة</th>
+        <th rowSpan="2">الشركة</th>
+        <th colspan="4">المقايسة</th>
         <th colspan="3">العقد</th>
         <th colspan="4">المستخلص</th>
       </tr>
       <tr>
-        <th>الشركة المسؤلة</th>
         <th>رقم المقايسة</th>
         <th>عنوان المقايسة</th>
         <th>قيمة المقايسة</th>
@@ -49,21 +47,20 @@
       </tr>
     </thead>
     <tbody>
-      @for(work of filteredWorks; track work.id) {
-      @if(!work.boQs || work.boQs.length === 0) {
+      @for(company of filteredCompanies; track company.id) {
+      @if(!company.boQs || company.boQs.length === 0) {
       <tr>
-        <td>{{ work.name }}</td>
+        <td>{{ company.name }}</td>
         <td colspan="12"></td>
       </tr>
       }
       @else {
-      @for(boq of work.boQs; track boq.id; let firstBoq = $first) {
+      @for(boq of company.boQs; track boq.id; let firstBoq = $first) {
       @if(!boq.contract || !boq.contract.invoices || boq.contract.invoices.length === 0) {
       <tr>
         @if(firstBoq) {
-        <td [rowSpan]="getWorkRowSpan(work)">{{ work.name }}</td>
+        <td [rowSpan]="getCompanyRowSpan(company)">{{ company.name }}</td>
         }
-        <td>{{ boq.company?.name || '-' }}</td>
         <td>{{ boq.number }}</td>
         <td>{{ boq.title }}</td>
         <td>{{ (boq.value | number) || '-' }}</td>
@@ -78,10 +75,9 @@
       @for(invoice of boq.contract.invoices; track invoice.id; let firstInvoice = $first) {
       <tr>
         @if(firstBoq && firstInvoice) {
-        <td [rowSpan]="getWorkRowSpan(work)">{{ work.name }}</td>
+        <td [rowSpan]="getCompanyRowSpan(company)">{{ company.name }}</td>
         }
         @if(firstInvoice) {
-        <td [rowSpan]="boq.contract.invoices.length">{{ boq.company?.name || '-' }}</td>
         <td [rowSpan]="boq.contract.invoices.length">{{ boq.number }}</td>
         <td [rowSpan]="boq.contract.invoices.length">{{ boq.title }}</td>
         <td [rowSpan]="boq.contract.invoices.length">{{ boq.value | number }}</td>
@@ -103,31 +99,40 @@
     </tbody>
     <tfoot>
       <tr class="table-success fw-bold">
-        <td colspan="4" class="text-end">إجمالي المقايسات التي تم اعتمادها</td>
+        <td colspan="3" class="text-end">إجمالي المقايسات التي تم اعتمادها</td>
         <td>{{ totalApprovedBoqsValue | number }}</td>
-        <td colspan="2" class="text-end">إجمالي العقود التي تم التعاقد عليها</td>
+        <td></td>
+        <td class="text-end">إجمالي العقود التي تم التعاقد عليها</td>
         <td>{{ totalContractedBoqsValue | number }}</td>
-        <td colspan="2" class="text-end">إجمالي المستخلصات التى تم صرفها</td>
+        <td></td>
+        <td class="text-end">إجمالي المستخلصات التى تم صرفها</td>
         <td>{{ totalPaidInvoices | number }}</td>
-        <td colspan="2"></td>
+        <td></td>
+        <td></td>
       </tr>
       <tr class="table-warning fw-bold">
-        <td colspan="4" class="text-end">إجمالي المقايسات التي لم يتم اعتمادها</td>
+        <td colspan="3" class="text-end">إجمالي المقايسات التي لم يتم اعتمادها</td>
         <td>{{ totalUnapprovedBoqsValue | number }}</td>
-        <td colspan="2" class="text-end">إجمالي العقود التي لم يتم التعاقد عليها</td>
+        <td></td>
+        <td class="text-end">إجمالي العقود التي لم يتم التعاقد عليها</td>
         <td>{{ totalUncontractedBoqsValue | number }}</td>
-        <td colspan="2" class="text-end">إجمالي المستخلصات التى لم يتم صرفها</td>
+        <td></td>
+        <td class="text-end">إجمالي المستخلصات التى لم يتم صرفها</td>
         <td>{{ totalUnpaidInvoices | number }}</td>
-        <td colspan="2"></td>
+        <td></td>
+        <td></td>
       </tr>
       <tr class="table-secondary fw-bold">
-        <td colspan="4" class="text-end">إجمالي المقايسات</td>
+        <td colspan="3" class="text-end">إجمالي المقايسات</td>
         <td>{{ totalBoqValue | number }}</td>
-        <td colspan="2" class="text-end">إجمالي العقود</td>
+        <td></td>
+        <td class="text-end">إجمالي العقود</td>
         <td>{{ totalContractValue | number }}</td>
-        <td colspan="2" class="text-end">إجمالي المستخلصات</td>
+        <td></td>
+        <td class="text-end">إجمالي المستخلصات</td>
         <td>{{ totalInvoicesValue | number }}</td>
-        <td colspan="2"></td>
+        <td></td>
+        <td></td>
       </tr>
     </tfoot>
   </table>

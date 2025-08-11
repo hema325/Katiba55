@@ -30,6 +30,7 @@ export class ListBoqsComponent implements OnInit {
   private toasterService: ToasterService = inject(ToasterService);
 
   @Input() workId: number = 0;
+  @Input() projectId: number = 0;
 
   boqs: BOQ[] = [];
   deleteConfirmationModalVisible: boolean = false;
@@ -37,12 +38,24 @@ export class ListBoqsComponent implements OnInit {
   isLoading: boolean = false;
 
   ngOnInit() {
-    this.loadBOQs();
+    if (this.workId) {
+      this.loadBOQsByWorkId();
+    }
+    else {
+      this.loadBOQsByProjectId();
+    }
   }
 
-  private loadBOQs() {
+  private loadBOQsByWorkId() {
     this.isLoading = true;
     this.boqsService.getByWorkId(this.workId)
+      .pipe(finalize(() => { this.isLoading = false; }), first())
+      .subscribe(result => this.boqs = result.data);
+  }
+
+  private loadBOQsByProjectId() {
+    this.isLoading = true;
+    this.boqsService.getByProjectId(this.projectId)
       .pipe(finalize(() => { this.isLoading = false; }), first())
       .subscribe(result => this.boqs = result.data);
   }

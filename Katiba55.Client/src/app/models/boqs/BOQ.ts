@@ -5,4 +5,5 @@ export interface BOQ {
     number: string;
     value?: number;
     companyId: number;
+    workId?: number;
 }

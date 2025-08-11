@@ -26,7 +26,11 @@ namespace Katiba55.API.Controllers
                 return Response(ResultFactory.Conflict("هذة المقايسة موجودة بالفعل."));
 
             var boq = _mapper.Map<BOQ>(dto);
-            boq.ProjectId = await _context.Works.Where(w => w.Id == dto.WorkId).Select(w => w.ProjectId).FirstOrDefaultAsync();
+
+            if(boq.WorkId != null)
+            {
+                boq.ProjectId = await _context.Works.Where(w => w.Id == dto.WorkId).Select(w => w.ProjectId).FirstOrDefaultAsync();
+            }
 
             _context.BOQs.Add(boq);
             await _context.SaveChangesAsync();
@@ -85,6 +89,17 @@ namespace Katiba55.API.Controllers
         {
             var boq = await _context.BOQs
                 .Where(boq => boq.WorkId == workId)
+                .ProjectTo<BOQDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return Response(ResultFactory.Ok(boq));
+        }
+
+        [HttpGet("getByProjectId")]
+        public async Task<IActionResult> GetByProjectIdAsync([FromQuery] int projectId)
+        {
+            var boq = await _context.BOQs
+                .Where(boq => boq.ProjectId == projectId)
                 .ProjectTo<BOQDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 

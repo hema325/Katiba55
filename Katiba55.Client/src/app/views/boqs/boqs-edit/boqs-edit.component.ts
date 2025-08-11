@@ -10,6 +10,8 @@ import { fillDefaultObjectPropertiesWithNull } from '../../../helpers/object.hel
 import { CompaniesService } from '../../../services/companies.service';
 import { CompanyBrief } from '../../../models/companies/company-brief';
 import { SelectInputComponent } from '../../../shared/forms/select-input/select-input.component';
+import { WorksService } from '../../../services/works.service';
+import { WorkBrief } from '../../../models/works/work-brief';
 
 @Component({
   selector: 'app-boqs-edit',
@@ -28,6 +30,7 @@ import { SelectInputComponent } from '../../../shared/forms/select-input/select-
 export class BoqsEditComponent implements OnInit {
 
   private boqsService: BOQsService = inject(BOQsService);
+  private worksService: WorksService = inject(WorksService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private toasterService: ToasterService = inject(ToasterService);
@@ -39,17 +42,28 @@ export class BoqsEditComponent implements OnInit {
     number: ['', [Validators.required]],
     value: [null, [Validators.min(0)]],
     status: ['', [Validators.required]],
-    companyId: ['', [Validators.required]]
+    companyId: ['', [Validators.required]],
+    workId: ['']
   });
 
   companies: CompanyBrief[] = [];
+  works: WorkBrief[] = [];
   boqId: number = 0;
   workId: number = 0;
+  projectId: number = 0;
   isSubmitting: boolean = false;
+
+  get showWorkSelection(): boolean {
+    return this.projectId != 0 && this.workId == 0;
+  }
 
   ngOnInit() {
     this.boqId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
+    this.projectId = Number(this.activatedRoute.snapshot.queryParamMap.get('projectId'));
+    if (this.showWorkSelection) {
+      this.loadWorks();
+    }
     this.loadCompanies();
     this.loadBoq();
   }
@@ -58,6 +72,13 @@ export class BoqsEditComponent implements OnInit {
     this.companiesService.getAll()
       .pipe(first())
       .subscribe(response => this.companies = response.data);
+  }
+
+
+  loadWorks() {
+    this.worksService.getBriefByProjectId(this.projectId)
+      .pipe(first())
+      .subscribe(response => this.works = response.data);
   }
 
   loadBoq() {
@@ -75,13 +96,19 @@ export class BoqsEditComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    this.boqsService.update(this.boqId, fillDefaultObjectPropertiesWithNull(this.boqForm.value))
+    const workForm = { ...fillDefaultObjectPropertiesWithNull(this.boqForm.value) };
+    if (!this.showWorkSelection) {
+      workForm.workId = this.workId;
+    }
+    this.boqsService.update(this.boqId, workForm)
       .pipe(finalize(() => this.isSubmitting = false), first())
       .subscribe(response => {
         if (response.success) {
           this.toasterService.showToast('نجاح', 'تم تعديل المقايسة بنجاح!', 'success');
           if (this.workId)
             this.router.navigate(['/works', this.workId], { fragment: 'boqs' });
+          else if (this.projectId)
+            this.router.navigate([`/projects/${this.projectId}`], { fragment: 'boqs' });
           else
             this.router.navigate(['/boqs']);
         }

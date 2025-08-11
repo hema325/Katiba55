@@ -1,5 +1,5 @@
 <div class="d-print-none row g-3 mb-4 justify-content-center">
-  <div class="col-12 col-md-6 col-lg-4">
+  <div class="col-12 col-md-6 col-lg-3">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('basic-details')" [class.active]="activeTab === 'basic-details'"
         class="btn btn-outline-primary w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -8,7 +8,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6 col-lg-4">
+  <div class="col-12 col-md-6 col-lg-3">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('works')" [class.active]="activeTab === 'works'"
         class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -17,12 +17,21 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-md-6 col-lg-4">
+  <div class="col-12 col-md-6 col-lg-3">
     <c-card class="text-center  border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('medias')" [class.active]="activeTab === 'medias'"
         class="btn btn-outline-info w-100 h-100 py-3 rounded-3 fw-bold fs-6">
         <i class="fa-solid fa-photo-film me-2"></i>
         الوسائط
+      </button>
+    </c-card>
+  </div>
+  <div class="col-12 col-md-6 col-lg-3">
+    <c-card class="text-center border-0 rounded-3 h-100 p-0">
+      <button (click)="setActiveTab('boqs')" [class.active]="activeTab === 'boqs'"
+        class="btn btn-outline-danger w-100 h-100 py-3 rounded-3 fw-bold fs-6">
+        <i class="fa-solid fa-file-invoice me-2"></i>
+        المقايسات
       </button>
     </c-card>
   </div>
@@ -35,7 +44,7 @@
       </button>
     </c-card>
   </div>
-  <div class="col-12 col-lg-6">
+  <div class="col-12 col-md-6">
     <c-card class="text-center border-0 rounded-3 h-100 p-0">
       <button (click)="setActiveTab('financial-status')" [class.active]="activeTab === 'financial-status'"
         class="btn btn-outline-warning w-100 h-100 py-3 rounded-3 fw-bold fs-6">
@@ -60,4 +69,7 @@
 }
 @else if(activeTab === 'medias') {
 <app-list-medias [referenceId]="projectId" [referenceType]="referenceType" />
+}
+@else if(activeTab === 'boqs') {
+<app-list-boqs [projectId]="projectId" />
 }

@@ -33,6 +33,11 @@ export class BOQsService {
   getByWorkId(workId: number): Observable<Result<BOQ[]>> {
     return this.httpClient.get<Result<BOQ[]>>(`${this.baseUrl}/getByWorkId?workId=${workId}`);
   }
+
+  getByProjectId(projectId: number): Observable<Result<BOQ[]>> {
+    return this.httpClient.get<Result<BOQ[]>>(`${this.baseUrl}/getByProjectId?projectId=${projectId}`);
+  }
+
   getByDetailedWorkId(workId: number): Observable<Result<BoqDetailed[]>> {
     return this.httpClient.get<Result<BoqDetailed[]>>(`${this.baseUrl}/getByDetailedWorkId?workId=${workId}`);
   }

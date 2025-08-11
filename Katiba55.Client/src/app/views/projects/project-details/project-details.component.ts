@@ -8,6 +8,7 @@ import { ListWorksComponent } from '../../works/list-works/list-works.component'
 import { ListMediasComponent } from '../../medias/list-medias/list-medias.component';
 import { MediaReferenceTypes } from 'src/app/enums/media-reference-types.enum';
 import { FinancialStatusComponent } from './financial-status/financial-status.component';
+import { ListBoqsComponent } from '../../boqs/list-boqs/list-boqs.component';
 
 @Component({
   selector: 'app-project-details',
@@ -24,7 +25,8 @@ import { FinancialStatusComponent } from './financial-status/financial-status.co
     RouterOutlet,
     ListWorksComponent,
     ListMediasComponent,
-    FinancialStatusComponent
+    FinancialStatusComponent,
+    ListBoqsComponent
   ]
 })
 export class ProjectDetailsComponent implements OnInit {
@@ -32,7 +34,7 @@ export class ProjectDetailsComponent implements OnInit {
   projectId: number = 0;
   referenceType: MediaReferenceTypes = MediaReferenceTypes.Project;
 
-  activeTab: 'basic-details' | 'execution-status' | 'financial-status' | 'works' | 'medias' = 'basic-details';
+  activeTab: 'basic-details' | 'execution-status' | 'financial-status' | 'works' | 'medias' | 'boqs' = 'basic-details';
 
   ngOnInit() {
     this.projectId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -47,6 +49,7 @@ export class ProjectDetailsComponent implements OnInit {
       case 'financial-status':
       case 'works':
       case 'medias':
+      case 'boqs':
         this.activeTab = fragment;
         break;
       default:
@@ -55,7 +58,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
 
-  setActiveTab(tab: 'basic-details' | 'execution-status' | 'financial-status' | 'works' | 'medias') {
+  setActiveTab(tab: 'basic-details' | 'execution-status' | 'financial-status' | 'works' | 'medias' | 'boqs'): void {
     this.activeTab = tab;
   }
 

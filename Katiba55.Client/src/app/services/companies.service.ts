@@ -38,4 +38,8 @@ export class CompaniesService {
   getDetailedWithBOQByWorkId(workId: number): Observable<Result<CompanyWithBoqs[]>> {
     return this.httpClient.get<Result<CompanyWithBoqs[]>>(`${this.baseUrl}/getDetailedWithBOQByWorkId?workId=${workId}`);
   }
+
+  getDetailedWithBOQByProjectId(projectId: number): Observable<Result<CompanyWithBoqs[]>> {
+    return this.httpClient.get<Result<CompanyWithBoqs[]>>(`${this.baseUrl}/getDetailedWithBOQByProjectId?projectId=${projectId}`);
+  }
 }

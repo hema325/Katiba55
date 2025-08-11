@@ -6,7 +6,8 @@
         المقايسات
       </h6>
       <div class="d-flex align-items-center gap-2">
-        <button [routerLink]="['/boqs/create']" [queryParams]="{workId: workId}" type="button" class="btn btn-primary">
+        <button [routerLink]="['/boqs/create']" [queryParams]="{workId: workId, projectId: projectId}" type="button"
+          class="btn btn-primary">
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -53,7 +54,7 @@
               title="عرض التفاصيل">
               <i class="fa-solid fa-eye"></i>
             </button>
-            <button [routerLink]="['/boqs', boq.id, 'edit']" [queryParams]="{workId: workId}"
+            <button [routerLink]="['/boqs', boq.id, 'edit']" [queryParams]="{workId: workId, projectId: projectId}"
               class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center card-btn"
               title="تعديل">
               <i class="fa-solid fa-pen"></i>
