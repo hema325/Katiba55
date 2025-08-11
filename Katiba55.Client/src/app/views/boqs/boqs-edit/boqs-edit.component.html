@@ -54,7 +54,7 @@
               @if(showWorkSelection) {
               <div class="col-12 col-md-6">
                 <app-select-input label="العمل" formControlName="workId">
-                  <option value="" selected>اختر العمل</option>
+                  <option value="">اختر العمل</option>
                   @for(work of works; track work.id) {
                   <option [value]="work.id">{{ work.name }}</option>
                   }

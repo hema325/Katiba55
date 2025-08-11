@@ -62,12 +62,13 @@ export class BoqsEditComponent implements OnInit {
     this.boqId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
     this.projectId = Number(this.activatedRoute.snapshot.queryParamMap.get('projectId'));
-    this.loadCompanies();
-    this.loadBoq();
 
     if (this.showWorkSelection) {
       this.loadWorks();
     }
+
+    this.loadCompanies();
+    this.loadBoq();
   }
 
   loadCompanies() {
