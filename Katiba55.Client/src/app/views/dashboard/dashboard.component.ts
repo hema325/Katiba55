@@ -4,6 +4,7 @@ import { ListCompaniesComponent } from '../companies/list-companies/list-compani
 import { ListOfficersComponent } from '../officers/list-officers/list-officers.component';
 import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
 import { RouterLink } from '@angular/router';
+import { FinancialStatusComponent } from '../financial-status/financial-status.component';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -13,6 +14,7 @@ import { RouterLink } from '@angular/router';
       ListProjectsComponent,
       ListCompaniesComponent,
       ListOfficersComponent,
+      FinancialStatusComponent,
       CardComponent,
       CardBodyComponent,
       CardHeaderComponent,
@@ -24,9 +26,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  activeTab: 'projects' | 'companies' | 'officers' = 'projects';
+  activeTab: 'projects' | 'companies' | 'officers' | 'financial-status' = 'projects';
 
-  setActiveTab(tab: 'projects' | 'companies' | 'officers') {
+  setActiveTab(tab: 'projects' | 'companies' | 'officers' | 'financial-status') {
     this.activeTab = tab;
   }
 }

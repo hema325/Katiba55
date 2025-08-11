@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { Environment } from '../static-data/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Result } from '../models/Result';
 import { Observable } from 'rxjs';
 import { BOQ } from '../models/boqs/BOQ';
 import { BoqDetailed } from '../models/boqs/boq-detailed';
+import { ProjectWithBoq } from '../models/projects/project-with-boq';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,14 @@ export class BOQsService {
   }
   getByDetailedWorkId(workId: number): Observable<Result<BoqDetailed[]>> {
     return this.httpClient.get<Result<BoqDetailed[]>>(`${this.baseUrl}/getByDetailedWorkId?workId=${workId}`);
+  }
+
+  getDetailedByCompanyId(companyId: number | null | undefined = null): Observable<Result<ProjectWithBoq[]>> {
+    let params = new HttpParams();
+    if (companyId) {
+      params = params.append('companyId', companyId.toString());
+    }
+
+    return this.httpClient.get<Result<ProjectWithBoq[]>>(`${this.baseUrl}/getDetailedByCompanyId`, { params });
   }
 }

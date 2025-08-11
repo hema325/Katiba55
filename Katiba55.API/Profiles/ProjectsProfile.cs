@@ -11,6 +11,7 @@ namespace Katiba55.API.Profiles
             CreateMap<Project, ProjectBriefDto>();
             CreateMap<Project, ProjectDetailedDto>();
             CreateMap<Project, ProjectDto>();
+            CreateMap<Project, ProjectWithBOQDto>();
 
             CreateMap<ProjectExecutionHistory, ProjectExecutionHistoryDto>();
         }

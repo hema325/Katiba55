@@ -27,6 +27,7 @@
         public ICollection<Media>? Medias { get; set; }
         public ICollection<Work>? Works { get; set; }
         public ICollection<Item>? Items { get; set; }
+        public ICollection<BOQ>? BOQs { get; set; }
         public ICollection<ProjectExecutionHistory>? ExecutionHistories { get; set; }
     }
 }

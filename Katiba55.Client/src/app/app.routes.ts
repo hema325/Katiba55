@@ -61,6 +61,10 @@ export const routes: Routes = [
       {
         path: 'work-companies',
         loadChildren: () => import('./views/work-companies/routes').then((m) => m.routes)
+      },
+      {
+        path: 'financial-status',
+        loadComponent: () => import('./views/financial-status/financial-status.component').then((m) => m.FinancialStatusComponent)
       }
     ]
   },

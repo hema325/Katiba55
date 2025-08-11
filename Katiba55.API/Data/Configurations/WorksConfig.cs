@@ -9,7 +9,7 @@ namespace Katiba55.API.Data.Configurations
         {
             builder.HasMany(w => w.ExecutionHistories).WithOne(h => h.Work).HasForeignKey(h => h.WorkId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(w => w.WorkCompanies).WithOne(wk => wk.Work).HasForeignKey(wk => wk.WorkId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(w => w.BOQs).WithOne(bq => bq.Work).HasForeignKey(bq => bq.WorkId);
+            builder.HasMany(w => w.BOQs).WithOne(bq => bq.Work).HasForeignKey(bq => bq.WorkId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

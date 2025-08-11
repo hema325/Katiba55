@@ -1,6 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Katiba55.API.Data;
 using Katiba55.API.Dtos.BOQs;
+using Katiba55.API.Dtos.Projects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,7 @@ namespace Katiba55.API.Controllers
                 return Response(ResultFactory.Conflict("هذة المقايسة موجودة بالفعل."));
 
             var boq = _mapper.Map<BOQ>(dto);
+            boq.ProjectId = await _context.Works.Where(w => w.Id == dto.WorkId).Select(w => w.ProjectId).FirstOrDefaultAsync();
 
             _context.BOQs.Add(boq);
             await _context.SaveChangesAsync();
@@ -98,6 +100,36 @@ namespace Katiba55.API.Controllers
                 .ToListAsync();
 
             return Response(ResultFactory.Ok(boq));
+        }
+
+        [HttpGet("getDetailedByCompanyId")]
+        public async Task<IActionResult> GetDetailedByCompanyIdAsync([FromQuery] int? companyId = null)
+        {
+            if(companyId != null)
+            {
+                var projects = await _context.Projects
+                    .Include(p => p.BOQs.Where(boq => boq.CompanyId == companyId))
+                    .ThenInclude(boq=>boq.Company)
+                    .Include(p => p.BOQs.Where(boq => boq.CompanyId == companyId))
+                    .ThenInclude(boq => boq.Contract)
+                    .ThenInclude(c => c.Invoices)
+                    .Where(p => p.BOQs.Any(boq => boq.CompanyId == companyId))
+                    .ToListAsync();
+
+                return Response(ResultFactory.Ok(_mapper.Map<ProjectWithBOQDto[]>(projects)));
+            }
+            else
+            {
+                var projects = await _context.Projects
+                        .Include(p => p.BOQs)
+                        .ThenInclude(boq => boq.Company)
+                        .Include(p => p.BOQs)
+                        .ThenInclude(boq => boq.Contract)
+                        .ThenInclude(c => c.Invoices)
+                        .ToListAsync();
+
+                return Response(ResultFactory.Ok(_mapper.Map<ProjectWithBOQDto[]>(projects)));
+            }
         }
     }
 }
