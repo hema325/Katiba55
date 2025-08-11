@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, SpinnerComponent } from '@coreui/angular';
@@ -36,6 +36,7 @@ export class BoqsEditComponent implements OnInit {
   private toasterService: ToasterService = inject(ToasterService);
   private companiesService: CompaniesService = inject(CompaniesService);
   private fb: FormBuilder = inject(FormBuilder);
+  private changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   boqForm = this.fb.group({
     title: ['', [Validators.required]],
@@ -61,11 +62,12 @@ export class BoqsEditComponent implements OnInit {
     this.boqId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.workId = Number(this.activatedRoute.snapshot.queryParamMap.get('workId'));
     this.projectId = Number(this.activatedRoute.snapshot.queryParamMap.get('projectId'));
+    this.loadCompanies();
+    this.loadBoq();
+
     if (this.showWorkSelection) {
       this.loadWorks();
     }
-    this.loadCompanies();
-    this.loadBoq();
   }
 
   loadCompanies() {
@@ -78,7 +80,12 @@ export class BoqsEditComponent implements OnInit {
   loadWorks() {
     this.worksService.getBriefByProjectId(this.projectId)
       .pipe(first())
-      .subscribe(response => this.works = response.data);
+      .subscribe(response => {
+        if (response.success) {
+          this.works = response.data;
+          this.changeDetectorRef.detectChanges();
+        }
+      });
   }
 
   loadBoq() {

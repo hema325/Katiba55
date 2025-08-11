@@ -78,6 +78,9 @@ namespace Katiba55.API.Controllers
         [HttpDelete("{id}/delete")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
+            if (await _context.BOQs.AnyAsync(boq => boq.ProjectId == id))
+                return Response(ResultFactory.Conflict("تعذر حذف المشروع لاحتوائه على مقايسات قائمة."));
+
             var project = await _context.Projects.FindAsync(id);
 
             if (project == null)
