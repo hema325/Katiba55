@@ -22,9 +22,6 @@ namespace Katiba55.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateAsync(CreateBOQDto dto)
         {
-            if (await _context.BOQs.AnyAsync(b => b.Number == dto.Number))
-                return Response(ResultFactory.Conflict("هذة المقايسة موجودة بالفعل."));
-
             var boq = _mapper.Map<BOQ>(dto);
 
             if(boq.WorkId != null)
@@ -41,9 +38,6 @@ namespace Katiba55.API.Controllers
         [HttpPut("{id}/edit")]
         public async Task<IActionResult> UpdateAsync(int id, UpdateBOQDto dto)
         {
-            if (await _context.BOQs.AnyAsync(b => b.Id != id && b.Number == dto.Number))
-                return Conflict(ResultFactory.Conflict("هذة المقايسة موجودة بالفعل."));
-
             var boq = await _context.BOQs.FindAsync(id);
 
             if(boq == null)

@@ -7,7 +7,7 @@ namespace Katiba55.API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<BOQ> builder)
         {
-            builder.HasIndex(b=>b.Number).IsUnique();
+            //builder.HasIndex(b=>b.Number).IsUnique();
         }
     }
 }
